@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Per-app language list (Android 13+ system UI, backported by AppCompat below it).
+  Arabic is listed first because it is the primary locale of the product.
+  Adding a third language must require ONLY: a new values-xx bundle + an entry here.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="ar" />
+    <locale android:name="en" />
+</locale-config>

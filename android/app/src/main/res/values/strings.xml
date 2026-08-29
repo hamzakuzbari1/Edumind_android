@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════════
+  ARABIC — DEFAULT / PRIMARY BUNDLE
+  Arabic is the design language of EduMind, so it lives in values/ (the
+  fallback bundle) and English lives in values-en/.
+  RULES (Design System §6, Rork Knowledge §2):
+    • No user-facing literal text may appear in a composable. Ever.
+    • Every key added here is added to values-en/strings.xml in the SAME change.
+    • Counts use <plurals> with all six Arabic forms. A `if (n == 1)` is a bug.
+    • Never concatenate fragments — full sentences with placeholders only.
+  ═══════════════════════════════════════════════════════════════════════
+-->
+<resources>
+
+    <string name="app_name">إدومايند</string>
+
+    <!-- ── common ──────────────────────────────────────────────────── -->
+    <string name="common_continue">تابع</string>
+    <string name="common_back">رجوع</string>
+    <string name="common_next">التالي</string>
+    <string name="common_cancel">إلغاء</string>
+    <string name="common_confirm">تأكيد</string>
+    <string name="common_retry">أعد المحاولة</string>
+    <string name="common_close">إغلاق</string>
+    <string name="common_search">بحث</string>
+    <string name="common_search_hint">ابحث…</string>
+    <string name="common_clear">مسح</string>
+    <string name="common_done">تم</string>
+    <string name="common_save">احفظ</string>
+    <string name="common_delete">احذف</string>
+    <string name="common_more_options">خيارات إضافية</string>
+    <string name="common_loading">جارٍ التحميل</string>
+    <string name="common_press_back_again">اضغط رجوع مرة أخرى للخروج</string>
+
+    <!-- ── states (A-14 Global States Kit) ─────────────────────────── -->
+    <string name="state_offline_title">أنت غير متصل بالإنترنت</string>
+    <string name="state_offline_cached">تعرض بيانات محفوظة على جهازك</string>
+    <string name="state_empty_default_title">لا يوجد شيء هنا بعد</string>
+    <string name="state_empty_default_body">ابدأ أول خطوة وسيظهر تقدّمك هنا.</string>
+    <string name="state_error_network_title">تعذّر الوصول إلى الشبكة</string>
+    <string name="state_error_network_body">تحقّق من اتصالك ثم أعد المحاولة.</string>
+    <string name="state_error_server_title">حدث خطأ في الخادم</string>
+    <string name="state_error_server_body">المشكلة من طرفنا. أعد المحاولة بعد قليل.</string>
+    <string name="state_error_unauthorized_title">انتهت الجلسة</string>
+    <string name="state_error_unauthorized_body">سجّل الدخول من جديد للمتابعة.</string>
+    <string name="state_error_not_found_title">هذا المحتوى غير متوفر</string>
+    <string name="state_error_not_found_body">ربما تمّ حذفه أو تغيير مكانه.</string>
+    <string name="state_error_unknown_title">حدث خطأ غير متوقع</string>
+    <string name="state_error_unknown_body">أعد المحاولة، وإن تكرّر الأمر أبلغنا.</string>
+    <string name="state_permission_denied_title">نحتاج إذنك</string>
+    <string name="state_permission_denied_body">افتح الإعدادات وامنح الإذن لمتابعة استخدام هذه الميزة.</string>
+    <string name="state_update_required_title">حدّث التطبيق للمتابعة</string>
+    <string name="state_update_required_body">هذه النسخة لم تعد مدعومة. نزّل النسخة الأحدث.</string>
+    <string name="state_maintenance_title">صيانة مؤقتة</string>
+    <string name="state_maintenance_body">نُجري تحسينات الآن. عد بعد قليل.</string>
+    <string name="state_loading_content_description">جارٍ تحميل المحتوى</string>
+
+    <!-- ── accessibility ───────────────────────────────────────────── -->
+    <string name="a11y_back">العودة إلى الشاشة السابقة</string>
+    <string name="a11y_password_show">إظهار كلمة المرور</string>
+    <string name="a11y_password_hide">إخفاء كلمة المرور</string>
+    <string name="a11y_spine_completed">مكتمل</string>
+    <string name="a11y_spine_current">الخطوة الحالية</string>
+    <string name="a11y_spine_locked">مقفل</string>
+    <string name="a11y_ai_generated">محتوى من المعلّم الذكي</string>
+    <string name="a11y_streak_flame">أيام المواظبة</string>
+    <string name="a11y_selected">محدّد</string>
+    <string name="a11y_password_strength">قوة كلمة المرور: %1$s</string>
+
+    <!-- ── ai ──────────────────────────────────────────────────────── -->
+    <string name="ai_label">المعلّم الذكي</string>
+    <string name="ai_thinking">المعلّم الذكي يفكّر…</string>
+    <string name="ai_disclosure">أنشأ المعلّم الذكي هذا الرد اعتماداً على درسك. راجعه مع معلّمك عند الشك.</string>
+
+    <!-- ── progress ────────────────────────────────────────────────── -->
+    <string name="progress_percent">%1$d%%</string>
+    <string name="progress_level">المستوى %1$d</string>
+    <string name="progress_xp">%1$d نقطة</string>
+    <string name="progress_cefr_level">مستوى %1$s</string>
+
+    <!-- ICU-equivalent plurals: Arabic needs all six categories. -->
+    <plurals name="progress_streak_days">
+        <item quantity="zero">لا أيام مواظبة</item>
+        <item quantity="one">يوم مواظبة واحد</item>
+        <item quantity="two">يوما مواظبة</item>
+        <item quantity="few">%1$d أيام مواظبة</item>
+        <item quantity="many">%1$d يوماً من المواظبة</item>
+        <item quantity="other">%1$d يوم مواظبة</item>
+    </plurals>
+    <plurals name="progress_lessons_remaining">
+        <item quantity="zero">لم يتبقَّ أي درس</item>
+        <item quantity="one">بقي درس واحد</item>
+        <item quantity="two">بقي درسان</item>
+        <item quantity="few">بقيت %1$d دروس</item>
+        <item quantity="many">بقي %1$d درساً</item>
+        <item quantity="other">بقي %1$d درس</item>
+    </plurals>
+
+    <!-- ── role tab bars (Screen Inventory · Navigation shells) ────── -->
+    <string name="tab_student_home">الرئيسية</string>
+    <string name="tab_student_courses">موادي</string>
+    <string name="tab_student_projects">مشاريعي</string>
+    <string name="tab_student_english">الإنجليزية</string>
+    <string name="tab_student_me">حسابي</string>
+    <string name="tab_teacher_dashboard">لوحتي</string>
+    <string name="tab_teacher_courses">موادي</string>
+    <string name="tab_teacher_students">طلابي</string>
+    <string name="tab_teacher_projects">مشاريع</string>
+    <string name="tab_teacher_me">حسابي</string>
+    <string name="tab_parent_home">الرئيسية</string>
+    <string name="tab_parent_progress">التقدم</string>
+    <string name="tab_parent_reports">التقارير</string>
+    <string name="tab_parent_messages">الرسائل</string>
+    <string name="tab_parent_me">حسابي</string>
+    <string name="topbar_messages">الرسائل</string>
+    <string name="topbar_notifications">الإشعارات</string>
+
+    <!-- ── settings (locale + theme foundations) ───────────────────── -->
+    <string name="settings_language">اللغة</string>
+    <string name="settings_language_arabic">العربية</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_theme">المظهر</string>
+    <string name="settings_theme_system">حسب النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="settings_numerals">الأرقام</string>
+    <string name="settings_numerals_western">٠١٢ ← 012</string>
+    <string name="settings_numerals_arabic">٠١٢</string>
+
+    <!-- ── foundation preview surface (development only) ───────────── -->
+    <string name="foundation_title">أساس النظام</string>
+    <string name="foundation_subtitle">الرموز والمكوّنات المشتركة قبل بناء الشاشات</string>
+    <string name="foundation_section_color">الألوان</string>
+    <string name="foundation_section_type">الخطوط</string>
+    <string name="foundation_section_actions">الأزرار</string>
+    <string name="foundation_section_surfaces">الأسطح</string>
+    <string name="foundation_section_inputs">الحقول</string>
+    <string name="foundation_section_progress">المسار والتقدّم</string>
+    <string name="foundation_section_ai">المعلّم الذكي</string>
+    <string name="foundation_section_states">الحالات</string>
+    <string name="foundation_section_shells">هياكل الأدوار</string>
+    <string name="foundation_open_student">هيكل الطالب</string>
+    <string name="foundation_open_teacher">هيكل المعلّم</string>
+    <string name="foundation_open_parent">هيكل وليّ الأمر</string>
+    <string name="foundation_sample_question">كيف أحلّ معادلة من الدرجة الثانية؟</string>
+    <string name="foundation_sample_answer">لنبدأ بالخطوة الأولى معاً: ما الشكل العام للمعادلة التي أمامك؟</string>
+    <string name="foundation_sample_brand">تعلّم أعمق كل يوم</string>
+    <string name="foundation_sample_body">هذا نص تجريبي يوضّح ارتفاع السطر في العربية مقارنةً بالإنجليزية داخل الفقرة الواحدة.</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-01 → A-04 · THE ENTRY FUNNEL
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- brand block — identical on every auth screen (the "wordmark block") -->
+    <string name="brand_monogram">إ</string>
+    <string name="brand_name_alternate">EDUMIND</string>
+    <string name="brand_tagline">تعلّم خطوة كل يوم</string>
+
+    <!-- ── A-01 · Splash &amp; Language Gate ─────────────────────────── -->
+    <string name="a01_gate_title">اختر لغتك</string>
+    <string name="a01_gate_body">تُبنى الواجهة واتجاه القراءة على اختيارك، ويمكنك تغييره لاحقاً من الإعدادات.</string>
+    <!-- Each language card speaks its OWN language, so the hint below is the same
+         text in both bundles. Never translate these two. -->
+    <string name="a01_hint_arabic">تابع بالعربية</string>
+    <string name="a01_hint_english">Continue in English</string>
+    <string name="a01_preparing">جارٍ تجهيز التطبيق</string>
+    <string name="a11y_a01_choose_arabic">اختيار العربية لغةً للتطبيق</string>
+    <string name="a11y_a01_choose_english">اختيار الإنجليزية لغةً للتطبيق</string>
+
+    <!-- ── A-02 · Value Carousel ───────────────────────────────────── -->
+    <string name="a02_skip">تخطَّ</string>
+    <string name="a02_slide_1_title">معلّم ذكي يعرف منهاجك</string>
+    <string name="a02_slide_1_body">اسأل عن أي فقرة في كتابك المدرسي، واحصل على شرح متدرّج بالعربية يبني الفهم بدل أن يعطيك الجواب.</string>
+    <string name="a02_slide_2_title">خطة مبنية على موعد امتحانك</string>
+    <string name="a02_slide_2_body">نوزّع دروسك على أيامك حتى البكالوريا، ونعيد ترتيب الأسبوع كلما تغيّرت ظروفك.</string>
+    <string name="a02_slide_3_title">مشاريع تصنعها بيديك</string>
+    <string name="a02_slide_3_body">طبّق ما درسته في مشروع حقيقي، يراجعه معلّمك ويمنحك عليه شهادة.</string>
+    <string name="a02_start">لنبدأ</string>
+    <string name="a02_step">%1$s من %2$s</string>
+    <string name="a11y_a02_pager">شرائح التعريف بالتطبيق</string>
+
+    <!-- ── A-03 · Role Select ──────────────────────────────────────── -->
+    <string name="a03_title">من أنت؟</string>
+    <string name="a03_body">نختار لك الشاشات والمحتوى المناسب. يمكنك تغيير ذلك لاحقاً من الإعدادات.</string>
+    <string name="a03_role_student">طالب</string>
+    <string name="a03_role_student_line">أدرس، أحلّ الاختبارات، وأسأل المعلّم الذكي</string>
+    <string name="a03_role_student_monogram">ط</string>
+    <string name="a03_role_teacher">معلّم</string>
+    <string name="a03_role_teacher_line">أنشر الدروس، أصحّح المشاريع، وأتابع صفوفي</string>
+    <string name="a03_role_teacher_monogram">م</string>
+    <string name="a03_role_parent">وليّ أمر</string>
+    <string name="a03_role_parent_line">أتابع تقدّم ابني أو ابنتي وأتواصل مع المعلّم</string>
+    <string name="a03_role_parent_monogram">و</string>
+    <string name="a03_have_account">لديك حساب؟</string>
+    <string name="a03_login_action">تسجيل الدخول</string>
+
+    <!-- ── A-04 · Login ────────────────────────────────────────────── -->
+    <string name="a04_email_label">البريد الإلكتروني</string>
+    <string name="a04_email_placeholder">name@mail.com</string>
+    <string name="a04_password_label">كلمة المرور</string>
+    <string name="a04_password_placeholder">أدخل كلمة المرور</string>
+    <string name="a04_reveal">إظهار</string>
+    <string name="a04_conceal">إخفاء</string>
+    <string name="a04_remember_me">تذكّرني</string>
+    <string name="a04_forgot_password">نسيت كلمة المرور؟</string>
+    <string name="a04_submit">تسجيل الدخول</string>
+    <string name="a04_submitting">جارٍ الدخول…</string>
+    <string name="a04_validating">نتحقّق من بياناتك…</string>
+    <string name="a04_no_account">ليس لديك حساب؟</string>
+    <string name="a04_create_account">أنشئ حساباً</string>
+    <string name="a04_language_restart_note">تغيير اللغة يعيد تشغيل التطبيق</string>
+
+    <!-- the single error region — every failure speaks in this one slot -->
+    <string name="a04_error_email_required">أدخل بريدك الإلكتروني للمتابعة.</string>
+    <string name="a04_error_email_invalid">تحقّق من صيغة البريد الإلكتروني.</string>
+    <string name="a04_error_password_required">أدخل كلمة المرور للمتابعة.</string>
+    <string name="a04_error_credentials">البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى، أو أعد تعيين كلمة المرور.</string>
+    <plurals name="a04_error_credentials_attempts">
+        <item quantity="zero">البريد الإلكتروني أو كلمة المرور غير صحيحة. لم تبقَ لك محاولات.</item>
+        <item quantity="one">البريد الإلكتروني أو كلمة المرور غير صحيحة. بقيت لك محاولة واحدة، أو أعد تعيين كلمة المرور.</item>
+        <item quantity="two">البريد الإلكتروني أو كلمة المرور غير صحيحة. بقيت لك محاولتان، أو أعد تعيين كلمة المرور.</item>
+        <item quantity="few">البريد الإلكتروني أو كلمة المرور غير صحيحة. بقيت لك %1$d محاولات، أو أعد تعيين كلمة المرور.</item>
+        <item quantity="many">البريد الإلكتروني أو كلمة المرور غير صحيحة. بقيت لك %1$d محاولة، أو أعد تعيين كلمة المرور.</item>
+        <item quantity="other">البريد الإلكتروني أو كلمة المرور غير صحيحة. بقيت لك %1$d محاولة، أو أعد تعيين كلمة المرور.</item>
+    </plurals>
+    <string name="a04_error_locked">أُقفل حسابك مؤقتاً بعد محاولات متكرّرة. يمكنك إعادة تعيين كلمة المرور الآن.</string>
+    <string name="a04_error_locked_unlocks">يُفتح %1$s</string>
+    <string name="a04_error_offline">لا يوجد اتصال بالإنترنت. بياناتك محفوظة في هذه الشاشة، أعد المحاولة عند عودة الشبكة.</string>
+    <string name="a04_offline_back_online">عاد الاتصال. اضغط «أعد المحاولة» لإكمال الدخول.</string>
+    <string name="a04_notice_unverified">لم يُفعّل بريدك بعد. أرسلنا رابطاً إلى %1$s.</string>
+    <string name="a04_action_resend_link">أعد إرسال الرابط</string>
+    <string name="a04_action_change_email">غيّر البريد</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-05 → A-07 · REGISTRATION
+         One form, three roles. The shared vocabulary lives under reg_*, and each
+         screen adds only what its role genuinely needs. Field labels shared with
+         A-04 (email, password) deliberately reuse the a04_* keys so the same word
+         cannot be translated two ways on two screens of the same flow.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <string name="reg_name_label">الاسم الكامل</string>
+    <string name="reg_name_placeholder">كما تريده أن يظهر لمعلّميك</string>
+    <string name="reg_password_placeholder">اختر كلمة مرور</string>
+    <string name="reg_password_hint">8 أحرف على الأقل</string>
+    <string name="reg_confirm_label">تأكيد كلمة المرور</string>
+    <string name="reg_confirm_placeholder">أعد كتابة كلمة المرور</string>
+    <string name="reg_strength_weak">ضعيفة</string>
+    <string name="reg_strength_fair">متوسطة</string>
+    <string name="reg_strength_strong">قوية</string>
+    <string name="reg_terms">أوافق على شروط الاستخدام وسياسة الخصوصية</string>
+    <string name="reg_submit">أنشئ الحساب</string>
+    <string name="reg_submitting">جارٍ الإنشاء…</string>
+    <string name="reg_creating">ننشئ حسابك…</string>
+    <string name="reg_next_step">الخطوة التالية: نرسل رمزاً إلى بريدك لتأكيده.</string>
+
+    <!-- the single error region, shared by the three registration screens -->
+    <string name="reg_error_name_required">أدخل اسمك الكامل للمتابعة.</string>
+    <string name="reg_error_name_short">أدخل اسماً من حرفين على الأقل.</string>
+    <string name="reg_error_password_short">اجعل كلمة المرور 8 أحرف على الأقل.</string>
+    <string name="reg_error_confirm_required">أعد كتابة كلمة المرور للتأكيد.</string>
+    <string name="reg_error_confirm_mismatch">كلمتا المرور غير متطابقتين. تحقّق منهما ثم تابع.</string>
+    <string name="reg_error_terms_required">وافق على الشروط وسياسة الخصوصية للمتابعة.</string>
+    <string name="reg_error_email_taken">هذا البريد مسجّل من قبل. سجّل الدخول به، أو أنشئ الحساب ببريد آخر.</string>
+    <string name="reg_error_offline">لا يوجد اتصال بالإنترنت. ما كتبته محفوظ في هذه الشاشة، أعد المحاولة عند عودة الشبكة.</string>
+    <string name="reg_offline_back_online">عاد الاتصال. اضغط «أعد المحاولة» لإنشاء حسابك.</string>
+
+    <!-- ── A-05 · Register — Student ───────────────────────────────── -->
+    <string name="a05_title">أنشئ حساب طالب</string>
+    <string name="a05_body">دقيقة واحدة، ثم نجهّز موادك وخطة دراستك.</string>
+
+    <!-- ── A-06 · Register — Parent ────────────────────────────────── -->
+    <string name="a06_title">أنشئ حساب وليّ أمر</string>
+    <string name="a06_body">حسابك خاصّ بك، منفصل عن حساب ابنك أو ابنتك.</string>
+    <string name="a06_link_child_note">بعد تأكيد بريدك، تربط حساب ابنك أو ابنتك بحسابك، فتتابع تقدّمه وتراسل معلّميه.</string>
+
+    <!-- ── A-07 · Register — Teacher ───────────────────────────────── -->
+    <string name="a07_title">أنشئ حساب معلّم</string>
+    <string name="a07_body">أخبرنا ماذا تدرّس، فنجهّز لك صفحة الإعداد مسبقاً.</string>
+    <string name="a07_subjects_label">المواد التي تدرّسها</string>
+    <string name="a07_grades_label">الصفوف</string>
+    <string name="a07_intent_note">نحفظ هذا الاختيار على جهازك ونستخدمه لتجهيز إعداد حسابك بعد تأكيد البريد.</string>
+    <string name="a07_error_subject_required">اختر مادة واحدة على الأقل.</string>
+    <string name="a07_error_grade_required">اختر صفاً واحداً على الأقل.</string>
+    <string name="a07_subject_math">الرياضيات</string>
+    <string name="a07_subject_physics">الفيزياء</string>
+    <string name="a07_subject_chemistry">الكيمياء</string>
+    <string name="a07_subject_biology">علوم الحياة</string>
+    <string name="a07_subject_arabic">اللغة العربية</string>
+    <string name="a07_subject_english">اللغة الإنجليزية</string>
+    <string name="a07_subject_informatics">المعلوماتية</string>
+    <string name="a07_subject_philosophy">الفلسفة</string>
+    <string name="a07_grade_10">الصف العاشر</string>
+    <string name="a07_grade_11">الصف الحادي عشر</string>
+    <string name="a07_grade_12">البكالوريا</string>
+
+    <!-- ── placeholders for not-yet-built screens ──────────────────── -->
+    <string name="placeholder_title">لم تُبنَ هذه الشاشة بعد</string>
+    <string name="placeholder_body">%1$s — مجدولة ضمن %2$s.</string>
+    <string name="placeholder_backend_pending">لا يوجد واجهة خلفية لهذه الميزة بعد. تُعرض بيانات تجريبية معزولة.</string>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      AppCompat DayNight is required for per-app locales (AppCompatDelegate.setApplicationLocales)
+      which is how EduSpark flips ar (RTL) <-> en (LTR) at runtime.
+      Window background follows hajar-50 (light) / basalt (dark) so the launch frame
+      never flashes a colour outside the design system.
+    -->
+    <style name="Theme.EduSpark" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Kept so any historic reference still resolves. -->
+    <style name="Theme.RorkApp" parent="Theme.EduSpark" />
+</resources>
