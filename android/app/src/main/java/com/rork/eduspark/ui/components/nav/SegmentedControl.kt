@@ -48,7 +48,7 @@ fun <T> SegmentedControl(
         modifier = modifier
             .fillMaxWidth()
             .height(Sizing.touchTarget)
-            .background(EduTheme.colors.hajar100, outerShape)
+            .background(EduTheme.colors.neutralAlpha100, outerShape)
             .border(Sizing.hairline, EduTheme.colors.border, outerShape)
             .padding(Spacing.xxs),
     ) {
@@ -62,7 +62,7 @@ fun <T> SegmentedControl(
                     .weight(1f)
                     .fillMaxWidth()
                     .background(
-                        color = if (isSelected) EduTheme.colors.surface else EduTheme.colors.hajar100,
+                        color = if (isSelected) EduTheme.colors.surface else EduTheme.colors.neutralAlpha100,
                         shape = outerShape,
                     )
                     .eduClickable(role = Role.Tab) { onSelect(option) }
@@ -74,7 +74,7 @@ fun <T> SegmentedControl(
                 Text(
                     text = label,
                     style = EduTheme.typography.caption,
-                    color = if (isSelected) EduTheme.colors.zaytoun else EduTheme.colors.textMuted,
+                    color = if (isSelected) EduTheme.colors.primary else EduTheme.colors.textSecondary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center,

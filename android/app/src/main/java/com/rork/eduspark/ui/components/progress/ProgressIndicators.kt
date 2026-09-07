@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.pluralStringResource
@@ -39,11 +40,11 @@ import com.rork.eduspark.ui.theme.Spacing
 import com.rork.eduspark.ui.theme.standardSpec
 
 /**
- * Progress family — Design System §7.
+ * Progress family — new identity.
  *
- * `barq` appears here and essentially nowhere else: XP, streaks, achievements and
- * certificates. It is never a button colour. If barq covers more than ~10% of a
- * screen, something is wrong.
+ * `highlight` (formerly `barq`) appears here and essentially nowhere else: XP, streaks,
+ * achievements and certificates. It is never a button colour. If highlight covers more than
+ * ~10% of a screen, something is wrong.
  */
 
 /** Per-subject completion ring, used on the subject grid of ST-01 Student Home. */
@@ -53,6 +54,10 @@ fun ProgressRing(
     modifier: Modifier = Modifier,
     size: androidx.compose.ui.unit.Dp = Sizing.progressRing,
     showLabel: Boolean = true,
+    // Optional, backward-compatible: every existing caller keeps the indigo ring it already
+    // had. ST-07 Quiz Results is the one consumer that passes `colors.success` to match the
+    // approved design's green score ring (QuizResults.dc.html).
+    tint: Color = EduTheme.colors.primary,
 ) {
     val clamped = progress.coerceIn(0f, 1f)
     val animated by animateFloatAsState(
@@ -75,12 +80,12 @@ fun ProgressRing(
         Canvas(modifier = Modifier.size(size)) {
             val stroke = Sizing.progressRingStroke.toPx()
             drawCircle(
-                color = colors.hajar300,
+                color = colors.border,
                 radius = (this.size.minDimension - stroke) / 2f,
                 style = Stroke(width = stroke),
             )
             drawArc(
-                color = colors.zaytoun,
+                color = tint,
                 startAngle = -90f,
                 sweepAngle = 360f * animated,
                 useCenter = false,
@@ -127,13 +132,13 @@ fun LevelBar(
         Text(
             text = levelText,
             style = EduTheme.typography.caption,
-            color = EduTheme.colors.textMuted,
+            color = EduTheme.colors.textSecondary,
         )
         Box(
             modifier = Modifier
                 .weight(1f)
                 .height(Spacing.xs)
-                .background(EduTheme.colors.hajar300, RoundedCornerShape(Radius.pill))
+                .background(EduTheme.colors.border, RoundedCornerShape(Radius.pill))
                 .semantics {
                     progressBarRangeInfo = ProgressBarRangeInfo(clamped, 0f..1f)
                     contentDescription = levelText
@@ -143,7 +148,7 @@ fun LevelBar(
                 modifier = Modifier
                     .fillMaxWidth(animated)
                     .height(Spacing.xs)
-                    .background(EduTheme.colors.zaytoun, RoundedCornerShape(Radius.pill))
+                    .background(EduTheme.colors.primary, RoundedCornerShape(Radius.pill))
             )
         }
     }
@@ -161,12 +166,12 @@ fun XpChip(
         horizontalArrangement = Arrangement.spacedBy(Spacing.xxs),
         modifier = modifier
             .background(
-                EduTheme.colors.barq.copy(alpha = 0.16f),
+                EduTheme.colors.highlight.copy(alpha = 0.16f),
                 RoundedCornerShape(Radius.pill),
             )
             .border(
                 Sizing.hairline,
-                EduTheme.colors.barq,
+                EduTheme.colors.highlight,
                 RoundedCornerShape(Radius.pill),
             )
             .padding(horizontal = Spacing.xs, vertical = Spacing.xxs)
@@ -175,7 +180,7 @@ fun XpChip(
         Text(
             text = numeral(xp),
             style = EduTheme.typography.mono,
-            color = EduTheme.colors.barq,
+            color = EduTheme.colors.highlight,
             modifier = Modifier.clearAndSetSemantics { },
         )
     }
@@ -199,7 +204,7 @@ fun StreakFlame(
         Icon(
             imageVector = Icons.Filled.LocalFireDepartment,
             contentDescription = null,
-            tint = if (days > 0) EduTheme.colors.barq else EduTheme.colors.textMuted,
+            tint = if (days > 0) EduTheme.colors.highlight else EduTheme.colors.textSecondary,
             modifier = Modifier.size(Sizing.icon),
         )
         Text(
@@ -220,15 +225,15 @@ fun CefrBadge(
     val label = stringResource(R.string.progress_cefr_level, level)
     Box(
         modifier = modifier
-            .background(EduTheme.colors.zaytounSoft, RoundedCornerShape(Radius.sm))
-            .border(Sizing.hairline, EduTheme.colors.zaytoun, RoundedCornerShape(Radius.sm))
+            .background(EduTheme.colors.primaryContainer, RoundedCornerShape(Radius.sm))
+            .border(Sizing.hairline, EduTheme.colors.primary, RoundedCornerShape(Radius.sm))
             .padding(horizontal = Spacing.xs, vertical = Spacing.xxs)
             .semantics { contentDescription = label },
     ) {
         Text(
             text = level,
             style = EduTheme.typography.mono,
-            color = EduTheme.colors.zaytoun,
+            color = EduTheme.colors.primary,
             modifier = Modifier.clearAndSetSemantics { },
         )
     }
@@ -251,7 +256,7 @@ fun EduLinearProgress(
         modifier = modifier
             .fillMaxWidth()
             .height(6.dp)
-            .background(EduTheme.colors.hajar300, RoundedCornerShape(Radius.pill))
+            .background(EduTheme.colors.border, RoundedCornerShape(Radius.pill))
             .semantics {
                 progressBarRangeInfo = ProgressBarRangeInfo(clamped, 0f..1f)
                 if (contentDescription != null) this.contentDescription = contentDescription
@@ -261,7 +266,7 @@ fun EduLinearProgress(
             modifier = Modifier
                 .fillMaxWidth(animated)
                 .height(6.dp)
-                .background(EduTheme.colors.zaytoun, RoundedCornerShape(Radius.pill))
+                .background(EduTheme.colors.primary, RoundedCornerShape(Radius.pill))
         )
     }
 }

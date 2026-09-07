@@ -18,6 +18,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -27,15 +28,22 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.rork.eduspark.ui.theme.EduTheme
+import com.rork.eduspark.ui.theme.Elevation
 import com.rork.eduspark.ui.theme.Radius
 import com.rork.eduspark.ui.theme.Sizing
 import com.rork.eduspark.ui.theme.Spacing
 
 /**
- * Actions — Design System §7.
+ * Actions — new identity.
  *
  * All buttons are pill-shaped, min 48dp tall, and label the *outcome* rather than the
- * mechanism ("Start lesson", not "Submit"). Barq is never a button colour.
+ * mechanism ("Start lesson", not "Submit"). Highlight (formerly barq) is never a button
+ * colour.
+ *
+ * [PrimaryButton] is the one component in this batch that carries the new identity's
+ * "soft coloured shadow, but only on primary actions" rule (see [Elevation]) — every other
+ * button/surface in the app stays flat (tint + hairline), matching the old system's
+ * low-end-GPU discipline.
  */
 
 @Composable
@@ -52,13 +60,26 @@ fun PrimaryButton(
         enabled = enabled && !isLoading,
         shape = RoundedCornerShape(Radius.pill),
         colors = ButtonDefaults.buttonColors(
-            containerColor = EduTheme.colors.zaytoun,
-            contentColor = EduTheme.colors.onZaytoun,
-            disabledContainerColor = EduTheme.colors.hajar100,
-            disabledContentColor = EduTheme.colors.textMuted,
+            containerColor = EduTheme.colors.primary,
+            contentColor = EduTheme.colors.onPrimary,
+            disabledContainerColor = EduTheme.colors.neutralAlpha100,
+            disabledContentColor = EduTheme.colors.textSecondary,
         ),
         contentPadding = ButtonDefaults.ContentPadding,
-        modifier = modifier.defaultMinSize(minHeight = Sizing.touchTarget),
+        modifier = modifier
+            .defaultMinSize(minHeight = Sizing.touchTarget)
+            .then(
+                if (enabled && !isLoading) {
+                    Modifier.shadow(
+                        elevation = Elevation.action,
+                        shape = RoundedCornerShape(Radius.pill),
+                        ambientColor = EduTheme.colors.primary.copy(alpha = Elevation.actionTint),
+                        spotColor = EduTheme.colors.primary.copy(alpha = Elevation.actionTint),
+                    )
+                } else {
+                    Modifier
+                }
+            ),
     ) {
         ButtonContent(text = text, isLoading = isLoading, leadingIcon = leadingIcon)
     }
@@ -77,10 +98,10 @@ fun SecondaryButton(
         onClick = onClick,
         enabled = enabled && !isLoading,
         shape = RoundedCornerShape(Radius.pill),
-        border = BorderStroke(Sizing.hairline, EduTheme.colors.zaytoun),
+        border = BorderStroke(Sizing.hairline, EduTheme.colors.primary),
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = EduTheme.colors.zaytoun,
-            disabledContentColor = EduTheme.colors.textMuted,
+            contentColor = EduTheme.colors.primary,
+            disabledContentColor = EduTheme.colors.textSecondary,
         ),
         modifier = modifier.defaultMinSize(minHeight = Sizing.touchTarget),
     ) {
@@ -101,8 +122,8 @@ fun GhostButton(
         enabled = enabled,
         shape = RoundedCornerShape(Radius.pill),
         colors = ButtonDefaults.textButtonColors(
-            contentColor = EduTheme.colors.zaytoun,
-            disabledContentColor = EduTheme.colors.textMuted,
+            contentColor = EduTheme.colors.primary,
+            disabledContentColor = EduTheme.colors.textSecondary,
         ),
         modifier = modifier.defaultMinSize(minHeight = Sizing.touchTarget),
     ) {
@@ -125,9 +146,9 @@ fun DestructiveButton(
         shape = RoundedCornerShape(Radius.pill),
         colors = ButtonDefaults.buttonColors(
             containerColor = EduTheme.colors.danger,
-            contentColor = Color.White,
-            disabledContainerColor = EduTheme.colors.hajar100,
-            disabledContentColor = EduTheme.colors.textMuted,
+            contentColor = EduTheme.colors.onDanger,
+            disabledContainerColor = EduTheme.colors.neutralAlpha100,
+            disabledContentColor = EduTheme.colors.textSecondary,
         ),
         modifier = modifier.defaultMinSize(minHeight = Sizing.touchTarget),
     ) {
@@ -161,7 +182,7 @@ fun EduIconButton(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = if (enabled) tint else EduTheme.colors.textMuted,
+            tint = if (enabled) tint else EduTheme.colors.textSecondary,
             modifier = Modifier.size(Sizing.iconLg),
         )
     }
@@ -193,7 +214,7 @@ private fun ButtonContent(
         if (isLoading) {
             CircularProgressIndicator(
                 strokeWidth = 2.dp,
-                color = EduTheme.colors.onZaytoun,
+                color = EduTheme.colors.onPrimary,
                 modifier = Modifier.size(Sizing.icon),
             )
         }

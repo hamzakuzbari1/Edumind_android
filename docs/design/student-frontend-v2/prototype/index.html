@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EduMind — Student Mobile Frontend • Interactive Prototype</title>
+<!-- Cairo loads from the repo font resource first; the CDN copy is only a
+     fallback for when this file is opened outside the repo. -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   EduMind Student Frontend — interactive design prototype
+   Design-only artefact. No Android/Compose code is touched by this file.
+   Tokens mirror ui/theme/Color.kt (EduLightColors) 1:1.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@font-face{
+  font-family:'CairoLocal';
+  src:url('../../../../android/app/src/main/res/font/cairo.ttf') format('truetype');
+  font-weight:200 1000; font-display:swap;
+}
+@font-face{
+  font-family:'TajawalLocal';
+  src:url('../../../../android/app/src/main/res/font/tajawal_bold.ttf') format('truetype');
+  font-weight:700; font-display:swap;
+}
+
+:root{
+  /* brand */
+  --primary:#6366F1;
+  --primary-container:#ECEDFD;
+  --primary-ink:#4F46E5;
+  --on-primary:#FFFFFF;
+  /* ai / accent */
+  --ai:#0E7490;
+  --ai-container:#E1F6FA;
+  /* highlight — XP / streak / achievements. rationed. */
+  --highlight:#B45309;
+  --highlight-container:#FAEFE1;
+  /* neutrals */
+  --surface:#FFFFFF;
+  --bg:#F4F7FB;
+  --ink:#0C1929;
+  --ink-2:#475569;
+  --ink-3:#64748B;
+  --border:rgba(12,25,41,.09);
+  --border-strong:rgba(12,25,41,.14);
+  --neutral-100:rgba(12,25,41,.06);
+  /* semantic */
+  --success:#047857;
+  --success-container:#E6F4EF;
+  --danger:#EF4444;
+  --danger-container:#FDECEC;
+  /* Subject identity — restrained 3-hue set, hairlines/dots/tints only.
+     Deliberately excludes cyan: cyan is reserved for AI-authored content
+     (Color.kt trust contract), so science uses sky-700, not the AI hue. */
+  --s-math:#6366F1;
+  --s-sci:#0369A1;
+  --s-lang:#7C3AED;
+  --math-container:#ECEDFD;
+  --sci-container:#E4EFF8;
+  --lang-container:#F1EBFE;
+  /* geometry */
+  --r:18px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  font-synthesis-weight:none;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'CairoLocal','Cairo','Tajawal','Segoe UI',Tahoma,sans-serif;
+  background:#EDEFF4;
+  color:var(--ink);
+  min-height:100vh;
+  padding:28px 20px 40px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── workbench shell (design tool chrome, not part of the product) ───── */
+.stage{display:flex;gap:22px;align-items:flex-start;justify-content:center;max-width:1420px;margin:0 auto;flex-wrap:wrap}
+.rail{width:238px;flex:0 0 238px}
+.rail h1{font-size:15px;margin:0 0 2px;letter-spacing:-.2px}
+.rail .sub{font-size:11.5px;color:var(--ink-3);line-height:1.7;margin:0 0 16px}
+.rail h2{font-size:10.5px;color:var(--ink-3);letter-spacing:.9px;text-transform:uppercase;margin:18px 0 8px;font-weight:700}
+.chips{display:flex;flex-direction:column;gap:4px}
+.chip{
+  display:flex;align-items:center;gap:8px;border:1px solid transparent;background:none;
+  font:inherit;font-size:12.5px;color:var(--ink-2);padding:7px 9px;border-radius:10px;cursor:pointer;text-align:right;
+  transition:background .15s,color .15s;
+}
+.chip:hover{background:rgba(12,25,41,.05);color:var(--ink)}
+.chip[aria-current="true"]{background:var(--primary-container);color:var(--primary-ink);font-weight:700}
+.chip .num{font-size:10px;color:var(--ink-3);min-width:15px;font-variant-numeric:tabular-nums}
+.chip[aria-current="true"] .num{color:var(--primary-ink)}
+.rail .legend{font-size:11px;color:var(--ink-3);line-height:1.85;border-top:1px solid var(--border);padding-top:12px;margin-top:16px}
+.rail .legend b{color:var(--ink-2);font-weight:700}
+.rail .legend code{background:var(--neutral-100);padding:1px 5px;border-radius:5px;font-size:10.5px;font-family:ui-monospace,monospace}
+
+/* ── device ─────────────────────────────────────────────────────────── */
+.device{flex:0 0 auto}
+.phone{
+  width:392px;height:846px;background:var(--bg);border-radius:46px;position:relative;overflow:hidden;
+  border:11px solid #10141C;outline:1px solid rgba(0,0,0,.35);
+  display:flex;flex-direction:column;
+}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#10141C;border-radius:16px;z-index:60}
+.statusbar{
+  height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;font-size:12.5px;font-weight:700;color:var(--ink);z-index:50;position:relative;
+}
+.statusbar .sig{display:flex;gap:4px;align-items:flex-end}
+.statusbar .sig i{display:block;width:3px;background:var(--ink);border-radius:1px}
+.viewport{flex:1 1 auto;position:relative;overflow:hidden}
+.scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
+.scroll::-webkit-scrollbar{display:none}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:128px;height:5px;border-radius:3px;background:rgba(12,25,41,.28);z-index:70}
+
+/* screen transitions */
+.screen{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column}
+.screen.push-in{animation:pushIn .34s var(--ease) both}
+.screen.tab-in{animation:tabIn .26s var(--ease) both}
+@keyframes pushIn{from{transform:translateX(-26%);opacity:.25}to{transform:none;opacity:1}}
+@keyframes tabIn{from{opacity:.4;transform:scale(.985)}to{opacity:1;transform:none}}
+
+/* staggered entrance */
+[data-anim]{opacity:0}
+.in [data-anim]{animation:rise .46s var(--ease) both;animation-delay:calc(var(--i,0) * 52ms)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── product typography ─────────────────────────────────────────────── */
+.eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.7px;color:var(--ink-3);text-transform:uppercase}
+.h1{font-size:21px;font-weight:800;letter-spacing:-.3px;line-height:1.35}
+.h2{font-size:16.5px;font-weight:800;letter-spacing:-.2px}
+.h3{font-size:14px;font-weight:700}
+.body{font-size:12.5px;color:var(--ink-2);line-height:1.65}
+.meta{font-size:11px;color:var(--ink-3)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ── app bar ────────────────────────────────────────────────────────── */
+.appbar{
+  flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:6px 16px 12px;background:var(--bg);
+  position:relative;z-index:20;
+}
+.appbar.solid{border-bottom:1px solid var(--border);background:var(--surface);padding-bottom:11px}
+.appbar .title{font-size:15.5px;font-weight:800;flex:1;letter-spacing:-.2px}
+.iconbtn{
+  width:36px;height:36px;flex:0 0 36px;border-radius:12px;border:none;background:none;cursor:pointer;
+  display:grid;place-items:center;color:var(--ink);transition:background .15s;
+}
+.iconbtn:hover{background:var(--neutral-100)}
+.iconbtn.badge{position:relative}
+.iconbtn.badge::after{content:'';position:absolute;top:7px;left:8px;width:7px;height:7px;border-radius:50%;background:var(--danger);border:2px solid var(--bg)}
+
+.streakpill{
+  display:inline-flex;align-items:center;gap:4px;background:var(--highlight-container);color:var(--highlight);
+  border-radius:999px;padding:5px 10px 5px 8px;font-size:12px;font-weight:800;
+}
+
+/* ── layout primitives ─────────────────────────────────────────────── */
+.pad{padding:0 16px}
+.stackgap{display:flex;flex-direction:column;gap:14px;padding:0 16px 26px}
+.sechead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0 0}
+.sechead .h2{flex:1}
+.link{
+  background:none;border:none;font:inherit;font-size:12px;font-weight:700;color:var(--primary-ink);cursor:pointer;
+  padding:5px 7px;border-radius:9px;display:inline-flex;align-items:center;gap:3px;
+}
+.link:hover{background:var(--primary-container)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.card.flat{border-radius:var(--r);box-shadow:none}
+.card.tap{cursor:pointer;transition:transform .16s var(--ease),border-color .16s}
+.card.tap:active{transform:scale(.985)}
+.card.tap:hover{border-color:var(--border-strong)}
+
+.row{display:flex;align-items:center;gap:11px}
+.col{display:flex;flex-direction:column}
+.grow{flex:1;min-width:0}
+.trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── buttons ────────────────────────────────────────────────────────── */
+.btn{
+  border:none;font:inherit;font-weight:800;font-size:13.5px;border-radius:14px;cursor:pointer;
+  padding:13px 16px;display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  transition:transform .14s var(--ease),filter .14s;
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.06)}
+/* AI actions stay tonal: indigo keeps the strongest CTA weight on every screen. */
+.btn-ai{background:var(--ai-container);color:var(--ai);box-shadow:inset 0 0 0 1px rgba(14,116,144,.28)}
+.btn-ai:hover{background:#D3F0F6}
+.gk{font-family:'Segoe UI',Arial,Helvetica,sans-serif;font-weight:700}
+.sep{font-family:'Segoe UI',Arial,sans-serif;opacity:.45;padding:0 3px;font-size:.85em}
+.btn-ghost{background:var(--neutral-100);color:var(--ink)}
+.btn-outline{background:var(--surface);border:1px solid var(--border-strong);color:var(--ink)}
+.btn-sm{padding:9px 13px;font-size:12.5px;border-radius:12px;width:auto}
+
+/* ── chips / status ─────────────────────────────────────────────────── */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:999px;padding:4px 9px;background:var(--neutral-100);color:var(--ink-2);white-space:nowrap}
+.tag.on-dark{background:rgba(255,255,255,.16);color:#fff}
+.tag.ai{background:var(--ai-container);color:var(--ai)}
+.tag.warn{background:var(--danger-container);color:#B91C1C}
+.tag.ok{background:var(--success-container);color:var(--success)}
+.tag.xp{background:var(--highlight-container);color:var(--highlight)}
+
+/* ── progress ───────────────────────────────────────────────────────── */
+/* Progress values live in the markup (static-truthful); motion only scales them in. */
+.bar{height:7px;border-radius:99px;background:var(--neutral-100);overflow:hidden;width:100%}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--primary);transform-origin:right center}
+.in .bar i{animation:growX .95s var(--ease) both;animation-delay:.16s}
+@keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.bar.on-dark{background:rgba(12,25,41,.22)}
+.bar.on-dark i{background:#fff}
+.bar.thin{height:5px}
+.bar i.ok{background:var(--success)}
+.bar i.warn{background:var(--danger)}
+.bar i.xp{background:var(--highlight)}
+.bar i.ai{background:var(--ai)}
+.bar i.sci{background:var(--s-sci)}
+.bar i.lang{background:var(--s-lang)}
+
+.ring{position:relative;display:grid;place-items:center}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-linecap:round}
+.ring .track{stroke:var(--neutral-100)}
+.in .ring .val{animation:ringIn 1.2s var(--ease) both;animation-delay:.2s}
+@keyframes ringIn{from{stroke-dashoffset:var(--c)}to{stroke-dashoffset:var(--o)}}
+.ring .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.1}
+
+/* ── hero: next mission ─────────────────────────────────────────────── */
+.hero{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--primary);color:#fff;
+  cursor:pointer;transition:transform .18s var(--ease);
+}
+.hero:active{transform:scale(.985)}
+.hero .art{position:absolute;inset-inline-start:auto;inset-inline-end:-14px;top:-10px;opacity:.95;pointer-events:none}
+.hero .hb{position:relative;padding:15px 16px 16px;z-index:2;color:#fff}
+.hero .hb .sub{font-size:12px;font-weight:600;color:rgba(255,255,255,.9)}
+.hero .glowline{position:absolute;inset-block-end:0;inset-inline:0;height:3px;background:rgba(255,255,255,.22)}
+.hero-cta{
+  margin-top:13px;background:#fff;color:var(--primary-ink);border-radius:13px;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:13.5px;
+}
+.pulse{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}
+
+/* ── Home — simple / visual / child-friendly. Other screens unchanged. ── */
+.home-stack{gap:20px;padding-bottom:20px}
+.home-greet .h1{font-size:22px;margin-top:2px;letter-spacing:-.3px}
+.home-greet .ask{font-size:14px;font-weight:700;color:var(--ink-2);margin-top:4px}
+.home-mark{font-size:13px;font-weight:800;color:var(--primary-ink);letter-spacing:-.2px}
+
+/* Stable visual slot: teacher thumb / PDF extract / generated / fallback */
+.vis-slot{
+  height:156px;display:grid;place-items:center;overflow:hidden;
+  background:rgba(12,25,41,.14);
+}
+.vis-slot img,.vis-slot svg{max-width:92%;max-height:92%;object-fit:contain;display:block}
+.home-hero{padding:12px 12px 12px}
+.home-hero-top{display:flex;align-items:center;gap:12px}
+.home-hero .vis-slot{
+  height:108px;width:108px;flex:0 0 108px;border-radius:16px;
+  background:rgba(12,25,41,.16);
+}
+.home-hero .vis-slot svg{max-width:88%;max-height:88%}
+.home-hero .hb{flex:1;min-width:0;padding:0}
+.home-hero .title{font-size:17.5px;font-weight:800;letter-spacing:-.3px;line-height:1.3;margin:5px 0 4px}
+.home-hero .facts{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px;margin:0 0 8px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.9)}
+.home-hero .hero-cta{margin:11px 0 0;padding:11px 14px;border-radius:12px}
+.in .home-hero{animation:heroIn .5s var(--ease) both}
+@keyframes heroIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.in .home-hero .hero-cta{animation:ctaIn .5s var(--ease) both;animation-delay:.26s}
+@keyframes ctaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Physics hero: arm + mass settle once; motion arc draws once */
+.in .home-hero .phx-arm{transform-origin:75px 75px;animation:phxArm 1.15s var(--ease) both}
+@keyframes phxArm{from{transform:rotate(-42deg);opacity:.35}to{transform:none;opacity:1}}
+.in .home-hero .phx-arc{stroke-dasharray:90;stroke-dashoffset:90;animation:phxArc 1s var(--ease) .18s both}
+@keyframes phxArc{to{stroke-dashoffset:0}}
+.in .home-hero .phx-orbit{opacity:0;animation:fade .5s var(--ease) .08s both}
+
+/* Smart card: parabola draws; weak root pops once */
+.in .guide{animation:guideIn .48s var(--ease) both;animation-delay:.18s}
+@keyframes guideIn{
+  from{opacity:0;transform:translateY(10px);background:var(--ai-container)}
+  to{opacity:1;transform:none;background:var(--surface)}
+}
+.in .guide .para{stroke-dasharray:200;stroke-dashoffset:200;animation:phxArc .95s var(--ease) .12s both}
+.in .guide .root-hi{transform-origin:center;animation:rootPop .45s var(--ease) .75s both}
+@keyframes rootPop{from{transform:scale(.2);opacity:0}to{transform:none;opacity:1}}
+
+.home-today .tl{padding-top:2px;padding-inline-start:22px}
+.home-today .tl-item{padding-bottom:16px;opacity:0}
+.home-today .tl-item:last-child{padding-bottom:2px}
+.home-today .tl-title{font-size:14.5px}
+.home-today .tl-time{margin-bottom:1px}
+.in .home-today .tl-item{animation:rise .4s var(--ease) both;animation-delay:calc(var(--ti,0) * 70ms + .16s)}
+
+.guide{padding:14px}
+.guide .ai-head{padding:0}
+.guide .why{margin-top:5px;font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.guide .act{display:flex;align-items:center;justify-content:space-between;margin-top:12px;color:var(--ai);font-weight:800;font-size:13.5px}
+
+.snap{padding:12px 6px;cursor:pointer}
+.snap .cell{display:flex;flex-direction:column;gap:2px;min-width:0;align-items:center;flex:1}
+.snap .cell + .cell{border-inline-start:1px solid var(--border)}
+.snap .cell b{font-size:13.5px;font-weight:800;line-height:1.2}
+.snap .cell span{font-size:10px;color:var(--ink-3);font-weight:700}}
+
+/* ── timeline (today / routine / milestones) ────────────────────────── */
+.tl{position:relative;padding-inline-start:26px}
+.tl::before{content:'';position:absolute;inset-inline-start:7px;top:9px;bottom:12px;width:2px;background:var(--border);border-radius:2px}
+.tl.drawn::before{animation:drawline .8s var(--ease) both;transform-origin:top}
+@keyframes drawline{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.tl-item{position:relative;padding-bottom:15px}
+.tl-item:last-child{padding-bottom:2px}
+.tl-dot{position:absolute;inset-inline-start:-26px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:2.5px solid var(--border-strong);display:grid;place-items:center}
+.tl-dot.math{border-color:var(--s-math)}
+.tl-dot.sci{border-color:var(--s-sci)}
+.tl-dot.lang{border-color:var(--s-lang)}
+.tl-dot.now{border-color:var(--primary);background:var(--primary);outline:3px solid var(--primary-container)}
+.tl-dot.now::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.tl-dot.done{border-color:var(--success);background:var(--success)}
+.tl-dot.miss{border-color:var(--danger);background:var(--danger-container)}
+.tl-time{font-size:11px;font-weight:800;color:var(--ink-3)}
+.tl-title{font-size:13.5px;font-weight:700;margin-top:1px}
+
+/* ── list rows ──────────────────────────────────────────────────────── */
+.rowitem{display:flex;align-items:center;gap:12px;padding:12px 14px;background:none;border:none;width:100%;font:inherit;text-align:right;cursor:pointer}
+.rowitem+.rowitem{border-top:1px solid var(--border)}
+.rowitem:hover{background:rgba(12,25,41,.025)}
+.thumb{width:52px;height:52px;flex:0 0 52px;border-radius:13px;overflow:hidden;display:grid;place-items:center;background:var(--primary-container)}
+.thumb.sci{background:var(--sci-container)}
+.thumb.lang{background:var(--lang-container)}
+.thumb.sm{width:40px;height:40px;flex-basis:40px;border-radius:11px}
+.thumb.lg{width:64px;height:64px;flex-basis:64px;border-radius:15px}
+
+.avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:800;background:var(--primary-container);color:var(--primary-ink)}
+.avatar.sm{width:26px;height:26px;flex-basis:26px;font-size:10px}
+.avatar.lg{width:56px;height:56px;flex-basis:56px;font-size:18px}
+.avatar.sci{background:var(--sci-container);color:var(--s-sci)}
+.avatar.stackrow{border:2px solid var(--surface);margin-inline-start:-9px}
+
+/* ── AI surface — cyan hairline marks machine-authored content ──────── */
+.ai-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;position:relative}
+.ai-card::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:3px;background:var(--ai)}
+.ai-card.warn::before{background:var(--danger)}
+.ai-head{display:flex;align-items:center;gap:7px;padding:12px 14px 0}
+.ai-head .lbl{font-size:11.5px;font-weight:800;color:var(--ai);letter-spacing:.1px}
+.spark{animation:spark 3.4s ease-in-out infinite}
+@keyframes spark{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1)}}
+
+/* ── bottom nav ─────────────────────────────────────────────────────── */
+.tabbar{
+  flex:0 0 auto;display:flex;align-items:stretch;background:var(--surface);border-top:1px solid var(--border);
+  padding:6px 4px 18px;z-index:40;
+}
+.tab{
+  flex:1;background:none;border:none;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:5px 2px;color:var(--ink-3);border-radius:12px;transition:color .16s;
+}
+.tab span{font-size:9.5px;font-weight:700}
+.tab[aria-current="page"]{color:var(--primary-ink)}
+.tab[aria-current="page"] .tabdot{opacity:1;transform:scaleX(1)}
+.tabdot{width:16px;height:2.5px;border-radius:2px;background:var(--primary);opacity:0;transform:scaleX(.2);transition:.22s var(--ease)}
+
+/* ── sheets / overlays ─────────────────────────────────────────────── */
+.scrim{position:absolute;inset:0;background:rgba(12,25,41,.42);z-index:80;animation:fade .2s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet{
+  position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-radius:26px 26px 0 0;z-index:81;
+  padding:8px 16px 22px;animation:slideup .34s var(--ease) both;max-height:86%;overflow-y:auto;
+}
+@keyframes slideup{from{transform:translateY(102%)}to{transform:none}}
+.grab{width:38px;height:4px;border-radius:3px;background:var(--border-strong);margin:6px auto 12px}
+.drawer{
+  position:absolute;inset-block:0;inset-inline-end:0;width:290px;background:var(--surface);z-index:81;
+  animation:slidein .3s var(--ease) both;display:flex;flex-direction:column;
+}
+@keyframes slidein{from{transform:translateX(102%)}to{transform:none}}
+
+/* ── quiz ───────────────────────────────────────────────────────────── */
+.opt{
+  display:flex;align-items:center;gap:11px;width:100%;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:15px;padding:13px 14px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;text-align:right;
+  transition:border-color .18s,background .18s,transform .18s var(--ease);
+}
+.opt:hover{border-color:var(--border-strong)}
+.opt .key{width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:var(--neutral-100);display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--ink-2)}
+.opt.right{border-color:var(--success);background:var(--success-container)}
+.opt.right .key{background:var(--success);color:#fff}
+.opt.wrong{border-color:var(--danger);background:var(--danger-container);animation:shake .32s ease}
+.opt.wrong .key{background:var(--danger);color:#fff}
+.opt.muted{opacity:.5}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.reveal{animation:rise .36s var(--ease) both}
+
+/* dashed dividers, mini charts */
+.dash{height:1px;background:repeating-linear-gradient(90deg,var(--border) 0 5px,transparent 5px 10px)}
+.bars{display:flex;align-items:flex-end;gap:5px;height:44px}
+.bars i{flex:1;border-radius:3px 3px 0 0;background:var(--primary-container)}
+.growy{transform-origin:bottom center}
+.in .growy{animation:growY .8s var(--ease) both;animation-delay:.2s}
+@keyframes growY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.bars i.acc{background:var(--primary)}
+.bars i.low{background:var(--danger-container)}
+
+.weekdots{display:flex;gap:5px}
+.weekdots i{width:22px;height:22px;border-radius:8px;background:var(--neutral-100);display:grid;place-items:center;font-size:9.5px;font-weight:800;color:var(--ink-3)}
+.weekdots i.on{background:var(--highlight-container);color:var(--highlight)}
+.weekdots i.today{outline:2px solid var(--highlight);outline-offset:1px}
+
+.kv{display:flex;flex-direction:column;gap:1px}
+.kv b{font-size:15px;font-weight:800}
+.kv span{font-size:10.5px;color:var(--ink-3);font-weight:600}
+
+.hscroll{display:flex;gap:11px;overflow-x:auto;padding:2px 16px 4px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.hscroll>*{flex:0 0 auto}
+
+.badgetile{width:100%;aspect-ratio:1;border-radius:16px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;padding:8px;gap:4px;align-content:center}
+.badgetile.locked{background:var(--neutral-100);border-style:dashed;border-color:var(--border-strong)}
+.badgetile.locked svg{opacity:.34;filter:grayscale(1)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+
+.videoshell{position:relative;border-radius:var(--r);overflow:hidden;background:#0C1929}
+.playfab{position:absolute;inset:0;margin:auto;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;color:var(--primary-ink)}
+.stepbar{display:flex;gap:4px}
+.stepbar i{flex:1;height:4px;border-radius:2px;background:var(--neutral-100)}
+.stepbar i.on{background:var(--primary)}
+.stepbar i.cur{background:var(--primary);opacity:.45}
+
+.bubble{max-width:82%;border-radius:16px;padding:11px 13px;font-size:13px;line-height:1.7}
+.bubble.me{background:var(--primary);color:#fff;margin-inline-start:auto;border-end-end-radius:6px}
+.bubble.ai{background:var(--surface);border:1px solid var(--border);border-end-start-radius:6px}
+/* Maths must never be reordered by bidi — isolate every LTR island. */
+.formula{background:#0C1929;color:#fff;border-radius:13px;padding:13px;text-align:center;font-size:16px;font-weight:700;letter-spacing:.4px;font-family:ui-monospace,Consolas,monospace}
+.formula,.ltr{direction:ltr;unicode-bidi:isolate}
+.ltr{display:inline-block}
+.mark-wrong{background:var(--danger-container);color:#B91C1C;border-radius:8px;padding:1px 6px;font-weight:800;text-decoration:line-through}
+.mark-right{background:var(--success-container);color:var(--success);border-radius:8px;padding:1px 6px;font-weight:800}
+.quickchips{display:flex;gap:7px;flex-wrap:wrap}
+.qchip{background:var(--surface);border:1px solid var(--ai);color:var(--ai);border-radius:999px;padding:7px 12px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;transition:background .15s}
+.qchip:hover{background:var(--ai-container)}
+.composer{flex:0 0 auto;display:flex;gap:8px;align-items:center;padding:10px 14px 16px;background:var(--surface);border-top:1px solid var(--border)}
+.composer .field{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:11px 13px;font-size:12.5px;color:var(--ink-3)}
+
+.confetti i{position:absolute;width:6px;height:6px;border-radius:2px;opacity:0;animation:pop 1.1s var(--ease) both}
+@keyframes pop{0%{opacity:0;transform:translateY(0) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1)}}
+
+.mini-legend{font-size:10px;color:var(--ink-3);display:flex;gap:10px;flex-wrap:wrap}
+.mini-legend b{display:inline-flex;align-items:center;gap:4px;font-weight:700;color:var(--ink-3)}
+.mini-legend em{width:8px;height:8px;border-radius:3px;display:block;font-style:normal}
+
+/* ── other screens only (Home CSS above is frozen) ──────────────────── */
+.slot{
+  height:108px;display:grid;place-items:center;overflow:hidden;
+  background:var(--neutral-100);
+}
+.slot img,.slot svg{max-width:88%;max-height:88%;object-fit:contain;display:block}
+.slot.math{background:var(--math-container)}
+.slot.sci{background:var(--sci-container)}
+.slot.lang{background:var(--lang-container)}
+.slot.amber{background:var(--highlight-container)}
+.slot.tall{height:168px}
+.slot.hero{height:148px;background:rgba(12,25,41,.14)}
+.slot.soft{border-radius:14px}
+
+.course-act{
+  margin-top:12px;display:flex;align-items:center;justify-content:space-between;
+  color:var(--primary-ink);font-weight:800;font-size:13.5px;
+}
+.course-act.lock{color:var(--ink-3)}
+.filters{display:flex;gap:7px;padding:2px 16px 0}
+.filters .btn{padding:7px 12px;font-size:12px;border-radius:999px}
+
+.now-hero{padding:14px 14px 15px}
+.now-hero .slot{height:120px;width:100%;border-radius:14px;margin:12px 0 10px}
+.now-hero .title{font-size:20px;font-weight:800;letter-spacing:-.3px;line-height:1.3}
+.now-hero .facts{display:flex;flex-wrap:wrap;gap:4px 8px;margin:6px 0 10px;font-size:12px;font-weight:700;color:rgba(255,255,255,.9)}
+
+.tl-dot.lock{border-style:dashed;color:var(--ink-3)}
+.tl-title.quiet{color:var(--ink-3)}
+
+.lesson-pane{padding-top:18px}
+.lesson-count{font-size:12px;font-weight:800;color:var(--ink-2)}
+.try-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+
+.fb-ok,.fb-bad{padding:13px 14px}
+.fb-ok{border-inline-start:3px solid var(--success)}
+.fb-line{font-size:13px;font-weight:700;margin-top:4px}
+.opt.right{animation:okPop .28s var(--ease)}
+@keyframes okPop{from{transform:scale(.97)}to{transform:none}}
+
+.week-mini{display:flex;align-items:flex-end;gap:6px;height:44px}
+.week-mini .col{flex:1;align-items:center;gap:4px}
+.week-mini .track{width:100%;height:28px;display:flex;align-items:flex-end;background:var(--neutral-100);border-radius:6px;overflow:hidden}
+.today-mark{font-size:11px;font-weight:800;color:var(--ink-3);margin-bottom:2px}
+.block-time{font-size:13px;font-weight:800;color:var(--ink-3);min-width:44px}
+.soon{opacity:.72}
+
+.now-once{border:1.5px solid var(--primary);background:var(--primary-container)}
+.in .now-once{animation:nowOnce .7s var(--ease) both}
+@keyframes nowOnce{from{box-shadow:0 0 0 0 var(--primary-container)}to{box-shadow:0 0 0 6px transparent}}
+
+.skill-mini{
+  padding:12px 8px 11px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;
+}
+.skill-mini .ic{color:var(--s-lang)}
+.skill-mini .h3{font-size:12.5px}
+.journey-mini{padding:13px 14px}
+.journey-path{display:flex;align-items:center;gap:10px}
+.journey-node{font-size:13px;font-weight:800;color:var(--s-lang)}
+.journey-node.done{color:var(--success)}
+
+.next-badge{padding:18px 14px 16px;text-align:center}
+.next-badge .slot{height:96px;width:96px;margin:10px auto 8px;border-radius:50%;background:var(--highlight-container)}
+
+.id-head{padding:18px 14px 16px;text-align:center}
+.id-head .avatar{margin:0 auto 10px}
+.settings-lbl{font-size:10.5px;font-weight:800;color:var(--ink-3);letter-spacing:.4px;padding:10px 16px 4px}
+.teacher-id{display:flex;align-items:center;gap:10px;margin-top:10px}
+.teacher-msg{padding:2px 0;margin-top:2px;font-size:11.5px;color:var(--ink-3)}
+.teacher-msg:hover{background:none;color:var(--primary-ink)}
+.lesson-where{font-size:11.5px;font-weight:800;color:var(--ink-2);margin-top:3px}
+.lesson-top{padding-bottom:12px}
+
+.units{margin-top:9px;overflow:hidden}
+.unit+.unit{border-top:1px solid var(--border)}
+.unit-head{
+  width:100%;display:flex;align-items:center;gap:10px;padding:13px 14px;
+  background:none;border:none;font:inherit;text-align:right;cursor:pointer;
+}
+.unit-head.open{background:var(--bg)}
+.unit-chev{color:var(--ink-3);display:grid;place-items:center;transition:transform .2s var(--ease)}
+.unit-chev.open{transform:rotate(-90deg)}
+.unit-lessons{padding:2px 12px 10px}
+.lsn{
+  display:flex;align-items:center;gap:10px;width:100%;padding:9px 6px;border:none;
+  background:none;font:inherit;text-align:right;cursor:pointer;border-radius:12px;
+}
+.lsn.now{background:var(--primary-container)}
+.lsn.lock,.lsn.next{cursor:default}
+.lsn-title{font-size:13.5px;font-weight:700;flex:1;min-width:0}
+.lsn.lock .lsn-title,.lsn.next .lsn-title{color:var(--ink-3);font-weight:600}
+.lsn.now .lsn-title{color:var(--primary-ink)}
+.lsn-here{display:block;font-size:10.5px;font-weight:800;color:var(--primary-ink);margin-top:2px}
+.lsn-mins{font-size:11px;font-weight:800;color:var(--ink-3);flex:0 0 auto}
+
+.in .lesson-diagram .phx-arm{transform-origin:75px 75px;animation:phxArm 1.15s var(--ease) both}
+.in .lesson-diagram .phx-arc{stroke-dasharray:90;stroke-dashoffset:90;animation:phxArc 1s var(--ease) .18s both}
+.in .wave-live rect{transform-box:fill-box;transform-origin:center;animation:waveOnce .7s var(--ease) both}
+.in .wave-live rect:nth-child(odd){animation-delay:.08s}
+@keyframes waveOnce{from{transform:scaleY(.2)}to{transform:none}}
+
+/* export mode (?full) — phone grows to full content height for design sheets */
+.phone.fullmode{height:auto;min-height:846px}
+.phone.fullmode .viewport{overflow:visible}
+.phone.fullmode .screen{position:relative;inset:auto}
+.phone.fullmode .scroll{overflow:visible;max-height:none}
+.phone.fullmode .homebar{display:none}
+.fullmode-stage{align-items:flex-start}
+body.bare{padding:14px;background:#EDEFF4}
+body.bare .rail{display:none}
+body.bare .stage{gap:0}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- design-tool rail (not part of the product) -->
+  <aside class="rail">
+    <h1>EduMind — Student Mobile</h1>
+    <p class="sub">Interactive design prototype • RTL • Cairo<br>Design-only. No Android code changed.</p>
+    <h2>الشاشات</h2>
+    <div class="chips" id="railChips"></div>
+    <div class="legend">
+      <b>تفاعل حقيقي:</b><br>
+      ابدأ من هون → الدرس<br>
+      خلينا نراجع هاد → المراجعة<br>
+      اليوم → عرض يومي<br>
+      الدرس → المعلّم الذكي / الاختبار<br>
+      الاختبار → النتيجة (٤ أسئلة)<br>
+      الشريط السفلي → كل الأقسام<br>
+      <span style="display:block;margin-top:8px">اضغط <code>←</code> للرجوع، <code>R</code> لإعادة الحركة.</span>
+    </div>
+  </aside>
+
+  <!-- device -->
+  <div class="device">
+    <div class="phone" id="phone">
+      <div class="notch"></div>
+      <div class="statusbar">
+        <span class="num">٩:٤١</span>
+        <span class="sig">
+          <i style="height:5px"></i><i style="height:8px"></i><i style="height:11px"></i><i style="height:14px"></i>
+          <svg width="22" height="12" viewBox="0 0 22 12" fill="none" style="margin-inline-start:5px"><rect x=".5" y=".5" width="17" height="11" rx="3" stroke="#0C1929"/><rect x="2" y="2" width="12" height="8" rx="1.6" fill="#0C1929"/><path d="M19.5 4v4a2 2 0 0 0 0-4z" fill="#0C1929"/></svg>
+        </span>
+      </div>
+      <div class="viewport" id="viewport"></div>
+      <nav class="tabbar" id="tabbar"></nav>
+      <div class="homebar"></div>
+    </div>
+  </div>
+
+  <!-- context rail -->
+  <aside class="rail" id="notesRail"></aside>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   1. ICONS — 1.7px stroke vector set, currentColor
+   ═══════════════════════════════════════════════════════════════════════ */
+const I = (d, s = 22, extra = '') =>
+  `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${extra}>${d}</svg>`;
+
+const icon = {
+  menu:      s => I('<path d="M4 7h16M4 12h16M4 17h10"/>', s),
+  bell:      s => I('<path d="M6.2 16.6c0-.9.5-1.4.8-2.1.3-.8.3-1.6.3-3.1a4.7 4.7 0 0 1 9.4 0c0 1.5 0 2.3.3 3.1.3.7.8 1.2.8 2.1z"/><path d="M4.8 16.6h14.4"/><path d="M13.9 19.4a2.1 2.1 0 0 1-3.8 0"/>', s),
+  back:      s => I('<path d="M9 6l6 6-6 6"/>', s),
+  chevron:   s => I('<path d="M15 6l-6 6 6 6"/>', s),
+  arrow:     s => I('<path d="M11 6l-6 6 6 6M19 12H5"/>', s),
+  home:      s => I('<path d="M4 10.5 12 4l8 6.5V20h-5v-5.5H9V20H4z"/>', s),
+  routine:   s => I('<circle cx="12" cy="12" r="8.2"/><path d="M12 8v4.4l3 1.8"/>', s),
+  lang:      s => I('<circle cx="12" cy="12" r="8.2"/><path d="M3.8 12h16.4M12 3.8c2.4 2.5 2.4 13.8 0 16.4-2.4-2.6-2.4-13.9 0-16.4z"/>', s),
+  projects:  s => I('<path d="M3.5 8.5h17V19a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19z"/><path d="M9 8.5V6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6v2.5"/>', s),
+  courses:   s => I('<path d="M4 5.5h6a2 2 0 0 1 2 2V20a2 2 0 0 0-2-2H4z"/><path d="M20 5.5h-6a2 2 0 0 0-2 2V20a2 2 0 0 1 2-2h6z"/>', s),
+  account:   s => I('<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c1-3.6 3.7-5.2 7-5.2s6 1.6 7 5.2"/>', s),
+  play:      s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 6.2 18 12l-9.5 5.8z"/></svg>`,
+  check:     s => I('<path d="M5 12.8 9.4 17 19 7.4"/>', s),
+  x:         s => I('<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>', s),
+  lock:      s => I('<rect x="5" y="10.5" width="14" height="9.5" rx="2.4"/><path d="M8.4 10.5V8a3.6 3.6 0 0 1 7.2 0v2.5"/>', s),
+  clock:     s => I('<circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 1.9"/>', s),
+  calendar:  s => I('<rect x="3.8" y="5.5" width="16.4" height="14.7" rx="2.4"/><path d="M3.8 10h16.4M8.5 3.5v3.6M15.5 3.5v3.6"/>', s),
+  flame:     s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 2c.5 3.2-1 4.6-2.6 6.2C9 10 7.2 11.7 7.2 14.7A6.9 6.9 0 0 0 14.1 21.6a6.7 6.7 0 0 0 6.7-6.9c0-4.6-3.2-6.7-4.4-9.5-.5-1.1-1.4-2.3-3-4.2z"/><path d="M12.9 21.6a3.4 3.4 0 0 0 3.4-3.4c0-2.3-1.6-3.1-2.3-4.8-.8 1.8-4.4 2.6-4.4 4.9a3.3 3.3 0 0 0 3.3 3.3z" fill="#fff" opacity=".42"/></svg>`,
+  bolt:      s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M13.6 2 5.5 13.4h4.6L9.3 22l8.4-11.7h-4.8z"/></svg>`,
+  sparkle:   (s = 18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l1.7 5 5 1.7-5 1.7-1.7 5-1.7-5-5-1.7 5-1.7z"/><path d="M19.4 14.6l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" opacity=".7"/></svg>`,
+  target:    s => I('<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/>', s),
+  trendDown: s => I('<path d="M4 7.5l5.4 5.6 3.4-3 7.2 6.9"/><path d="M20 12.5V17h-4.4"/>', s),
+  trendUp:   s => I('<path d="M4 16.5l5.4-5.6 3.4 3L20 7"/><path d="M20 11.5V7h-4.4"/>', s),
+  book:      s => I('<path d="M5 4.5h9.5a3 3 0 0 1 3 3V20H8a3 3 0 0 0-3 3z" transform="translate(0,-1.5)"/>', s),
+  mic:       s => I('<rect x="9.2" y="3" width="5.6" height="10.6" rx="2.8"/><path d="M5.8 11.4a6.2 6.2 0 0 0 12.4 0M12 17.6V21"/>', s),
+  pen:       s => I('<path d="M4.5 19.5l.9-3.6L15.7 5.6a2 2 0 0 1 2.8 2.8L8.2 18.6z"/><path d="M14 7.4l2.6 2.6"/>', s),
+  ear:       s => I('<path d="M8 9a4 4 0 1 1 8 0c0 2.2-2.2 2.8-2.6 4.8-.3 1.6.4 3.2-1.4 3.8"/><path d="M9.6 20.4c-2.6-.6-4.4-2.6-4.4-5.4"/>', s),
+  chat:      s => I('<path d="M20 12.4c0 4-3.6 7.2-8 7.2a9 9 0 0 1-2.7-.4L4.6 21l1.2-3.6A6.9 6.9 0 0 1 4 12.4C4 8.4 7.6 5.2 12 5.2s8 3.2 8 7.2z"/>', s),
+  cards:     s => I('<rect x="3.6" y="6.5" width="12" height="13" rx="2.4"/><path d="M7.6 4.5h10a2.4 2.4 0 0 1 2.4 2.4v10"/>', s),
+  medal:     s => I('<circle cx="12" cy="14.6" r="5.4"/><path d="M8.6 9.6 6.4 3.6h11.2l-2.2 6M12 12.4l.9 1.8 2 .3-1.5 1.4.4 2-1.8-1-1.8 1 .4-2-1.5-1.4 2-.3z"/>', s),
+  shield:    s => I('<path d="M12 3.4 19 6v5.6c0 4.2-2.9 7.4-7 8.9-4.1-1.5-7-4.7-7-8.9V6z"/><path d="M9.2 12.2l2 2 3.6-3.8"/>', s),
+  users:     s => I('<circle cx="9.4" cy="9" r="3.2"/><path d="M3.8 19.4c.7-3 2.9-4.4 5.6-4.4s4.9 1.4 5.6 4.4"/><path d="M15.4 6.2a3.1 3.1 0 0 1 0 5.8M17 15.4c2 .5 3.2 1.9 3.6 4"/>', s),
+  file:      s => I('<path d="M6 3.6h7l5 5v12H6z"/><path d="M13 3.6v5h5"/>', s),
+  settings:  s => I('<circle cx="12" cy="12" r="2.9"/><path d="M19.3 13.4c.1-.5.1-.9.1-1.4s0-.9-.1-1.4l1.7-1.3-1.7-3-2 .8a7.6 7.6 0 0 0-2.4-1.4L14.6 3H9.4l-.3 2.7a7.6 7.6 0 0 0-2.4 1.4l-2-.8-1.7 3 1.7 1.3c-.1.5-.1.9-.1 1.4s0 .9.1 1.4L3 14.7l1.7 3 2-.8a7.6 7.6 0 0 0 2.4 1.4L9.4 21h5.2l.3-2.7a7.6 7.6 0 0 0 2.4-1.4l2 .8 1.7-3z"/>', s),
+  crown:     s => I('<path d="M4 17.4 5.4 7.6l4 3.4L12 5.6l2.6 5.4 4-3.4L20 17.4z"/><path d="M4 20h16"/>', s),
+  filter:    s => I('<path d="M4 6.6h16M7 12h10M10 17.4h4"/>', s),
+  search:    s => I('<circle cx="11" cy="11" r="6.4"/><path d="M16 16l3.6 3.6"/>', s),
+  flag:      s => I('<path d="M6 3.6V21M6 4.6h11l-1.8 3.8L17 12H6"/>', s),
+  moon:      s => I('<path d="M20 14.4A8.4 8.4 0 0 1 9.6 4 8.4 8.4 0 1 0 20 14.4z"/>', s),
+  logout:    s => I('<path d="M14.4 8.4V5.6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12.8a2 2 0 0 0 2 2h6.4a2 2 0 0 0 2-2v-2.8"/><path d="M10 12h10m-3-3 3 3-3 3"/>', s),
+};
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2. ILLUSTRATIONS — subject identity is carried by the DRAWING,
+      not by a rainbow of per-subject colours. Three hairline hues only.
+   ═══════════════════════════════════════════════════════════════════════ */
+const art = {
+  /* Home hero — circle + axis + motion. Classes drive a one-shot enter. */
+  physicsHero(w = 168, ink = '#fff', dim = 'rgba(255,255,255,.48)') {
+    return `<svg class="phx" width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <circle class="phx-orbit" cx="75" cy="75" r="46" stroke="${dim}" stroke-width="2.6"/>
+      <path d="M75 58v34" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="75" cy="75" r="5.5" fill="${ink}"/>
+      <g class="phx-arm">
+        <path d="M75 75 L119 75" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="119" cy="75" r="11" fill="${ink}"/>
+      </g>
+      <path class="phx-arc" d="M119 75 A46 46 0 0 1 75 29" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M75 29l-11-5 3 11z" fill="${ink}"/>
+    </svg>`;
+  },
+  /* Smart review — parabola + one weak root highlighted */
+  mathReview(w = 72, ink = '#0E7490', dim = 'rgba(14,116,144,.28)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <path d="M18 112h116M75 24v96" stroke="${dim}" stroke-width="2.2" stroke-linecap="round"/>
+      <path class="para" d="M28 34C46 104 60 112 75 112s29-8 47-78" stroke="${ink}" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+      <circle cx="47" cy="97" r="5" fill="${ink}" opacity=".35"/>
+      <circle class="root-hi" cx="103" cy="97" r="8" fill="${ink}"/>
+    </svg>`;
+  },
+  /* rotational motion: disc + angular-velocity arc + mass */
+  physics(w = 150, ink = '#fff', dim = 'rgba(255,255,255,.4)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <circle cx="75" cy="75" r="46" stroke="${dim}" stroke-width="2.4" stroke-dasharray="5 7"/>
+      <circle cx="75" cy="75" r="28" stroke="${ink}" stroke-width="2.6"/>
+      <circle cx="75" cy="75" r="4.6" fill="${ink}"/>
+      <path d="M75 75 L112 58" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="112" cy="58" r="8.6" fill="${ink}"/>
+      <path d="M118 96a48 48 0 0 0 8-32" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M124 60l4 7-8 1z" fill="${ink}"/>
+      <path d="M40 112h70" stroke="${dim}" stroke-width="2.2" stroke-linecap="round"/>
+      <text x="90" y="106" fill="${ink}" font-size="15" font-weight="700" font-family="monospace">ω</text>
+    </svg>`;
+  },
+  /* quadratic: parabola, axis, two roots, discriminant gap */
+  math(w = 150, ink = '#6366F1', dim = 'rgba(99,102,241,.28)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <path d="M18 112h116M75 24v96" stroke="${dim}" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M28 34C46 104 60 112 75 112s29-8 47-78" stroke="${ink}" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="47" cy="97" r="6" fill="${ink}"/>
+      <circle cx="103" cy="97" r="6" fill="${ink}"/>
+      <path d="M47 97h56" stroke="${ink}" stroke-width="2" stroke-dasharray="4 4"/>
+      <text x="60" y="136" fill="${ink}" font-size="17" font-weight="700" font-family="monospace">Δ</text>
+    </svg>`;
+  },
+  /* one full revolution in t seconds — the visual for the worked example */
+  revolution(w = 210, ink = '#6366F1', dim = 'rgba(99,102,241,.22)') {
+    return `<svg width="${w}" height="${w * .6}" viewBox="0 0 210 126" fill="none">
+      <circle cx="88" cy="63" r="42" stroke="${dim}" stroke-width="2.2" stroke-dasharray="5 7"/>
+      <circle cx="88" cy="63" r="4.6" fill="${ink}"/>
+      <path d="M88 63 L130 63" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="130" cy="63" r="8" fill="${ink}"/>
+      <path d="M88 15a48 48 0 1 1-34 14" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M88 8l9 7-9 7z" fill="${ink}"/>
+      <text x="150" y="34" fill="${ink}" font-size="16" font-weight="700" font-family="Consolas,monospace">2π</text>
+      <circle cx="163" cy="88" r="14" stroke="${ink}" stroke-width="2.2"/>
+      <path d="M163 80v9l6 3" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>
+      <text x="182" y="94" fill="${ink}" font-size="14" font-weight="700" font-family="Consolas,monospace">4s</text>
+    </svg>`;
+  },
+  /* reading: article page with a figure block */
+  article(w = 60, ink = '#7C3AED', dim = 'rgba(124,58,237,.26)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 60 60" fill="none">
+      <rect x="9" y="5" width="42" height="50" rx="5" stroke="${ink}" stroke-width="2.4"/>
+      <rect x="15" y="11" width="30" height="13" rx="2.6" fill="${dim}"/>
+      <path d="M15 31h30M15 38h30M15 45h19" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>`;
+  },
+  /* writing: pen over ruled lines */
+  writing(w = 60, ink = '#7C3AED', dim = 'rgba(124,58,237,.26)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 60 60" fill="none">
+      <path d="M8 44h30M8 52h20" stroke="${dim}" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M12 36l3-9 26-19a4.4 4.4 0 0 1 5 7L20 34z" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M38 13l5 7" stroke="${ink}" stroke-width="2.2"/>
+    </svg>`;
+  },
+  /* vocabulary visuals — one drawing per word, never a generic tile */
+  leaf(w = 54, ink = '#047857') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 60 60" fill="none">
+      <path d="M14 46C14 26 28 12 48 12c0 20-14 34-34 34z" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M14 46 44 16" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M32 22v8M24 30v8" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    </svg>`;
+  },
+  bulb(w = 54, ink = '#B45309') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 60 60" fill="none">
+      <path d="M30 10a13 13 0 0 1 8 23.2V38H22v-4.8A13 13 0 0 1 30 10z" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M23 43h14M25 49h10" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M30 4v3M46 14l-2.4 2M14 14l2.4 2" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>`;
+  },
+  handshake(w = 54, ink = '#6366F1') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 60 60" fill="none">
+      <path d="M6 26l10-8 8 6 8-6 10 8" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M16 30l8 8a4 4 0 0 0 6 0l4-4" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M42 26v10a4 4 0 0 1-4 4h-4" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M6 26v10a4 4 0 0 0 4 4h3" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+    </svg>`;
+  },
+  /* cell: membrane, nucleus, organelles */
+  bio(w = 150, ink = '#0369A1', dim = 'rgba(3,105,161,.24)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <ellipse cx="75" cy="75" rx="54" ry="45" stroke="${ink}" stroke-width="2.8"/>
+      <ellipse cx="75" cy="75" rx="42" ry="34" stroke="${dim}" stroke-width="2" stroke-dasharray="4 6"/>
+      <circle cx="68" cy="70" r="16" stroke="${ink}" stroke-width="2.6"/>
+      <circle cx="68" cy="70" r="6" fill="${ink}"/>
+      <ellipse cx="104" cy="88" rx="12" ry="6" stroke="${ink}" stroke-width="2.2" transform="rotate(-24 104 88)"/>
+      <circle cx="46" cy="95" r="5" fill="${dim}"/>
+      <circle cx="98" cy="55" r="4" fill="${dim}"/>
+    </svg>`;
+  },
+  /* conversation: two bubbles + waveform */
+  lang(w = 150, ink = '#7C3AED', dim = 'rgba(124,58,237,.26)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <path d="M22 44a10 10 0 0 1 10-10h52a10 10 0 0 1 10 10v26a10 10 0 0 1-10 10H48l-16 13V80h-.4A10 10 0 0 1 22 70z" stroke="${ink}" stroke-width="2.8"/>
+      <path d="M60 132v-24a10 10 0 0 1 10-10h48a10 10 0 0 1 10 10v14a10 10 0 0 1-10 10z" stroke="${dim}" stroke-width="2.6"/>
+      <path d="M36 57h14M58 57h20" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M76 115h12M96 115h18" stroke="${dim}" stroke-width="3" stroke-linecap="round"/>
+    </svg>`;
+  },
+  /* audio waveform */
+  wave(w = 132, h = 40, ink = '#7C3AED') {
+    const hs = [8, 18, 30, 22, 38, 16, 28, 12, 34, 20, 9, 24, 32, 14, 22, 10, 26, 16, 8];
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${hs.length * 7} 40" fill="none">${hs
+      .map((v, i) => `<rect x="${i * 7}" y="${(40 - v) / 2}" width="3.4" height="${v}" rx="1.7" fill="${ink}" opacity="${i % 3 === 0 ? 1 : .42}"/>`)
+      .join('')}</svg>`;
+  },
+  /* solar project — sun + panel, not a generic empty board */
+  solar(w = 150, ink = '#0369A1', dim = 'rgba(3,105,161,.28)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <circle cx="75" cy="36" r="14" fill="${ink}"/>
+      <path d="M75 14v6M75 52v6M53 36h6M91 36h6M58 20l4 4M88 48l4 4M58 52l4-4M88 20l4-4" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M26 116 75 78l49 38v20H26z" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M38 116h74M52 98h46M64 86h22M75 78v58" stroke="${dim}" stroke-width="2"/>
+    </svg>`;
+  },
+  /* café conversation — cup + bubbles (language mission) */
+  cafe(w = 150, ink = '#7C3AED', dim = 'rgba(124,58,237,.28)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <path d="M46 78h44c3 0 6 3 6 7v18c0 12-10 22-28 22s-28-10-28-22V85c0-4 3-7 6-7z" stroke="${ink}" stroke-width="2.6"/>
+      <path d="M96 88h10a10 10 0 0 1 0 20H96" stroke="${ink}" stroke-width="2.6"/>
+      <path d="M60 64c0-6 4-10 4-16M74 62c0-8 5-12 5-18" stroke="${dim}" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M22 40a8 8 0 0 1 8-8h36a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H40l-10 8V56h-.2A8 8 0 0 1 22 48z" stroke="${ink}" stroke-width="2.4"/>
+      <path d="M34 44h18M56 44h10" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>`;
+  },
+  /* project: layered panels + milestone flag */
+  project(w = 150, ink = '#6366F1', dim = 'rgba(99,102,241,.24)') {
+    return `<svg width="${w}" height="${w}" viewBox="0 0 150 150" fill="none">
+      <path d="M28 96 75 70l47 26-47 26z" stroke="${ink}" stroke-width="2.8"/>
+      <path d="M28 78 75 52l47 26" stroke="${dim}" stroke-width="2.6"/>
+      <path d="M28 60 75 34l47 26" stroke="${dim}" stroke-width="2.4"/>
+      <path d="M99 44V22M99 22l19 6-19 7z" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>`;
+  },
+  /* geometry visual for a lesson diagram */
+  geometry(w = 150, ink = '#6366F1', dim = 'rgba(99,102,241,.22)') {
+    return `<svg width="${w}" height="${w * .62}" viewBox="0 0 200 124" fill="none">
+      <path d="M22 104h158" stroke="${dim}" stroke-width="2.4"/>
+      <path d="M36 104 100 24l64 80z" stroke="${ink}" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M100 24v80" stroke="${ink}" stroke-width="2" stroke-dasharray="5 5"/>
+      <path d="M100 92h12v12" stroke="${ink}" stroke-width="2"/>
+      <path d="M52 104a18 18 0 0 1 6-13" stroke="${ink}" stroke-width="2"/>
+    </svg>`;
+  },
+  /* quiz-score trend — chronological LTR (oldest → newest). Time series stay
+     left-to-right even in an RTL UI so “improving” always slopes up. */
+  spark(points, w = 96, h = 40, ink = '#EF4444') {
+    const max = Math.max(...points), min = Math.min(...points);
+    const sx = (w - 8) / (points.length - 1), rng = max - min || 1;
+    const pts = points.map((p, i) => [4 + i * sx, h - 7 - ((p - min) / rng) * (h - 17)]);
+    const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+    const last = pts[pts.length - 1];
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">
+      <path d="M0 ${h - 1.5}H${w}" stroke="rgba(12,25,41,.12)" stroke-width="1.6" stroke-dasharray="3 4"/>
+      <path d="${line}" stroke="${ink}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      ${pts.slice(0, -1).map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2" fill="${ink}" opacity=".35"/>`).join('')}
+      <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="4" fill="${ink}"/>
+    </svg>`;
+  },
+  /* language journey path — runs right → left because the UI is RTL */
+  path(w = 320, h = 128) {
+    return `<svg width="${w}" height="${h}" viewBox="0 0 320 128" fill="none">
+      <path d="M306 100C252 100 260 34 204 34s-52 62-104 62-84-44-84-44" stroke="rgba(12,25,41,.12)" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 16"/>
+      <circle cx="306" cy="100" r="12" fill="#047857"/><path d="M301 100l4 4 7-8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <circle cx="204" cy="34" r="12" fill="#047857"/><path d="M199 34l4 4 7-8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <circle cx="100" cy="96" r="16" fill="#7C3AED"/><circle cx="100" cy="96" r="22" stroke="#7C3AED" stroke-width="2" opacity=".3"/>
+      <path d="M105 96l-8-6v12z" fill="#fff"/>
+      <circle cx="16" cy="52" r="12" fill="rgba(12,25,41,.09)"/>
+      <path d="M12.4 51v-2.2a3.6 3.6 0 0 1 7.2 0V51" stroke="#64748B" stroke-width="1.6" fill="none"/><rect x="12" y="51" width="8" height="6" rx="1.6" fill="#64748B"/>
+    </svg>`;
+  },
+  /* badge art */
+  badge(kind, w = 46) {
+    const A = { g: '#B45309', s: '#64748B', p: '#6366F1', t: '#0E7490' };
+    const c = A[kind[0]] || A.g;
+    if (kind === 'streak') return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#FAEFE1"/><path d="M26.6 11c.9 5.4-1.9 7.2-4.6 9.9-2.3 2.3-4.6 4.6-4.6 9a8.9 8.9 0 0 0 17.8 0c0-6.3-4.3-9.2-6-13.1-.7-1.6-1.9-3.3-2.6-5.8z" fill="#B45309"/><path d="M23.6 37.5a4.4 4.4 0 0 0 4.4-4.4c0-3-2.1-4-3-6.2-1 2.3-5.7 3.4-5.7 6.4a4.3 4.3 0 0 0 4.3 4.2z" fill="#FAEFE1"/></svg>`;
+    if (kind === 'shield') return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#ECEDFD"/><path d="M24 12l9 3.4v7.2c0 5.4-3.7 9.5-9 11.4-5.3-1.9-9-6-9-11.4v-7.2z" fill="#6366F1"/><path d="M20.4 23.8l2.8 2.8 4.8-5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>`;
+    if (kind === 'target') return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#E4EFF8"/><circle cx="24" cy="24" r="12" stroke="#0369A1" stroke-width="2.6" fill="none"/><circle cx="24" cy="24" r="6" stroke="#0369A1" stroke-width="2.6" fill="none"/><circle cx="24" cy="24" r="2.2" fill="#0369A1"/></svg>`;
+    if (kind === 'medal') return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#FAEFE1"/><path d="M16.4 10.5 21.6 21h4.8l5.2-10.5" stroke="#B45309" stroke-width="3" fill="none" stroke-linejoin="round"/><circle cx="24" cy="29.4" r="8.6" fill="#B45309"/><path d="M24 24.8l1.35 2.7 3 .45-2.17 2.1.51 3L24 31.6l-2.69 1.45.51-3-2.17-2.1 3-.45z" fill="#fff"/></svg>`;
+    if (kind === 'crown') return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#ECEDFD"/><path d="M13 32l2-14 6 5 3-8 3 8 6-5 2 14z" fill="#6366F1"/><path d="M13 35h22" stroke="#6366F1" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+    return `<svg width="${w}" height="${w}" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="${c}22"/><circle cx="24" cy="24" r="9" fill="${c}"/></svg>`;
+  },
+  /* Course cover — abstract subject plate, never a stock photo.
+     'tint' is the default so a scrolling list stays calm; 'solid' is reserved
+     for the single header moment on Course Detail. */
+  cover(kind, w = 320, h = 116, variant = 'tint') {
+    const HUE = { physics: '#0369A1', math: '#6366F1', bio: '#075E8C', lang: '#7C3AED', project: '#0369A1' }[kind] || '#6366F1';
+    const TINT = { physics: '#E4EFF8', math: '#ECEDFD', bio: '#E4EFF8', lang: '#F1EBFE', project: '#E4EFF8' }[kind] || '#ECEDFD';
+    const solid = variant === 'solid';
+    const ink = solid ? '#fff' : HUE;
+    const dim = solid ? 'rgba(255,255,255,.42)' : `${HUE}44`;
+    const stroke = solid ? 'rgba(255,255,255,.3)' : `${HUE}26`;
+    const inner = {
+      physics: art.physics(104, ink, dim),
+      math:    art.math(104, ink, dim),
+      bio:     art.bio(104, ink, dim),
+      lang:    art.lang(104, ink, dim),
+      project: art.solar(104, ink, dim),
+    }[kind] || '';
+    return `<div style="position:relative;height:${h}px;background:${solid ? HUE : TINT};overflow:hidden">
+      <svg width="100%" height="${h}" viewBox="0 0 320 ${h}" fill="none" style="position:absolute;inset:0">
+        <circle cx="42" cy="${h - 14}" r="46" stroke="${stroke}" stroke-width="1.6"/>
+        <circle cx="286" cy="10" r="54" stroke="${stroke}" stroke-width="1.6"/>
+      </svg>
+      <div style="position:absolute;inset-inline-end:14px;top:50%;transform:translateY(-50%);opacity:${solid ? .9 : .95}">${inner}</div>
+    </div>`;
+  },
+};
+
+/* small helpers */
+const RING_COLOR = { '': 'var(--primary)', ok: 'var(--success)', xp: 'var(--highlight)', ai: 'var(--ai)' };
+const ring = (pct, size = 74, stroke = 8, cls = '', center = '') => {
+  const r = (size - stroke) / 2, C = 2 * Math.PI * r, o = C * (1 - pct / 100);
+  return `<div class="ring" style="width:${size}px;height:${size}px">
+    <svg width="${size}" height="${size}"><circle class="track" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}"/>
+    <circle class="val" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}" stroke="${RING_COLOR[cls] || RING_COLOR['']}"
+      stroke-dasharray="${C.toFixed(1)}" style="--c:${C.toFixed(1)};--o:${o.toFixed(1)};stroke-dashoffset:${o.toFixed(1)}"/></svg>
+    <div class="center">${center}</div></div>`;
+};
+const bar = (pct, cls = '', extra = '') => `<div class="bar ${extra}"><i class="${cls}" style="width:${pct}%"></i></div>`;
+const vbar = (pct, cls = '', style = '') => `<i class="${cls} growy" style="height:${pct}%;${style}"></i>`;
+const av = (initials, cls = '') => `<div class="avatar ${cls}">${initials}</div>`;
+const SCI = '#0369A1', SCI_DIM = 'rgba(3,105,161,.3)';
+const thumb = (kind, cls = 'thumb', size = 34) => {
+  const inner = { physics: art.physics(size, SCI, SCI_DIM), math: art.math(size, '#6366F1'), bio: art.bio(size, SCI), lang: art.lang(size, '#7C3AED'), project: art.project(size, '#6366F1') }[kind];
+  const tone = { physics: 'sci', bio: 'sci', lang: 'lang' }[kind] || '';
+  return `<div class="${cls} ${tone}">${inner || ''}</div>`;
+};
+const aiMark = (label = 'EduMind يقترح') =>
+  `<div class="ai-head"><span style="color:var(--ai)" class="spark">${icon.sparkle(17)}</span><span class="lbl">${label}</span></div>`;
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3. CONTENT MODEL — realistic Arabic curriculum data
+   ═══════════════════════════════════════════════════════════════════════ */
+const S = {
+  student: { name: 'رنا', full: 'رنا العبيدي', grade: 'الحادي عشر علمي', level: 4, xp: 340, xpMax: 500, streak: 7, initials: 'ر' },
+  mission: { subject: 'الفيزياء', topic: 'الحركة الدورانية', teacher: 'أ. لينا حدّاد', step: 3, steps: 8, mins: 12, pct: 34 },
+};
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4. SCREENS
+   ═══════════════════════════════════════════════════════════════════════ */
+const screens = {};
+let A = 0;                              /* stagger counter */
+const an = () => `data-anim style="--i:${A++}"`;
+
+/* ── 1 • STUDENT HOME ───────────────────────────────────────────────── */
+screens.home = { tab: 'home', chrome: 'tabs', label: 'الرئيسية',
+  notes: [
+    'فوق الطيّة: التحية + ابدأ من هون + بداية اليوم',
+    'الرسم يشرح · النص يسمّي · الزر يكمّل',
+    'اليوم خط زمني مفتوح، ٣ عناصر، عرض يومي',
+    'بطاقة واحدة: خلينا نراجع هاد',
+    'التقدّم: مستوى · أيام · XP فقط. الرئيسية تنتهي عنده'
+  ],
+  render() { A = 0; return `
+  <div class="appbar">
+    <button class="iconbtn" data-open="drawer">${icon.menu()}</button>
+    <div class="grow home-mark">EduMind</div>
+    <button class="iconbtn badge">${icon.bell()}</button>
+  </div>
+
+  <div class="scroll"><div class="stackgap home-stack">
+
+    <div class="home-greet" ${an()}>
+      <div class="h1">صباح الخير، ${S.student.name}</div>
+      <div class="ask">جاهزة نكمّل؟</div>
+    </div>
+
+    <!-- START HERE — the only dominant card -->
+    <div class="hero home-hero" data-go="lesson" ${an()}>
+      <div class="home-hero-top">
+        <div class="hb">
+          <span class="tag on-dark">ابدأ من هون</span>
+          <div class="title">${S.mission.topic}</div>
+          <div class="facts">
+            <span>فيزياء</span>
+            <span class="sep">•</span>
+            <span>${S.mission.mins} دقيقة</span>
+            <span class="sep">•</span>
+            <span>الدرس ${S.mission.step} من ${S.mission.steps}</span>
+          </div>
+          ${bar(S.mission.pct, '', 'on-dark')}
+        </div>
+        <div class="vis-slot">${art.physicsHero(118)}</div>
+      </div>
+      <div class="hero-cta"><span>كمّل الدرس</span>${icon.arrow(19)}</div>
+    </div>
+
+    <!-- TODAY — open timeline, 3 items -->
+    <div class="home-today" ${an()}>
+      <div class="h2">اليوم</div>
+      <div class="tl drawn" style="margin-top:12px">
+        <div class="tl-item" style="--ti:0">
+          <div class="tl-dot now"></div>
+          <div class="tl-time num">٤:٠٠</div>
+          <div class="tl-title">مراجعة الرياضيات</div>
+        </div>
+        <div class="tl-item" style="--ti:1">
+          <div class="tl-dot"></div>
+          <div class="tl-time num">٦:٣٠</div>
+          <div class="tl-title">روتين الدراسة</div>
+        </div>
+        <div class="tl-item" style="--ti:2">
+          <div class="tl-dot"></div>
+          <div class="tl-time">غداً</div>
+          <div class="tl-title">اختبار الفيزياء</div>
+        </div>
+      </div>
+      <button class="link" data-go="planner" style="margin-top:6px;padding-inline-start:0">عرض يومي ${icon.arrow(15)}</button>
+    </div>
+
+    <!-- ONE smart card: problem → why → action -->
+    <div class="ai-card tap guide" data-go="quiz" ${an()}>
+      <div class="ai-head"><span style="color:var(--ai)">${icon.sparkle(17)}</span><span class="lbl">خلينا نراجع هاد</span></div>
+      <div class="row" style="align-items:center;gap:12px;margin-top:11px">
+        <div class="vis-slot" style="height:72px;width:72px;flex:0 0 72px;border-radius:14px;background:var(--ai-container)">
+          ${art.mathReview(64)}
+        </div>
+        <div class="grow">
+          <div class="h2" style="font-size:16px">المميّز</div>
+          <div class="why">٣ أخطاء في آخر اختبار</div>
+        </div>
+      </div>
+      <div class="act"><span>مراجعة ١٠ دقائق</span>${icon.arrow(17)}</div>
+    </div>
+
+    <!-- تقدمك — three indicators only -->
+    <div class="card tap snap" data-go="achievements" ${an()}>
+      <div class="row" style="justify-content:space-around">
+        <div class="cell"><b class="num">٤</b><span>المستوى</span></div>
+        <div class="cell"><b class="num" style="color:var(--highlight)">${icon.flame(14)} ٧</b><span>أيام</span></div>
+        <div class="cell"><b class="num" data-count="340">٣٤٠</b><span class="ltr">XP</span></div>
+      </div>
+    </div>
+
+  </div></div>`; }
+};
+
+/* ── 2 • MY COURSES ─────────────────────────────────────────────────── */
+screens.courses = { tab: 'courses', chrome: 'tabs', label: 'موادي',
+  notes: ['بطاقة المادة = رسم + اسم + معلّم + تقدّم + إجراء واحد', 'المقفلة: رسم + مقفلة + اشترك — بلا بيانات إضافية', 'الفلاتر ثلاثة ومضغوطة'],
+  render() { A = 0; return `
+  <div class="appbar">
+    <div class="title">موادي</div>
+    <button class="iconbtn">${icon.search()}</button>
+  </div>
+  <div class="scroll">
+    <div class="filters" ${an()}>
+      ${['الكل', 'جارية', 'مقفلة'].map((t, i) =>
+        `<button class="btn ${i === 0 ? 'btn-primary' : 'btn-outline'} btn-sm">${t}</button>`).join('')}
+    </div>
+    <div class="stackgap" style="padding-top:14px">
+      ${[
+        { k: 'physics', slot: 'sci', n: 'الفيزياء', t: 'أ. لينا حدّاد', p: 61, go: 'course', ink: SCI },
+        { k: 'math', slot: 'math', n: 'الرياضيات', t: 'أ. مهند سليم', p: 72, go: 'course', ink: '#6366F1' },
+        { k: 'lang', slot: 'lang', n: 'الإنجليزية', t: 'Ms. Dana', p: 80, go: 'course', ink: '#7C3AED' },
+      ].map(c => `
+      <div class="card tap" data-go="${c.go}" ${an()}>
+        <div class="slot ${c.slot}">${art[c.k](92, c.ink)}</div>
+        <div style="padding:13px 14px 14px">
+          <div class="h2">${c.n}</div>
+          <div class="meta" style="margin-top:3px">${c.t}</div>
+          <div class="row" style="justify-content:space-between;margin:12px 0 6px">
+            <span class="h3 num">${String(c.p).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])}٪</span>
+          </div>
+          ${bar(c.p, '', 'thin')}
+          <div class="course-act"><span>متابعة</span>${icon.arrow(17)}</div>
+        </div>
+      </div>`).join('')}
+
+      <div class="card" ${an()}>
+        <div class="slot sci" style="opacity:.55">${art.bio(92)}</div>
+        <div style="padding:13px 14px 14px">
+          <div class="h2">الأحياء</div>
+          <div class="row" style="margin-top:8px"><span class="tag">${icon.lock(11)} مقفلة</span></div>
+          <div class="course-act lock"><span>اشترك</span>${icon.arrow(17)}</div>
+        </div>
+      </div>
+    </div>
+  </div>`; }
+};
+
+/* ── 3 • COURSE DETAIL ──────────────────────────────────────────────── */
+const COURSE_UNITS = [
+  { n: 'الوحدة ١ — الحركة', done: 2, total: 4, lessons: [
+    { s: 'done', t: 'مقدمة الحركة الدائرية', d: '٨ د' },
+    { s: 'done', t: 'السرعة الزاوية', d: '١٠ د' },
+    { s: 'now', t: 'الحركة الدورانية', d: '١٢ د' },
+    { s: 'next', t: 'العزم', d: '١٠ د' },
+  ]},
+  { n: 'الوحدة ٢ — القوى', done: 0, total: 4, lessons: [
+    { s: 'lock', t: 'مقدمة القوى', d: '٨ د' },
+    { s: 'lock', t: 'قانون نيوتن الأول', d: '١٠ د' },
+    { s: 'lock', t: 'قانون نيوتن الثاني', d: '١٢ د' },
+    { s: 'lock', t: 'تطبيقات القوة', d: '٩ د' },
+  ]},
+  { n: 'الوحدة ٣ — الطاقة', done: 0, total: 4, lessons: [
+    { s: 'lock', t: 'الشغل', d: '٨ د' },
+    { s: 'lock', t: 'الطاقة الحركية', d: '١٠ د' },
+    { s: 'lock', t: 'طاقة الوضع', d: '٩ د' },
+    { s: 'lock', t: 'حفظ الطاقة', d: '١١ د' },
+  ]},
+  { n: 'الوحدة ٤ — المراجعة', done: 0, total: 3, lessons: [
+    { s: 'lock', t: 'مراجعة الوحدة', d: '١٥ د' },
+    { s: 'lock', t: 'مسائل شاملة', d: '١٢ د' },
+    { s: 'lock', t: 'اختبار الفصل', d: '٢٠ د' },
+  ]},
+];
+const COURSE_LESSON_COUNT = COURSE_UNITS.reduce((n, u) => n + u.lessons.length, 0);
+let unitOpen = 0;
+screens.course = { chrome: 'none', label: 'تفاصيل المادة', back: 'courses',
+  notes: ['كمّل من هون يبقى الإجراء الأقوى', 'الوحدات أكورديون: واحدة مفتوحة', '١٥ درساً في ٤ وحدات — بلا قائمة مسطحة'],
+  render() { A = 0; return `
+  <div class="scroll">
+    <div style="position:relative">
+      ${art.cover('physics', 320, 148, 'solid')}
+      <div style="position:absolute;inset-block-start:0;inset-inline:0;padding:10px 12px;display:flex;gap:8px">
+        <button class="iconbtn" data-back style="color:#fff;background:rgba(0,0,0,.18)">${icon.back()}</button>
+      </div>
+    </div>
+
+    <div class="stackgap" style="padding-top:14px">
+      <div ${an()}>
+        <div class="h1" style="font-size:20px">الفيزياء</div>
+        <div class="teacher-id">
+          ${av('ل', 'sci')}
+          <div class="grow">
+            <div class="h3" style="font-size:13.5px">مع الأستاذة لينا حدّاد</div>
+            <button class="link teacher-msg" data-go="tutor">${icon.chat(13)} مراسلة الأستاذة</button>
+          </div>
+        </div>
+        <div class="row" style="justify-content:space-between;margin:14px 0 6px">
+          <span class="meta">تقدّمك</span><span class="h3 num">٦١٪</span>
+        </div>
+        ${bar(61, '', 'thin')}
+      </div>
+
+      <div class="hero now-hero" data-go="lesson" ${an()}>
+        <span class="tag on-dark">كمّل من هون</span>
+        <div class="slot hero lesson-diagram">${art.physicsHero(118)}</div>
+        <div class="title">الحركة الدورانية</div>
+        <div class="facts">
+          <span>الدرس ٣ من ${COURSE_LESSON_COUNT}</span>
+          <span class="sep">•</span>
+          <span>١٢ دقيقة</span>
+        </div>
+        <div class="hero-cta"><span>متابعة</span>${icon.arrow(19)}</div>
+      </div>
+
+      <div ${an()}>
+        <div class="row" style="justify-content:space-between;align-items:baseline">
+          <div class="h2">رحلة الدروس</div>
+          <button class="link" style="color:var(--ink-3);font-size:11.5px">عرض كل الدروس</button>
+        </div>
+        <div class="card units">
+          ${COURSE_UNITS.map((u, i) => {
+            const open = unitOpen === i;
+            return `
+          <div class="unit">
+            <button class="unit-head ${open ? 'open' : ''}" data-unit="${i}">
+              <div class="grow">
+                <div class="h3" style="font-size:13.5px">${u.n}</div>
+                <div class="meta" style="margin-top:3px">${u.done} من ${u.total} مكتملة</div>
+              </div>
+              <span class="unit-chev ${open ? 'open' : ''}">${icon.chevron(16)}</span>
+            </button>
+            ${open ? `<div class="unit-lessons">
+              ${u.lessons.map(l => `
+              <button class="lsn ${l.s}" ${l.s !== 'lock' && l.s !== 'next' ? 'data-go="lesson"' : ''}>
+                <span class="tl-dot ${l.s === 'done' ? 'done' : l.s === 'now' ? 'now' : l.s === 'lock' ? 'lock' : ''}" style="position:static;inset:auto;flex:0 0 16px">
+                  ${l.s === 'done' ? `<span style="color:#fff">${icon.check(10)}</span>` : l.s === 'lock' ? `<span style="color:var(--ink-3)">${icon.lock(9)}</span>` : ''}
+                </span>
+                <span class="grow">
+                  <span class="lsn-title">${l.t}</span>
+                  ${l.s === 'now' ? '<span class="lsn-here">أنت هنا</span>' : ''}
+                </span>
+                <span class="lsn-mins num">${l.d}</span>
+              </button>`).join('')}
+            </div>` : ''}
+          </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`; }
+};
+
+/* ── 4 • LESSON — one idea at a time ────────────────────────────────── */
+const LESSON = [
+  { tag: 'مفهوم', title: 'الحركة الدورانية', line: 'الجسم يتحرك حول محور.' },
+  { tag: 'مثال', title: 'مثال', line: 'قرص يكمل دورة في ٤ ثوانٍ.' },
+  { tag: 'جرّب', title: 'جرّب', line: 'إذا زاد نصف القطر، ماذا يحدث لـ ω؟' },
+  { tag: 'سؤال سريع', title: 'سؤال سريع', line: 'إذا تضاعف الزمن لنفس الدورة، فإن ω…' },
+  { tag: 'انتهى', title: 'أحسنت', line: 'أنهيت خطوات الدرس.' },
+];
+let li = 0;
+screens.lesson = { chrome: 'none', label: 'الدرس', back: 'course',
+  notes: ['مسار واضح: مفهوم → مثال → جرّب → سؤال سريع → انتهى', 'خطوة واحدة ظاهرة فقط', '١ من ٥ + شريط مقاطع — أين أنا وما تبقّى'],
+  render() {
+    A = 0;
+    const step = LESSON[li];
+    const last = li === LESSON.length - 1;
+    const pane = [
+      `<div class="card" ${an()}>
+        <div class="slot tall sci lesson-diagram">${art.physicsHero(168, SCI, 'rgba(3,105,161,.32)')}</div>
+        <div style="padding:16px 16px 18px">
+          <span class="tag" style="background:var(--sci-container);color:var(--s-sci)">${step.tag}</span>
+          <div class="h1" style="margin:10px 0 6px">${step.title}</div>
+          <div class="body" style="font-size:15px;font-weight:700;color:var(--ink)">${step.line}</div>
+        </div>
+      </div>`,
+      `<div class="card" ${an()}>
+        <div class="slot tall sci lesson-diagram">${art.revolution(230, SCI, 'rgba(3,105,161,.22)')}</div>
+        <div style="padding:16px 16px 18px">
+          <span class="tag">${step.tag}</span>
+          <div class="body" style="margin:10px 0 12px;font-size:14px;font-weight:700;color:var(--ink)">${step.line}</div>
+          <div class="formula">ω = 2π / 4</div>
+        </div>
+      </div>`,
+      `<div class="card" style="padding:16px" ${an()}>
+        <span class="tag">${step.tag}</span>
+        <div class="slot sci soft" style="height:110px;margin:12px 0 12px">${art.physics(100, SCI, SCI_DIM)}</div>
+        <div class="h3" style="margin-bottom:12px">${step.line}</div>
+        <div class="try-grid" data-practice>
+          <button class="opt" data-correct="0"><span class="grow">تتغيّر</span></button>
+          <button class="opt" data-correct="1"><span class="grow">لا تتغيّر</span></button>
+        </div>
+      </div>`,
+      `<div class="card" style="padding:16px" ${an()}>
+        <span class="tag">${step.tag}</span>
+        <div class="slot sci soft" style="height:96px;margin:12px 0 12px">${art.physics(88, SCI, SCI_DIM)}</div>
+        <div class="h3" style="margin-bottom:12px">${step.line}</div>
+        <div class="col" style="gap:8px" data-practice>
+          <button class="opt" data-correct="0"><span class="key">أ</span><span class="grow">تتضاعف</span></button>
+          <button class="opt" data-correct="1"><span class="key">ب</span><span class="grow">تصبح النصف</span></button>
+          <button class="opt" data-correct="0"><span class="key">ج</span><span class="grow">لا تتغيّر</span></button>
+        </div>
+      </div>`,
+      `<div class="card" style="padding:28px 16px;text-align:center" ${an()}>
+        <div class="slot sci soft" style="height:110px;margin-bottom:14px">${art.physics(92, SCI, SCI_DIM)}</div>
+        <span class="tag ok">${icon.check(12)} ${step.tag}</span>
+        <div class="h1" style="margin-top:10px">${step.title}</div>
+        <div class="body" style="margin-top:6px;font-weight:700">${step.line}</div>
+      </div>`,
+    ][li];
+    return `
+  <div class="appbar solid lesson-top">
+    <button class="iconbtn" data-back>${icon.back()}</button>
+    <div class="grow" style="min-width:0">
+      <div class="h3 trunc" style="font-size:13.5px">الحركة الدورانية</div>
+      <div class="lesson-where num">${li + 1} من ${LESSON.length} · ${step.tag}</div>
+      <div class="stepbar" style="margin-top:6px">
+        ${LESSON.map((_, i) => `<i class="${i < li ? 'on' : i === li ? 'cur' : ''}"></i>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll"><div class="stackgap lesson-pane">${pane}</div></div>
+
+  <div class="composer">
+    <button class="btn btn-outline" style="width:auto;flex:0 0 auto" data-go="tutor">${icon.chat(18)}</button>
+    <button class="btn btn-primary grow" ${last ? 'data-go="quiz"' : 'data-lesson-next'}>${last ? 'اختبار الدرس' : 'التالي'} ${icon.arrow(17)}</button>
+  </div>`;
+  }
+};
+
+/* ── 5 • AI TUTOR ───────────────────────────────────────────────────── */
+screens.tutor = { chrome: 'none', label: 'المعلّم الذكي', back: 'lesson',
+  notes: ['السياق يبقى: المادة + الدرس الحالي', 'الإجابة: جملة → رسم → صيغة → إجراء سريع', 'لا فقرات شات بوت'],
+  render() { A = 0; return `
+  <div class="appbar solid">
+    <button class="iconbtn" data-back>${icon.back()}</button>
+    <div class="row grow" style="min-width:0;gap:9px">
+      <div class="avatar sci" style="position:relative">${icon.sparkle(17)}</div>
+      <div style="min-width:0">
+        <div class="h3 trunc" style="font-size:13.5px">المعلّم الذكي</div>
+        <div class="meta trunc">الفيزياء • الحركة الدورانية</div>
+      </div>
+    </div>
+    <span class="tag ai">سياق الدرس</span>
+  </div>
+
+  <div class="scroll" id="tutorScroll"><div class="stackgap" style="padding-top:14px;gap:11px" id="tutorThread">
+
+    <div class="bubble me" ${an()}>ليش ω ما تغيّرت لما زاد نصف القطر؟</div>
+
+    <div class="ai-card" ${an()}>
+      ${aiMark('ليش؟')}
+      <div style="padding:9px 14px 14px">
+        <div class="slot sci soft" style="height:120px;background:var(--ai-container);margin-bottom:12px">
+          ${art.physics(112, '#0E7490', 'rgba(14,116,144,.3)')}
+        </div>
+        <div class="h3" style="margin-bottom:10px">السرعة الزاوية لا تعتمد على نصف القطر.</div>
+        <div class="formula">ω = v / r</div>
+        <div class="quickchips" data-quick style="margin-top:12px">
+          <button class="qchip">اشرحها أبسط</button>
+          <button class="qchip">أعطني مثال</button>
+          <button class="qchip">اسألني سؤال</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-card warn" ${an()}>
+      <div class="ai-head"><span style="color:var(--danger)">${icon.x(16)}</span><span class="lbl" style="color:var(--danger)">تصحيح</span></div>
+      <div style="padding:9px 14px 14px">
+        <div class="body" style="line-height:2.1">
+          <span class="mark-wrong ltr">ω = v · r</span>
+          <span class="mark-right ltr">ω = v / r</span>
+        </div>
+      </div>
+    </div>
+
+  </div></div>
+
+  <div class="composer">
+    <div class="field">اسأل عن هذا الدرس…</div>
+    <button class="iconbtn" style="background:var(--ai);color:#fff;border-radius:12px">${icon.mic(19)}</button>
+  </div>`; }
+};
+
+/* ── 6 • QUIZ ───────────────────────────────────────────────────────── */
+const QUIZ = [
+  { q: 'ما وحدة السرعة الزاوية ω؟', art: () => art.physics(136, SCI, SCI_DIM), o: ['m/s', 'rad/s', 'N·m'], c: 1 },
+  { q: 'إذا كان Δ < 0 فإن للمعادلة التربيعية…', art: () => art.math(136, '#6366F1'), o: ['جذران حقيقيان', 'جذر واحد', 'لا جذور حقيقية'], c: 2 },
+  { q: 'في الشكل، ما قياس الزاوية المجهولة؟', art: () => art.geometry(200), o: ['٣٠°', '٤٥°', '٦٠°'], c: 1 },
+  { q: 'ω للقرص الذي يكمل دورة في ٢ ثانية؟', art: () => art.revolution(210, SCI, 'rgba(3,105,161,.22)'), o: ['π rad/s', '2π rad/s', 'π/2 rad/s'], c: 0 },
+];
+let qi = 0, qScore = 0;
+screens.quiz = { chrome: 'none', label: 'الاختبار', back: 'lesson',
+  notes: ['سؤال واحد + رسم + خيارات', 'صحيح: تأكيد أخضر قصير ثم التالي', 'خطأ: الخيار الصحيح + سبب بجملة ثم التالي'],
+  render() {
+    A = 0;
+    const Q = QUIZ[qi];
+    return `
+  <div class="appbar solid">
+    <button class="iconbtn" data-back>${icon.x(20)}</button>
+    <div class="grow">
+      <div class="row" style="justify-content:space-between;margin-bottom:5px">
+        <span class="meta num">سؤال ${qi + 1} من ${QUIZ.length}</span>
+        <span class="tag xp">${icon.bolt(11)} +٣٠ XP</span>
+      </div>
+      <div class="stepbar">${QUIZ.map((_, i) => `<i class="${i < qi ? 'on' : i === qi ? 'cur' : ''}"></i>`).join('')}</div>
+    </div>
+  </div>
+
+  <div class="scroll"><div class="stackgap" style="padding-top:16px">
+    <div class="card" ${an()}>
+      <div style="display:grid;place-items:center;background:var(--bg);padding:16px 0">${Q.art()}</div>
+      <div style="padding:14px"><div class="h2" style="line-height:1.55">${Q.q}</div></div>
+    </div>
+    <div class="col" style="gap:9px" data-quiz ${an()}>
+      ${Q.o.map((t, i) => `<button class="opt" data-i="${i}"><span class="key">${['أ', 'ب', 'ج'][i]}</span><span class="grow">${t}</span></button>`).join('')}
+    </div>
+    <div id="quizFeedback"></div>
+    <button class="link" data-go="tutor" style="align-self:center;margin-top:2px" ${an()}>
+      ${icon.sparkle(15)} محتاج تلميحاً؟ اسأل المعلّم الذكي
+    </button>
+  </div></div>`;
+  }
+};
+
+/* ── 7 • QUIZ RESULT ────────────────────────────────────────────────── */
+screens.result = { chrome: 'none', label: 'النتيجة', back: 'home',
+  notes: ['كيف أديت → أين ضعفت → ماذا بعد', 'نقطة ضعف واحدة + الموصى به', 'لا تحليلات إضافية'],
+  render() { A = 0; const pct = Math.round((qScore / QUIZ.length) * 100) || 75; return `
+  <div class="appbar solid">
+    <button class="iconbtn" data-go="home">${icon.x(20)}</button>
+    <div class="title">النتيجة</div>
+  </div>
+  <div class="scroll"><div class="stackgap" style="padding-top:18px">
+
+    <div class="card" style="padding:22px 14px;text-align:center;position:relative;overflow:hidden" ${an()}>
+      <div class="confetti">
+        ${[['18%', 'var(--primary)', 0], ['48%', 'var(--highlight)', .1], ['78%', 'var(--success)', .2]]
+          .map(([l, c, d]) => `<i style="inset-inline-start:${l};top:48px;background:${c};animation-delay:${d}s"></i>`).join('')}
+      </div>
+      <div style="font-size:42px;font-weight:800;letter-spacing:-.8px" class="num" data-count="${pct}" data-suffix="٪">${ea(pct)}٪</div>
+      <div class="row" style="justify-content:center;gap:8px;margin-top:12px">
+        <span class="tag ok">${icon.check(12)} ${qScore || 3} صحيحة</span>
+        <span class="tag warn">${icon.x(12)} ${QUIZ.length - (qScore || 3)} خطأ</span>
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px" ${an()}>
+      <div class="meta">أصعب نقطة</div>
+      <div class="row" style="gap:12px;margin-top:10px">
+        <div class="slot math soft" style="height:64px;width:64px;flex:0 0 64px">${art.math(52)}</div>
+        <div class="grow">
+          <div class="h2">المميّز</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-card tap" data-go="lesson" ${an()}>
+      ${aiMark('EduMind يقترح')}
+      <div class="course-act" style="padding:4px 14px 14px;margin:0;color:var(--ai)"><span>راجعها ١٠ دقائق</span>${icon.arrow(17)}</div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 8 • PLANNER ────────────────────────────────────────────────────── */
+screens.planner = { chrome: 'none', label: 'المخطط', back: 'home',
+  notes: ['السؤال: ماذا عندي اليوم؟', 'ملخص أسبوع مضغوط ثم خط اليوم', 'اقتراح ذكاء واحد فقط'],
+  render() { A = 0; return `
+  <div class="appbar solid">
+    <button class="iconbtn" data-back>${icon.back()}</button>
+    <div class="title">المخطط</div>
+    <button class="iconbtn">${icon.calendar(20)}</button>
+  </div>
+  <div class="scroll"><div class="stackgap" style="padding-top:14px">
+
+    <div ${an()}>
+      <div class="week-mini">
+        ${[['س', 60, 'ok'], ['ح', 90, 'ok'], ['ن', 40, 'ok'], ['ث', 75, 'today'], ['ر', 35, ''], ['خ', 20, ''], ['ج', 10, '']].map(([d, h, c], i) => `
+        <div class="col">
+          <div class="track">${vbar(h, '', `width:100%;border-radius:6px;background:${c === 'ok' ? 'var(--success)' : c === 'today' ? 'var(--primary)' : 'rgba(12,25,41,.14)'}`)}</div>
+          <span class="meta" style="font-weight:${i === 3 ? '800' : '600'};color:${i === 3 ? 'var(--primary-ink)' : 'var(--ink-3)'}">${d}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div ${an()}>
+      <div class="h2">اليوم</div>
+      <div class="tl drawn" style="margin-top:14px">
+        ${[
+          { t: '٤:٠٠', n: 'مراجعة الرياضيات', s: 'now' },
+          { t: '٦:٣٠', n: 'روتين الدراسة', s: '' },
+          { t: '٨:٠٠', n: 'واجب الفيزياء', s: '' },
+        ].map(b => `
+        <div class="tl-item">
+          <div class="tl-dot ${b.s === 'now' ? 'now' : ''}"></div>
+          <div class="row">
+            <div class="block-time num">${b.t}</div>
+            <div class="h3 grow">${b.n}</div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="soon" ${an()}>
+      <div class="today-mark">غداً</div>
+      <div class="meta" style="font-size:13px;font-weight:700;color:var(--ink-2)">اختبار الفيزياء</div>
+    </div>
+
+    <div class="ai-card" ${an()}>
+      ${aiMark('EduMind يقترح')}
+      <div style="padding:8px 14px 14px">
+        <div class="h3" style="line-height:1.55">انقل مراجعة الفيزياء إلى ٧:٠٠ لأن عندك اختبار غداً.</div>
+        <div class="row" style="gap:9px;margin-top:12px">
+          <button class="btn btn-ai grow btn-sm">تطبيق</button>
+          <button class="btn btn-ghost grow btn-sm">تجاهل</button>
+        </div>
+      </div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 9 • ROUTINE ────────────────────────────────────────────────────── */
+screens.routine = { tab: 'routine', chrome: 'tabs', label: 'روتيني',
+  notes: ['نفس الهيكل المعتمد — تلميع فقط', 'المهمة الحالية أوضح + نبضة واحدة', 'الزر دائماً: ابدأ / أكمل / تم'],
+  render() { A = 0; return `
+  <div class="appbar">
+    <div class="title">روتيني</div>
+    <span class="streakpill">${icon.flame(14)}<span class="num">٧</span></span>
+    <button class="iconbtn">${icon.settings(20)}</button>
+  </div>
+  <div class="scroll"><div class="stackgap">
+
+    <div class="card" style="padding:18px 14px" ${an()}>
+      <div class="row" style="gap:16px">
+        ${ring(75, 96, 10, 'ok', `<div><div style="font-size:22px;font-weight:800" class="num">٣/٤</div><div style="font-size:9px;color:var(--ink-3);font-weight:700">اليوم</div></div>`)}
+        <div class="grow">
+          <div class="h2">روتين قوي اليوم</div>
+          <div class="meta" style="margin-top:4px">بقيت مهمة واحدة</div>
+          <div class="weekdots" style="margin-top:12px">
+            ${['س', 'ح', 'ن', 'ث', 'ر', 'خ', 'ج'].map((d, i) => `<i class="${i < 4 ? 'on' : ''} ${i === 3 ? 'today' : ''}">${d}</i>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ${an()}>
+      <div class="sechead"><div class="h2">خط اليوم</div><button class="link" data-go="planner">المخطط ${icon.chevron(14)}</button></div>
+      <div class="card" style="margin-top:9px;padding:16px 14px 10px">
+        <div class="tl drawn">
+          ${[
+            { s: 'done', t: '٧:٣٠ ص', n: 'قراءة ١٠ دقائق', m: 'تم', k: 'lang' },
+            { s: 'done', t: '٩:٠٠ ص', n: 'مراجعة الرياضيات', m: 'تم', k: 'math' },
+            { s: 'miss', t: '١٢:٠٠ م', n: 'تمرين استماع', m: 'فائت', k: 'lang' },
+            { s: 'now', t: '٤:٠٠ م', n: 'مراجعة الفيزياء', m: 'الآن', k: 'physics' },
+          ].map(r => `
+          <div class="tl-item" style="padding-bottom:18px">
+            <div class="tl-dot ${r.s}">${r.s === 'done' ? `<span style="color:#fff">${icon.check(10)}</span>` : r.s === 'miss' ? `<span style="color:var(--danger)">${icon.x(9)}</span>` : ''}</div>
+            <div class="row ${r.s === 'now' ? 'now-once' : ''}" style="padding:${r.s === 'now' ? '10px 10px 10px 8px' : '0'};border-radius:14px">
+              ${thumb(r.k, 'thumb sm', 22)}
+              <div class="grow">
+                <div class="tl-time num">${r.t}</div>
+                <div class="tl-title" style="${r.s === 'miss' ? 'color:var(--ink-3)' : r.s === 'now' ? 'font-size:15px' : ''}">${r.n}</div>
+                <div class="meta" style="${r.s === 'miss' ? 'color:var(--danger)' : ''}">${r.m}</div>
+              </div>
+              ${r.s === 'now' ? `<button class="btn btn-primary btn-sm" data-go="lesson">أكمل</button>`
+                : r.s === 'done' ? `<span class="tag ok">تم</span>`
+                : r.s === 'miss' ? `<button class="btn btn-outline btn-sm">ابدأ</button>` : ''}
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2" ${an()}>
+      <div class="card" style="padding:13px">
+        <span style="color:var(--highlight)">${icon.flame(22)}</span>
+        <div class="kv" style="margin-top:8px"><b class="num">٧ أيام</b><span>أطول سلسلة: ١٤</span></div>
+      </div>
+      <div class="card" style="padding:13px">
+        <span style="color:var(--success)">${icon.trendUp(22)}</span>
+        <div class="kv" style="margin-top:8px"><b class="num">٨٦%</b><span>التزام هذا الشهر</span></div>
+      </div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 10 • LANGUAGE HOME ─────────────────────────────────────────────── */
+screens.language = { tab: 'language', chrome: 'tabs', label: 'اللغات',
+  notes: ['مهمة اليوم تسيطر على الشاشة', 'أربع اختصارات مهارات بلا تحليلات', 'الرحلة مضغوطة: A2 → B1 فقط'],
+  render() { A = 0; return `
+  <div class="appbar">
+    <div class="title">اللغات</div>
+    <span class="tag ltr" style="background:var(--lang-container);color:var(--s-lang)">B1</span>
+  </div>
+  <div class="scroll"><div class="stackgap">
+
+    <div class="hero now-hero" data-go="lesson" style="background:var(--s-lang)" ${an()}>
+      <span class="tag on-dark">اليوم بالإنجليزية</span>
+      <div class="slot hero">${art.cafe(132, '#fff', 'rgba(255,255,255,.4)')}</div>
+      <div class="title ltr" style="font-size:20px">Ordering at a café</div>
+      <div class="facts"><span>١٠ دقائق</span></div>
+      <div class="hero-cta" style="color:var(--s-lang)"><span>ابدأ المحادثة</span>${icon.arrow(19)}</div>
+    </div>
+
+    <div class="grid2" ${an()}>
+      ${[
+        { n: 'استماع', ic: `<div class="wave-live">${art.wave(72, 22)}</div>` },
+        { n: 'تحدّث', ic: icon.mic(22) },
+        { n: 'قراءة', ic: icon.book(22) },
+        { n: 'كتابة', ic: icon.pen(22) },
+      ].map(s => `
+      <div class="card tap skill-mini" data-go="lesson">
+        <span class="ic">${s.ic}</span>
+        <div class="h3">${s.n}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="card journey-mini" ${an()}>
+      <div class="journey-path">
+        <span class="journey-node done">A2</span>
+        <div class="grow">${bar(62, 'lang', 'thin')}</div>
+        <span class="journey-node">B1</span>
+      </div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 11 • PROJECTS ──────────────────────────────────────────────────── */
+screens.projects = { tab: 'projects', chrome: 'tabs', label: 'مشاريعي',
+  notes: ['المشروع الحالي يسيطر: غلاف شمسي + عنوان + تقدّم + المرحلة', 'المراحل رحلة بصرية ✓ ● ○', 'المشاريع الأخرى مضغوطة ولا تنافس'],
+  render() { A = 0; return `
+  <div class="appbar">
+    <div class="title">مشاريعي</div>
+  </div>
+  <div class="scroll"><div class="stackgap">
+
+    <div class="card" ${an()}>
+      <div class="slot tall sci">${art.solar(148, SCI, SCI_DIM)}</div>
+      <div style="padding:14px 14px 16px">
+        <div class="h1" style="font-size:19px">نموذج الطاقة الشمسية</div>
+        <div class="row" style="justify-content:space-between;margin:12px 0 6px">
+          <span class="meta">التقدّم</span><span class="h3 num">٥٥٪</span>
+        </div>
+        ${bar(55, '', 'thin')}
+        <div class="meta" style="margin-top:12px">المرحلة الحالية</div>
+        <div class="h3" style="margin-top:3px">بناء النموذج</div>
+      </div>
+    </div>
+
+    <div ${an()}>
+      <div class="h2">المراحل</div>
+      <div class="card" style="margin-top:9px;padding:15px 14px 8px">
+        <div class="tl drawn">
+          ${[
+            { s: 'done', t: 'البحث' },
+            { s: 'done', t: 'التصميم الأولي' },
+            { s: 'now', t: 'بناء النموذج' },
+            { s: 'next', t: 'التجربة' },
+            { s: 'next', t: 'التسليم النهائي' },
+          ].map(m => `
+          <div class="tl-item">
+            <div class="tl-dot ${m.s === 'done' ? 'done' : m.s === 'now' ? 'now' : ''}">${m.s === 'done' ? `<span style="color:#fff">${icon.check(10)}</span>` : ''}</div>
+            <div class="tl-title ${m.s === 'next' ? 'quiet' : ''}">${m.t}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div ${an()}>
+      <div class="meta" style="margin-bottom:6px">مشاريع أخرى</div>
+      <div class="card">
+        ${[['تقرير الخلية', 'bio'], ['عرض الاستدامة', 'lang']]
+          .map(([n, k]) => `
+        <button class="rowitem" style="padding:10px 14px">
+          ${thumb(k, 'thumb sm', 22)}
+          <div class="grow"><div class="h3" style="font-size:13px">${n}</div></div>
+        </button>`).join('')}
+      </div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 12 • ACHIEVEMENTS ──────────────────────────────────────────────── */
+screens.achievements = { chrome: 'none', label: 'الإنجازات', back: 'home',
+  notes: ['نفس التسلسل: مستوى + سلسلة + الشارة القادمة + المجموعة', 'الشارة القادمة أكبر وأوضح', 'بلا شرح طويل'],
+  render() { A = 0; return `
+  <div class="appbar solid">
+    <button class="iconbtn" data-back>${icon.back()}</button>
+    <div class="title">إنجازاتي</div>
+  </div>
+  <div class="scroll"><div class="stackgap" style="padding-top:16px">
+
+    <div class="card" style="padding:18px 14px" ${an()}>
+      <div class="row" style="gap:16px">
+        ${ring(68, 100, 10, 'xp', `<div><div style="font-size:24px;font-weight:800" class="num">٤</div><div style="font-size:9px;color:var(--ink-3);font-weight:700">المستوى</div></div>`)}
+        <div class="grow">
+          <div class="h2">المستوى ٤</div>
+          <div class="row" style="gap:8px;margin-top:8px">
+            <span class="streakpill">${icon.flame(13)}<span class="num">٧</span></span>
+          </div>
+          <div style="margin-top:12px">${bar(68, 'xp', 'thin')}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card next-badge" ${an()}>
+      <div class="meta">الشارة القادمة</div>
+      <div class="slot amber">${art.badge('target', 72)}</div>
+      <div class="h2">دقيق الهدف</div>
+      <div class="meta" style="margin:8px 0 10px">٦ من ١٠ اختبارات</div>
+      ${bar(60, 'xp', 'thin')}
+    </div>
+
+    <div ${an()}>
+      <div class="sechead"><div class="h2">مجموعتك</div><span class="meta num">٦ من ١٢</span></div>
+      <div class="grid3" style="margin-top:10px">
+        ${[['streak', 'سلسلة ٧', 0], ['shield', 'مواد منتظمة', 0], ['medal', 'أول ١٠٠%', 0],
+           ['crown', 'صدارة الصف', 0], ['target', 'دقيق الهدف', 1], ['medal', 'شهر كامل', 1]]
+          .map(([k, n, locked]) => `
+        <div class="badgetile ${locked ? 'locked' : ''}">
+          ${art.badge(k, 48)}
+          <div class="meta" style="text-align:center;font-weight:700;font-size:9.5px;line-height:1.4">${n}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div></div>`; }
+};
+
+/* ── 13 • ACCOUNT ───────────────────────────────────────────────────── */
+screens.account = { tab: 'account', chrome: 'tabs', label: 'حسابي',
+  notes: ['مركز تنقّل: أيقونة + عنوان + شيفرون', 'الهوية هادئة بلا لوحة إحصاءات', 'كل وجهات الطالب الموجودة في المنتج'],
+  render() { A = 0; return `
+  <div class="appbar">
+    <div class="title">حسابي</div>
+  </div>
+  <div class="scroll"><div class="stackgap">
+
+    <div class="card id-head" ${an()}>
+      ${av('ر', 'lg')}
+      <div class="h1" style="font-size:20px">${S.student.full}</div>
+      <div class="meta" style="margin-top:4px">${S.student.grade}</div>
+    </div>
+
+    <div class="card" ${an()}>
+      ${[
+        [icon.target(19), 'التفضيلات التعليمية', ''],
+        [icon.medal(19), 'الإنجازات', 'achievements'],
+        [icon.crown(19), 'الاشتراكات', ''],
+      ].map(([ic, t, go]) => `
+      <button class="rowitem"${go ? ` data-go="${go}"` : ''}>
+        <span class="thumb sm" style="background:var(--neutral-100);color:var(--ink-2)">${ic}</span>
+        <div class="grow"><div class="h3" style="font-size:13.5px">${t}</div></div>
+        <span style="color:var(--ink-3)">${icon.chevron(17)}</span>
+      </button>`).join('')}
+    </div>
+
+    <div class="card" ${an()}>
+      ${[
+        [icon.lang(19), 'اللغة', 'العربية'],
+        [icon.moon(19), 'المظهر', 'تلقائي'],
+        [icon.bell(19), 'الإشعارات', ''],
+      ].map(([ic, t, s]) => `
+      <button class="rowitem">
+        <span class="thumb sm" style="background:var(--neutral-100);color:var(--ink-2)">${ic}</span>
+        <div class="grow"><div class="h3" style="font-size:13.5px">${t}</div>${s ? `<div class="meta">${s}</div>` : ''}</div>
+        <span style="color:var(--ink-3)">${icon.chevron(17)}</span>
+      </button>`).join('')}
+    </div>
+
+    <div class="card" ${an()}>
+      ${[
+        [icon.users(19), 'ربط ولي الأمر', 'مربوط'],
+        [icon.shield(19), 'الخصوصية والأمان', ''],
+      ].map(([ic, t, s]) => `
+      <button class="rowitem">
+        <span class="thumb sm" style="background:var(--neutral-100);color:var(--ink-2)">${ic}</span>
+        <div class="grow"><div class="h3" style="font-size:13.5px">${t}</div>${s ? `<div class="meta">${s}</div>` : ''}</div>
+        <span style="color:var(--ink-3)">${icon.chevron(17)}</span>
+      </button>`).join('')}
+    </div>
+
+    <button class="btn btn-ghost" style="color:var(--danger)" ${an()}>${icon.logout(18)} تسجيل الخروج</button>
+  </div></div>`; }
+};
+
+/* ── DRAWER (visual polish only — structure unchanged) ───────────────── */
+const drawerHTML = () => `
+  <div class="scrim" data-close></div>
+  <div class="drawer">
+    <div style="padding:18px 16px 14px;border-bottom:1px solid var(--border)">
+      <div class="row" style="gap:11px">
+        ${av('ر', 'lg')}
+        <div class="grow"><div class="h3">${S.student.full}</div><div class="meta">${S.student.grade}</div></div>
+      </div>
+      <div class="row" style="gap:6px;margin-top:12px">
+        <span class="tag" style="background:var(--primary-container);color:var(--primary-ink)">المستوى ٤</span>
+        <span class="tag xp">${icon.bolt(11)} ٣٤٠ XP</span>
+      </div>
+    </div>
+    <div class="scroll" style="position:relative;flex:1">
+      ${[[icon.home(19), 'الرئيسية', 'home'], [icon.courses(19), 'موادي', 'courses'], [icon.calendar(19), 'المخطط', 'planner'],
+         [icon.medal(19), 'إنجازاتي', 'achievements'], [icon.chat(19), 'المعلّم الذكي', 'tutor'], [icon.file(19), 'شهاداتي', 'account'],
+         [icon.settings(19), 'الإعدادات', 'account']]
+        .map(([ic, t, go]) => `
+      <button class="rowitem" data-go="${go}" data-close>
+        <span style="color:var(--ink-2)">${ic}</span>
+        <div class="grow"><div class="h3" style="font-size:13.5px">${t}</div></div>
+      </button>`).join('')}
+    </div>
+    <div style="padding:14px 16px 20px;border-top:1px solid var(--border)">
+      <button class="btn btn-ghost btn-sm" style="width:100%;color:var(--danger)">${icon.logout(17)} تسجيل الخروج</button>
+    </div>
+  </div>`;
+
+/* ═══════════════════════════════════════════════════════════════════════
+   5. NAVIGATION + MOTION RUNTIME
+   ═══════════════════════════════════════════════════════════════════════ */
+const TABS = [
+  { id: 'home', label: 'الرئيسية', ic: icon.home },
+  { id: 'routine', label: 'روتيني', ic: icon.routine },
+  { id: 'language', label: 'اللغات', ic: icon.lang },
+  { id: 'projects', label: 'مشاريعي', ic: icon.projects },
+  { id: 'courses', label: 'موادي', ic: icon.courses },
+  { id: 'account', label: 'حسابي', ic: icon.account },
+];
+const ORDER = ['home', 'courses', 'course', 'lesson', 'tutor', 'quiz', 'result', 'planner', 'routine', 'language', 'projects', 'achievements', 'account'];
+
+const viewport = document.getElementById('viewport');
+const tabbar = document.getElementById('tabbar');
+const railChips = document.getElementById('railChips');
+const notesRail = document.getElementById('notesRail');
+let current = 'home';
+
+/* rail */
+railChips.innerHTML = ORDER.map((id, i) =>
+  `<button class="chip" data-go="${id}" data-chip="${id}"><span class="num">${String(i + 1).padStart(2, '0')}</span>${screens[id].label}</button>`).join('');
+
+/* tab bar */
+tabbar.innerHTML = TABS.map(t => `
+  <button class="tab" data-go="${t.id}" data-tab="${t.id}">
+    <span class="tabdot"></span>${t.ic(21)}<span>${t.label}</span>
+  </button>`).join('');
+
+/* eastern-arabic numerals for count-up */
+const ea = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+
+/* Arabic-Indic digits everywhere in the Arabic UI; LTR islands (formulas, English
+   labels) opt out with .ltr so ω = 2π/4 stays readable. */
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const GREEK = /[ωθπΔμαβλ°]/;
+function arabize(root) {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => {
+    const p = n.parentElement;
+    if (!p || p.closest('.formula, .ltr, [data-ltr]') || p.namespaceURI !== 'http://www.w3.org/1999/xhtml') return;
+    if (/[0-9%]/.test(n.nodeValue))
+      n.nodeValue = n.nodeValue.replace(/[0-9]/g, d => AR_DIGITS[+d]).replace(/%/g, '٪');
+    /* Cairo covers neither Greek nor a well-shaped bullet — isolate both on a Latin face. */
+    if (GREEK.test(n.nodeValue) || n.nodeValue.includes('•')) {
+      const frag = document.createDocumentFragment();
+      n.nodeValue.split(/([ωθπΔμαβλ°]+|•)/).forEach(part => {
+        if (!part) return;
+        if (GREEK.test(part) || part === '•') {
+          const s = document.createElement('span');
+          s.className = part === '•' ? 'sep' : 'gk';
+          s.textContent = part;
+          frag.appendChild(s);
+        } else frag.appendChild(document.createTextNode(part));
+      });
+      p.replaceChild(frag, n);
+    }
+  });
+}
+
+function runMotion(root) {
+  arabize(root);
+  requestAnimationFrame(() => {
+    root.classList.add('in');
+    /* counters */
+    root.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count, sfx = el.dataset.suffix || '', t0 = performance.now(), dur = 1000;
+      const step = t => {
+        const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = ea(Math.round(target * e)) + sfx;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      setTimeout(() => requestAnimationFrame(step), 300);
+      setTimeout(() => (el.textContent = ea(target) + sfx), 1500);
+    });
+  });
+}
+
+function go(id, mode) {
+  if (!screens[id]) return;
+  if (id === 'quiz' && current !== 'quiz') { qi = 0; qScore = 0; }
+  if (id === 'lesson' && current !== 'lesson') {
+    const stepQ = +new URLSearchParams(location.search).get('step');
+    li = stepQ >= 1 && stepQ <= LESSON.length ? stepQ - 1 : 0;
+  }
+  if (id === 'course' && current !== 'course') {
+    const u = new URLSearchParams(location.search).get('unit');
+    unitOpen = u === null || u === '' ? 0 : Math.max(0, Math.min(COURSE_UNITS.length - 1, +u));
+  }
+  const def = screens[id];
+  const isTab = !!def.tab;
+  const el = document.createElement('div');
+  el.className = 'screen ' + (mode === 'tab' || isTab ? 'tab-in' : 'push-in');
+  el.innerHTML = def.render();
+  const old = viewport.querySelector('.screen');
+  viewport.appendChild(el);
+  if (old) setTimeout(() => old.remove(), 340);
+  current = id;
+
+  tabbar.style.display = def.chrome === 'tabs' ? 'flex' : 'none';
+  tabbar.querySelectorAll('.tab').forEach(t =>
+    t.dataset.tab === def.tab ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
+  railChips.querySelectorAll('.chip').forEach(c =>
+    c.dataset.chip === id ? c.setAttribute('aria-current', 'true') : c.removeAttribute('aria-current'));
+
+  notesRail.innerHTML = `<h2>قرارات التصميم — ${def.label}</h2>
+    <div class="legend" style="border:0;padding:0;margin:0">
+      ${def.notes.map(n => `<div style="display:flex;gap:7px;margin-bottom:9px"><span style="color:var(--primary-ink);flex:0 0 auto">${icon.check(14)}</span><span>${n}</span></div>`).join('')}
+    </div>`;
+
+  runMotion(el);
+}
+
+/* delegated interaction */
+document.getElementById('phone').addEventListener('click', e => {
+  const overlay = e.target.closest('[data-close]');
+  const openBtn = e.target.closest('[data-open]');
+  const backBtn = e.target.closest('[data-back]');
+  const goBtn = e.target.closest('[data-go]');
+
+  if (openBtn) {
+    const w = document.createElement('div');
+    w.innerHTML = drawerHTML();
+    w.id = 'overlayWrap';
+    viewport.appendChild(w);
+    arabize(w);
+    return;
+  }
+  if (overlay) {
+    const w = document.getElementById('overlayWrap');
+    if (w) w.remove();
+    if (!goBtn) return;
+  }
+  const unitBtn = e.target.closest('[data-unit]');
+  if (unitBtn) {
+    const i = +unitBtn.dataset.unit;
+    unitOpen = unitOpen === i ? -1 : i;
+    go('course', 'tab');
+    return;
+  }
+
+  if (backBtn) { go(screens[current].back || 'home'); return; }
+
+  /* quiz answering */
+  const opt = e.target.closest('[data-quiz] .opt');
+  if (opt && !opt.closest('[data-quiz]').dataset.done) {
+    const wrap = opt.closest('[data-quiz]');
+    wrap.dataset.done = '1';
+    const Q = QUIZ[qi], picked = +opt.dataset.i, right = picked === Q.c;
+    if (right) qScore++;
+    wrap.querySelectorAll('.opt').forEach(o => {
+      const i = +o.dataset.i;
+      if (i === Q.c) o.classList.add('right');
+      else if (i === picked) o.classList.add('wrong');
+      else o.classList.add('muted');
+    });
+    const why = ['الوحدة rad/s', 'Δ سالب = لا جذور حقيقية', 'الزاوية ٤٥°', 'دورة / ٢ ث = π'][qi];
+    const fb = document.getElementById('quizFeedback');
+    fb.innerHTML = `
+      <div class="card reveal ${right ? 'fb-ok' : 'fb-bad'}" style="padding:14px;${right ? '' : 'border-inline-start:3px solid var(--danger)'}">
+        <div class="row" style="gap:8px">
+          <span style="color:var(--${right ? 'success' : 'danger'})">${right ? icon.check(18) : icon.x(18)}</span>
+          <span class="h3" style="color:var(--${right ? 'success' : 'danger'})">${right ? 'صحيح' : 'الإجابة الصحيحة مظلّلة'}</span>
+        </div>
+        ${right ? '' : `<div class="fb-line">${why}</div>`}
+        <button class="btn btn-primary" style="margin-top:12px" data-next>التالي ${icon.arrow(16)}</button>
+      </div>`;
+    arabize(fb);
+    fb.classList.add('in');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    return;
+  }
+  if (e.target.closest('[data-next]')) {
+    if (qi + 1 < QUIZ.length) { qi++; go('quiz', 'tab'); } else go('result');
+    return;
+  }
+
+  /* inline lesson practice */
+  const pOpt = e.target.closest('[data-practice] .opt');
+  if (pOpt && !pOpt.closest('[data-practice]').dataset.done) {
+    const wrap = pOpt.closest('[data-practice]');
+    wrap.dataset.done = '1';
+    wrap.querySelectorAll('.opt').forEach(o =>
+      o.classList.add(o.dataset.correct === '1' ? 'right' : o === pOpt ? 'wrong' : 'muted'));
+    const note = document.createElement('div');
+    note.className = 'card reveal fb-ok';
+    note.style.marginTop = '11px';
+    note.innerHTML = `<div class="fb-line">${li === 2 ? 'ω لا تعتمد على نصف القطر.' : 'الزمن ×٢ ⇒ ω ÷٢'}</div>`;
+    arabize(note);
+    wrap.after(note);
+    return;
+  }
+
+  if (e.target.closest('[data-lesson-next]')) {
+    if (li + 1 < LESSON.length) { li++; go('lesson', 'tab'); }
+    else go('quiz');
+    return;
+  }
+
+  /* tutor quick chips */
+  const q = e.target.closest('[data-quick] .qchip');
+  if (q && !q.dataset.go) {
+    const thread = document.getElementById('tutorThread');
+    const me = document.createElement('div');
+    me.className = 'bubble me reveal';
+    me.textContent = q.textContent;
+    thread.appendChild(me);
+    const ans = document.createElement('div');
+    ans.className = 'ai-card reveal';
+    ans.innerHTML = `${aiMark('أبسط')}
+      <div style="padding:9px 14px 14px">
+        <div class="slot sci soft" style="height:100px;background:var(--ai-container);margin-bottom:10px">
+          ${art.physics(96, '#0E7490', 'rgba(14,116,144,.3)')}
+        </div>
+        <div class="h3">نفس الدوران. مسافة أكبر للنقطة الأبعد.</div>
+        <div class="formula" style="margin-top:10px">v = ω · r</div>
+      </div>`;
+    thread.appendChild(ans);
+    arabize(ans);
+    document.getElementById('tutorScroll').scrollTo({ top: 9999, behavior: 'smooth' });
+    return;
+  }
+
+  if (goBtn) go(goBtn.dataset.go, screens[goBtn.dataset.go]?.tab ? 'tab' : 'push');
+});
+
+/* rail navigation */
+railChips.addEventListener('click', e => {
+  const b = e.target.closest('[data-go]');
+  if (b) go(b.dataset.go, 'tab');
+});
+
+/* keyboard: back + replay motion */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') go(screens[current].back || 'home');
+  if (e.key.toLowerCase() === 'r') go(current, 'tab');
+});
+
+/* deep link for static export: index.html?full#lesson */
+if (location.search.includes('full')) document.getElementById('phone').classList.add('fullmode');
+if (location.search.includes('bare')) document.body.classList.add('bare');
+const initial = location.hash.replace('#', '');
+go(screens[initial] ? initial : 'home', 'tab');
+</script>
+</body>
+</html>

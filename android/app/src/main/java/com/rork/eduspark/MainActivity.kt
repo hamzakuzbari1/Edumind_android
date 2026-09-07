@@ -29,6 +29,16 @@ class MainActivity : AppCompatActivity() {
         val splash = installSplashScreen()
         var keepSplash = true
         splash.setKeepOnScreenCondition { keepSplash }
+        splash.setOnExitAnimationListener { splashScreenView ->
+            splashScreenView.view
+                .animate()
+                .alpha(0f)
+                .scaleX(0.92f)
+                .scaleY(0.92f)
+                .setDuration(220L)
+                .withEndAction { splashScreenView.remove() }
+                .start()
+        }
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,12 +52,17 @@ class MainActivity : AppCompatActivity() {
                 themeMode = state.themeMode,
                 numeralSystem = state.numeralSystem,
                 reduceMotionOverride = state.reduceMotion,
+                textSizePreference = state.textSizePreference,
             ) {
                 AppNavigation(
                     themeMode = state.themeMode,
                     onThemeModeChange = shellViewModel::setThemeMode,
                     numeralSystem = state.numeralSystem,
                     onNumeralSystemChange = shellViewModel::setNumeralSystem,
+                    useHijriDates = state.useHijriDates,
+                    onUseHijriDatesChange = shellViewModel::setUseHijriDates,
+                    textSizePreference = state.textSizePreference,
+                    onTextSizePreferenceChange = shellViewModel::setTextSizePreference,
                     locale = state.locale,
                     onSelectLocale = shellViewModel::setLocale,
                     isOffline = !state.isOnline,

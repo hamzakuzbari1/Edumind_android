@@ -233,6 +233,11 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(Spacing.md))
 
             TermsRow(
+                // Student and Parent affirm the 13+ age line the PDF specifies; Teacher's
+                // checkbox stays the plain terms sentence — nothing to affirm about a minor.
+                label = stringResource(
+                    if (role == UserRole.Teacher) R.string.reg_terms else R.string.reg_terms_with_age
+                ),
                 accepted = state.acceptedTerms,
                 onAcceptedChange = viewModel::onAcceptTermsChange,
             )
@@ -297,7 +302,7 @@ private fun presentationOf(role: UserRole): RolePresentation = when (role) {
 }
 
 /** A teaching-intent option: a stable id for storage, a translated label for the screen. */
-private data class IntentOption(val id: String, @param:StringRes val labelRes: Int)
+data class IntentOption(val id: String, @param:StringRes val labelRes: Int)
 
 /**
  * Subjects and grades offered on A-07.
@@ -305,10 +310,12 @@ private data class IntentOption(val id: String, @param:StringRes val labelRes: I
  * A fixed local list, not a fetched catalogue. The authoritative catalogue lives behind the
  * platform's catalog routes, which need a session — and registration happens before there
  * is one. Rather than invent a public endpoint, the screen offers the Syrian secondary
- * curriculum's own vocabulary and lets TC-01 reconcile it against the real catalogue once
- * the teacher is signed in.
+ * curriculum's own vocabulary — the exact same [TeacherSubjectOptions] TC-01's own Subjects &
+ * Grades step reuses verbatim once the teacher is signed in (see
+ * [com.rork.eduspark.ui.screens.teacher.TeacherSetupViewModel]'s own doc comment), so there is
+ * only ever one subject-id vocabulary, never a second one to reconcile against.
  */
-private val TeacherSubjectOptions = listOf(
+val TeacherSubjectOptions = listOf(
     IntentOption("math", R.string.a07_subject_math),
     IntentOption("physics", R.string.a07_subject_physics),
     IntentOption("chemistry", R.string.a07_subject_chemistry),
@@ -319,7 +326,8 @@ private val TeacherSubjectOptions = listOf(
     IntentOption("philosophy", R.string.a07_subject_philosophy),
 )
 
-private val TeacherGradeOptions = listOf(
+/** Grade ids match the string form [com.rork.eduspark.ui.screens.teacher.mapRegistrationGradeId] converts to [com.rork.eduspark.data.model.Grade] for TC-01's own typed representation. */
+val TeacherGradeOptions = listOf(
     IntentOption("grade_10", R.string.a07_grade_10),
     IntentOption("grade_11", R.string.a07_grade_11),
     IntentOption("grade_12", R.string.a07_grade_12),
@@ -375,12 +383,11 @@ private fun ChipSection(
  */
 @Composable
 private fun TermsRow(
+    label: String,
     accepted: Boolean,
     onAcceptedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val label = stringResource(R.string.reg_terms)
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Spacing.xxs),

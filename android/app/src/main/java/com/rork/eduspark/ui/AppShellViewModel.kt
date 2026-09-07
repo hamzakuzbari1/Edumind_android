@@ -7,6 +7,7 @@ import com.rork.eduspark.core.locale.AppLocale
 import com.rork.eduspark.core.locale.LocaleController
 import com.rork.eduspark.core.preferences.AppPreferences
 import com.rork.eduspark.core.preferences.NumeralSystem
+import com.rork.eduspark.core.preferences.TextSizePreference
 import com.rork.eduspark.core.preferences.ThemeMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +33,9 @@ data class AppShellState(
     /** False until the user has passed the A-01 language gate. */
     val hasChosenLocale: Boolean = false,
     val hasSeenValueCarousel: Boolean = false,
+    /** ST-25. Toggle-only — no calendar backend, just which calendar existing date labels prefer. */
+    val useHijriDates: Boolean = false,
+    val textSizePreference: TextSizePreference = TextSizePreference.Default,
 )
 
 class AppShellViewModel(
@@ -75,6 +79,15 @@ class AppShellViewModel(
                 _state.update { it.copy(isOnline = online) }
             }
         }
+
+        // ST-25 — independent collectors rather than folding into the combine() above, so the
+        // four already-established fields keep their exact existing update shape untouched.
+        viewModelScope.launch {
+            preferences.useHijriDates.collect { enabled -> _state.update { it.copy(useHijriDates = enabled) } }
+        }
+        viewModelScope.launch {
+            preferences.textSizePreference.collect { preference -> _state.update { it.copy(textSizePreference = preference) } }
+        }
     }
 
     fun setThemeMode(mode: ThemeMode) {
@@ -100,6 +113,14 @@ class AppShellViewModel(
 
     fun markValueCarouselSeen() {
         viewModelScope.launch { preferences.setHasSeenValueCarousel(true) }
+    }
+
+    fun setUseHijriDates(enabled: Boolean) {
+        viewModelScope.launch { preferences.setUseHijriDates(enabled) }
+    }
+
+    fun setTextSizePreference(preference: TextSizePreference) {
+        viewModelScope.launch { preferences.setTextSizePreference(preference) }
     }
 
     private data class Quad<A, B, C, D>(

@@ -30,7 +30,7 @@ fun Modifier.eduClickable(
     onClick: () -> Unit,
 ): Modifier {
     val interactionSource = remember { MutableInteractionSource() }
-    val indication = ripple(color = EduTheme.colors.zaytoun)
+    val indication = ripple(color = EduTheme.colors.primary)
     return this
         .sizeIn(minWidth = Sizing.touchTarget, minHeight = Sizing.touchTarget)
         .clickable(

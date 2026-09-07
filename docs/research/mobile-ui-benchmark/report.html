@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>EduMind Global Mobile UI Benchmark</title>
+<style>
+  @page { size: A4; margin: 11mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; color: #111827;
+    font-family: "Segoe UI", Inter, system-ui, sans-serif; font-size: 11.5px; line-height: 1.45; }
+  h1,h2,h3,h4 { margin: 0 0 8px; line-height: 1.2; }
+  h1 { font-size: 28px; letter-spacing: -.03em; }
+  h2 { font-size: 18px; color: #312e81; }
+  h3 { font-size: 13.5px; color: #1e1b4b; }
+  p { margin: 0 0 8px; }
+  .muted { color: #6b7280; }
+  .tiny { font-size: 9px; color: #6b7280; }
+  .page { page-break-after: always; padding: 2mm 0 6mm; }
+  .page:last-child { page-break-after: auto; }
+  .kicker { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #6366f1; font-weight: 700; margin-bottom: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+  .shot { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
+  .shot img { width: 100%; display: block; background: #eef2ff; }
+  .shot .cap { padding: 7px 8px 8px; }
+  .badge { display: inline-block; font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: #eef2ff; color: #4338ca; }
+  .badge.sec { background: #ecfeff; color: #0e7490; }
+  .call { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; }
+  .n { display: inline-flex; width: 16px; height: 16px; border-radius: 50%; background: #4f46e5; color: #fff;
+    font-size: 9px; font-weight: 800; align-items: center; justify-content: center; margin-right: 5px; }
+  ul { margin: 4px 0 8px 16px; padding: 0; }
+  li { margin: 0 0 3px; }
+  table { width: 100%; border-collapse: collapse; font-size: 10px; }
+  th, td { border: 1px solid #e5e7eb; padding: 5px 6px; text-align: left; vertical-align: top; }
+  th { background: #312e81; color: #fff; font-weight: 700; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .s { color: #15803d; font-weight: 800; }
+  .m { color: #b45309; font-weight: 800; }
+  .w { color: #b91c1c; font-weight: 800; }
+  .na { color: #9ca3af; }
+  .cover { background: linear-gradient(160deg, #1e1b4b 0%, #4338ca 55%, #06b6d4 140%);
+    color: #fff; border-radius: 16px; padding: 28px 26px 24px; min-height: 250mm; }
+  .cover h1 { color: #fff; font-size: 34px; margin-top: 18px; }
+  .cover .meta { margin-top: 28px; font-size: 12px; opacity: .9; }
+  .pill { display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
+    padding: 5px 10px; border-radius: 999px; margin: 0 6px 6px 0; font-size: 11px; }
+  .phone { width: 210px; margin: 0 auto; background: #f4f6fa; border: 8px solid #111827; border-radius: 28px;
+    overflow: hidden; min-height: 420px; }
+  .ph-top { background: #fff; padding: 10px 12px 8px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
+  .ph-body { padding: 10px; }
+  .card { background: #fff; border-radius: 14px; padding: 10px; margin-bottom: 8px; border: 1px solid #e5e7eb; }
+  .mission { border: 1.5px solid #4f46e5; }
+  .ai { border: 1.5px solid #06b6d4; background: #ecfeff; }
+  .amber { color: #b45309; }
+  .cyan { color: #0e7490; }
+  .indigo { color: #4338ca; }
+  .green { color: #15803d; }
+  .bar { height: 7px; background: #e5e7eb; border-radius: 99px; overflow: hidden; margin-top: 6px; }
+  .bar i { display: block; height: 100%; width: 62%; background: #4f46e5; }
+  .nav { display: flex; justify-content: space-between; background: #fff; border-top: 1px solid #e5e7eb; padding: 8px 10px; font-size: 8px; color: #6b7280; }
+  .nav b { color: #4f46e5; }
+  .avoid { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 10px; }
+  .borrow { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px; }
+  .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 10px; font-size: 10.5px; }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="cover">
+    <div class="kicker" style="color:#c7d2fe">Research · Design benchmarking · Mobile only</div>
+    <div style="font-size:13px;opacity:.85;margin-top:48px">EDUMIND PRODUCT DESIGN</div>
+    <h1>Global Mobile UI Benchmark</h1>
+    <p style="font-size:16px;max-width:520px;opacity:.95">How Khan Academy, Coursera, Duolingo, and Upwork answer “what should I do now?” — and what EduMind Student Home should learn without copying their look.</p>
+    <div style="margin-top:18px">
+      <span class="pill">Khan Academy v8.5.1</span>
+      <span class="pill">Coursera v8.18.1</span>
+      <span class="pill">Duolingo v7.138.0</span>
+      <span class="pill">Upwork v2.12.0</span>
+    </div>
+    <div class="meta">
+      Visual research report · 5 Sep 2026<br>
+      Screenshots from official App Store listings and official product blogs.<br>
+      Do not implement from this file. Android source was not modified.
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">02 · Executive summary</div>
+  <h2>What the four Homes actually do</h2>
+  <p>EduMind Home must answer four questions: what to do now, what needs attention, what is happening today/this week, and how I am progressing. None of the four apps solve all four. Each is strong at one job.</p>
+  <div class="grid2">
+    <div class="call"><h3>Khan Academy</h3><p>Calm catalog + mastery. Next action appears <b>inside a course</b> (Mastery Challenge), not as a student-day dashboard. Hierarchy is excellent. Habit, planner, and AI chat are weak or missing on mobile.</p></div>
+    <div class="call"><h3>Coursera</h3><p>Best <b>Continue Learning</b> card: course, module, percent, duration, Play. Home/Learn is still a course list. Discovery and certificates dominate store creative. EduMind must not copy this as Student Home.</p></div>
+    <div class="call"><h3>Duolingo</h3><p>Best <b>next action in the world</b>: one START node on a path. Streak, XP, and leagues create habit. Aesthetic is cartoon. Borrow the principle, not the owl.</p></div>
+    <div class="call"><h3>Upwork</h3><p>Professional density, scanning, messaging, and a named AI (Uma) with a single insert CTA. Not a learning Home — use it for cards, nav, and AI semantics.</p></div>
+  </div>
+  <div class="note" style="margin-top:10px"><b>Limitation:</b> App Store creatives often frame production UI inside marketing art (angled phone, slogan). They are still official store screenshots of current iOS listings (accessed 5 Sep 2026). Duolingo path Home is documented with official blog UI from 2022 (path launch) and Feb 2026 (core tabs refresh).</div>
+</section>
+
+<section class="page">
+  <div class="kicker">03 · Khan Academy</div>
+  <h2>Browse hierarchy — calm education, not a dashboard</h2>
+  <p>Khan’s top-level mobile job is <b>find a subject</b>. Search + Filter + a chevron list. “Surprise me!” is the only playful CTA. This is catalog UX. EduMind should keep this pattern in <b>موادي</b>, not on الرئيسية.</p>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/khan-academy/02.png" alt="Khan Browse"/>
+      <div class="cap"><span class="badge">Official App Store</span>
+        <div><b>Browse / Search</b> · iOS listing v8.5.1 · 13 Aug 2026</div>
+        <div class="tiny">Source: apps.apple.com/us/app/khan-academy/id469863705</div>
+      </div>
+    </div>
+    <div>
+      <p><span class="n">1</span><b>Search first.</b> Discovery is a tool, not a feed.</p>
+      <p><span class="n">2</span><b>One-column list.</b> Math → Science → Economics. Icons are optional; chevrons do the work.</p>
+      <p><span class="n">3</span><b>Whitespace is the brand.</b> Few colors, lots of air. Feels like a textbook, not a marketplace.</p>
+      <p><span class="n">4</span><b>Missing for EduMind:</b> greeting, today, streak, tutor, messages. Khan Home is not a student OS.</p>
+      <div class="borrow"><b>Borrow:</b> subject list density and quiet type for موادي and lesson trees.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">04 · Khan Academy</div>
+  <h2>The closest Khan gets to “what now?”</h2>
+  <p>Inside 5th grade Math, Khan puts a <b>Mastery Challenge</b> card above the unit list. That is their next-mission pattern. Progress is mastery points, not a streak flame.</p>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/khan-academy/03.png" alt="Khan progress"/>
+      <div class="cap"><span class="badge">Official App Store</span>
+        <div><b>Course progress + Mastery Challenge</b> · marketing frame around production UI</div>
+        <div class="tiny">itunes.apple.com lookup id 469863705 · accessed 5 Sep 2026</div>
+      </div>
+    </div>
+    <div>
+      <p><span class="n">1</span><b>Context bar:</b> Math · 5th grade. Always know where you are.</p>
+      <p><span class="n">2</span><b>Mastery Points 17%.</b> Quantitative progress at course level.</p>
+      <p><span class="n">3</span><b>Get started</b> is the only primary button. One next action.</p>
+      <p><span class="n">4</span><b>Unit → lesson list</b> under the CTA. Hierarchy Course → Unit → Lesson.</p>
+      <p><span class="n">5</span><b>Bottom nav:</b> Home · Explore · Bookmarks. Three destinations. Simple.</p>
+      <div class="note">Khanmigo chat is <b>not</b> in the Khan Academy app. Official Help: Activities only in-app v8.0+; full tutor is mobile web. Do not cite a Khanmigo chat screenshot as native app UI.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">05–06 · Khan Academy · lesson</div>
+  <h2>Lesson: one problem, then Up next</h2>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/khan-academy/04.png" alt="Khan exercise"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Exercise</b> — one question, Check disabled until pick, hint FAB.</div>
+    </div>
+    <div class="shot">
+      <img src="images/khan-academy/05.png" alt="Khan video"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Video lesson</b> — player + Bookmark/Share/Transcript + Up next playlist.</div>
+    </div>
+  </div>
+  <p style="margin-top:8px"><b>UX takeaway:</b> Decision fatigue is killed by showing one problem. Sequence is shown as “Up next”, not as a catalog. EduMind lessons should feel this calm. Keep AI as a cyan assist, not a second lesson type competing on the same row.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">07 · Coursera</div>
+  <h2>Store Home is a career marketplace. Learn is a course list.</h2>
+  <p>Coursera’s official iOS creatives sell experts, certificates, and career paths. That is the pattern EduMind Student Home must <b>avoid</b>. The useful screen is “All Courses / Start Today”: resume + progress + Play.</p>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/coursera/05.jpg" alt="Coursera continue"/>
+      <div class="cap"><span class="badge">Official App Store</span>
+        <div><b>Learn / All Courses — continue learning</b> · v8.18.1 · 31 Aug 2026</div>
+        <div class="tiny">apps.apple.com/us/app/coursera-grow-your-career/id736535961</div>
+      </div>
+    </div>
+    <div>
+      <p><span class="n">1</span><b>Title is “All Courses”.</b> This is My Learning, not a day OS.</p>
+      <p><span class="n">2</span><b>Hero card:</b> Google UX certificate, Course 2 of 5, 60%, current lesson “Prototyping with Figma”, 6 min, Play.</p>
+      <p><span class="n">3</span><b>Time-to-start</b> next to Play reduces friction. EduMind should show minutes left on المهمة التالية.</p>
+      <p><span class="n">4</span><b>Secondary course</b> uses “Get Back Into It” ghost button. One primary, others quieter.</p>
+      <div class="avoid"><b>Avoid on الرئيسية:</b> partner logos, career-path catalogs, certificate grids, “Learn with experts”. That lives in استكشف / subscriptions, not Student Home.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">08–10 · Coursera</div>
+  <h2>Lesson tools vs catalog chrome</h2>
+  <div class="grid3">
+    <div class="shot">
+      <img src="images/coursera/01.jpg" alt="Coursera lesson"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Lesson player</b> — video + Notes / Transcript / Attachments tabs.</div>
+    </div>
+    <div class="shot">
+      <img src="images/coursera/03.jpg" alt="Coursera career path"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Career Path</b> — marketplace hierarchy. Do not use as Home.</div>
+    </div>
+    <div class="shot">
+      <img src="images/coursera/07.jpg" alt="Coursera languages"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Languages sheet</b> — settings in a sheet, not a pushed jungle.</div>
+    </div>
+  </div>
+  <p style="margin-top:8px"><b>Borrow:</b> continue-learning anatomy (provider, % , lesson name, duration, one Play). <b>Borrow:</b> sheets for settings/language. <b>Avoid:</b> Home as discovery. Coursera Help Center also names a dedicated <b>Learn tab</b> for enrolled programs — catalog is a different surface.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">11 · Duolingo</div>
+  <h2>Home = one START. That is the whole product.</h2>
+  <p>Official Duolingo blog (May 2022 / path live 1 Nov 2022) documents the current Home architecture: a vertical path, one highlighted node, START. Feb 2026 core-tabs post shows the same path still in production with refreshed tabs.</p>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/duolingo-blog/06.png" alt="Duolingo path vs tree"/>
+      <div class="cap"><span class="badge sec">Official blog · 2022</span>
+        <div><b>Old skill tree → new learning path</b></div>
+        <div class="tiny">blog.duolingo.com/new-duolingo-home-screen-design/</div>
+      </div>
+    </div>
+    <div>
+      <p><span class="n">1</span><b>Decision fatigue.</b> Old Home: many skill circles. New Home: one START.</p>
+      <p><span class="n">2</span><b>Unit header</b> answers “what am I learning?” — “Use basic phrases, greet people.”</p>
+      <p><span class="n">3</span><b>Locked future</b> is visible but not tappable. Path, not menu.</p>
+      <p><span class="n">4</span><b>Top stats:</b> flag, streak, gems, hearts. Motivation without a dashboard essay.</p>
+      <div class="borrow"><b>Borrow for المهمة التالية:</b> one obvious node, one verb, everything else secondary. Do not borrow the winding cartoon path or mascot.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">12 · Duolingo</div>
+  <h2>2026 tabs: Home still owns next action; other tabs own motivation</h2>
+  <div class="shot">
+    <img src="images/duolingo-blog/16.png" alt="Duolingo 2026 tabs"/>
+    <div class="cap"><span class="badge sec">Official blog · Feb 2026</span>
+      Home path · Quests · League · Video call · Profile · Feed — <span class="tiny">blog.duolingo.com/core-tabs-redesign/</span>
+    </div>
+  </div>
+  <p>Home is not where leagues, quests, and feed live. EduMind should likewise keep XP/streak as a <b>snapshot</b> on الرئيسية, and push leagues-style social (if ever) off Home. Video-call AI is a dedicated tab with a single CALL +XP CTA — named character, one action.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">13–14 · Duolingo</div>
+  <h2>Lesson micro-UX and streak, without copying the owl</h2>
+  <div class="grid3">
+    <div class="shot">
+      <img src="images/duolingo/02.jpg" alt="Duolingo lesson"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Lesson</b> v7.138.0 · 2 Sep 2026 — one task, progress bar, energy, Check.</div>
+    </div>
+    <div class="shot">
+      <img src="images/duolingo/06.jpg" alt="Duolingo streak"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Streak recap</b> — huge 3, week dots, one orange CTA.</div>
+    </div>
+    <div class="shot">
+      <img src="images/duolingo/01.jpg" alt="Duolingo courses"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Courses list</b> — subjects off the path. EduMind: موادي / اللغات.</div>
+    </div>
+  </div>
+  <div class="avoid" style="margin-top:8px"><b>Do not copy:</b> cartoon bodies, lowercase slogans on giant candy buttons, hearts-as-punishment, leagues as the emotional core of Home. <b>Do copy:</b> one task per screen, visible lesson progress, streak as a small amber chip.</div>
+</section>
+
+<section class="page">
+  <div class="kicker">15 · Upwork</div>
+  <h2>Professional scanning, not education</h2>
+  <p>Upwork is here for density, messaging, and AI-in-a-task. Home is not a learning dashboard.</p>
+  <div class="grid2">
+    <div class="shot">
+      <img src="images/upwork/05.jpg" alt="Upwork reports"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Reports Overview</b> v2.12.0 · 26 Aug 2026 — label / big number / chevron rows.</div>
+    </div>
+    <div>
+      <p><span class="n">1</span><b>Scanable rows.</b> Work in progress, In review, Pending, Available. EduMind progress snapshot can be this dense.</p>
+      <p><span class="n">2</span><b>Color is labels, not decoration.</b> Green type, black numbers, grey chevrons.</p>
+      <p><span class="n">3</span><b>One tap to detail.</b> Summary never dumps the full ledger on Home.</p>
+      <div class="borrow"><b>Borrow:</b> compact metric list for المستوى / XP / اختبار / أيام الدراسة. Not a four-color infographic.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">16–18 · Upwork</div>
+  <h2>Messages, projects, named AI</h2>
+  <div class="grid3">
+    <div class="shot">
+      <img src="images/upwork/04.jpg" alt="Upwork chat"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Messaging room</b> — names, time, @mention, file cards, call + attach.</div>
+    </div>
+    <div class="shot">
+      <img src="images/upwork/06.jpg" alt="Upwork project"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Project / milestone</b> — primary Pay now, status pill, timeline.</div>
+    </div>
+    <div class="shot">
+      <img src="images/upwork/03.jpg" alt="Upwork Uma"/>
+      <div class="cap"><span class="badge">Official App Store</span> <b>Uma AI</b> — chat in the task, then Insert cover letter.</div>
+    </div>
+  </div>
+  <p style="margin-top:8px"><b>AI rule from Uma:</b> assistant has a name/mark, lives inside the job, produces an insertable artifact, one green CTA. EduMind AI Tutor should be cyan, task-bound (explain this quiz / plan this session), never a second Home feed.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">19 · Home side-by-side</div>
+  <h2>Four Homes, four jobs</h2>
+  <div class="grid4">
+    <div class="shot">
+      <img src="images/khan-academy/03.png" alt="KA"/>
+      <div class="cap"><b>Khan</b><br>Course mastery + Get started<br><span class="tiny">Not a day dashboard</span></div>
+    </div>
+    <div class="shot">
+      <img src="images/coursera/05.jpg" alt="CO"/>
+      <div class="cap"><b>Coursera</b><br>Continue / All Courses<br><span class="tiny">Resume engine</span></div>
+    </div>
+    <div class="shot">
+      <img src="images/duolingo-blog/06.png" alt="DU"/>
+      <div class="cap"><b>Duolingo</b><br>Path + START<br><span class="tiny">Zero choice Home</span></div>
+    </div>
+    <div class="shot">
+      <img src="images/upwork/05.jpg" alt="UP"/>
+      <div class="cap"><b>Upwork</b><br>Status rows<br><span class="tiny">Work OS, not learn OS</span></div>
+    </div>
+  </div>
+  <p style="margin-top:10px">EduMind Home is closer to <b>Duolingo’s job</b> (next action) + <b>Khan’s calm</b> + <b>Coursera’s resume anatomy</b> + <b>Upwork’s density</b> — with planner/routine that none of them have.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">20 · Pattern analysis</div>
+  <h2>Annotating the Home job-to-be-done</h2>
+  <table>
+    <tr><th>Home question</th><th>Khan</th><th>Coursera</th><th>Duolingo</th><th>Upwork</th></tr>
+    <tr><td>What should I do now?</td><td>Mastery Challenge in-course</td><td>Play on top enrolled card</td><td>START on path</td><td>Context-specific (pay / apply)</td></tr>
+    <tr><td>What needs attention?</td><td>Weak — mastery only</td><td>Weak — resume only</td><td>Hearts / quests (off Home)</td><td>Strong — statuses &amp; unread</td></tr>
+    <tr><td>Today / this week?</td><td>No</td><td>No (deadlines buried)</td><td>Streak week + quests</td><td>Due dates on contracts</td></tr>
+    <tr><td>Continue?</td><td>Pick up where you left off (copy)</td><td>Excellent</td><td>Always the next node</td><td>N/A</td></tr>
+    <tr><td>Progress?</td><td>Mastery %</td><td>Course %</td><td>Path + XP + streak</td><td>Money states</td></tr>
+    <tr><td>Above-the-fold cards</td><td>~1 CTA + units</td><td>1–2 course cards</td><td>1 node + unit header</td><td>4 metric rows</td></tr>
+  </table>
+  <p style="margin-top:10px">EduMind already has the right sections in code (JourneyHero, Today/This week, توصية EduMind, تابع التعلم, progress, لمحة المواد). The benchmark says: <b>make المهمة التالية visually dominant like Duolingo START</b>, keep catalog in موادي like Khan browse, and never let Home become Coursera Learn.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">21 · Comparison matrix</div>
+  <h2>Pattern ratings for EduMind</h2>
+  <table>
+    <tr><th>Pattern</th><th>Khan</th><th>Coursera</th><th>Duolingo</th><th>Upwork</th><th>EduMind relevance</th></tr>
+    <tr><td>Clear next action</td><td class="m">Medium</td><td class="s">Strong</td><td class="s">Strong</td><td class="m">Medium</td><td>Core of الرئيسية</td></tr>
+    <tr><td>Personalized recommendation</td><td class="m">Medium</td><td class="m">Medium</td><td class="w">Weak</td><td class="m">Medium</td><td>توصية EduMind / cyan AI</td></tr>
+    <tr><td>Current progress</td><td class="s">Strong</td><td class="s">Strong</td><td class="s">Strong</td><td class="s">Strong</td><td>Snapshot, not a chart wall</td></tr>
+    <tr><td>Today / week context</td><td class="w">Weak</td><td class="w">Weak</td><td class="m">Medium</td><td class="m">Medium</td><td>EduMind differentiator</td></tr>
+    <tr><td>Continue learning</td><td class="m">Medium</td><td class="s">Strong</td><td class="s">Strong</td><td class="na">n/a</td><td>Secondary to Next Mission</td></tr>
+    <tr><td>Card density</td><td class="m">Low-med</td><td class="m">Medium</td><td class="w">Low</td><td class="s">High</td><td>2–3 major cards above fold</td></tr>
+    <tr><td>Content discovery</td><td class="s">Strong</td><td class="s">Strong</td><td class="w">Weak</td><td class="s">Strong</td><td>Keep off Home</td></tr>
+    <tr><td>Motivation / streak / XP</td><td class="w">Weak</td><td class="w">Weak</td><td class="s">Strong</td><td class="na">n/a</td><td>Amber chips, not a game</td></tr>
+    <tr><td>AI / tutor</td><td class="w">Weak in-app</td><td class="na">n/a</td><td class="m">Medium</td><td class="s">Strong Uma</td><td>Cyan, task-scoped</td></tr>
+    <tr><td>Navigation</td><td class="s">3 tabs</td><td class="m">Learn vs catalog</td><td class="m">6 tabs</td><td class="s">Clear IA</td><td>Student: 5–6 tabs max</td></tr>
+    <tr><td>Notifications</td><td class="m">Medium</td><td class="m">Medium</td><td class="m">Medium</td><td class="s">Strong</td><td>Bell in top bar</td></tr>
+    <tr><td>Messages</td><td class="w">Weak</td><td class="w">Weak</td><td class="w">Weak</td><td class="s">Strong</td><td>Tab + badge, not Home body</td></tr>
+    <tr><td>Profile</td><td class="m">Medium</td><td class="m">Medium</td><td class="s">Strong</td><td class="s">Strong</td><td>حسابي owns identity</td></tr>
+    <tr><td>Visual complexity</td><td class="s">Low</td><td class="m">Medium</td><td class="m">Playful</td><td class="m">Dense-pro</td><td>Professional + air</td></tr>
+  </table>
+</section>
+
+<section class="page">
+  <div class="kicker">22 · Borrow</div>
+  <h2>What EduMind should learn</h2>
+  <div class="grid2">
+    <div class="borrow">
+      <h3>Khan Academy</h3>
+      <ul>
+        <li>Course → unit → lesson tree</li>
+        <li>Whitespace, serif/sans mix for lesson titles if needed — or Cairo only, but keep air</li>
+        <li>One Check / Get started per screen</li>
+        <li>3-item bottom nav as a ceiling for “primary jobs”</li>
+      </ul>
+    </div>
+    <div class="borrow">
+      <h3>Coursera</h3>
+      <ul>
+        <li>Continue card: title, step “3 of 8”, %, minutes, Play</li>
+        <li>Ghost button for secondary courses</li>
+        <li>Sheets for language / settings</li>
+        <li>Transcript/notes adjacent to player</li>
+      </ul>
+    </div>
+    <div class="borrow">
+      <h3>Duolingo</h3>
+      <ul>
+        <li>One START / المهمة التالية above the fold</li>
+        <li>Lesson = one prompt</li>
+        <li>Streak as a tiny amber signal</li>
+        <li>Motivation tabs ≠ Home</li>
+      </ul>
+    </div>
+    <div class="borrow">
+      <h3>Upwork</h3>
+      <ul>
+        <li>Metric rows + chevron</li>
+        <li>File/message cards</li>
+        <li>Named AI + Insert CTA</li>
+        <li>Status pills (قادم / يحتاج متابعة)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">23 · Avoid</div>
+  <h2>What EduMind should not become</h2>
+  <div class="grid2">
+    <div class="avoid">
+      <h3>Not Coursera Home</h3>
+      <p>No partner logo walls, career paths, or certificate mosaics on الرئيسية. Catalog belongs in موادي / استكشف / الاشتراكات.</p>
+    </div>
+    <div class="avoid">
+      <h3>Not Duolingo skin</h3>
+      <p>No owl, no candy path, no 6 equally loud tabs of games. No hearts that punish studying. EduMind is school-grade, indigo, Cairo, RTL.</p>
+    </div>
+    <div class="avoid">
+      <h3>Not Khan-only catalog</h3>
+      <p>A browse list does not tell a Syrian 11th-grader what to do at 6:30pm. Khan has no Routine, Planner, or parent loop.</p>
+    </div>
+    <div class="avoid">
+      <h3>Not Upwork feed</h3>
+      <p>Do not pack Home like a job list. Density is for snapshots and messages, not for 12 competing CTAs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">24 · Recommended architecture</div>
+  <h2>EduMind Student Home hierarchy</h2>
+  <p>Not an LMS Home. A daily operating system. Terminology matches current product (ST01).</p>
+  <ol>
+    <li><b>Top bar:</b> الرئيسية · bell (notifications) · avatar → حسابي. Optional streak flame (amber) as icon, not a banner.</li>
+    <li><b>Greeting:</b> صباح الخير، رنا + one-line context (صف / مستوى).</li>
+    <li><b>المهمة التالية (Next Mission):</b> Dominant card. Subject, lesson name, minutes left, درس 3 من 8, PrimaryButton متابعة الدرس. Locked state → الاشتراكات. This is Duolingo START + Coursera Play.</li>
+    <li><b>اليوم / هذا الأسبوع:</b> Max 3 planner rows + routine signal. Ghost افتح المخطط. Differentiator vs all four apps.</li>
+    <li><b>يحتاج انتباهك / توصية EduMind:</b> One cyan-marked card. Weak topic, bad quiz, missed routine, upcoming exam. Never more than one recommendation.</li>
+    <li><b>تابع التعلم:</b> Only if different from Next Mission. Else omit.</li>
+    <li><b>Progress snapshot:</b> Level, XP to next, streak days, last quiz %. Upwork-style rows.</li>
+    <li><b>لمحة المواد:</b> 2–3 subject chips + “الكتالوج في موادي”. Khan browse does not live here.</li>
+  </ol>
+  <div class="note">Above the fold (first screen): top bar + greeting + Next Mission + maybe the first Today row. Everything else scrolls. Maximum <b>two</b> major cards before scroll.</div>
+</section>
+
+<section class="page">
+  <div class="kicker">25 · Wireframe</div>
+  <h2>Hierarchy only — not final UI</h2>
+  <div class="grid2">
+    <div class="phone">
+      <div class="ph-top">
+        <b>الرئيسية</b>
+        <span class="amber">🔥 ٧</span>
+        <span>🔔  ●</span>
+      </div>
+      <div class="ph-body">
+        <div class="tiny indigo">صباح الخير، رنا</div>
+        <div class="tiny muted">حادي عشر علمي · المستوى 4</div>
+        <div class="card mission">
+          <div class="tiny indigo">المهمة التالية</div>
+          <div style="font-weight:800">المعادلات التربيعية</div>
+          <div class="tiny muted">الرياضيات · خالد جابر · ١٢ د · درس ٣ من ٨</div>
+          <div class="bar"><i></i></div>
+          <div style="margin-top:8px;background:#4f46e5;color:#fff;text-align:center;padding:8px;border-radius:10px;font-weight:700">متابعة الدرس</div>
+        </div>
+        <div class="card">
+          <div class="tiny">اليوم / هذا الأسبوع</div>
+          <div>٥:٠٠ مراجعة الفيزياء</div>
+          <div class="tiny green">من روتينك · ٦:٣٠ تمارين</div>
+        </div>
+        <div class="card ai">
+          <div class="tiny cyan">توصية EduMind</div>
+          <div>نقطة تحتاج انتباهك: المميّز Δ بعد اختبار ضعيف.</div>
+        </div>
+        <div class="card">
+          <div class="tiny">لمحة التقدم</div>
+          <div>Lvl 4 · XP 340/500 · اختبار 58٪</div>
+        </div>
+      </div>
+      <div class="nav"><b>الرئيسية</b><span>روتيني</span><span>اللغات</span><span>مشاريعي</span><span>موادي</span><span>حسابي</span></div>
+    </div>
+    <div>
+      <p><b>Visual rules</b></p>
+      <ul>
+        <li>Indigo = primary action only once per screen</li>
+        <li>Cyan border = AI / توصية, never a second primary button</li>
+        <li>Amber = streak/XP only</li>
+        <li>Green = routine / success</li>
+        <li>~18dp radius, white cards, light grey canvas</li>
+        <li>RTL: numbers stay, chevrons flip, greeting on the right</li>
+      </ul>
+      <p>Bottom nav is the product map. Home does not repeat موادي as a grid.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">26–28 · Compose-ready rules</div>
+  <h2>Mobile UX rules for Jetpack Compose</h2>
+  <h3>Layout</h3>
+  <ul>
+    <li>One dominant next action above the fold. Use <code>PrimaryButton</code> once.</li>
+    <li>Max 2 major <code>EduCard</code>s before first scroll; 3 planner rows max.</li>
+    <li>Section spacing = existing <code>Spacing.section</code>; do not tighten to Upwork density on Home.</li>
+    <li>Card density: Home medium; موادي can be tighter lists (Khan); messages can be denser (Upwork).</li>
+  </ul>
+  <h3>Navigation</h3>
+  <ul>
+    <li>Keep student tabs: الرئيسية · روتيني · اللغات · مشاريعي · موادي · حسابي. Do not add a 7th “Discover” tab on Home.</li>
+    <li>Drawer/hamburger: secondary only (settings, parent link, legal). Not primary IA.</li>
+    <li>Notifications: top-bar bell + badge. Messages: dedicated entry in حسابي or a badge, not a Home module of threads.</li>
+    <li>Sheets: language, filters, “why this session”, AI short assist. Pushed screens: lesson, quiz, course, chat thread.</li>
+  </ul>
+  <h3>AI</h3>
+  <ul>
+    <li>Cyan <code>AiMarker</code> + one recommendation card. Uma pattern: produce an action (open lesson / insert plan), not an essay.</li>
+    <li>Do not put a chat composer on Home.</li>
+  </ul>
+  <h3>Progress / RTL</h3>
+  <ul>
+    <li>XP/streak as compact snapshot; achievements preview can sit below, not compete with Mission.</li>
+    <li>RTL: <code>Arrangement</code> respects layout direction; linear progress mirrors; numerals use existing <code>numeral</code> helper.</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="kicker">29 · Principles</div>
+  <h2>Final design principles</h2>
+  <ol>
+    <li><b>Home is a mission, not a mall.</b></li>
+    <li><b>One verb.</b> متابعة الدرس / ابدأ / راجع. Everything else is ghost or text.</li>
+    <li><b>School-grade visual.</b> Indigo, white, 18dp, Cairo. Cyan only for real AI.</li>
+    <li><b>Today is our wedge.</b> Planner + Routine do not exist on the four benchmarks. Protect them.</li>
+    <li><b>Catalog has a house.</b> موادي. Home only snapshots.</li>
+    <li><b>Motivation is amber dust, not a game OS.</b></li>
+    <li><b>Cite production UI.</b> This PDF prefers App Store + official blogs. Marketing frames are labeled.</li>
+  </ol>
+  <p class="muted">Research only. No Android / Gradle / Kotlin changes were made.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">30 · Sources</div>
+  <h2>Screenshot catalog</h2>
+  <p class="tiny">Accessed 5 Sep 2026. Versions from iTunes Lookup API.</p>
+  <table>
+    <tr><th>Platform</th><th>Screen</th><th>File</th><th>Source</th><th>Type</th><th>Date</th></tr>
+    <tr><td>Khan Academy</td><td>Browse / slogan</td><td>images/khan-academy/01–02</td><td>App Store id 469863705</td><td>Official store</td><td>v8.5.1 · 13 Aug 2026</td></tr>
+    <tr><td>Khan Academy</td><td>Course mastery / next CTA</td><td>03.png</td><td>same</td><td>Official store (framed)</td><td>same</td></tr>
+    <tr><td>Khan Academy</td><td>Exercise / video / article</td><td>04–06</td><td>same</td><td>Official store (framed)</td><td>same</td></tr>
+    <tr><td>Coursera</td><td>Lesson player</td><td>coursera/01</td><td>App Store id 736535961</td><td>Official store (framed)</td><td>v8.18.1 · 31 Aug 2026</td></tr>
+    <tr><td>Coursera</td><td>Onboarding / career / certs</td><td>02–04</td><td>same</td><td>Official marketing UI</td><td>same</td></tr>
+    <tr><td>Coursera</td><td>All Courses continue</td><td>05.jpg</td><td>same</td><td>Official store</td><td>same</td></tr>
+    <tr><td>Coursera</td><td>Offline / languages</td><td>06–07</td><td>same</td><td>Official store</td><td>same</td></tr>
+    <tr><td>Duolingo</td><td>Courses, lessons, streak, music</td><td>duolingo/01–08</td><td>App Store id 570060128</td><td>Official store</td><td>v7.138.0 · 2 Sep 2026</td></tr>
+    <tr><td>Duolingo</td><td>Path Home vs tree</td><td>duolingo-blog/06</td><td>blog.duolingo.com/new-duolingo-home-screen-design/</td><td>Official blog</td><td>Published 2022</td></tr>
+    <tr><td>Duolingo</td><td>2026 core tabs incl. Home path</td><td>duolingo-blog/16</td><td>blog.duolingo.com/core-tabs-redesign/</td><td>Official blog</td><td>4 Feb 2026</td></tr>
+    <tr><td>Upwork</td><td>Uma, chat, reports, projects</td><td>upwork/01–06</td><td>App Store id 1446736499</td><td>Official store</td><td>v2.12.0 · 26 Aug 2026</td></tr>
+    <tr><td>Khanmigo</td><td>Scope note (no chat screenshot)</td><td>—</td><td>support.khanacademy.org article 13982530363533</td><td>Official help</td><td>Cited 2026</td></tr>
+    <tr><td>Coursera</td><td>Learn tab behavior</td><td>—</td><td>coursera.support learner-000001541</td><td>Official help</td><td>Cited 2026</td></tr>
+  </table>
+  <p style="margin-top:10px"><b>Play Store HTML assets</b> were also pulled (images/*-play/) as secondary; many duplicate App Store marketing frames or include icons. Prefer App Store + Duolingo blog as cited above.</p>
+</section>
+
+</body>
+</html>

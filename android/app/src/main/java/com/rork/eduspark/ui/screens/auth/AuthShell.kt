@@ -1,5 +1,6 @@
 package com.rork.eduspark.ui.screens.auth
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -25,8 +27,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -138,23 +143,50 @@ fun BrandMark(
     size: Dp = 56.dp,
 ) {
     val colors = EduTheme.colors
+    val shape = RoundedCornerShape(Radius.md)
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .size(size)
             .background(
                 color = if (colors.isDark) colors.zaytounSoft else colors.zaytoun,
-                shape = RoundedCornerShape(Radius.md),
+                shape = shape,
             ),
     ) {
-        Text(
-            text = stringResource(R.string.brand_monogram),
-            style = if (size <= 44.dp) {
-                EduTheme.typography.title
-            } else {
-                EduTheme.typography.brandTitle
-            },
-            color = if (colors.isDark) colors.zaytoun else colors.onZaytoun,
+        Image(
+            painter = painterResource(R.drawable.ic_launcher_foreground),
+            contentDescription = stringResource(R.string.app_name),
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .size(size)
+                .clip(shape),
+        )
+    }
+}
+
+/**
+ * A centred circular icon tile — the "moment" screens' equivalent of [BrandMark]: A-08's
+ * envelope, A-10/A-11's key. One shared shape so these screens read as a family rather than
+ * three near-identical circles drifting apart over time.
+ */
+@Composable
+fun AuthIconMark(
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    size: Dp = 56.dp,
+) {
+    val colors = EduTheme.colors
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(size)
+            .background(colors.zaytounSoft, CircleShape),
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = colors.zaytoun,
+            modifier = Modifier.size(Sizing.iconLg),
         )
     }
 }
@@ -203,7 +235,7 @@ fun AuthErrorRegion(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .defaultMinSize(minHeight = ErrorRegionMinHeight)
+            .defaultMinSize(minHeight = Sizing.tabBarHeight)
             .padding(vertical = Spacing.sm),
         content = content,
     )
@@ -274,9 +306,6 @@ fun AuthMessageSurface(
         }
     }
 }
-
-/** Sized to the tallest single-message variant so the region never grows on failure. */
-private val ErrorRegionMinHeight = 64.dp
 
 /**
  * The language switch, pinned to the bottom of every auth screen.
@@ -354,12 +383,21 @@ fun AuthFooterPrompt(
  * The back affordance is always *visible* when [onBack] is supplied — the hardware back
  * button is handled by the caller's `BackHandler`, but it is never the only way back,
  * because these same screens ship on iOS later.
+ *
+ * @param headerBand replaces the default back-button row with a caller-supplied, full-bleed
+ * band — used only by A-09 Two-Factor Verify, whose brief calls for a visual identity
+ * unmistakably distinct from every other screen in this shell (a full-bleed Basalt security
+ * band with its own back affordance, rather than the plain top bar). Every other screen
+ * leaves this null and gets the ordinary top bar. Because it renders *before* the padded
+ * content column — at the same level as the top bar it replaces — it is genuinely edge to
+ * edge, not just tinted within the screen gutter.
  */
 @Composable
 fun AuthScaffold(
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
     topEndAction: @Composable (() -> Unit)? = null,
+    headerBand: (@Composable () -> Unit)? = null,
     bottomBlock: @Composable ColumnScope.() -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -370,23 +408,27 @@ fun AuthScaffold(
             .safeDrawingPadding()
             .imePadding(),
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Sizing.topBarHeight)
-                .padding(horizontal = Spacing.xs),
-        ) {
-            if (onBack != null) {
-                EduIconButton(
-                    // AutoMirrored: the arrow points right in Arabic and left in English.
-                    icon = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.a11y_back),
-                    onClick = onBack,
-                )
+        if (headerBand != null) {
+            headerBand()
+        } else {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Sizing.topBarHeight)
+                    .padding(horizontal = Spacing.xs),
+            ) {
+                if (onBack != null) {
+                    EduIconButton(
+                        // AutoMirrored: the arrow points right in Arabic and left in English.
+                        icon = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.a11y_back),
+                        onClick = onBack,
+                    )
+                }
+                Box(modifier = Modifier.weight(1f))
+                topEndAction?.invoke()
             }
-            Box(modifier = Modifier.weight(1f))
-            topEndAction?.invoke()
         }
 
         Column(

@@ -1,3 +1,5 @@
+> **Stack pivot notice:** The original React Native + Expo mobile implementation plan has been superseded for Android by Kotlin + Jetpack Compose. All product, UX, screen inventory, RTL, accessibility, performance, backend-boundary, source-audit, and reuse rules remain authoritative unless explicitly superseded.
+
 # EduSpark Mobile — Master Plan
 Web (Vue/FastAPI) → native mobile (React Native + Expo via Rork), with the Projects module added and every existing feature preserved.
 

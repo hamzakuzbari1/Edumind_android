@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>EduMind — Teacher Mobile Experience · Final Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --p:#6366F1;--pi:#4F46E5;--ps:#ECEDFD;--ai:#06B6D4;--at:#0E7490;--as:#E1F6FA;
+  --ok:#047857;--os:#E6F4EF;--dn:#EF4444;--ds:#FDECEC;--am:#B45309;--ams:#FAEFE1;
+  --bg:#F4F7FB;--sf:#fff;--ink:#0C1929;--mu:#64748B;--ln:rgba(12,25,41,.09);
+}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;background:#E8EBF1;color:var(--ink);font-family:Cairo,Tahoma,sans-serif}
+.num,.ltr{font-family:Tajawal,Cairo,sans-serif;unicode-bidi:isolate}
+@page{size:A4 portrait;margin:0}
+.page{width:210mm;height:297mm;background:#F3F4F8;position:relative;overflow:hidden;page-break-after:always;break-after:page}
+@media screen{body{padding:24px 0} .page{margin:0 auto 24px;box-shadow:0 16px 40px rgba(15,23,42,.1)}}
+.meta{position:absolute;top:13mm;right:16mm;left:16mm;display:flex;align-items:baseline;gap:10px}
+.meta .n{font-size:13px;font-weight:800;color:var(--pi)}
+.meta .en{font-size:12px;font-weight:700;color:#64748B}
+.meta .ar{margin-right:auto;font-size:13px;font-weight:800}
+.stage{position:absolute;inset:26mm 0 14mm;display:flex;justify-content:center}
+.phone{width:372px;height:804px;background:var(--bg);border-radius:44px;border:10px solid #12161E;outline:1px solid rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column;position:relative}
+.notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:96px;height:22px;background:#12161E;border-radius:14px;z-index:8}
+.sb{height:38px;flex:0 0 38px;display:flex;justify-content:space-between;align-items:center;padding:10px 22px 0;font-size:12px;font-weight:800}
+.ind{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:118px;height:4px;border-radius:4px;background:rgba(12,25,41,.26);z-index:9}
+.ui{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.sc{flex:1;min-height:0;overflow:hidden;padding:0 14px 10px}
+.ab{display:flex;align-items:center;gap:8px;padding:2px 12px 10px}
+.ab.s{background:#fff;border-bottom:1px solid var(--ln);margin-bottom:10px}
+.ab h1{flex:1;margin:0;font-size:16px;font-weight:800}
+.ib{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;position:relative}
+.ib.d::after{content:'';position:absolute;top:7px;left:8px;width:7px;height:7px;border-radius:50%;background:var(--dn);border:2px solid var(--bg)}
+.tb{flex:0 0 auto;display:flex;align-items:stretch;background:#fff;border-top:1px solid var(--ln);padding:7px 6px 20px;gap:4px}
+.t{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#64748B;font-size:11px;font-weight:800;padding:7px 2px 6px;border-radius:14px;line-height:1.15;text-align:center}
+.t span{display:block;white-space:nowrap}
+.t svg{width:22px;height:22px;flex:0 0 22px}
+.t.on{color:var(--pi);background:var(--ps)}
+.t.on svg{stroke:var(--pi)}
+.card{background:#fff;border:1px solid var(--ln);border-radius:18px;overflow:hidden}
+.hero{background:linear-gradient(160deg,#6366F1,#4F46E5);color:#fff;border-radius:22px;padding:13px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;border:0;border-radius:13px;padding:11px 12px;font:inherit;font-weight:800;font-size:13px}
+.bp{background:var(--p);color:#fff}
+.bw{background:#fff;color:var(--pi);justify-content:space-between}
+.bg{background:rgba(12,25,41,.06);color:var(--ink)}
+.pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10.5px;font-weight:800}
+.mu{color:var(--mu);font-size:11px;font-weight:700}
+.h{font-size:20px;font-weight:800;margin:0;letter-spacing:-.3px}
+.h2{font-size:14.5px;font-weight:800;margin:0}
+.bd{font-size:12px;line-height:1.55;color:#334155;margin:0}
+.row{display:flex;align-items:center;gap:8px}
+.g{flex:1;min-width:0}
+.bar{height:6px;border-radius:99px;background:rgba(12,25,41,.08);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--p);border-radius:99px}
+.chip{border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800;background:rgba(12,25,41,.06)}
+.chip.on{background:var(--ps);color:var(--pi)}
+.hub{background:#fff;border:1px solid var(--ln);border-radius:18px}
+.hr{display:flex;align-items:center;gap:10px;padding:12px;border-top:1px solid var(--ln);font-size:13px;font-weight:700}
+.hr:first-child{border-top:0}
+.av{width:36px;height:36px;border-radius:50%;background:var(--ps);color:var(--pi);display:grid;place-items:center;font-weight:800;flex:0 0 36px}
+.inp{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:11px 12px;font-size:13px;font-weight:700;color:#94A3B8}
+.opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--ln);border-radius:14px;padding:10px 12px;font-size:13px;font-weight:700;margin-bottom:7px;background:#fff}
+.opt.ok{border-color:var(--ok);background:var(--os)}
+.key{width:24px;height:24px;border-radius:8px;background:rgba(12,25,41,.06);display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 24px}
+.cover{display:flex;flex-direction:column;justify-content:flex-end;padding:28mm 18mm 22mm;background:radial-gradient(1100px 500px at 110% -10%,rgba(99,102,241,.22),transparent 55%),#F3F4F8}
+.cover .brand{font-size:42px;font-weight:900;letter-spacing:-1px;color:var(--pi);margin:0}
+.cover .k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);margin:0 0 10px}
+.cover h2{font-size:26px;font-weight:800;margin:6px 0 0;line-height:1.35}
+.cover .rule{width:56px;height:4px;border-radius:4px;background:var(--p);margin:18px 0 0}
+.cover .ft{position:absolute;bottom:18mm;right:18mm;left:18mm;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#64748B}
+.mk{width:72px;height:72px;border-radius:22px;background:linear-gradient(160deg,#6366F1,#4F46E5);display:grid;place-items:center;margin-bottom:22px}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5V20H15v-6H9v6H4z"/></symbol>
+  <symbol id="i-class" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h3M8 17h5"/></symbol>
+  <symbol id="i-students" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="2.4"/><path d="M4.5 18c.6-2.6 2.2-4 4.5-4s3.9 1.4 4.5 4"/><circle cx="16.2" cy="8.4" r="2"/><path d="M15 14.2c2 .3 3.4 1.6 4 3.8"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/><path d="M8.4 9.1l1.5 1.5 2.6-2.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-me" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.1"/><path d="M5 19c1.3-3.2 3.6-4.8 7-4.8S17.7 15.8 19 19"/></symbol>
+</svg>
+
+<section class="page cover">
+  <div class="mk"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M8 24c6-11 12-11 18 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="17" cy="12" r="4.2" stroke="#fff" stroke-width="2.2"/></svg></div>
+  <p class="k">Final Design Specification</p>
+  <p class="brand">EduMind</p>
+  <h2>Teacher Mobile Experience<br>Final Design</h2>
+  <div class="rule"></div>
+  <p class="bd" style="margin-top:14px;font-weight:700;max-width:420px">28 screens · Arabic RTL · Test-2SY teacher product · Pixel frame</p>
+  <div class="ft"><span>EduMind Teacher Frontend — Final</span><span>PAGE 01 / 28</span></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">02</span><span class="en">Setup · Identity</span><span class="ar">إعداد المعلم</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s" style="justify-content:center"><h1>إعداد المعلم</h1></div>
+      <div class="sc">
+        <p class="mu" style="text-align:center">١ / ٣</p>
+        <div style="width:88px;height:88px;margin:16px auto;border-radius:50%;background:var(--ps);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--pi)">س</div>
+        <p class="mu" style="text-align:center;margin-bottom:16px">أضف صورة</p>
+        <p class="mu">الاسم</p>
+        <div class="inp" style="margin:6px 0 12px;color:var(--ink)">سامر الخطيب</div>
+        <p class="mu">نبذة قصيرة</p>
+        <div class="inp" style="margin:6px 0 20px;min-height:72px;color:#94A3B8">أكتب نبذة عن تدريسك…</div>
+        <button class="btn bp">حفظ</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">03</span><span class="en">Setup · Teaching</span><span class="ar">ماذا أدرّس</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>ماذا أدرّس؟</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">٢ / ٣</p>
+        <div style="height:92px;margin:10px 0 14px;border-radius:18px;background:var(--ps);display:grid;place-items:center">
+          <svg width="120" height="60" viewBox="0 0 120 60"><path d="M8 48 Q60 8 112 48" stroke="#4F46E5" stroke-width="3" fill="none"/></svg>
+        </div>
+        <p class="h2" style="margin-bottom:8px">الصفوف</p>
+        <div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span class="chip on">عاشر</span><span class="chip">حادي عشر</span><span class="chip on">بكالوريا</span>
+        </div>
+        <p class="h2" style="margin-bottom:8px">المواد</p>
+        <div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:20px">
+          <span class="chip on">رياضيات</span><span class="chip on">فيزياء</span><span class="chip">كيمياء</span>
+        </div>
+        <button class="btn bp">حفظ</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">04</span><span class="en">Teacher Home</span><span class="ar">الرئيسية</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>EduMind</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <p class="h">صباح الخير أستاذ سامر</p>
+        <p class="bd" style="font-weight:700;margin:4px 0 12px">في شغلة مستعجلة</p>
+        <div class="hero">
+          <div class="row">
+            <div class="g">
+              <span class="pill" style="background:rgba(255,255,255,.18)">أهم شيء الآن</span>
+              <p style="margin:8px 0 4px;font-size:17px;font-weight:800">٣ إجابات تحتاج تصحيحاً</p>
+              <p style="margin:0;font-size:11px;opacity:.9">اختبار المشتقة الثانية</p>
+            </div>
+            <svg width="72" height="64" viewBox="0 0 72 64"><circle cx="36" cy="32" r="20" stroke="#C7D2FE" stroke-width="3"/><path d="M26 32l7 7 14-16" stroke="#fff" stroke-width="3" fill="none"/></svg>
+          </div>
+          <button class="btn bw" style="margin-top:12px"><span>صحّح الآن</span><span>‹</span></button>
+        </div>
+        <p class="h2" style="margin:14px 0 8px">اليوم</p>
+        <div class="card" style="padding:12px">
+          <div class="row" style="margin-bottom:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--am)"></span><div class="g"><b>اشتراك ينتهي</b><div class="mu">١٢ أيلول</div></div></div>
+          <div class="row"><span style="width:8px;height:8px;border-radius:50%;background:var(--p)"></span><div class="g"><b>طالبان بلا نشاط</b><div class="mu">الرياضيات · العاشر</div></div></div>
+        </div>
+      </div>
+      <nav class="tb">
+        <div class="t on"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">05</span><span class="en">Classes</span><span class="ar">الصفوف</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>الصفوف</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <div class="row" style="gap:6px;margin-bottom:10px"><span class="chip on">الكل</span><span class="chip">منشور</span><span class="chip">مسودة</span></div>
+        <div class="card" style="margin-bottom:10px">
+          <div style="height:78px;background:linear-gradient(135deg,#EEF2FF,#C7D2FE);display:grid;place-items:center">
+            <svg width="110" height="50" viewBox="0 0 110 50"><path d="M8 40 Q55 6 102 40" stroke="#4F46E5" stroke-width="3" fill="none"/></svg>
+          </div>
+          <div style="padding:12px">
+            <div class="row"><p class="h2 g">رياضيات · الصف العاشر</p><span class="pill" style="background:var(--os);color:var(--ok)">منشور</span></div>
+            <p class="mu" style="margin:6px 0 0">٢٤ طالباً · ٨ دروس</p>
+          </div>
+        </div>
+        <div class="card">
+          <div style="padding:12px">
+            <div class="row"><p class="h2 g">فيزياء · الحادي عشر</p><span class="pill" style="background:var(--ams);color:var(--am)">مسودة</span></div>
+            <p class="mu" style="margin:6px 0 0">٠ دروس · يحتاج نشراً</p>
+          </div>
+        </div>
+        <div style="width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-size:28px;font-weight:800;margin:16px auto 0">+</div>
+      </div>
+      <nav class="tb">
+        <div class="t"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t on"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">06</span><span class="en">Class Detail</span><span class="ar">تفاصيل الصف</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>رياضيات · العاشر</h1><div class="ib">⋮</div></div>
+      <div class="sc">
+        <div style="height:96px;border-radius:18px;background:linear-gradient(135deg,#EEF2FF,#C7D2FE);display:grid;place-items:center;margin-bottom:10px">
+          <svg width="120" height="56" viewBox="0 0 120 56"><path d="M10 44 Q60 8 110 44" stroke="#4F46E5" stroke-width="3" fill="none"/></svg>
+        </div>
+        <div class="row" style="margin-bottom:12px">
+          <span class="pill" style="background:var(--os);color:var(--ok)">منشور</span>
+          <span class="mu">٢٤ طالباً · ٦٨٪</span>
+        </div>
+        <p class="h2" style="margin-bottom:8px">الدروس</p>
+        <div class="card" style="padding:10px 12px;margin-bottom:8px" ><div class="row"><span style="color:var(--ok)">●</span><div class="g"><b>المشتقة</b><div class="mu">فيديو · جاهز</div></div></div></div>
+        <div class="card" style="padding:10px 12px;margin-bottom:8px"><div class="row"><span style="color:var(--ai)">●</span><div class="g"><b>السلسلة</b><div class="mu">PDF · يعالج</div></div></div></div>
+        <div class="card" style="padding:10px 12px;margin-bottom:12px"><div class="row"><span style="color:#94A3B8">○</span><div class="g"><b>الواجب</b><div class="mu">ملف · مسودة</div></div></div></div>
+        <p class="h2" style="margin-bottom:8px">الطلاب · يحتاجون متابعة</p>
+        <div class="card" style="padding:12px"><div class="row"><div class="av">ر</div><div class="g"><b>ريم الحلبي</b><div class="mu">بلا اختبار</div></div></div>
+          <p class="mu" style="margin-top:10px;color:var(--pi)">كل الطلاب ‹</p>
+        </div>
+        <button class="btn bp" style="margin-top:12px">أضف درساً</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">07</span><span class="en">Upload Video</span><span class="ar">رفع فيديو</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>درس جديد</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">٢ / ٣ · محتوى الأستاذ</p>
+        <div style="display:flex;gap:4px;margin:8px 0 12px">
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--ln)"></i>
+        </div>
+        <p class="h2" style="margin-bottom:8px">المشتقة</p>
+        <div class="row" style="gap:6px;margin-bottom:12px">
+          <div class="card g" style="padding:10px 6px;text-align:center;background:var(--p);color:#fff;border-color:var(--p)"><div style="font-size:16px">▶</div><b style="font-size:12px">فيديو</b></div>
+          <div class="card g" style="padding:10px 6px;text-align:center"><div style="font-size:16px">🔗</div><b style="font-size:12px">رابط فيديو</b></div>
+          <div class="card g" style="padding:10px 6px;text-align:center"><div style="font-size:16px">▤</div><b style="font-size:12px">ملف PDF</b></div>
+        </div>
+        <div class="card">
+          <div style="height:148px;background:linear-gradient(180deg,#1E1B4B,#312E81);display:grid;place-items:center;position:relative">
+            <svg width="120" height="64" viewBox="0 0 120 64" fill="none"><rect x="8" y="10" width="104" height="44" rx="6" stroke="rgba(255,255,255,.3)"/><path d="M18 46 Q60 14 102 46" stroke="#A5B4FC" stroke-width="2"/></svg>
+            <div style="position:absolute;width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--pi);font-size:18px">▶</div>
+            <span class="pill num" style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.45);color:#fff">12:00</span>
+          </div>
+          <div style="padding:12px">
+            <p class="h2">المشتقة.mp4</p>
+            <p class="mu" style="margin:4px 0 8px">86 MB · تم الرفع</p>
+            <div class="bar"><i style="width:100%;background:var(--ok)"></i></div>
+            <div class="row" style="margin-top:10px;gap:8px">
+              <button class="btn bg g">استبدال</button>
+              <button class="btn bg g" style="color:var(--dn)">حذف</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn bp" style="margin-top:12px">التالي</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">08</span><span class="en">Upload PDF</span><span class="ar">رفع PDF</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>درس جديد</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">٢ / ٣ · محتوى الأستاذ</p>
+        <div style="display:flex;gap:4px;margin:8px 0 12px">
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--ln)"></i>
+        </div>
+        <p class="h2" style="margin-bottom:8px">المشتقة</p>
+        <div class="row" style="gap:6px;margin-bottom:12px">
+          <div class="card g" style="padding:10px 6px;text-align:center"><div style="font-size:16px">▶</div><b style="font-size:12px">فيديو</b></div>
+          <div class="card g" style="padding:10px 6px;text-align:center"><div style="font-size:16px">🔗</div><b style="font-size:12px">رابط فيديو</b></div>
+          <div class="card g" style="padding:10px 6px;text-align:center;background:var(--p);color:#fff;border-color:var(--p)"><div style="font-size:16px">▤</div><b style="font-size:12px">ملف PDF</b></div>
+        </div>
+        <div class="card" style="padding:12px">
+          <div style="height:150px;border-radius:14px;background:#F8FAFC;border:1px solid var(--ln);display:grid;place-items:center">
+            <svg width="92" height="100" viewBox="0 0 92 100" fill="none">
+              <rect x="16" y="8" width="60" height="80" rx="6" fill="#fff" stroke="#CBD5E1"/>
+              <path d="M52 8h24v18H52z" fill="#EEF2FF" stroke="#C7D2FE"/>
+              <path d="M26 40h40M26 52h34M26 64h28" stroke="#94A3B8" stroke-width="2"/>
+              <text x="28" y="84" fill="#4F46E5" font-size="11" font-weight="800">PDF</text>
+            </svg>
+          </div>
+          <p class="h2" style="margin-top:10px">المشتقة الثانية.pdf</p>
+          <p class="mu" style="margin:4px 0 10px">8 صفحات · 2.4 MB · تم الرفع</p>
+          <div class="row" style="gap:8px">
+            <button class="btn bp g">فتح الملف</button>
+            <button class="btn bg g">استبدال</button>
+          </div>
+        </div>
+        <button class="btn bp" style="margin-top:12px">التالي</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">09</span><span class="en">Review Lesson</span><span class="ar">مراجعة الدرس</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>درس جديد</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">٣ / ٣ · مراجعة</p>
+        <div style="display:flex;gap:4px;margin:8px 0 14px">
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+          <i style="flex:1;height:5px;border-radius:99px;background:var(--p)"></i>
+        </div>
+        <p class="h2" style="margin-bottom:10px">المشتقة</p>
+        <div class="card" style="padding:12px;margin-bottom:12px">
+          <div class="row"><span style="font-size:18px">▶</span><div class="g"><b>فيديو الأستاذ</b><div class="mu">المشتقة.mp4 · 12:00</div></div><span class="pill" style="background:var(--os);color:var(--ok)">جاهز</span></div>
+        </div>
+        <p class="mu" style="margin-bottom:12px">مصدر واحد لكل درس: فيديو أو رابط أو PDF</p>
+        <div class="card" style="padding:12px;border-right:3px solid var(--ai);margin-bottom:16px">
+          <div class="row"><span style="color:var(--at)">✦</span><span style="color:var(--at);font-size:12px;font-weight:800">بعد الحفظ</span></div>
+          <p class="bd" style="margin-top:6px">EduMind سيجهّز المعلّم الذكي والاختبار بعد الرفع.</p>
+        </div>
+        <button class="btn bp">حفظ الدرس</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">10</span><span class="en">Lesson Processing</span><span class="ar">تجهيز الدرس</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>السلسلة</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div style="height:110px;border-radius:18px;background:var(--as);display:grid;place-items:center;margin-bottom:14px">
+          <svg width="140" height="50" viewBox="0 0 140 50"><circle cx="20" cy="25" r="8" fill="#06B6D4"/><circle cx="60" cy="25" r="8" fill="#06B6D4"/><circle cx="100" cy="25" r="8" stroke="#0E7490" stroke-width="2" fill="none"/><path d="M28 25h24M68 25h24" stroke="#0E7490" stroke-width="2"/></svg>
+        </div>
+        <p class="h2" style="margin-bottom:12px">EduMind يجهّز المعلّم الذكي والاختبار</p>
+        <div class="card" style="padding:12px">
+          <div class="row" style="margin-bottom:10px"><span style="color:var(--ok)">✓</span><span class="g">استخراج</span></div>
+          <div class="row" style="margin-bottom:10px"><span style="color:var(--ok)">✓</span><span class="g">تقسيم</span></div>
+          <div class="row" style="margin-bottom:10px"><span style="color:var(--ai)">●</span><span class="g">فهرسة</span></div>
+          <div class="row" style="margin-bottom:10px"><span style="color:#CBD5E1">○</span><span class="g mu">اختبار ذكي</span></div>
+          <div class="row"><span style="color:#CBD5E1">○</span><span class="g mu">رؤية</span></div>
+        </div>
+        <p class="mu" style="margin-top:14px;text-align:center">يمكنك إغلاق الشاشة. المعالجة تتابع.</p>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">11</span><span class="en">Lesson Preview</span><span class="ar">معاينة الدرس</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>المشتقة</h1><span class="mu">تعديل</span></div>
+      <div class="sc">
+        <div class="row" style="gap:6px;margin-bottom:10px">
+          <span class="pill" style="background:var(--ps);color:var(--pi)">فيديو</span>
+          <span class="pill" style="background:var(--os);color:var(--ok)">جاهز</span>
+        </div>
+        <div class="card">
+          <div style="height:190px;background:linear-gradient(180deg,#1E1B4B,#312E81);display:grid;place-items:center;position:relative">
+            <div style="width:56px;height:56px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--pi);font-size:20px">▶</div>
+            <span class="pill num" style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.45);color:#fff">12:00</span>
+          </div>
+          <div style="padding:12px">
+            <p class="h2">شرح الأستاذ</p>
+            <p class="mu" style="margin-top:4px">المعلّم الذكي والاختبار يظهران بعد المعالجة</p>
+          </div>
+        </div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">12</span><span class="en">Students</span><span class="ar">الطلاب</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>الطلاب</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <div class="inp" style="margin-bottom:10px">بحث</div>
+        <div class="card" style="padding:12px;margin-bottom:8px">
+          <div class="row">
+            <div class="av">ر</div>
+            <div class="g"><b>ريم الحلبي</b><div class="mu">العاشر · آخر نشاط أمس</div></div>
+            <span class="pill" style="background:var(--os);color:var(--ok)">نشط</span>
+          </div>
+          <div class="bar" style="margin-top:10px"><i style="width:68%"></i></div>
+          <p class="mu" style="margin-top:6px">٦٨٪ · اختبار ٧٢٪</p>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px">
+          <div class="row">
+            <div class="av">س</div>
+            <div class="g"><b>سمير الخطيب</b><div class="mu">العاشر · قبل ٤ أيام</div></div>
+            <span class="pill" style="background:var(--ams);color:var(--am)">خامل</span>
+          </div>
+          <div class="bar" style="margin-top:10px"><i style="width:31%"></i></div>
+        </div>
+        <div class="card" style="padding:12px">
+          <div class="row">
+            <div class="av">ل</div>
+            <div class="g"><b>لجين النجار</b><div class="mu">العاشر · اليوم</div></div>
+            <span class="pill" style="background:var(--os);color:var(--ok)">نشط</span>
+          </div>
+          <div class="bar" style="margin-top:10px"><i style="width:82%"></i></div>
+        </div>
+      </div>
+      <nav class="tb">
+        <div class="t"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t on"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">13</span><span class="en">Student Profile</span><span class="ar">ملف الطالب</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>ريم الحلبي</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div class="card" style="padding:14px;text-align:center;margin-bottom:10px">
+          <div class="av" style="width:56px;height:56px;margin:0 auto 8px;font-size:20px">ر</div>
+          <p class="h2">ريم الحلبي</p>
+          <p class="mu">العاشر · رياضيات</p>
+        </div>
+        <div class="hero" style="margin-bottom:10px">
+          <span class="pill" style="background:rgba(255,255,255,.18)">احتياج واحد</span>
+          <p style="margin:8px 0 0;font-size:16px;font-weight:800">بلا اختبار في المشتقة</p>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><span class="mu g">التقدّم</span><b>٦٨٪</b></div><div class="bar" style="margin-top:8px"><i style="width:68%"></i></div></div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><span class="mu g">الاختبار</span><b>٧٢٪</b></div></div>
+        <div class="row" style="gap:8px;margin-top:8px">
+          <button class="btn bp g">راسل الأهل</button>
+          <button class="btn bg g">أضف ملاحظة</button>
+        </div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">14</span><span class="en">Quizzes</span><span class="ar">الاختبارات</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>الاختبارات</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <div class="card" style="padding:10px 12px;margin-bottom:10px;border-right:3px solid var(--dn)">
+          <p class="mu" style="color:var(--dn)">يحتاج مراجعة</p>
+          <p class="h2">٨ إجابات مقالية بانتظارك</p>
+        </div>
+        <div class="row" style="gap:6px;margin-bottom:10px"><span class="chip on">الكل</span><span class="chip">منشور</span><span class="chip">مسودة</span></div>
+        <div class="card" style="padding:12px;margin-bottom:8px">
+          <div class="row"><p class="h2 g">اختبار المشتقة الثانية</p><span class="pill" style="background:var(--ds);color:#B91C1C">٨ بانتظار</span></div>
+          <p class="mu" style="margin-top:6px">رياضيات · العاشر · ٢٤ محاولة</p>
+        </div>
+        <div class="card" style="padding:12px">
+          <div class="row"><p class="h2 g">قوانين نيوتن</p><span class="pill" style="background:var(--os);color:var(--ok)">منشور</span></div>
+          <p class="mu" style="margin-top:6px">فيزياء · متوسط ٧٨٪</p>
+        </div>
+        <div style="width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-size:28px;font-weight:800;margin:16px auto 0">+</div>
+      </div>
+      <nav class="tb">
+        <div class="t"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t on"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">15</span><span class="en">Create Quiz</span><span class="ar">إعداد الاختبار</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>إعداد الاختبار</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">العنوان</p>
+        <div class="inp" style="margin:6px 0 10px;color:var(--ink)">اختبار المشتقة الثانية</div>
+        <p class="mu">الوصف</p>
+        <div class="inp" style="margin:6px 0 10px;min-height:56px;color:#94A3B8">أسئلة على الفكرة الأساسية…</div>
+        <p class="mu">المدة</p>
+        <div class="row" style="gap:6px;margin:6px 0 10px"><span class="chip on">١٥ د</span><span class="chip">٣٠ د</span><span class="chip">بدون حد</span></div>
+        <p class="mu">درجة النجاح</p>
+        <div class="inp" style="margin:6px 0 10px;color:var(--ink)">60%</div>
+        <p class="mu" style="margin-bottom:10px">محاولة واحدة لكل طالب</p>
+        <div class="card" style="padding:12px;margin-bottom:14px"><div class="row"><span class="g">نشر بعد الحفظ</span><span class="pill" style="background:var(--os);color:var(--ok)">منشور</span></div></div>
+        <button class="btn bp">حفظ ومتابعة للأسئلة</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">16</span><span class="en">Question Editor</span><span class="ar">إضافة سؤال</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>سؤال</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div class="row" style="gap:6px;margin-bottom:10px">
+          <span class="chip on">اختيار من متعدد</span><span class="chip">صح/خطأ</span><span class="chip">مقالي</span>
+        </div>
+        <p class="mu">نص السؤال</p>
+        <div class="inp" style="margin:6px 0 10px;min-height:64px;color:var(--ink)">ما هي مشتقة f(x) = x²؟</div>
+        <div class="opt ok"><span class="key" style="background:var(--ok);color:#fff">أ</span><span class="ltr">2x</span></div>
+        <div class="opt"><span class="key">ب</span><span class="ltr">x</span></div>
+        <div class="opt"><span class="key">ج</span><span class="ltr">x²</span></div>
+        <div class="opt"><span class="key">د</span><span class="ltr">2</span></div>
+        <p class="mu" style="margin:8px 0 6px">العلامة</p>
+        <div class="inp" style="margin-bottom:12px;color:var(--ink)">1</div>
+        <button class="btn bp">حفظ السؤال</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">17</span><span class="en">Quiz Results</span><span class="ar">نتائج الاختبار</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>نتائج الاختبار</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="h2" style="margin-bottom:10px">٨ طلاب يحتاجون تصحيحاً مقالياً</p>
+        <div class="card" style="padding:12px;margin-bottom:12px;display:flex;text-align:center">
+          <div class="g"><b class="num">24</b><div class="mu">محاولة</div></div>
+          <div class="g"><b class="num">72%</b><div class="mu">المتوسط</div></div>
+          <div class="g"><b class="num" style="color:var(--dn)">8</b><div class="mu">معلق</div></div>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px;border:1.5px solid var(--dn)">
+          <div class="row"><div class="av">ر</div><div class="g"><b>ريم الحلبي</b><div class="mu">مقال بانتظار التصحيح</div></div><span class="pill" style="background:var(--ds);color:#B91C1C">صحّح</span></div>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px">
+          <div class="row"><div class="av">س</div><div class="g"><b>سمير الخطيب</b><div class="mu">٦٨٪</div></div></div>
+        </div>
+        <div class="card" style="padding:12px">
+          <div class="row"><div class="av">ل</div><div class="g"><b>لجين النجار</b><div class="mu">٩١٪</div></div></div>
+        </div>
+        <button class="btn bp" style="margin-top:14px">افتح أول مقال</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">18</span><span class="en">Essay Grading</span><span class="ar">تصحيح المقال</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>ريم الحلبي</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="mu">السؤال ٤ · مقالي</p>
+        <p class="h2" style="margin:6px 0 10px">اشرحي نقطة الانعطاف بكلماتك</p>
+        <div class="card" style="padding:12px;margin-bottom:12px">
+          <p class="bd">نقطة الانعطاف هي المكان اللي بيتغيّر فيه تقعر المنحنى، يعني إشارة المشتقة الثانية تتبدل.</p>
+        </div>
+        <p class="mu">الدرجة</p>
+        <div class="row" style="gap:6px;margin:8px 0 12px">
+          <span class="chip">١</span><span class="chip">٢</span><span class="chip on">٣</span><span class="chip">٤</span><span class="chip">٥</span>
+        </div>
+        <p class="mu">ملاحظات للطالب</p>
+        <div class="inp" style="min-height:70px;margin:6px 0 16px;color:var(--ink)">شرح واضح. أضيفي مثالاً رقمياً.</div>
+        <button class="btn bp">حفظ التصحيح</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">19</span><span class="en">Messages</span><span class="ar">الرسائل</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>الرسائل</h1><div class="ib">✎</div></div>
+      <div class="sc">
+        <div class="inp" style="margin-bottom:10px">بحث</div>
+        <div class="card" style="padding:12px;margin-bottom:8px;border-right:3px solid var(--p)">
+          <div class="row"><div class="av">م</div><div class="g"><b>محمد الحلبي</b><div class="mu">ولي أمر ريم · هل الاختبار إجباري؟</div></div><span class="mu">١٢د</span></div>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px">
+          <div class="row"><div class="av">ر</div><div class="g"><b>ريم الحلبي</b><div class="mu">تمام أستاذ، رح أراجع</div></div><span class="mu">أمس</span></div>
+        </div>
+        <div class="card" style="padding:12px">
+          <div class="row"><div class="av">ل</div><div class="g"><b>لجين النجار</b><div class="mu">أرسلت ملف المشروع</div></div><span class="mu">٢ي</span></div>
+        </div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">20</span><span class="en">Chat · Parent</span><span class="ar">محادثة ولي الأمر</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><div class="g"><h1 style="font-size:15px">محمد الحلبي</h1><div class="mu">ولي أمر ريم · العاشر</div></div></div>
+      <div class="sc">
+        <div style="background:var(--ps);border-radius:16px 16px 4px 16px;padding:10px 12px;margin:0 36px 8px 0">
+          <p style="margin:0;font-size:13px;font-weight:700">هل اختبار المشتقة إجباري هذا الأسبوع؟</p>
+          <p class="mu" style="margin-top:4px">١٢:04</p>
+        </div>
+        <div style="background:var(--p);color:#fff;border-radius:16px 16px 16px 4px;padding:10px 12px;margin:0 0 8px 36px">
+          <p style="margin:0;font-size:13px;font-weight:700">نعم، مطلوب قبل الجمعة. ريم ما قدّمته بعد.</p>
+          <p style="margin-top:4px;font-size:10px;opacity:.8">١٢:06</p>
+        </div>
+        <div style="background:var(--ps);border-radius:16px 16px 4px 16px;padding:10px 12px;margin:0 36px 8px 0">
+          <p style="margin:0;font-size:13px;font-weight:700">تمام أستاذ، رح نراجع معها الليلة.</p>
+        </div>
+      </div>
+      <div style="padding:8px 12px 18px;background:#fff;border-top:1px solid var(--ln)">
+        <div class="row" style="gap:8px">
+          <div class="inp g" style="margin:0">اكتب رسالة…</div>
+          <div class="ib" style="background:var(--ps);color:var(--pi);width:40px;height:40px">🎙</div>
+          <div class="ib" style="background:var(--p);color:#fff;width:40px;height:40px">➤</div>
+        </div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">21</span><span class="en">Chat · Student</span><span class="ar">محادثة الطالب</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><div class="g"><h1 style="font-size:15px">ريم الحلبي</h1><div class="mu">طالبة · رياضيات العاشر</div></div></div>
+      <div class="sc">
+        <div style="background:var(--p);color:#fff;border-radius:16px 16px 16px 4px;padding:10px 12px;margin:0 0 8px 36px">
+          <p style="margin:0;font-size:13px;font-weight:700">ريم، كمّلي اختبار المشتقة قبل الجمعة.</p>
+        </div>
+        <div style="background:var(--ps);border-radius:16px 16px 4px 16px;padding:10px 12px;margin:0 36px 8px 0">
+          <p style="margin:0;font-size:13px;font-weight:700">تمام أستاذ، رح أراجع وأقدّمه.</p>
+        </div>
+        <div style="background:var(--p);color:#fff;border-radius:16px 16px 16px 4px;padding:10px 12px;margin:0 0 8px 36px">
+          <p style="margin:0;font-size:13px;font-weight:700">إذا علقت بنقطة الانعطاف، اسألي المعلّم الذكي.</p>
+        </div>
+      </div>
+      <div style="padding:8px 12px 18px;background:#fff;border-top:1px solid var(--ln)">
+        <div class="row" style="gap:8px">
+          <div class="inp g" style="margin:0">اكتب رسالة…</div>
+          <div class="ib" style="background:var(--ps);color:var(--pi);width:40px;height:40px">📎</div>
+          <div class="ib" style="background:var(--p);color:#fff;width:40px;height:40px">➤</div>
+        </div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">22</span><span class="en">Analytics</span><span class="ar">التحليلات</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>التحليلات</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div style="height:100px;border-radius:18px;background:var(--ps);display:grid;place-items:center;margin-bottom:12px">
+          <svg width="140" height="60" viewBox="0 0 140 60"><path d="M10 48 L40 28 L70 36 L110 12" stroke="#4F46E5" stroke-width="3" fill="none"/><circle cx="110" cy="12" r="4" fill="#4F46E5"/></svg>
+        </div>
+        <div class="hero" style="margin-bottom:12px">
+          <p style="margin:0;font-size:16px;font-weight:800">الفيزياء تحتاج تثبيتاً</p>
+          <p style="margin:6px 0 10px;font-size:12px;opacity:.9">إكمال الدروس ٤١٪</p>
+          <button class="btn bw"><span>افتح الصف</span><span>‹</span></button>
+        </div>
+        <p class="h2" style="margin-bottom:8px">يحتاج انتباهاً</p>
+        <div class="card" style="padding:12px;margin-bottom:8px"><b>اختبار المشتقة — ٨ بانتظار</b></div>
+        <div class="card" style="padding:12px"><b>صف عاشر — اشتراكان ينتهيان</b></div>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">23</span><span class="en">Account</span><span class="ar">حسابي</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>حسابي</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <div class="card" style="padding:16px;text-align:center;margin-bottom:10px">
+          <div class="av" style="width:56px;height:56px;margin:0 auto 8px;font-size:20px">س</div>
+          <p class="h2">سامر الخطيب</p>
+          <p class="mu">رياضيات · فيزياء</p>
+        </div>
+        <div class="hub">
+          <div class="hr"><span class="g">الملف الشخصي</span><span>‹</span></div>
+          <div class="hr"><span class="g">الصوت</span><span>‹</span></div>
+          <div class="hr"><span class="g">عبارات EduMind</span><span>‹</span></div>
+          <div class="hr"><span class="g">صفحة التدريس</span><span class="mu">قريباً</span></div>
+        </div>
+        <div class="hub" style="margin-top:8px">
+          <div class="hr"><span class="g">الإعدادات</span><span>‹</span></div>
+        </div>
+        <p style="text-align:center;color:var(--dn);font-weight:800;margin:18px 0 0">تسجيل الخروج</p>
+      </div>
+      <nav class="tb">
+        <div class="t"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t on"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">24</span><span class="en">Edit Profile</span><span class="ar">الملف الشخصي</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>الملف الشخصي</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div style="width:84px;height:84px;margin:4px auto 6px;border-radius:50%;background:var(--ps);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--pi);position:relative">س
+          <span style="position:absolute;bottom:0;left:0;width:26px;height:26px;border-radius:50%;background:var(--p);color:#fff;font-size:14px;display:grid;place-items:center">+</span>
+        </div>
+        <p class="mu" style="text-align:center;margin-bottom:12px">غيّر الصورة</p>
+        <p class="mu">الاسم</p>
+        <div class="inp" style="margin:6px 0 10px;color:var(--ink)">سامر الخطيب</div>
+        <p class="mu">نبذة</p>
+        <div class="inp" style="margin:6px 0 10px;min-height:64px;color:var(--ink)">مدرّس رياضيات وفيزياء للبكالوريا.</div>
+        <p class="mu">الصفوف</p>
+        <div class="row" style="flex-wrap:wrap;gap:6px;margin:6px 0 10px"><span class="chip on">عاشر</span><span class="chip">حادي عشر</span><span class="chip on">بكالوريا</span></div>
+        <p class="mu">المواد</p>
+        <div class="row" style="flex-wrap:wrap;gap:6px;margin:6px 0 14px"><span class="chip on">رياضيات</span><span class="chip on">فيزياء</span></div>
+        <button class="btn bp">حفظ</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">25</span><span class="en">Qualifications</span><span class="ar">المؤهلات</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>صفحة التدريس</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div style="height:120px;border-radius:18px;background:#EEF2FF;display:grid;place-items:center;margin-bottom:14px">
+          <svg width="80" height="70" viewBox="0 0 80 70"><rect x="16" y="8" width="48" height="54" rx="6" stroke="#4F46E5" stroke-width="2" fill="#fff"/><path d="M26 24h28M26 34h22M26 44h16" stroke="#C7D2FE" stroke-width="2"/></svg>
+        </div>
+        <p class="h2" style="text-align:center">المؤهلات والسيرة</p>
+        <p class="bd" style="text-align:center;margin:8px 0 16px">هذه الصفحة قيد التجهيز على الويب. الصورة والاسم والنبذة تتعدّل من الملف الشخصي الآن.</p>
+        <div class="card" style="padding:12px;margin-bottom:8px;opacity:.55"><div class="row"><span class="g">بكالوريوس فيزياء · جامعة دمشق</span><span class="mu">قريباً</span></div></div>
+        <div class="card" style="padding:12px;margin-bottom:14px;opacity:.55"><div class="row"><span class="g">دبلوم تأهيل تربوي</span><span class="mu">قريباً</span></div></div>
+        <button class="btn bg">حسناً</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">26</span><span class="en">Voice Clone</span><span class="ar">الصوت</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>الصوت</h1><div class="ib"></div></div>
+      <div class="sc">
+        <p class="bd" style="margin-bottom:14px">سجّل صوتك حتى يقرأ EduMind الدرس بصوتك.</p>
+        <div style="height:110px;border-radius:18px;background:#EEF2FF;display:grid;place-items:center;margin-bottom:14px">
+          <svg width="180" height="50" viewBox="0 0 180 50"><path d="M4 25h8l6-14 8 28 8-20 8 12 8-18 8 22 8-10 8 4 8-16 10 12h16" stroke="#4F46E5" stroke-width="2.4" fill="none"/></svg>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><span class="g">عيّنة ١</span><span class="pill" style="background:var(--os);color:var(--ok)">جاهزة</span></div></div>
+        <div class="card" style="padding:12px;margin-bottom:16px;border-right:3px solid var(--ai)"><div class="row"><span class="g">عيّنة ٢</span><span class="pill" style="background:var(--as);color:var(--at)">يعالج</span></div></div>
+        <p class="mu" style="margin-bottom:12px">سجّل دقيقة واحدة على الأقل</p>
+        <button class="btn bp">سجّل عيّنة</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">27</span><span class="en">Bottom Navigation</span><span class="ar">التبويبات</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab"><div class="ib"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h12" stroke="#0C1929" stroke-width="1.7" stroke-linecap="round"/></svg></div><h1>EduMind</h1><div class="ib d"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2.2a3.6 3.6 0 0 0-3.6 3.6v2.1c0 .9-.3 1.8-.9 2.5l-.6.6h10.2l-.6-.6a3.7 3.7 0 0 1-.9-2.5V5.8A3.6 3.6 0 0 0 9 2.2z" stroke="#0C1929" stroke-width="1.5"/><path d="M7.2 14.2a1.8 1.8 0 0 0 3.6 0" stroke="#0C1929" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+      <div class="sc">
+        <p class="h2" style="margin-bottom:10px">تحت الشاشة · ٥ تبويبات</p>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><svg width="22" height="22" style="color:var(--pi)"><use href="#i-home"/></svg><div class="g"><b>الرئيسية</b><div class="mu">أهم شيء الآن</div></div></div></div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><svg width="22" height="22" style="color:var(--pi)"><use href="#i-class"/></svg><div class="g"><b>الصفوف</b><div class="mu">ما أدرّسه</div></div></div></div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><svg width="22" height="22" style="color:var(--pi)"><use href="#i-students"/></svg><div class="g"><b>الطلاب</b><div class="mu">من يحتاجني</div></div></div></div>
+        <div class="card" style="padding:12px;margin-bottom:8px"><div class="row"><svg width="22" height="22" style="color:var(--pi)"><use href="#i-quiz"/></svg><div class="g"><b>الاختبارات</b><div class="mu">أنشئ وصحّح</div></div></div></div>
+        <div class="card" style="padding:12px;margin-bottom:12px"><div class="row"><svg width="22" height="22" style="color:var(--pi)"><use href="#i-me"/></svg><div class="g"><b>حسابي</b><div class="mu">الملف والصوت والإعدادات</div></div></div></div>
+        <p class="mu">الرسائل والتحليلات من القائمة ☰ · مو تبويب</p>
+      </div>
+      <nav class="tb">
+        <div class="t on"><svg><use href="#i-home"/></svg><span>الرئيسية</span></div>
+        <div class="t"><svg><use href="#i-class"/></svg><span>الصفوف</span></div>
+        <div class="t"><svg><use href="#i-students"/></svg><span>الطلاب</span></div>
+        <div class="t"><svg><use href="#i-quiz"/></svg><span>الاختبارات</span></div>
+        <div class="t"><svg><use href="#i-me"/></svg><span>حسابي</span></div>
+      </nav>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+<section class="page">
+  <div class="meta"><span class="n">28</span><span class="en">Parent Note</span><span class="ar">ملاحظة للأهل</span></div>
+  <div class="stage"><div class="phone"><div class="notch"></div><div class="sb"><span>9:41</span><span>▮▮▮</span></div>
+    <div class="ui">
+      <div class="ab s"><div class="ib">›</div><h1>ملاحظة للأهل</h1><div class="ib"></div></div>
+      <div class="sc">
+        <div class="row" style="gap:6px;margin-bottom:12px">
+          <span class="chip on">أكاديمي</span><span class="chip">متوسط</span><span class="chip">مفتوحة</span>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:10px">
+          <p class="mu">أنت · اليوم</p>
+          <p class="bd" style="margin-top:6px">ريم ما قدّمت اختبار المشتقة بعد. أرجو المتابعة من البيت هذا الأسبوع.</p>
+        </div>
+        <div class="card" style="padding:12px;margin-bottom:16px;background:var(--ps)">
+          <p class="mu">محمد الحلبي · ولي الأمر</p>
+          <p class="bd" style="margin-top:6px">تمام أستاذ، رح نراجع معها الليلة.</p>
+        </div>
+        <div class="inp" style="margin-bottom:10px">اكتب رداً…</div>
+        <button class="btn bp">إرسال</button>
+      </div>
+    </div><div class="ind"></div>
+  </div></div>
+</section>
+
+</body>
+</html>

@@ -41,15 +41,17 @@ import com.rork.eduspark.ui.theme.Spacing
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
- * AI surfaces — and the jouri trust contract.
+ * AI surfaces — and the aiAccent trust contract (formerly "jouri").
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Design System §3: "Jouri marks the machine. Anything Claude generated — a tutor reply,
- * an AI hint, a generated quiz, an AI project review — carries a jouri hairline or dot.
- * Human-authored content (a teacher's lesson, a parent's note) never does. This is a
- * trust contract with parents, not a style choice."
+ * The rule (unchanged; only the colour and field name moved — old rose `jouri` has no
+ * successor in the new reference, which reuses cyan for AI/insight content instead, see
+ * the approved Part 1 §9 decision): anything the AI generated — a tutor reply, an AI hint,
+ * a generated quiz, an AI project review — carries an aiAccent hairline or dot. Human-
+ * authored content (a teacher's lesson, a parent's note) never does. This is a trust
+ * contract with parents, not a style choice.
  *
- * [AiMessageBubble] is therefore the ONLY bubble that may carry jouri. A teacher-authored
+ * [AiMessageBubble] is therefore the ONLY bubble that may carry aiAccent. A teacher-authored
  * quiz (ST-09) or a parent note (PR-12) uses the plain card, deliberately unmarked.
  *
  * Source Audit note that shapes this component set: **the tutor does not stream.**
@@ -58,7 +60,7 @@ import com.rork.eduspark.ui.theme.Spacing
  * reveal, which would imply a capability the platform does not have.
  */
 
-/** AI-authored message. Jouri hairline + jouri sparkle mark, always. */
+/** AI-authored message. aiAccent hairline + aiAccent sparkle mark, always. */
 @Composable
 fun AiMessageBubble(
     text: String,
@@ -77,7 +79,7 @@ fun AiMessageBubble(
         Icon(
             imageVector = Icons.Filled.AutoAwesome,
             contentDescription = null,
-            tint = EduTheme.colors.jouri,
+            tint = EduTheme.colors.aiAccent,
             modifier = Modifier
                 .padding(top = Spacing.xs)
                 .size(Sizing.icon),
@@ -86,7 +88,7 @@ fun AiMessageBubble(
             modifier = Modifier
                 .weight(1f)
                 .background(EduTheme.colors.surface, shape)
-                .border(Sizing.hairline, EduTheme.colors.jouri, shape)
+                .border(Sizing.hairline, EduTheme.colors.aiAccent, shape)
                 .padding(Spacing.card),
         ) {
             Text(
@@ -102,7 +104,7 @@ fun AiMessageBubble(
     }
 }
 
-/** Student-authored message. Zaytoun-tinted, never jouri-marked. */
+/** Student-authored message. Primary-tinted, never aiAccent-marked. */
 @Composable
 fun UserMessageBubble(
     text: String,
@@ -119,7 +121,7 @@ fun UserMessageBubble(
             style = EduTheme.typography.bodyLg,
             color = EduTheme.colors.textPrimary,
             modifier = Modifier
-                .background(EduTheme.colors.zaytounSoft, shape)
+                .background(EduTheme.colors.primaryContainer, shape)
                 .padding(Spacing.card),
         )
     }
@@ -155,7 +157,7 @@ fun AiTypingIndicator(
         Text(
             text = label,
             style = EduTheme.typography.caption,
-            color = EduTheme.colors.textMuted,
+            color = EduTheme.colors.textSecondary,
         )
     }
 }
@@ -182,7 +184,7 @@ private fun TypingDot(index: Int, animate: Boolean) {
         modifier = Modifier
             .size(6.dp)
             .alpha(alpha)
-            .background(EduTheme.colors.jouri, RoundedCornerShape(Radius.pill))
+            .background(EduTheme.colors.aiAccent, RoundedCornerShape(Radius.pill))
     )
 }
 
@@ -197,7 +199,7 @@ fun AiDisclosureFooter(modifier: Modifier = Modifier) {
     Text(
         text = stringResource(R.string.ai_disclosure),
         style = EduTheme.typography.caption,
-        color = EduTheme.colors.textMuted,
+        color = EduTheme.colors.textSecondary,
         modifier = modifier
             .fillMaxWidth()
             .padding(top = Spacing.xs),
@@ -205,7 +207,7 @@ fun AiDisclosureFooter(modifier: Modifier = Modifier) {
 }
 
 /**
- * Small jouri dot for compact surfaces — an insight card header, a generated quiz row.
+ * Small aiAccent dot for compact surfaces — an insight card header, a generated quiz row.
  * Use where a full bubble would be too heavy but the provenance still has to be visible.
  */
 @Composable
@@ -219,12 +221,12 @@ fun AiMarker(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .size(Spacing.xs)
-                .background(EduTheme.colors.jouri, RoundedCornerShape(Radius.pill))
+                .background(EduTheme.colors.aiAccent, RoundedCornerShape(Radius.pill))
         )
         Text(
             text = stringResource(R.string.ai_label),
             style = EduTheme.typography.caption,
-            color = EduTheme.colors.jouri,
+            color = EduTheme.colors.aiAccent,
         )
     }
 }

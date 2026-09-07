@@ -7,7 +7,7 @@ import com.rork.eduspark.R
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
-import com.rork.eduspark.data.model.UserRole
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.SignInOutcome
 import kotlinx.coroutines.channels.Channel
@@ -78,9 +78,14 @@ data class LoginUiState(
     val canSubmit: Boolean get() = !isSubmitting
 }
 
-/** One-shot navigation results. Kept out of the state so they cannot replay on rotation. */
+/**
+ * One-shot navigation results. Kept out of the state so they cannot replay on rotation.
+ *
+ * [Authenticated] carries the whole [SessionUser], not just the role — the caller needs
+ * `hasCompletedOnboarding` to route a student correctly (Student Core vs. SO-01…SO-05).
+ */
 sealed interface LoginEvent {
-    data class Authenticated(val role: UserRole) : LoginEvent
+    data class Authenticated(val user: SessionUser) : LoginEvent
     data class TwoFactorRequired(val email: String) : LoginEvent
     data class VerifyEmailRequested(val email: String) : LoginEvent
 }
@@ -168,7 +173,7 @@ class LoginViewModel(
     private suspend fun handleOutcome(outcome: SignInOutcome) {
         when (outcome) {
             is SignInOutcome.Authenticated ->
-                _events.send(LoginEvent.Authenticated(outcome.user.role))
+                _events.send(LoginEvent.Authenticated(outcome.user))
 
             is SignInOutcome.TwoFactorRequired ->
                 _events.send(LoginEvent.TwoFactorRequired(outcome.email))

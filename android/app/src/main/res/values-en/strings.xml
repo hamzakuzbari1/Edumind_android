@@ -22,8 +22,11 @@
     <string name="common_done">Done</string>
     <string name="common_save">Save</string>
     <string name="common_delete">Delete</string>
+    <string name="common_edit">Edit</string>
     <string name="common_more_options">More options</string>
     <string name="common_loading">Loading</string>
+    <string name="common_active">Active</string>
+    <string name="common_not_available">—</string>
     <string name="common_press_back_again">Press back again to exit</string>
 
     <!-- ── states (A-14 Global States Kit) ─────────────────────────── -->
@@ -60,6 +63,8 @@
     <string name="a11y_streak_flame">Streak days</string>
     <string name="a11y_selected">Selected</string>
     <string name="a11y_password_strength">Password strength: %1$s</string>
+    <string name="a11y_open_student_menu">Open student menu</string>
+    <string name="a11y_open_teacher_menu">Open teacher menu</string>
 
     <!-- ── ai ──────────────────────────────────────────────────────── -->
     <string name="ai_label">AI tutor</string>
@@ -83,15 +88,17 @@
 
     <!-- ── role tab bars ───────────────────────────────────────────── -->
     <string name="tab_student_home">Home</string>
-    <string name="tab_student_courses">Courses</string>
+    <string name="tab_student_routine">Routine</string>
+    <string name="tab_student_courses">My Courses</string>
     <string name="tab_student_projects">Projects</string>
-    <string name="tab_student_english">English</string>
+    <string name="tab_student_english">Language</string>
     <string name="tab_student_me">Me</string>
-    <string name="tab_teacher_dashboard">Dashboard</string>
-    <string name="tab_teacher_courses">Courses</string>
+    <string name="tab_teacher_dashboard">Home</string>
+    <string name="tab_teacher_courses">Classes</string>
     <string name="tab_teacher_students">Students</string>
+    <string name="tab_teacher_quizzes">Quizzes</string>
     <string name="tab_teacher_projects">Projects</string>
-    <string name="tab_teacher_me">Me</string>
+    <string name="tab_teacher_me">Account</string>
     <string name="tab_parent_home">Home</string>
     <string name="tab_parent_progress">Progress</string>
     <string name="tab_parent_reports">Reports</string>
@@ -99,6 +106,51 @@
     <string name="tab_parent_me">Me</string>
     <string name="topbar_messages">Messages</string>
     <string name="topbar_notifications">Notifications</string>
+    <string name="drawer_logout">Log out</string>
+    <string name="drawer_logout_confirm_title">Log out?</string>
+    <string name="drawer_logout_confirm_body">This will end your session on this device and return you to sign in.</string>
+
+    <!-- ── Phase 6 · X-01 Messages List / X-02 Conversation Thread / X-03 New Conversation ── -->
+    <string name="x01_title">Messages</string>
+    <string name="x01_new_conversation">New Conversation</string>
+    <string name="x01_empty_title">No messages yet</string>
+    <string name="x01_empty_body">Start a new conversation to get in touch.</string>
+    <string name="x01_search_empty_title">No results</string>
+    <string name="x01_search_empty_body">Try a different search.</string>
+    <string name="x01_voice_message_preview">Voice message</string>
+    <string name="x01_category_parents">Parents</string>
+    <string name="x01_empty_students">No student conversations</string>
+    <string name="x01_empty_parents">No parent conversations</string>
+    <string name="x01_teacher_search_empty">No results</string>
+
+    <string name="x02_title_fallback">Conversation</string>
+    <string name="x02_search">Search in conversation</string>
+    <string name="x02_participant_info">Participant info</string>
+    <string name="x02_receipt_sent">Sent</string>
+    <string name="x02_receipt_read">Read</string>
+    <string name="x02_attach">Attach</string>
+    <string name="x02_composer_label">Message</string>
+    <string name="x02_composer_placeholder">Type a message…</string>
+    <string name="x02_send">Send</string>
+    <string name="x02_attach_title">Add attachment</string>
+    <string name="x02_attach_image">Image</string>
+    <string name="x02_attach_file">File</string>
+    <string name="x02_attach_link">Link</string>
+    <string name="x02_role_teacher">Teacher</string>
+    <string name="x02_role_student">Student</string>
+    <string name="x02_role_parent">Parent</string>
+    <string name="x02_student_subtitle">Student · %1$s</string>
+    <string name="x02_view_profile">View profile</string>
+    <string name="x02_mic">Record voice message</string>
+    <string name="x02_recording_cancel">Cancel recording</string>
+    <string name="x02_recording_finish">Finish recording</string>
+    <string name="x02_voice_preview_delete">Delete recording</string>
+    <string name="x02_play">Play</string>
+    <string name="x02_pause">Pause</string>
+
+    <string name="x03_title">New Conversation</string>
+    <string name="x03_empty_title">No contacts</string>
+    <string name="x03_empty_body">No one available to message right now.</string>
 
     <!-- ── settings ────────────────────────────────────────────────── -->
     <string name="settings_language">Language</string>
@@ -167,11 +219,17 @@
     <!-- ── A-03 · Role Select ──────────────────────────────────────── -->
     <string name="a03_title">Who are you?</string>
     <string name="a03_body">We\'ll set up the right screens and content. You can change this later in Settings.</string>
+    <string name="a03_entry_headline">The next generation of intelligent learning</string>
+    <string name="a03_entry_subtitle">EduMind brings lessons, the AI tutor, quizzes, and daily planning into one experience for students, parents, and teachers.</string>
+    <string name="a03_benefit_ai_tutor">AI tutor</string>
+    <string name="a03_benefit_daily_plan">Daily plan</string>
+    <string name="a03_benefit_progress">Progress tracking</string>
+    <string name="a03_role_section_title">Choose your experience</string>
     <string name="a03_role_student">Student</string>
-    <string name="a03_role_student_line">Study, take quizzes, and ask the AI tutor</string>
+    <string name="a03_role_student_line">Start lessons and quizzes with your AI tutor</string>
     <string name="a03_role_student_monogram">S</string>
     <string name="a03_role_teacher">Teacher</string>
-    <string name="a03_role_teacher_line">Publish lessons, review projects, track classes</string>
+    <string name="a03_role_teacher_line">Publish lessons and track your classes</string>
     <string name="a03_role_teacher_monogram">T</string>
     <string name="a03_role_parent">Parent</string>
     <string name="a03_role_parent_line">Follow your child\'s progress and talk to teachers</string>
@@ -268,6 +326,2480 @@
     <string name="a07_grade_10">Grade 10</string>
     <string name="a07_grade_11">Grade 11</string>
     <string name="a07_grade_12">Baccalaureate</string>
+
+    <!-- Student/Parent only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
+    <string name="reg_terms_with_age">I agree to the Terms of Use and Privacy Policy. I am 13 or older.</string>
+
+    <!-- ── password strength — actionable guidance, not just a score ─ -->
+    <string name="reg_strength_hint_add_number">Add a number to make it stronger</string>
+    <string name="reg_strength_hint_add_uppercase">Add an uppercase letter to make it stronger</string>
+    <string name="reg_strength_hint_add_symbol">Add a special character to make it stronger</string>
+    <string name="reg_strength_hint_add_length">Make it longer to make it stronger</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-08 · VERIFY EMAIL
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a08_title">Check your email</string>
+    <string name="a08_body">We sent a 6-digit code to %1$s</string>
+    <string name="a08_code_hint">The code is valid for 10 minutes</string>
+    <string name="a08_verify">Verify</string>
+    <string name="a08_verifying">Checking your code…</string>
+    <string name="a08_error_invalid_code">That code isn\'t right. Try again.</string>
+    <plurals name="a08_error_invalid_code_attempts">
+        <item quantity="one">That code isn\'t right. %1$d attempt left before we send a new one.</item>
+        <item quantity="other">That code isn\'t right. %1$d attempts left before we send a new one.</item>
+    </plurals>
+    <string name="a08_error_expired">This code has expired. Send a new one.</string>
+    <string name="a08_action_send_new_code">Send a new code</string>
+    <string name="a08_success_title">Email verified</string>
+    <string name="a08_success_body">Your account is ready now.</string>
+    <string name="a08_resend_prompt">Didn\'t get it?</string>
+    <string name="a08_resend_action">Resend</string>
+    <string name="a08_resend_cooldown">You can resend in %1$s</string>
+    <string name="a08_change_email_prompt">Wrong address?</string>
+    <string name="a08_change_email_hint">Change it and we\'ll send a new code</string>
+    <string name="a08_change_email_action">Change</string>
+    <string name="a11y_a08_otp">Email verification code cells</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-09 · TWO-FACTOR VERIFY
+         Backend reality (Source Audit §3): the second factor is EMAIL OTP.
+         TOTP returns 501 and there is no SMS/phone channel — never build toward one.
+         The badge word stays untranslated, like the EDUMIND wordmark on A-04: a
+         security-label convention, not prose.
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a09_security_badge">SECURITY</string>
+    <string name="a09_band_label">TWO-FACTOR</string>
+    <string name="a09_title">One more security step</string>
+    <string name="a09_body">Enter the code we sent to %1$s</string>
+    <string name="a09_trust_device">Trust this device</string>
+    <string name="a09_trust_device_hint">We won\'t ask for 30 days</string>
+    <string name="a09_confirm">Confirm code</string>
+    <string name="a09_confirming">Checking your code…</string>
+    <string name="a09_error_invalid_code">That code isn\'t right. Try again.</string>
+    <plurals name="a09_error_invalid_code_attempts">
+        <item quantity="one">That code isn\'t right. %1$d attempt left before we send a new one.</item>
+        <item quantity="other">That code isn\'t right. %1$d attempts left before we send a new one.</item>
+    </plurals>
+    <string name="a09_resend_sent_count">Sent %1$d of %2$d allowed codes</string>
+    <string name="a09_resend_cap_reached">You\'ve used all allowed codes. Try again later or contact support.</string>
+    <string name="a09_success_title">Verified</string>
+    <string name="a09_success_body">Signing you in…</string>
+    <string name="a11y_a09_otp">Two-factor verification code cells</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-10 · FORGOT PASSWORD
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a10_title">Forgot your password?</string>
+    <string name="a10_body">Enter your email and we\'ll send a reset link. The link is valid for one hour.</string>
+    <string name="a10_submit">Send reset link</string>
+    <string name="a10_submitting">Sending…</string>
+    <string name="a10_sent_body">If we have an account for it, a reset link is on its way to %1$s</string>
+    <string name="a10_sent_spam_hint">Nothing after a minute? Check your spam folder — reset mail sometimes lands there.</string>
+    <string name="a10_sent_validity">The link lasts one hour and works only once.</string>
+    <string name="a10_open_mail_app">Open mail app</string>
+    <string name="a10_try_another_email_action">Try another email</string>
+    <string name="a10_remembered">Remembered it?</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-11 · RESET PASSWORD
+         Reached by deep link. The email line renders only when the link (or the A-10
+         hand-off) actually carried one — see a11_body_generic for the fallback.
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a11_title">New password</string>
+    <string name="a11_body_for_email">For %1$s</string>
+    <string name="a11_body_generic">For your account</string>
+    <string name="a11_new_password_label">New password</string>
+    <string name="a11_signed_out_note">You\'ll be signed out on your other devices once this is saved.</string>
+    <string name="a11_submit">Save and sign in</string>
+    <string name="a11_submitting">Saving…</string>
+    <string name="a11_expired_title">This link has expired</string>
+    <string name="a11_expired_body">Reset links last one hour and work only once.</string>
+    <string name="a11_expired_resend_known">We\'ll send a fresh one to %1$s</string>
+    <string name="a11_action_send_new_link">Send a new link</string>
+    <string name="a11_link_resent">A new link is on its way to %1$s</string>
+    <string name="a11_action_use_different_email">Use a different email</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-12 · CERTIFICATE VERIFICATION (public, no session)
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a12_title">Certificate Verification</string>
+    <string name="a12_valid_badge">Verified certificate</string>
+    <string name="a12_field_holder">Holder</string>
+    <string name="a12_field_title">Certificate</string>
+    <string name="a12_field_level">Level / project</string>
+    <string name="a12_field_date">Issue date</string>
+    <string name="a12_field_teacher">Issuing teacher</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT ONBOARDING · SO-01 … SO-05
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="so_step_label">Step %1$d / %2$d</string>
+    <string name="so_subject_french">French</string>
+
+    <!-- ── SO-01 · Grade ─────────────────────────────────────────────── -->
+    <string name="so01_title">What grade are you in?</string>
+    <string name="so01_body">We build your path around your curriculum and its exam dates.</string>
+    <string name="so01_grade_10_hint">Pre-baccalaureate foundations</string>
+    <string name="so01_grade_11_hint">Leads into the science or literary track</string>
+    <string name="so01_grade_12_hint">Grade 12 — certificate year</string>
+    <string name="so01_track_label">Choose your track</string>
+    <string name="so01_track_science">Science</string>
+    <string name="so01_track_literary">Literary</string>
+    <string name="so01_error_grade">Choose your grade to continue</string>
+    <string name="so01_error_track">Choose your track to continue</string>
+    <string name="so01_continue">Continue — pick subjects</string>
+
+    <!-- ── SO-02 · Subjects ──────────────────────────────────────────── -->
+    <string name="so02_title">Which subjects do you want to focus on?</string>
+    <string name="so02_body">Pick at least one. You can add more any time later.</string>
+    <string name="so02_group_science_core">Science track core</string>
+    <string name="so02_group_literary_core">Literary track core</string>
+    <string name="so02_group_languages_general">Languages &amp; general</string>
+    <string name="so02_error_min_one">Pick at least one subject so we can build your path.</string>
+    <plurals name="so02_selected_count">
+        <item quantity="one">%1$d subject selected</item>
+        <item quantity="other">%1$d subjects selected</item>
+    </plurals>
+    <string name="so02_continue">Continue — choose teachers</string>
+
+    <!-- ── SO-03 · Teachers ──────────────────────────────────────────── -->
+    <string name="so03_title">Choose a teacher for each subject</string>
+    <string name="so03_body">Listen to a short intro before you decide. You can switch later.</string>
+    <plurals name="so03_years_teaching">
+        <item quantity="one">%1$d year teaching</item>
+        <item quantity="other">%1$d years teaching</item>
+    </plurals>
+    <plurals name="so03_students_count">
+        <item quantity="one">%1$d student</item>
+        <item quantity="other">%1$d students</item>
+    </plurals>
+    <string name="so03_per_session">Per session</string>
+    <string name="so03_error_teachers">Choose a teacher for every subject</string>
+    <string name="so03_continue">Continue — personalize</string>
+    <string name="a11y_so03_play_intro">Play the voice introduction</string>
+    <string name="a11y_so03_pause_intro">Pause the voice introduction</string>
+
+    <!-- ── SO-04 · Personalize ───────────────────────────────────────── -->
+    <string name="so04_question_label">Question %1$d of %2$d</string>
+    <string name="so04_not_sure_yet">Not sure yet</string>
+    <string name="so04_next">Next</string>
+    <string name="so04_build_plan">Build my plan</string>
+
+    <string name="so04_q1_title">How much time can you study daily?</string>
+    <string name="so04_q1_body">We\'ll spread lessons across this time so it never feels like pressure. Be honest — you can change it later.</string>
+    <string name="so04_hours_30min">30 min — between classes</string>
+    <string name="so04_hours_1h">1 hour</string>
+    <string name="so04_hours_2h">2 hours</string>
+    <string name="so04_hours_3h_plus">3+ hours</string>
+
+    <string name="so04_q2_title">Which subject are you strongest in?</string>
+    <string name="so04_q2_body">We\'ll go faster here and spend the saved time elsewhere.</string>
+
+    <string name="so04_q3_title">And which subject needs more time?</string>
+    <string name="so04_q3_body">No judgment — we\'ll start from the basics and give it more practice time.</string>
+
+    <string name="so04_q4_title">When is your first important exam?</string>
+    <string name="so04_q4_body">Set the date so we can intensify review before it.</string>
+    <string name="so04_exam_date_not_sure">I don\'t know yet</string>
+    <string name="so04_weekday_sun">S</string>
+    <string name="so04_weekday_mon">M</string>
+    <string name="so04_weekday_tue">T</string>
+    <string name="so04_weekday_wed">W</string>
+    <string name="so04_weekday_thu">T</string>
+    <string name="so04_weekday_fri">F</string>
+    <string name="so04_weekday_sat">S</string>
+    <string name="a11y_so04_prev_month">Previous month</string>
+    <string name="a11y_so04_next_month">Next month</string>
+    <plurals name="so04_exam_days_until">
+        <item quantity="one">Exam in %1$d day</item>
+        <item quantity="other">Exam in %1$d days</item>
+    </plurals>
+
+    <string name="so04_q5_title">When do you study best?</string>
+    <string name="so04_q5_body">Your reminder lands then — and your plan is built around it.</string>
+    <string name="so04_time_morning">Early morning</string>
+    <string name="so04_time_morning_hint">Before school</string>
+    <string name="so04_time_afternoon">Afternoon</string>
+    <string name="so04_time_afternoon_hint">Right after school</string>
+    <string name="so04_time_evening">Evening</string>
+    <string name="so04_time_evening_hint">After dinner, 19:00–22:00</string>
+    <string name="so04_time_late">Late night</string>
+    <string name="so04_time_late_hint">After 22:00</string>
+
+    <!-- ── SO-05 · Complete ──────────────────────────────────────────── -->
+    <string name="so05_celebration_title">Your path is ready, %1$s</string>
+    <string name="so05_celebration_body">We built a weekly plan around your subjects and the days left before your exam.</string>
+    <string name="so05_xp_earned">+50 XP for finishing setup</string>
+    <string name="so05_summary_title">Your choices</string>
+    <string name="so05_field_grade">Grade</string>
+    <string name="so05_field_subjects">Subjects</string>
+    <string name="so05_field_teachers">Teachers</string>
+    <string name="so05_field_study">Study</string>
+    <string name="so05_field_exam">Exam</string>
+    <string name="so05_grade_track_format">%1$s — %2$s</string>
+    <string name="so05_exam_not_sure">Not set yet</string>
+    <string name="so05_study_summary">%1$s daily · %2$s</string>
+    <string name="so05_footer_note">You can change any of this from Me at any time.</string>
+    <string name="so05_cta">Start your first lesson</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-01 · Student Home
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st01_greeting">Good morning, %1$s</string>
+    <string name="st01_continue_eyebrow">Continue where you stopped</string>
+    <plurals name="st01_minutes_left">
+        <item quantity="one">%1$d minute left</item>
+        <item quantity="other">%1$d minutes left</item>
+    </plurals>
+    <string name="st01_start_lesson">Continue lesson</string>
+    <string name="st01_continue_subject_teacher">%1$s · %2$s</string>
+    <string name="st01_subject_teacher_percent">%1$s · %2$d%%</string>
+    <string name="st01_today_plan">Today\'s plan</string>
+    <string name="st01_see_full_plan">See all</string>
+    <string name="st01_today_this_week_title">Today / This week</string>
+    <string name="st01_today_this_week_subtitle">What needs your attention from the plan and routine.</string>
+    <string name="st01_today_empty">Nothing urgent right now. Open Planner to add a session or exam.</string>
+    <string name="st01_open_planner">Open planner</string>
+    <string name="st01_routine_signal_title">From your routine</string>
+    <string name="st01_routine_time_range">%1$s - %2$s</string>
+    <plurals name="st01_plan_duration">
+        <item quantity="one">%1$d min</item>
+        <item quantity="other">%1$d min</item>
+    </plurals>
+    <string name="st01_my_subjects">My subjects</string>
+    <string name="st01_project_title">My project</string>
+    <string name="st01_project_empty_body">Projects is still being built — it\'ll reach you when it\'s ready.</string>
+    <string name="st01_english_title">English</string>
+    <string name="st01_english_teaser_body">The English module is still being built — it\'ll reach you when it\'s ready.</string>
+    <string name="st01_first_day_title">Welcome, %1$s</string>
+    <string name="st01_first_day_subtitle">Your first day on EduMind</string>
+    <string name="st01_first_day_heading">Let\'s start with one lesson</string>
+    <string name="st01_first_day_body">Pick a subject, and we\'ll build a path around it.</string>
+    <string name="st01_first_day_pick_subject">Choose your first subject</string>
+    <string name="st01_quick_actions_title">Quick actions</string>
+    <string name="st01_quick_action_messages">Messages</string>
+    <string name="st01_quick_action_planner">Planner</string>
+    <string name="st01_quick_action_routine">Routine</string>
+    <string name="st01_quick_action_achievements">Achievements</string>
+    <string name="st01_report_title">Your report</string>
+    <string name="st01_report_active_subjects">Active subjects</string>
+    <string name="st01_report_completed_lessons">Completed lessons</string>
+    <string name="st01_report_last_quiz">Last quiz</string>
+    <string name="st01_report_study_days">Study days this week</string>
+    <string name="st01_achievements_preview_title">Your achievements</string>
+    <string name="st01_achievement_recent_label">Most recent</string>
+    <string name="st01_achievement_next_label">Next up</string>
+    <string name="st01_no_achievements_yet">No achievements earned yet</string>
+    <string name="st01_hero_greeting_morning">Good morning</string>
+    <string name="st01_mission_headline_lesson">Your next mission in %1$s</string>
+    <string name="st01_mission_headline_empty">Your next mission is waiting</string>
+    <string name="st01_mission_complete_lesson">Complete “%1$s”</string>
+    <string name="st01_mission_empty_body">Pick a subject to start your learning journey.</string>
+    <string name="st01_mission_progress">%1$s of %2$s lessons complete</string>
+    <string name="st01_current_start_here">Start here</string>
+    <string name="st01_brand_wordmark">EduMind</string>
+    <string name="st01_ready_to_continue">Ready to continue?</string>
+    <string name="st01_today_title">Today</string>
+    <string name="st01_see_daily">Daily view</string>
+    <string name="st01_lets_review_this">Let\'s review this</string>
+    <string name="st01_review_ten_minutes">10-minute review</string>
+    <string name="st01_continue_lesson_cta">Continue lesson</string>
+    <string name="st01_review_reason_score">Last score %1$s%%</string>
+    <string name="st01_review_reason_weak">Needs a quick refresh</string>
+    <string name="st01_start_here_meta">%1$s · %2$s min · lesson %3$s of %4$s</string>
+    <string name="st01_progress_level_short">Level</string>
+    <string name="st01_progress_days_short">Days</string>
+    <string name="st01_progress_xp_short">XP</string>
+    <string name="st01_guidance_section_title">EduMind recommendation</string>
+    <string name="st01_guidance_section_subtitle">One clear signal from your progress and current plan.</string>
+    <string name="st01_guidance_planner_title">Start from today\'s plan</string>
+    <string name="st01_guidance_quiz_title">Review before the next quiz</string>
+    <string name="st01_guidance_quiz_body">Your last quiz score was %1$s%%, and %2$s needs a quick review.</string>
+    <string name="st01_guidance_quiz_detail">Start with “%1$s”, then take the quiz when ready.</string>
+    <string name="st01_guidance_review_action">Review lesson</string>
+    <string name="st01_guidance_weak_title">Needs attention</string>
+    <string name="st01_guidance_weak_body">%1$s is only %2$s%% through the current path.</string>
+    <string name="st01_guidance_open_subject">Open subject</string>
+    <string name="st01_guidance_continue_title">Continue the current mission</string>
+    <string name="st01_guidance_continue_body">The best next step is “%1$s”.</string>
+    <string name="st01_guidance_empty_title">Build the first path</string>
+    <string name="st01_guidance_empty_body">Open a ready subject or subscription so EduMind can start guiding you.</string>
+    <string name="st01_progress_snapshot_subtitle">A compact read on level, lessons, quizzes, and consistency.</string>
+    <string name="st01_level_label">Level %1$s</string>
+    <string name="st01_xp_to_next">%1$s of %2$s XP toward the next level</string>
+    <string name="st01_streak_days_value">%1$s days</string>
+    <string name="st01_last_quiz_percent">%1$s%%</string>
+    <string name="st01_subjects_eyebrow">My learning</string>
+    <string name="st01_subject_snapshot_title">Subject snapshot</string>
+    <string name="st01_subject_snapshot_subtitle">A quick view of %1$s. The full catalog is in My Courses.</string>
+    <string name="st01_subject_snapshot_active_count">%1$s active subjects</string>
+    <string name="st01_subject_snapshot_more">+%1$s more in My Courses</string>
+    <string name="st01_subjects_subtitle">Subjects for %1$s</string>
+    <string name="st01_subjects_subtitle_no_grade">Subjects built around your active grade.</string>
+    <string name="st01_subjects_empty_title">No subjects yet</string>
+    <string name="st01_subjects_empty_body">Subscribe to unlock your first subject.</string>
+    <string name="st01_continue_title">Continue learning</string>
+    <string name="st01_continue_subtitle">Jump back into your latest lesson.</string>
+    <string name="st01_continue_empty_title">Nothing in progress yet</string>
+    <string name="st01_continue_empty_body">Open a subject and start the first lesson.</string>
+    <string name="st01_achievements_title">Achievements</string>
+    <string name="st01_achievements_subtitle">Your recent badge and the next milestone.</string>
+    <string name="st01_recent_achievement_empty">Earn your first badge by finishing a lesson.</string>
+    <string name="st01_next_achievement_empty">Your next badge will appear here.</string>
+    <string name="st01_view_all_achievements">View all achievements</string>
+    <string name="st01_catalog_progress_zero_of">0 of %1$s lessons</string>
+    <string name="st01_catalog_progress_unavailable">Subscribe to view lessons</string>
+    <string name="st01_catalog_progress_of">%1$s of %2$s lessons</string>
+    <string name="st01_catalog_progress_completed_only">%1$s lessons completed</string>
+    <string name="st01_catalog_progress_not_started">Ready to start</string>
+    <string name="st01_catalog_cta_locked">Subscribe to unlock</string>
+    <string name="st01_catalog_cta_done">Review course</string>
+    <string name="st01_catalog_cta_active">Continue course</string>
+    <string name="st01_catalog_cta_ready">Start course</string>
+    <string name="st01_catalog_cta_coming_soon">Coming soon</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LANGUAGE MODULE · LN-01 / LN-04 foundation
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="ln01_access_eyebrow">Your English journey</string>
+    <string name="ln01_home_title">Welcome back</string>
+    <string name="ln01_home_subtitle">Pick a skill and keep going.</string>
+    <string name="ln01_paywall_title">Learn English</string>
+    <string name="ln01_paywall_subtitle">Activate your subscription to access the level test and personal path.</string>
+    <string name="ln01_status_active">Active subscription</string>
+    <string name="ln01_status_expiring">Ends soon</string>
+    <string name="ln01_status_expired">Finished</string>
+    <string name="ln01_status_inactive">Inactive</string>
+    <string name="ln01_overall_value">Overall: %1$s</string>
+    <string name="ln01_renews_on">Renews %1$s</string>
+    <string name="ln01_paywall_bullet_exam">Level test for four skills</string>
+    <string name="ln01_paywall_bullet_path">Custom learning path</string>
+    <string name="ln01_paywall_bullet_guardian">Continue Guardian</string>
+    <string name="ln01_paywall_price">%1$s / %2$s days</string>
+    <string name="ln01_paywall_cta">Subscribe now</string>
+    <string name="ln01_from_placement">From your placement</string>
+    <string name="ln01_next_step">Next step</string>
+    <string name="ln01_start_here_focus">Start here: focus on %1$s</string>
+    <string name="ln01_continue_path">Continue your learning path</string>
+    <string name="ln01_go_learning_path">Go to my learning path</string>
+    <string name="ln01_common_mistakes">Common mistakes to fix</string>
+    <string name="ln01_lessons_done">Lessons done</string>
+    <string name="ln01_to_goal">To your goal</string>
+    <string name="ln01_overall_level_label">Overall level</string>
+    <string name="ln01_target_level">Target level</string>
+    <string name="ln01_target_value">Target: %1$s</string>
+    <string name="ln01_target_eta">About %1$s to go</string>
+    <string name="ln01_your_levels">Your levels</string>
+    <string name="ln01_levels_subtitle">Reading, listening, writing and speaking levels from your placement.</string>
+    <string name="ln01_strength_focus">Strength: %1$s · Focus: %2$s</string>
+    <string name="ln01_strength_only">Strength: %1$s</string>
+    <string name="ln01_focus_only">Focus: %1$s</string>
+    <string name="ln01_results">Results</string>
+    <string name="ln01_retake">Retake</string>
+    <string name="ln01_next_retake">Next suggested retake: %1$s</string>
+    <string name="ln01_growth_value">+%1$s%% growth</string>
+    <string name="ln01_continue_learning">Continue learning</string>
+    <string name="ln01_continue_learning_subtitle">Open a skill or your path.</string>
+    <string name="ln01_today_english">Today in English</string>
+    <string name="ln01_start_conversation">Start conversation</string>
+    <string name="ln01_start_mission">Start</string>
+    <string name="ln01_mission_minutes">%1$s minutes</string>
+    <string name="ln01_home_skill_listening">Listening</string>
+    <string name="ln01_home_skill_speaking">Speaking</string>
+    <string name="ln01_home_skill_reading">Reading</string>
+    <string name="ln01_home_skill_writing">Writing</string>
+    <string name="ln01_home_more_practice">Practice more</string>
+    <string name="ln01_home_vocab_shortcut">Vocabulary</string>
+    <string name="ln01_home_grammar_shortcut">Grammar</string>
+    <string name="ln_deep_more">More skills</string>
+    <string name="ln_deep_listen">Listen</string>
+    <string name="ln_deep_replay">Replay audio</string>
+    <string name="ln_deep_not_quite">Not quite</string>
+    <string name="ln_deep_answer_is">Correct answer: %1$s</string>
+    <string name="ln_deep_press_speak">Tap and speak</string>
+    <string name="ln_deep_know">I know it</string>
+    <string name="ln_deep_hard_word">Hard</string>
+    <string name="ln_deep_new_word">New</string>
+    <string name="ln_deep_show_meaning">Show meaning</string>
+    <string name="ln_deep_read">Read</string>
+    <string name="ln_deep_revise">Revise your answer</string>
+    <string name="ln_deep_ask_example">Give me an example</string>
+    <string name="ln_deep_progress">%1$s / %2$s</string>
+    <string name="ln_deep_explain_sentence">Explain this sentence</string>
+    <string name="ln_deep_say_simpler">How can I say it more simply?</string>
+    <string name="ln_deep_word_meaning">What does this word mean?</string>
+    <string name="ln_deep_fix_sentence">Correct this sentence</string>
+    <string name="ln_deep_tools">More</string>
+    <string name="ln_deep_ready">Ready</string>
+    <string name="ln_deep_recording">Recording</string>
+    <string name="ln_deep_processing">Processing</string>
+    <string name="ln_deep_next_turn">Next turn</string>
+    <string name="ln01_level_range">%1$s → %2$s</string>
+    <string name="ln_area_home">Home</string>
+    <string name="ln_area_reading">Reading</string>
+    <string name="ln_area_listening">Listening</string>
+    <string name="ln_area_writing">Writing</string>
+    <string name="ln_area_speaking">Speaking</string>
+    <string name="ln_area_vocabulary">Vocabulary</string>
+    <string name="ln_area_journey">Journey</string>
+    <string name="ln_area_grammar">Grammar</string>
+    <string name="ln_area_home_subtitle">Your language dashboard.</string>
+    <string name="ln_area_reading_subtitle">AI-guided reading practice.</string>
+    <string name="ln_area_listening_subtitle">Audio and dialogue practice.</string>
+    <string name="ln_area_writing_subtitle">Guided writing prompts.</string>
+    <string name="ln_area_speaking_subtitle">Talk with the AI teacher.</string>
+    <string name="ln_area_vocabulary_subtitle">Cards and spaced review.</string>
+    <string name="ln_area_journey_subtitle">Your learning path.</string>
+    <string name="ln_area_grammar_subtitle">Grammar journey and review.</string>
+    <string name="ln_area_foundation_title">Destination connected</string>
+    <string name="ln_area_foundation_body">%1$s is wired as a peer area inside the Language module shell. The full practice experience plugs into this destination after foundation approval.</string>
+    <string name="ln_area_back_home">Back to Home</string>
+    <string name="ln_area_review_placement">Review placement</string>
+    <string name="ln_skill_reading">Reading</string>
+    <string name="ln_skill_listening">Listening</string>
+    <string name="ln_skill_writing">Writing</string>
+    <string name="ln_skill_speaking">Speaking</string>
+    <string name="ln_skill_vocabulary">Vocabulary</string>
+    <string name="ln_skill_grammar">Grammar</string>
+    <string name="ln04_eyebrow">Learn languages</string>
+    <string name="ln04_title">AI Placement Exam</string>
+    <string name="ln04_subtitle">Speaking, listening, reading and writing — then a full level report.</string>
+    <string name="ln04_intro_title">Full level test — every core skill</string>
+    <string name="ln04_intro_body">You have 60 minutes. You will speak, listen, read and write. Each skill is graded separately, then EduMind maps you to a CEFR level and unlocks your path.</string>
+    <string name="ln04_timer_notice">Timer starts when you begin the exam</string>
+    <string name="ln04_skill_speaking_hint">Talk to the AI</string>
+    <string name="ln04_skill_listening_hint">Listen and answer</string>
+    <string name="ln04_skill_reading_hint">Read and answer</string>
+    <string name="ln04_skill_writing_hint">Write a reply</string>
+    <string name="ln04_skill_vocab_hint">Use English accurately</string>
+    <string name="ln04_skill_grammar_hint">Use English accurately</string>
+    <string name="ln04_instructions_title">Before you begin</string>
+    <string name="ln04_instruction_skills">The exam includes speaking, listening, reading and writing.</string>
+    <string name="ln04_instruction_adaptive">Questions adapt to your answers, so later tasks may become easier or harder.</string>
+    <string name="ln04_instruction_speaking">For speaking, record or upload your audio, then submit it manually.</string>
+    <string name="ln04_instruction_integrity">Do not use grammar tools, translation or outside help during the exam.</string>
+    <string name="ln04_start_exam">Begin exam</string>
+    <string name="ln04_skip_title">Skip the placement exam?</string>
+    <string name="ln04_skip_body">Choose the level you want to start from, then open the platform directly.</string>
+    <string name="ln04_skip_cta">Skip exam and start from %1$s</string>
+    <string name="ln04_section_progress">%1$s/%2$s sections saved</string>
+    <string name="ln04_time_remaining">%1$s min left</string>
+    <string name="ln04_question_count">Question %1$s of %2$s</string>
+    <string name="ln04_audio_title">Audio</string>
+    <string name="ln04_audio_cta">Play audio</string>
+    <string name="ln04_audio_unlocked">Question unlocked</string>
+    <string name="ln04_listen_first">Listen first — the question appears after you play the clip.</string>
+    <string name="ln04_reading_passage">Passage</string>
+    <string name="ln04_speaking_prompt">Tap record to capture your spoken answer.</string>
+    <string name="ln04_speaking_helper">This mock foundation saves a deterministic sample recording for review.</string>
+    <string name="ln04_record_answer">Record answer</string>
+    <string name="ln04_record_saved">Audio answer saved</string>
+    <string name="ln04_write_answer">Your answer</string>
+    <string name="ln04_write_placeholder">Write your answer in English.</string>
+    <string name="ln04_words_count">%1$s words · target %2$s-%3$s</string>
+    <string name="ln04_submit_next">Next section</string>
+    <string name="ln04_submit_finish">Finish exam</string>
+    <string name="ln04_start_fresh">Start fresh</string>
+    <string name="ln04_evaluating_title">Building your level report</string>
+    <string name="ln04_evaluating_body">EduMind is scoring each skill and preparing your recommended starting point.</string>
+    <string name="ln05_overall_level">Your overall level</string>
+    <string name="ln05_confidence">Confidence %1$s%%</string>
+    <string name="ln05_skill_score">%1$s%% · %2$s</string>
+    <string name="ln05_strongest">Strongest skill</string>
+    <string name="ln05_focus_skill">Focus skill</string>
+    <string name="ln05_eta">Estimated to next level</string>
+    <string name="ln05_eta_weeks">%1$s weeks</string>
+    <string name="ln05_strengths">Strengths</string>
+    <string name="ln05_to_work_on">To work on</string>
+    <string name="ln05_language_feedback">Language feedback</string>
+    <string name="ln05_study_plan">Your study plan</string>
+    <string name="ln05_start_here">Start here</string>
+    <string name="ln05_go_home">Go to my learning home</string>
+    <string name="ln05_open_journey">Open learning path</string>
+    <string name="ln05_retake">Retake placement</string>
+    <string name="ln06_title">Placement history</string>
+    <string name="ln06_subtitle">Read-only results from completed placement assessments.</string>
+    <string name="ln06_empty_title">No placement result yet</string>
+    <string name="ln06_empty_body">Finish the AI placement exam or choose a baseline level to create your first record.</string>
+    <string name="ln06_result_title">Placement result</string>
+
+    <!-- LANGUAGE MODULE · STEP 6B skill experiences -->
+    <string name="ln6b_tab_journey">Journey</string>
+    <string name="ln6b_tab_practice">Practice</string>
+    <string name="ln6b_tab_promotion">Promotion</string>
+    <string name="ln6b_tab_lesson">Lesson</string>
+    <string name="ln6b_tab_discussion">Discussion</string>
+    <string name="ln6b_tab_alex">Alex</string>
+    <string name="ln6b_tab_assessment">Assessment</string>
+    <string name="ln6b_tab_daily">Daily New Words</string>
+    <string name="ln6b_tab_bank">Review Bank</string>
+    <string name="ln6b_filter_all">All</string>
+    <string name="ln6b_filter_due">Due</string>
+    <string name="ln6b_filter_difficult">Difficult</string>
+    <string name="ln6b_start">Start</string>
+    <string name="ln6b_start_practice">Start Practice</string>
+    <string name="ln6b_readiness_test">Readiness Test</string>
+    <string name="ln6b_submit_answers">Submit answers</string>
+    <string name="ln6b_retry">Retry</string>
+    <string name="ln6b_back_to_skill">Back to skill</string>
+    <string name="ln6b_score_value">%1$s%%</string>
+    <string name="ln6b_answered_count">%1$s / %2$s answered</string>
+    <string name="ln6b_question_number">Question %1$s</string>
+    <string name="ln6b_correct">Correct</string>
+    <string name="ln6b_review">Review</string>
+    <string name="ln6b_your_answer">Your answer</string>
+    <string name="ln6b_mastery">Mastery</string>
+    <string name="ln6b_evidence">Evidence</string>
+    <string name="ln6b_readiness">Readiness</string>
+    <string name="ln6b_focus">Focus</string>
+    <string name="ln6b_need_more">Need more</string>
+    <string name="ln6b_unlock_next">To unlock the next step</string>
+    <string name="ln6b_ready_to_progress">Ready to progress</string>
+    <string name="ln6b_recent">Recent</string>
+    <string name="ln6b_reading_stage">Your reading stage</string>
+    <string name="ln6b_reading_subtitle">One stage at a time — practice, gather evidence, unlock the next.</string>
+    <string name="ln6b_stage_evidence">Stage evidence</string>
+    <string name="ln6b_stage_evidence_subtitle">Build proof through practice, not XP.</string>
+    <string name="ln6b_reading_journey">Reading journey</string>
+    <string name="ln6b_reading_journey_subtitle">Six CEFR levels with beginner, core and advanced stages.</string>
+    <string name="ln6b_grammar_focus">Grammar: %1$s</string>
+    <string name="ln6b_questions">Questions</string>
+    <string name="ln6b_questions_subtitle">Answer every item before submitting.</string>
+    <string name="ln6b_listening_title">Listening Journey</string>
+    <string name="ln6b_listening_intro">Start a listening lesson</string>
+    <string name="ln6b_listening_intro_body">Generate the current audio mission, listen, answer, then review feedback.</string>
+    <string name="ln6b_mission">Mission</string>
+    <string name="ln6b_today_we_practice">Today we practice</string>
+    <string name="ln6b_audio_surface">Audio</string>
+    <string name="ln6b_today_improved">Today improved</string>
+    <string name="ln6b_needs_practice">Needs practice</string>
+    <string name="ln6b_next_clip">Next clip</string>
+    <string name="ln6b_path_map">Path map</string>
+    <string name="ln6b_history">History</string>
+    <string name="ln6b_goal_title">Goal</string>
+    <string name="ln6b_goal_subtitle">Choose the context that shapes the next generated task.</string>
+    <string name="ln6b_goal_school">School</string>
+    <string name="ln6b_goal_travel">Travel</string>
+    <string name="ln6b_goal_conversation">Conversation</string>
+    <string name="ln6b_promotion_title">Promotion test</string>
+    <string name="ln6b_promotion_subtitle">Practice gates decide when the next level test opens.</string>
+    <string name="ln6b_unlocked">Unlocked</string>
+    <string name="ln6b_locked_more_practice">More practice needed</string>
+    <string name="ln6b_writing_title">Writing Journey</string>
+    <string name="ln6b_writing_intro">Generate a writing mission</string>
+    <string name="ln6b_writing_intro_body">Get a prompt, write a draft, then receive deterministic AI-style feedback.</string>
+    <string name="ln6b_generate_lesson">Generate lesson</string>
+    <string name="ln6b_blockers">Blockers</string>
+    <string name="ln6b_lessons_remaining">Lessons remaining</string>
+    <string name="ln6b_today_goal">Today goal</string>
+    <string name="ln6b_prompt">Prompt</string>
+    <string name="ln6b_instructions">Instructions</string>
+    <string name="ln6b_success_criteria">Success criteria</string>
+    <string name="ln6b_editor_label">Writing editor</string>
+    <string name="ln6b_submit_draft">Submit draft</string>
+    <string name="ln6b_resubmit">Resubmit</string>
+    <string name="ln6b_complete">Complete</string>
+    <string name="ln6b_evaluation">Evaluation</string>
+    <string name="ln6b_writing_completed">Writing mission complete</string>
+    <string name="ln6b_new_lesson">New lesson</string>
+    <string name="ln6b_speaking_title">Speaking Journey</string>
+    <string name="ln6b_speaking_intro">Start the speaking session for today</string>
+    <string name="ln6b_speaking_intro_body">Open the lesson package, prepare language, then move into guided discussion.</string>
+    <string name="ln6b_start_session">Start session</string>
+    <string name="ln6b_today_steps">Today steps</string>
+    <string name="ln6b_objectives">Objectives</string>
+    <string name="ln6b_vocabulary">Vocabulary</string>
+    <string name="ln6b_teaching_blocks">Teaching blocks</string>
+    <string name="ln6b_start_discussion">Start discussion</string>
+    <string name="ln6b_discussion_intro">Open guided discussion</string>
+    <string name="ln6b_discussion_intro_body">Discuss the case with voice, transcript and correction feedback.</string>
+    <string name="ln6b_characters">Characters</string>
+    <string name="ln6b_live_voice_discussion">Live Voice Discussion</string>
+    <string name="ln6b_press_record">Press record and speak in English.</string>
+    <string name="ln6b_empty_speaking">Press Start recording and speak in English.</string>
+    <string name="ln6b_you">You</string>
+    <string name="ln6b_pronunciation_score">Pronunciation %1$s</string>
+    <string name="ln6b_fluency_score">Fluency %1$s</string>
+    <string name="ln6b_transcript">Transcript</string>
+    <string name="ln6b_transcript_placeholder">Type or save what you said.</string>
+    <string name="ln6b_start_recording">Start recording</string>
+    <string name="ln6b_stop_recording">Stop</string>
+    <string name="ln6b_send_voice">Send voice</string>
+    <string name="ln6b_new_conversation">New conversation</string>
+    <string name="ln6b_alex_title">Alex live practice</string>
+    <string name="ln6b_alex_need_session">Start from the discussion first.</string>
+    <string name="ln6b_alex_body">This mobile shell keeps the current case connected to the live voice area.</string>
+    <string name="ln6b_back_discussion">Back to discussion</string>
+    <string name="ln6b_vocab_level_notice">Your reading level: %1$s — cards currently available at level %2$s.</string>
+    <string name="ln6b_vocab_generator">Vocabulary generator</string>
+    <string name="ln6b_vocab_generator_subtitle">A personalized AI batch based on your level and interests.</string>
+    <string name="ln6b_generate_words">Generate my words</string>
+    <string name="ln6b_ai_words_left">%1$s of 10 AI words left today</string>
+    <string name="ln6b_today_index">%1$s / %2$s today</string>
+    <string name="ln6b_vocab_generate_hint">Press Generate my words for a personalized batch.</string>
+    <string name="ln6b_total">Total</string>
+    <string name="ln6b_known">Known</string>
+    <string name="ln6b_due_today">Due today</string>
+    <string name="ln6b_not_learned">Not learned yet</string>
+    <string name="ln6b_daily_goal">%1$s/%2$s words learned today</string>
+    <string name="ln6b_show_arabic">Show Arabic</string>
+    <string name="ln6b_hide_arabic">Hide Arabic</string>
+    <string name="ln6b_again">Again</string>
+    <string name="ln6b_hard">Hard</string>
+    <string name="ln6b_good">Good</string>
+    <string name="ln6b_easy">Easy</string>
+    <string name="ln6b_lookup_word">Look up a word</string>
+    <string name="ln6b_lookup_subtitle">AI-style English word analysis.</string>
+    <string name="ln6b_lookup_label">English word</string>
+    <string name="ln6b_lookup_placeholder">Type an English word</string>
+    <string name="ln6b_analyze">Analyze</string>
+    <string name="ln6b_daily_vocab_quiz">Daily vocabulary quiz</string>
+    <string name="ln6b_daily_vocab_quiz_subtitle">Spelling and pronunciation from learned words.</string>
+    <string name="ln6b_done_today">Done for today</string>
+    <string name="ln6b_word_count">Word %1$s / %2$s</string>
+    <string name="ln6b_type_word">Type the word</string>
+    <string name="ln6b_check">Check</string>
+    <string name="ln6b_score_pronunciation">Score pronunciation</string>
+    <string name="ln6b_finish_quiz">Finish quiz</string>
+    <string name="ln6b_spelling">Spelling</string>
+    <string name="ln6b_pronunciation">Pronunciation</string>
+    <string name="ln6b_daily_challenge">Daily challenge</string>
+    <string name="ln6b_daily_challenge_subtitle">Fill in the blanks from your review words.</string>
+    <string name="ln6b_check_answers">Check answers</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-02 · Course Detail
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st02_lessons_of">%1$d of %2$d lessons</string>
+    <plurals name="st02_quiz_count">
+        <item quantity="one">%1$d quiz</item>
+        <item quantity="other">%1$d quizzes</item>
+    </plurals>
+    <string name="st02_lesson_current">Current</string>
+    <string name="st02_lesson_completed">Completed</string>
+    <string name="st02_xp_earned">%1$d XP</string>
+    <string name="st02_locked_requires_step">Locked — finish \"%1$s\" to open</string>
+    <plurals name="st02_locked_requires_count">
+        <item quantity="one">Locked — opens after %1$d lesson</item>
+        <item quantity="other">Locked — opens after %1$d lessons</item>
+    </plurals>
+    <string name="st02_milestone_badge">Milestone</string>
+    <string name="st02_next_incomplete">Next incomplete lesson</string>
+    <string name="st02_locked_requires_entitlement">Locked — subscribe to unlock</string>
+    <string name="st02_locked_subject_eyebrow">%1$s</string>
+    <string name="st02_locked_teacher_name">with %1$s</string>
+    <string name="st02_locked_title">This subject is locked</string>
+    <string name="st02_locked_with_teacher">with %1$s</string>
+    <plurals name="st02_locked_subscribe_prompt">
+        <item quantity="one">Subscribe to unlock %1$d lesson with %2$s.</item>
+        <item quantity="other">Subscribe to unlock %1$d lessons with %2$s.</item>
+    </plurals>
+    <string name="st02_locked_cta_subscribe">Subscribe now</string>
+    <string name="st02_locked_back_to_subjects">Back to my subjects</string>
+    <string name="st_courses_enrolled_section">In progress</string>
+    <string name="st_courses_discover_section">Discover new subjects</string>
+    <string name="st_courses_catalog_body">All subjects in one place: continue unlocked courses and open locked ones from their own course page.</string>
+    <string name="st_courses_active_label">%1$s active</string>
+    <string name="st_courses_locked_label">%1$s locked</string>
+    <string name="st_courses_coming_soon">Coming soon</string>
+    <string name="st_courses_ready_to_start">Start now</string>
+    <string name="st02_not_published_title">Course in progress</string>
+    <string name="st02_not_published_body">%1$s will publish this unit\'s lessons soon.</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-03 · Lesson Player
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st03_processing_title">Lesson still processing</string>
+    <string name="st03_processing_body">This lesson is being prepared right now. Try again shortly.</string>
+    <string name="st03_context">%1$s · Lesson %2$d of %3$d</string>
+    <string name="st03_previous_page">Previous page</string>
+    <string name="st03_pdf_page">Page %1$s of %2$s</string>
+    <string name="st03_zoom_in">Zoom in</string>
+    <string name="st03_zoom_out">Zoom out</string>
+    <string name="st03_next_page">Next page</string>
+    <string name="st03_pause">Pause</string>
+    <string name="st03_play">Play</string>
+    <string name="st03_captions_sample">The current caption line appears here</string>
+    <string name="st03_speed">Speed %1$s×</string>
+    <string name="st03_captions">Captions</string>
+    <string name="st03_audio_transcript">Transcript</string>
+    <string name="st03_download_offline">Download for offline</string>
+    <string name="st03_downloading">Downloading…</string>
+    <string name="st03_offline_available">Available offline</string>
+    <string name="st03_ask_tutor">Ask the AI tutor</string>
+    <string name="st03_step_learn">Learn</string>
+    <string name="st03_step_ask">Ask</string>
+    <string name="st03_step_quiz">Quiz</string>
+    <string name="st03_step_finish">Finish</string>
+    <string name="st03_key_ideas_title">Key ideas</string>
+    <string name="st03_ask_inline_title">Didn\'t understand something?</string>
+    <string name="st03_ask_inline_subtitle">Ask your AI tutor, in %1$s\'s style</string>
+    <string name="st03_take_quiz">Start quiz</string>
+    <string name="st03_completed_label">Lesson completed</string>
+    <string name="st03_mark_complete">Mark as complete</string>
+    <string name="st03_concept_explain">Explain this</string>
+    <string name="st03_concept_example">Give an example</string>
+    <string name="st03_concept_quiz">Quiz me</string>
+    <string name="st03_concept_explain_prompt">Explain the idea \"%1$s\" from the lesson %2$s</string>
+    <string name="st03_concept_example_prompt">Give me an example of \"%1$s\" from the lesson %2$s</string>
+    <string name="st03_concept_quiz_prompt">Quiz me on \"%1$s\" from the lesson %2$s</string>
+    <string name="st03_completion_title">Before you finish this lesson</string>
+    <string name="st03_completion_subtitle">Check these before marking the lesson complete</string>
+    <string name="st03_completion_check_content">You viewed or read the lesson content</string>
+    <string name="st03_completion_check_quiz">You completed the lesson quiz</string>
+    <string name="st03_completion_confirm">Confirm completion</string>
+    <string name="st03_nav_back_to_course">Back to lessons</string>
+    <string name="st03_header_position">Lesson %1$s of %2$s</string>
+    <string name="st03_header_session_progress">Session progress</string>
+    <string name="st03_header_next_step">Next step</string>
+    <string name="st03_next_watch_or_read">Start with the lesson content.</string>
+    <string name="st03_next_ask_teacher">Ask the tutor or continue to the quiz.</string>
+    <string name="st03_next_take_quiz">Take the lesson quiz.</string>
+    <string name="st03_next_finish">Verify completion to update your progress.</string>
+    <string name="st03_next_completed">Progress saved. Choose your next lesson from the course.</string>
+    <string name="st03_review_quiz_results">Review results</string>
+    <string name="st03_learn_eyebrow">Learn</string>
+    <string name="st03_learn_title_with_teacher">Learn with %1$s</string>
+    <string name="st03_learn_prompt_watch">watch</string>
+    <string name="st03_learn_prompt_read">read</string>
+    <string name="st03_learn_prompt_review">review ideas</string>
+    <string name="st03_learn_prompt_interact">interact with concepts</string>
+    <string name="st03_learn_prompt_empty">No lesson content is available yet.</string>
+    <string name="st03_learn_prompt_joined">Complete this flow: %1$s.</string>
+    <string name="st03_session_tools_title">Ask Teacher / Quiz</string>
+    <string name="st03_session_ask_hint">Concepts and mistakes carry the lesson context automatically.</string>
+    <string name="st03_session_ask_summary_prompt">Explain the main ideas from the lesson %1$s</string>
+    <string name="st03_session_ask_quiz_prompt">Quiz me quickly on the lesson %1$s</string>
+    <string name="st03_quiz_none_title">No lesson quiz yet</string>
+    <string name="st03_quiz_none_body">When a quiz is available, it will appear here inside the lesson session.</string>
+    <string name="st03_quiz_continue">Continue quiz</string>
+    <string name="st03_quiz_session_title">Lesson quiz</string>
+    <string name="st03_quiz_answered_count">%1$s of %2$s answered</string>
+    <string name="st03_quiz_result_title">Quiz result</string>
+    <string name="st03_mistake_review_title">Mistake review</string>
+    <string name="st03_quiz_no_mistakes">No mistakes to review. Nice work.</string>
+    <string name="st03_practice_mistakes">Practice mistakes</string>
+    <string name="st03_next_action_title">Ready for the next step</string>
+    <string name="st03_next_action_body">Return to %1$s and continue the lesson journey.</string>
+    <string name="st03_phase_concept">Concept</string>
+    <string name="st03_phase_teacher">Teacher lesson</string>
+    <string name="st03_phase_understand">Understand</string>
+    <string name="st03_phase_example">Example</string>
+    <string name="st03_phase_try">Try</string>
+    <string name="st03_phase_quick_check">Quick check</string>
+    <string name="st03_phase_finish">Finish</string>
+    <string name="st03_lesson_material">Lesson material</string>
+    <string name="st03_teacher_explain">Explanation · %1$s</string>
+    <string name="st03_play_video">Play video</string>
+    <string name="st03_open_file">Open file</string>
+    <string name="st03_media_video">Video</string>
+    <string name="st03_media_pdf">PDF</string>
+    <string name="st03_media_audio">Audio</string>
+    <string name="st03_pdf_filename">%1$s.pdf</string>
+    <string name="st03_pdf_pages">%1$s pages</string>
+    <string name="st03_media_clock">%1$s:00</string>
+    <string name="st03_attachments_title">Lesson attachments</string>
+    <string name="st03_done_teacher">Finished the lesson content</string>
+    <string name="st03_done_understand">Understood the idea</string>
+    <string name="st03_done_try">Finished the activity</string>
+    <string name="st03_done_check">Quick question</string>
+    <string name="st03_phase_count">%1$s of %2$s · %3$s</string>
+    <string name="st03_example_title">Example for %1$s</string>
+    <string name="st03_example_body">Turn the idea into one simple relationship, then apply it to a short case.</string>
+    <string name="st03_try_title">Try it yourself</string>
+    <string name="st03_try_prompt">Choose the correct relationship</string>
+    <string name="st03_try_physics_correct">F = m · a</string>
+    <string name="st03_try_physics_wrong">F = m / a</string>
+    <string name="st03_try_math_correct">fʺ(x) = (fʹ(x))ʹ</string>
+    <string name="st03_try_math_wrong">fʺ(x) = ∫ f(x) dx</string>
+    <string name="st03_try_correct">Correct — that applies the idea</string>
+    <string name="st03_try_incorrect">Try again</string>
+    <string name="st03_try_show_media">Show the lesson material</string>
+    <string name="st03_quick_check_local_prompt">What is the core idea?</string>
+    <string name="st03_quick_check_wrong">Another idea from the lesson</string>
+    <string name="st03_open_full_quiz">Full quiz</string>
+    <string name="st03_quick_check_title">Check the idea with one question</string>
+    <string name="st03_quick_check_body">Open the lesson quiz so your answer is saved through the existing quiz engine.</string>
+    <string name="st03_quick_check_completed">The lesson quiz is saved. Review results or move to finish.</string>
+    <string name="st03_formula_physics">ω = v / r</string>
+    <string name="st03_formula_math">fʺ(x) = (fʹ(x))ʹ</string>
+    <string name="st03_quick_file_summary">File &amp; summary</string>
+    <string name="st03_quick_quizzes">Tests</string>
+    <string name="st03_test_not_started">Not started</string>
+    <string name="st03_test_completed">Completed</string>
+    <string name="st03_quiz_required_label">Required</string>
+    <string name="st03_quiz_optional_label">Optional</string>
+    <string name="st03_quiz_questions">%1$s questions</string>
+    <string name="st03_view_quiz_result">View result</string>
+    <string name="st03_start_quick_check">Start quick check</string>
+    <string name="st03_open_quick_check">Open quick check</string>
+    <string name="st03_ask_edumind">Ask EduMind about this lesson</string>
+    <string name="st03_teacher_source">Teacher source</string>
+    <string name="st03_edumind_summary">EduMind helps you understand it</string>
+    <string name="st03_no_video">No video for this lesson</string>
+    <string name="st03_no_document">No lesson file yet</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-04 · AI Tutor Chat
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st04_title">AI Tutor</string>
+    <string name="st04_lesson_context">About: %1$s</string>
+    <string name="st04_voice_mode">Switch to voice</string>
+    <string name="st04_empty_title">Ask anything about this lesson</string>
+    <string name="st04_empty_body">The AI tutor answers based on the current lesson\'s content.</string>
+    <string name="st04_suggestion_1">What is the second derivative?</string>
+    <string name="st04_suggestion_2">Give me an example</string>
+    <string name="st04_suggestion_3">Explain it more simply</string>
+    <string name="st04_input_hint">Type your question…</string>
+    <string name="st04_chip_another_example">Another example</string>
+    <string name="st04_chip_explain_simpler">Explain it simpler</string>
+    <string name="st04_chip_quiz_me">Quiz me</string>
+    <string name="st04_send">Send</string>
+    <string name="st04_action_copy">Copy</string>
+    <string name="st04_action_regenerate">Regenerate</string>
+    <string name="st04_action_simpler">Explain simpler</string>
+    <string name="st04_action_example">Give an example</string>
+    <string name="st04_error_body">Couldn\'t get a reply.</string>
+    <string name="st04_panel_teacher_name">AI Tutor</string>
+    <string name="st04_panel_header_hint">Connected to the current lesson</string>
+    <string name="st04_panel_title">Ask Teacher</string>
+    <string name="st04_panel_subtitle">Lesson-grounded help, examples, and quick checks.</string>
+    <string name="st04_panel_message_count">%1$d messages</string>
+    <string name="st04_answer_why">Why?</string>
+    <string name="st04_structured_summary">This reply is tied to %1$s, so it starts with a short explanation, then an example or relation to make the idea stick.</string>
+    <string name="st04_formula_physics">ω = v / r</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-05 · AI Tutor Voice Mode
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st05_title">Voice mode</string>
+    <string name="st05_hold_to_speak">Press and hold to speak</string>
+    <string name="st05_recording">Listening…</string>
+    <string name="st05_resolving">Turning your voice into text…</string>
+    <string name="st05_failed_title">Couldn\'t understand that</string>
+    <string name="st05_failed_body">We couldn\'t transcribe the recording. Try again.</string>
+    <string name="st05_mic_permission_title">This needs your microphone</string>
+    <string name="st05_mic_permission_body">Allow microphone access to talk with the AI tutor.</string>
+    <string name="st05_mic_permission_action">Enable microphone</string>
+    <string name="st05_play_response">Play reply</string>
+    <string name="st05_your_question">You asked:</string>
+
+    <!-- ST-02 addition — ST-09 entry point (manual/course quiz row). -->
+    <string name="st02_manual_quiz_row">Unit quiz</string>
+    <string name="st02_tab_lessons">Lessons</string>
+    <string name="st02_tab_quizzes">Quizzes</string>
+    <string name="st02_tab_quizzes_count">Quizzes · %1$d</string>
+    <string name="st02_no_quizzes">No quizzes for this course yet</string>
+    <string name="st02_hero_welcome">Welcome to your subject journey.</string>
+    <string name="st02_hero_message_teacher">Message teacher</string>
+    <string name="st02_hero_view_profile">View profile</string>
+    <string name="st02_hero_progress_empty">Lessons will appear here soon.</string>
+    <plurals name="st02_hero_lessons_waiting">
+        <item quantity="one">%1$d lesson waiting for you.</item>
+        <item quantity="other">%1$d lessons waiting for you.</item>
+    </plurals>
+    <string name="st02_hero_progress_all_completed">All lessons completed.</string>
+    <string name="st02_hero_lessons_completed">%1$s of %2$s lessons completed</string>
+    <string name="st02_current_empty_title">No current lesson yet</string>
+    <string name="st02_current_empty_body">Your teacher will publish the lesson journey soon.</string>
+    <string name="st02_current_eyebrow_all_done">All done</string>
+    <string name="st02_current_eyebrow_current">Current lesson</string>
+    <string name="st02_current_eyebrow_continue">Continue learning</string>
+    <string name="st02_current_eyebrow_here">Continue from here</string>
+    <string name="st02_you_are_here">You are here</string>
+    <string name="st02_duration_minutes_short">%1$s min</string>
+    <string name="st02_current_meta">%1$s · Lesson %2$s of %3$s</string>
+    <string name="st02_current_cta_review">Review lesson</string>
+    <string name="st02_current_cta_start">Start lesson</string>
+    <string name="st02_current_cta_continue">Continue lesson</string>
+    <string name="st02_journey_title">Lesson journey</string>
+    <string name="st02_journey_lesson_number">Lesson %1$s</string>
+    <string name="st02_journey_state_completed">Completed</string>
+    <string name="st02_journey_state_current">Current</string>
+    <string name="st02_journey_state_upcoming">Upcoming</string>
+    <string name="st02_journey_state_locked">Locked</string>
+    <string name="st02_journey_empty_title">No lessons yet</string>
+    <string name="st02_journey_empty_body">Your teacher is preparing this course.</string>
+    <string name="st02_quizzes_title">Course quizzes</string>
+    <string name="st02_quizzes_subtitle">Manual quizzes for this subject.</string>
+    <plurals name="st02_quizzes_meta">
+        <item quantity="one">%1$d quiz available</item>
+        <item quantity="other">%1$d quizzes available</item>
+    </plurals>
+    <string name="st02_quizzes_status_available">Available</string>
+    <string name="st02_quizzes_cta_start">Start quiz</string>
+    <string name="st02_quizzes_empty_body">Manual quizzes will appear here when your teacher adds them.</string>
+    <string name="st02_teacher_profile_title">%1$s profile</string>
+    <string name="st02_teacher_profile_body">%1$s · %2$s</string>
+    <string name="st02_course_progress_label">Your progress</string>
+    <string name="st02_unit_progress">%1$s of %2$s complete</string>
+    <string name="st02_unit_physics_motion">Unit 1 — Motion</string>
+    <string name="st02_unit_physics_forces">Unit 2 — Forces</string>
+    <string name="st02_unit_physics_energy">Unit 3 — Energy</string>
+    <string name="st02_unit_math_limits">Unit 1 — Limits</string>
+    <string name="st02_unit_math_derivatives">Unit 2 — Derivatives</string>
+    <string name="st02_unit_math_applications">Unit 3 — Applications</string>
+    <string name="st02_unit_default_1">Unit 1</string>
+    <string name="st02_unit_default_2">Unit 2</string>
+    <string name="st02_unit_default_3">Unit 3</string>
+    <string name="st02_unit_review">Unit 4 — Review</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-06 · Quiz Runner (shared shell — also ST-08, ST-09)
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st06_question_of">%1$s of %2$s</string>
+    <string name="st06_validation_required">Please answer the question before continuing</string>
+    <string name="st06_answer_placeholder_gap">Type the answer</string>
+    <string name="st06_answer_placeholder_short">Type your answer…</string>
+    <string name="st06_correct">Correct answer</string>
+    <string name="st06_incorrect">Incorrect answer</string>
+    <string name="st06_submit_error">Couldn\'t submit the quiz. Try again.</string>
+    <string name="st06_previous">Previous</string>
+    <string name="st06_next">Next</string>
+    <string name="st06_submit">Finish quiz</string>
+    <string name="st06_continue">Continue</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-07 · Quiz Results
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st07_title">Quiz Results</string>
+    <string name="st07_correct_count">%1$s of %2$s correct</string>
+    <string name="st07_review_wrong">Review wrong answers</string>
+    <string name="st07_show_all">Show all questions</string>
+    <string name="st07_practice_again">Practice these again</string>
+    <string name="st07_no_wrong_title">Nice work! Nothing wrong to review</string>
+    <string name="st07_your_answer">Your answer: %1$s</string>
+    <string name="st07_correct_answer">Correct answer: %1$s</string>
+    <string name="st07_question_number">Question %1$s</string>
+    <string name="st07_stat_correct">Correct answers</string>
+    <string name="st07_stat_wrong">Wrong answers</string>
+    <string name="st07_stat_time">Time taken</string>
+    <string name="st07_xp_earned">+%1$s XP</string>
+    <string name="st07_ask_tutor_about_mistake">Ask the tutor</string>
+    <string name="st07_ask_tutor_mistake_prompt">I got \"%1$s\" wrong — I answered \"%2$s\" but the correct answer is \"%3$s\". Explain why</string>
+    <string name="st07_follow_up_mistakes">Review the misses, ask the tutor about one, then generate targeted practice.</string>
+    <string name="st07_follow_up_mastery">No mistakes. Return to the lesson and finish the completion check.</string>
+    <string name="st07_weakest_topic">Weakest topic</string>
+    <string name="st07_edumind_recommendation">EduMind recommends</string>
+    <string name="st07_review_minutes">Review this for 10 minutes, then try targeted practice.</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-08 · Remedial Quiz
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st08_practice_banner">This is practice, not an assessment — no grade pressure</string>
+    <string name="st08_show_hint">Show a hint</string>
+    <string name="st08_complete_title">Nice work! Practice complete</string>
+    <string name="st08_complete_body">%1$s of %2$s correct this round</string>
+    <string name="st08_retry">Try again</string>
+    <string name="st08_back_to_results">Back to results</string>
+    <string name="st08_back_to_lesson">Back to lesson</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-09 · Manual Quiz Runner
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st09_teacher_authored">By %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-10 · Planner
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st10_title">Study Planner</string>
+    <string name="st10_day_sunday">Sunday</string>
+    <string name="st10_day_monday">Monday</string>
+    <string name="st10_day_tuesday">Tuesday</string>
+    <string name="st10_day_wednesday">Wednesday</string>
+    <string name="st10_day_thursday">Thursday</string>
+    <string name="st10_day_friday">Friday</string>
+    <string name="st10_day_saturday">Saturday</string>
+    <string name="st10_regenerate">Regenerate my week</string>
+    <string name="st10_empty_day_title">No sessions this day</string>
+    <string name="st10_empty_day_body">Take a break, or use the time for free review.</string>
+    <string name="st10_status_upcoming">Upcoming</string>
+    <string name="st10_status_completed">Completed</string>
+    <string name="st10_status_missed">Missed</string>
+    <string name="st10_mark_complete_a11y">Mark complete</string>
+    <string name="st10_mark_incomplete_a11y">Mark incomplete</string>
+    <string name="st10_priority_reason_label">Why this time?</string>
+    <string name="st10_ask_assistant">Adjust with the AI assistant</string>
+    <string name="st10_ask_assistant_prompt_example">Try "Move my math session to Thursday" or any change you\'d like</string>
+    <string name="st10_close">Close</string>
+    <string name="st10_open_exam_capture">Capture exam schedule</string>
+    <string name="st10_open_routine">View routine</string>
+    <plurals name="st10_exams_reflected">
+        <item quantity="one">%1$d upcoming exam</item>
+        <item quantity="other">%1$d upcoming exams</item>
+    </plurals>
+    <string name="st10_subject_strength_title">Your subject performance</string>
+    <string name="st10_strength_weak">Needs focus</string>
+    <string name="st10_strength_medium">On track</string>
+    <string name="st10_strength_strong">Excellent</string>
+    <string name="st10_suggests">EduMind suggests</string>
+    <string name="st10_apply">Apply</string>
+    <string name="st10_ignore">Ignore</string>
+    <string name="st10_tomorrow">Tomorrow</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-11 · Planner AI Chat
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st11_title">Planner Assistant</string>
+    <string name="st11_empty_title">Ask for any change to your plan</string>
+    <string name="st11_empty_body">Tell me what you need, and I\'ll suggest a change you can accept or reject.</string>
+    <string name="st11_suggestion_1">I have football practice Tuesday, move my chemistry</string>
+    <string name="st11_suggestion_2">Postpone my physics session by a day</string>
+    <string name="st11_suggestion_3">Why is the math session important this week?</string>
+    <string name="st11_input_hint">Type your request…</string>
+    <string name="st11_attach_exam_schedule">Add exam schedule</string>
+    <string name="st11_exam_intent_message">I want to add my exam schedule</string>
+    <string name="st11_diff_old">Current</string>
+    <string name="st11_diff_new">Proposed</string>
+    <string name="st11_accept">Accept</string>
+    <string name="st11_reject">Reject</string>
+    <string name="st11_accepted_label">Accepted</string>
+    <string name="st11_rejected_label">Rejected</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-12 · Routine Builder
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st12_title">Build Your Weekly Routine</string>
+    <string name="st12_q1_title">When do you usually wake up?</string>
+    <string name="st12_q1_body">This helps us build your study day.</string>
+    <string name="st12_q2_title">What are your school hours?</string>
+    <string name="st12_q2_body">Pick whichever is closest to your schedule.</string>
+    <string name="st12_school_early">Early schedule</string>
+    <string name="st12_school_early_hint">8:00 – 2:00</string>
+    <string name="st12_school_standard">Standard schedule</string>
+    <string name="st12_school_standard_hint">8:00 – 3:00</string>
+    <string name="st12_school_late">Late schedule</string>
+    <string name="st12_school_late_hint">9:00 – 3:30</string>
+    <string name="st12_q3_title">Do you have any regular weekly commitments?</string>
+    <string name="st12_q3_body">Pick everything that applies — it\'s fine to pick nothing.</string>
+    <string name="st12_commitment_sports">Sports training</string>
+    <string name="st12_commitment_tutoring">Private tutoring</string>
+    <string name="st12_commitment_schedule_days">%1$s — Days</string>
+    <string name="st12_commitment_schedule_time">Time</string>
+    <string name="st12_commitment_schedule_from">From</string>
+    <string name="st12_commitment_schedule_to">To</string>
+    <string name="st12_commitment_club">School club</string>
+    <string name="st12_commitment_volunteer">Volunteer activity</string>
+    <string name="st12_q4_title">When do you usually prefer to study?</string>
+    <string name="st12_q4_body">Pick every time that works for you.</string>
+    <string name="st12_window_early_morning">Before school</string>
+    <string name="st12_window_after_school">Right after school</string>
+    <string name="st12_window_evening">In the evening</string>
+    <string name="st12_window_late_night">Late at night</string>
+    <string name="st12_q5_title">When is your focus at its best?</string>
+    <string name="st12_q5_body">This helps us put your most important tasks in your strongest time.</string>
+    <string name="st12_q6_title">When do you usually go to sleep?</string>
+    <string name="st12_q6_body">This sets the end of your study day.</string>
+    <string name="st12_review_title">Review your routine before confirming</string>
+    <string name="st12_review_wake">Wake-up</string>
+    <string name="st12_review_school">School hours</string>
+    <string name="st12_review_commitments">Commitments</string>
+    <string name="st12_review_commitments_none">No commitments</string>
+    <string name="st12_review_windows">Preferred study times</string>
+    <string name="st12_review_windows_none">No specific preference</string>
+    <string name="st12_review_energy">Best focus time</string>
+    <string name="st12_review_sleep">Sleep</string>
+    <string name="st12_edit">Edit</string>
+    <string name="st12_confirm">Confirm routine</string>
+    <string name="st12_confirm_error">Couldn\'t confirm the routine. Try again.</string>
+    <string name="st12_ai_build_title">Smart routine build</string>
+    <string name="st12_ai_build_body">Builds the week day by day around school, sleep, commitments, and exams.</string>
+    <string name="st12_ai_build_loading">Preparing your routine draft...</string>
+    <string name="st12_days_confirmed">Days confirmed</string>
+    <string name="st12_current_day">Current day</string>
+    <string name="st12_ai_chat_title">Adjustment chat</string>
+    <string name="st12_ai_chat_body">Ask or adjust before confirming the current day.</string>
+    <string name="st12_ai_message_label">Message to EduMind AI</string>
+    <string name="st12_ai_message_placeholder">Example: I have a math exam on Thursday</string>
+    <string name="st12_exams_title">Exams</string>
+    <string name="st12_exams_body">Connect routine building to the existing exam capture flow: image, PDF, or manual entry.</string>
+    <string name="st12_add_exam">Add exam</string>
+    <string name="st12_week_progress">Week progress</string>
+    <string name="st12_day_confirmed">%1$s done</string>
+    <string name="st12_day_activity_count">%1$s %2$s activities</string>
+    <string name="st12_review_ai_suggestions">Review smart suggestions</string>
+    <string name="st12_all_days_required">Confirm every day before review.</string>
+    <string name="st12_ai_review_title">Smart review</string>
+    <string name="st12_ai_review_empty">The draft is reviewed. Choose what to accept before finalizing the week.</string>
+    <string name="st12_saved_week_preview">Saved week preview</string>
+    <string name="st12_saved_week_preview_body">After finalizing, the same days appear in your weekly routine with complete / miss / undo.</string>
+    <string name="st12_edit_schedule">Edit schedule</string>
+    <string name="st12_finish_routine">Finish routine</string>
+    <string name="st12_sender_ai">EduMind AI</string>
+    <string name="st12_sender_you">You</string>
+    <string name="st12_day_empty">Nothing scheduled for this day.</string>
+    <string name="st12_day_confirmed_button">Day confirmed</string>
+    <string name="st12_confirm_this_day">Confirm this day</string>
+    <string name="st12_suggestion_accept">Accept</string>
+    <string name="st12_suggestion_accepted">Accepted</string>
+    <string name="st12_suggestion_reject">Reject</string>
+    <string name="st12_suggestion_rejected">Rejected</string>
+    <string name="st12_suggestion_reset">Reset</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-13 · Routine Week View
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st13_title">Your Weekly Routine</string>
+    <string name="st13_rebuild">Edit routine</string>
+    <string name="st13_first_time_title">You haven\'t built a routine yet</string>
+    <string name="st13_first_time_body">Answer a few questions to build a weekly routine that fits your day.</string>
+    <string name="st13_first_time_action">Start building your routine</string>
+    <string name="st13_empty_day_title">Nothing scheduled this day</string>
+    <string name="st13_today_chip">Today</string>
+    <string name="st13_summary_completed">%1$s done</string>
+    <string name="st13_summary_upcoming">%1$s upcoming</string>
+    <plurals name="st13_activity_count">
+        <item quantity="one">%1$s activity</item>
+        <item quantity="other">%1$s activities</item>
+    </plurals>
+    <string name="st13_empty_day_body">A free day — no wake-up or school scheduled here.</string>
+    <string name="st13_renewal_title">Does your routine still fit?</string>
+    <string name="st13_renewal_body">Review your weekly routine, or rebuild it if your schedule changed.</string>
+    <string name="st13_renewal_rebuild">Rebuild</string>
+    <string name="st13_renewal_keep">Still works for me</string>
+    <string name="st13_renew_week">Renew week</string>
+    <string name="st13_delete_routine">Delete routine</string>
+    <string name="st13_delete_routine_body">This deletes the current weekly routine. You can build a new one later.</string>
+    <string name="st13_complete">Complete</string>
+    <string name="st13_miss">Miss</string>
+    <string name="st13_undo">Undo</string>
+    <string name="st13_status_completed">Completed</string>
+    <string name="st13_status_missed">Missed</string>
+    <string name="st13_today_line">Today\'s line</string>
+    <string name="st13_day_tasks">%1$s tasks</string>
+    <string name="st13_start">Start</string>
+    <string name="st13_continue">Continue</string>
+    <string name="st13_done">Done</string>
+    <string name="st13_now">Now</string>
+    <string name="st13_strong_today">Strong routine today</string>
+    <string name="st13_keep_going">Keep your routine going</string>
+    <string name="st13_one_left">One task left</string>
+    <string name="st13_tasks_left">%1$s left</string>
+    <string name="st13_all_done">Today\'s routine is done</string>
+    <string name="st13_week_adherence">This week\'s consistency</string>
+    <string name="st13_current_streak">day streak</string>
+    <string name="st13_longest_streak">Longest streak: %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-14 · Exam Schedule Capture
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st14_title">Exam Schedule Capture</string>
+    <string name="st14_no_image_title">Take a photo of your exam schedule</string>
+    <string name="st14_no_image_body">We\'ll automatically read the exam dates from it.</string>
+    <string name="st14_capture_error">Couldn\'t read the image. Try again.</string>
+    <string name="st14_take_photo">Take photo</string>
+    <string name="st14_import_gallery">Import from gallery</string>
+    <string name="st14_processing_title">Reading the schedule…</string>
+    <string name="st14_processing_body">Extracting subjects and dates from the image.</string>
+    <string name="st14_review_title">Review the extracted exams</string>
+    <string name="st14_review_body">Check each exam and correct anything before confirming.</string>
+    <string name="st14_add_manual">Add exam manually</string>
+    <string name="st14_confirm">Confirm schedule</string>
+    <string name="st14_confirm_error">Couldn\'t confirm the schedule. Try again.</string>
+    <string name="st14_unknown_subject">Unknown subject</string>
+    <string name="st14_edit_entry">Edit</string>
+    <string name="st14_remove_entry">Remove</string>
+    <string name="st14_low_confidence_hint">We couldn\'t recognise this exam clearly — please review</string>
+    <string name="st14_no_date">No date</string>
+    <string name="st14_confidence_high">High confidence</string>
+    <string name="st14_confidence_medium">Medium confidence</string>
+    <string name="st14_confidence_low">Low confidence</string>
+    <string name="st14_confirmed_title">Schedule confirmed</string>
+    <string name="st14_confirmed_body">%1$d exams were saved to your schedule.</string>
+    <string name="st14_back_to_planner">Back to Planner</string>
+    <string name="st14_edit_title">Edit exam details</string>
+    <string name="st14_edit_subject_label">Subject</string>
+    <string name="st14_edit_date_label">Exam date</string>
+    <string name="st14_edit_time_label">Time (optional)</string>
+    <string name="st14_no_time">No time</string>
+    <string name="st14_save_entry">Save</string>
+    <string name="st14_close">Close</string>
+
+    <!-- ST-15 · Achievements -->
+    <string name="st15_title">Achievements</string>
+    <string name="st15_level_label">Level</string>
+    <string name="st15_xp_to_next_level">%1$s XP to next level</string>
+    <string name="st15_xp_total">%1$s XP</string>
+    <string name="st15_xp_to_level">%1$s XP to level %2$s</string>
+    <string name="st15_stat_streak_label">Current streak</string>
+    <string name="st15_stat_longest_streak_label">Longest streak</string>
+    <string name="st15_stat_badges_label">Badges</string>
+    <string name="st15_badges_fraction">%1$s / %2$s</string>
+    <string name="st15_streak_history_label">Recent study days</string>
+    <string name="st15_achievements_section">Achievements</string>
+    <string name="st15_recent_xp_section">Recent XP</string>
+    <string name="st15_xp_rules_section">How XP works</string>
+    <string name="st15_xp_gain_format">+%1$s XP</string>
+    <string name="st15_earned">Earned</string>
+    <string name="st15_locked">Locked</string>
+    <string name="st15_no_earned_title">Start your journey!</string>
+    <string name="st15_no_earned_body">You haven\'t earned any achievement yet — finish your first lesson to begin.</string>
+    <string name="st15_detail_requirement_label">To earn this achievement</string>
+    <string name="st15_detail_earned_label">Earned</string>
+    <string name="st15_next_badge">Next badge</string>
+    <string name="st15_collection">Your collection</string>
+    <string name="st15_progress_of">%1$s of %2$s</string>
+
+    <!-- ST-16 · Subscriptions -->
+    <string name="st16_title">Subscriptions</string>
+    <string name="st16_overview_title">Course access</string>
+    <string name="st16_overview_body">Review open courses, renewals, and available offers from one place.</string>
+    <string name="st16_active_count_label">Open courses</string>
+    <string name="st16_available_count_label">Available offers</string>
+    <string name="st16_active_section">My current subscriptions</string>
+    <string name="st16_available_section">More courses available</string>
+    <string name="st16_available_eyebrow">Subscription offer</string>
+    <string name="st16_no_subscriptions_title">No active subscriptions yet</string>
+    <string name="st16_no_subscriptions_body">Browse the available courses below to get started.</string>
+    <string name="st16_status_active">Active</string>
+    <string name="st16_status_expiring">Expiring soon</string>
+    <string name="st16_status_expired">Expired</string>
+    <string name="st16_expires_on">Expires on %1$s</string>
+    <string name="st16_renew">Renew subscription</string>
+    <string name="st16_continue_course">Continue course</string>
+    <string name="st16_subscribe">Subscribe now</string>
+    <plurals name="st16_expires_in_days">
+        <item quantity="one">Expires in %1$s day</item>
+        <item quantity="other">Expires in %1$s days</item>
+    </plurals>
+    <string name="st16_verified_purchase_title">Your access is confirmed</string>
+    <string name="st16_verified_purchase_body">Your payment for %1$s has been verified — tap to open your access.</string>
+    <string name="st16_voucher_section">Voucher</string>
+    <string name="st16_voucher_row_title">Redeem a voucher</string>
+    <string name="st16_voucher_row_supporting">Have a voucher card or code? Redeem it here for access</string>
+
+    <!-- X-04 · Student Notifications -->
+    <string name="x04_title">Notifications</string>
+    <string name="x04_subtitle">Teacher messages, payment updates, and important learning alerts.</string>
+    <string name="x04_mark_all_read">Mark all read</string>
+    <string name="x04_unread">New</string>
+    <string name="x04_empty_title">No notifications right now</string>
+    <string name="x04_empty_body">Messages or updates that need your attention will appear here.</string>
+
+    <!-- STUDENT_ME · account hub (ST-15/ST-16 entry points) -->
+    <string name="st_me_section_progress">Progress &amp; account</string>
+    <string name="st_me_achievements_supporting">Your level, streak, and achievements</string>
+    <string name="st_me_subscriptions_supporting">Manage your course subscriptions</string>
+
+    <!-- Shared payment display — structured Money, not string arithmetic; every fixture is USD. -->
+    <string name="payment_amount_usd">$%1$s</string>
+    <string name="payment_amount_syp">SYP %1$s</string>
+    <string name="payment_amount_generic">%1$s %2$s</string>
+
+    <!-- ST-17 · Course Paywall Sheet -->
+    <string name="st17_title">Subscription details</string>
+    <string name="st17_benefit_lessons">Full course lessons</string>
+    <string name="st17_benefit_quizzes">Course quizzes</string>
+    <string name="st17_benefit_tutor">AI tutor assistance</string>
+    <string name="st17_benefit_progress">Progress tracking for this course</string>
+    <string name="st17_access_period_label">Access period</string>
+    <string name="st17_price_label">Price</string>
+    <string name="st17_cta_renew">Continue to renew</string>
+    <string name="st17_cta_subscribe">Continue to subscribe</string>
+    <string name="st17_already_subscribed_title">You\'re already subscribed</string>
+    <string name="st17_already_subscribed_body">You already have active access to %1$s — no new subscription needed.</string>
+    <string name="st17_close_action">Got it</string>
+    <string name="st17_have_voucher">I have a voucher code</string>
+
+    <!-- ST-18 · Payment Method Select -->
+    <string name="st18_title">Choose a payment method</string>
+    <string name="st18_order_summary_label">Order summary</string>
+    <string name="st18_amount_label">Amount</string>
+    <string name="st18_methods_section">Available direct-payment methods</string>
+    <string name="st18_continue">Continue</string>
+
+    <!-- ST-19 · Payment Pending -->
+    <string name="st19_title">Payment status</string>
+    <string name="st19_submitting_title">Sending payment request…</string>
+    <string name="st19_submitting_body">Please wait a moment.</string>
+    <string name="st19_status_pending">Pending review</string>
+    <string name="st19_pending_headline">Payment request awaiting verification</string>
+    <string name="st19_course_label">Course</string>
+    <string name="st19_amount_label">Amount</string>
+    <string name="st19_method_label">Payment method</string>
+    <string name="st19_reference_label">Reference number</string>
+    <string name="st19_submitted_label">Submitted</string>
+    <string name="st19_explanation">Your payment request has been received and is now waiting for the EduMind team to review and verify it manually.</string>
+    <string name="st19_next_steps">Your access to the course will be activated once the payment is verified. You can check your subscription status anytime from the Subscriptions page.</string>
+    <string name="st19_done">Back to subscriptions</string>
+    <string name="st19_failed_title">Couldn\'t send payment request</string>
+    <string name="st19_failed_body">Something went wrong while sending your payment request. Please try again.</string>
+
+    <!-- ST-20 · Purchase Success -->
+    <string name="st20_title">Purchase confirmed</string>
+    <string name="st20_status_confirmed">Confirmed</string>
+    <string name="st20_headline">Your access is confirmed</string>
+    <string name="st20_headline_already">Your access is already active</string>
+    <string name="st20_course_label">Course</string>
+    <string name="st20_amount_label">Amount</string>
+    <string name="st20_reference_label">Reference number</string>
+    <string name="st20_access_confirmation">Your full access to this course\'s lessons and quizzes has been activated.</string>
+    <string name="st20_open_now">Open now</string>
+    <string name="st20_course_teacher_format">%1$s — %2$s</string>
+    <string name="st20_open_course">Open course now</string>
+    <string name="st20_back_to_subscriptions">Back to subscriptions</string>
+
+    <!-- ST-21 · Voucher Redeem -->
+    <string name="st21_title">Redeem a voucher</string>
+    <string name="st21_intro">Enter the code printed on your voucher card to get access instantly.</string>
+    <string name="st21_code_label">Voucher code</string>
+    <string name="st21_code_placeholder">e.g. EDU-VALID-001</string>
+    <string name="st21_validate">Check code</string>
+    <string name="st21_confirm_redeem">Confirm redemption</string>
+    <string name="st21_grant_title">This voucher grants</string>
+    <string name="st21_grant_course_label">Course</string>
+    <string name="st21_grant_period_label">Access period</string>
+    <string name="st21_status_redeemed">Redeemed</string>
+    <string name="st21_redeemed_headline">Your access is activated</string>
+    <string name="st21_open_course">Open course now</string>
+    <string name="st21_error_invalid">This code isn\'t valid. Check it and try again.</string>
+    <string name="st21_error_expired">This voucher has expired.</string>
+    <string name="st21_error_used">This voucher has already been used.</string>
+
+    <!-- ST-22 · Student Profile -->
+    <string name="st22_grade_school_format">%1$s · %2$s</string>
+    <string name="st22_identity_section">Identity</string>
+    <string name="st22_learning_profile_section">Learning profile</string>
+    <string name="st22_relationships_section">Relationships</string>
+    <string name="st22_settings_section">Settings &amp; account</string>
+    <string name="st22_edit_profile">Edit profile</string>
+    <string name="st22_quick_stats_section">Quick stats</string>
+    <string name="st22_progress_percent">%1$s%%</string>
+    <string name="st22_linked_parents_section">Linked parents</string>
+    <string name="st22_no_parents_title">No linked parents yet</string>
+    <string name="st22_no_parents_body">No parent has linked their account to yours yet.</string>
+    <string name="st22_parent_relationship_format">%1$s · %2$s</string>
+    <string name="st22_revoke_parent_action">Revoke parent link</string>
+    <string name="st22_revoke_parent_title">Revoke this parent link?</string>
+    <string name="st22_revoke_parent_body">%1$s will no longer be able to follow your progress.</string>
+    <string name="st22_revoke_confirm">Revoke</string>
+    <string name="st22_links_section">Settings &amp; more</string>
+    <string name="st22_edit_sheet_title">Edit profile</string>
+
+    <!-- Student · Parent Linking -->
+    <string name="st_parent_link_title">Parent linking</string>
+    <string name="st_parent_link_code_label">Student link code</string>
+    <string name="st_parent_link_copy">Copy code</string>
+    <string name="st_parent_link_copied">Link code copied</string>
+    <string name="st_parent_link_help">Send this code to a parent so they can link from their own account and follow your progress.</string>
+    <string name="st_parent_link_linked_section">Linked accounts</string>
+    <string name="st_parent_link_empty_body">No parent is linked yet. Share your code when you want to add one.</string>
+    <plurals name="st_parent_link_hub_linked">
+        <item quantity="one">1 linked parent · code %2$s</item>
+        <item quantity="other">%1$d linked parents · code %2$s</item>
+    </plurals>
+    <string name="st_parent_link_hub_empty">No parent linked · code %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Learning Preferences — new, extends ST-22
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st_lp_title">Learning style</string>
+    <string name="st_lp_intro">These settings help your AI tutor adapt to you — how it explains things and how it quizzes you.</string>
+    <string name="st_lp_goal_section">Your goal</string>
+    <string name="st_lp_goal_improve_grades">Improve my grades</string>
+    <string name="st_lp_goal_prepare_bac">Prepare for the Baccalaureate</string>
+    <string name="st_lp_goal_deeper_understanding">Understand the subject more deeply</string>
+    <string name="st_lp_length_section">Explanation length</string>
+    <string name="st_lp_length_brief">Brief</string>
+    <string name="st_lp_length_balanced">Balanced</string>
+    <string name="st_lp_length_detailed">Detailed</string>
+    <string name="st_lp_interests_section">My interests</string>
+    <string name="st_lp_interest_football">Football</string>
+    <string name="st_lp_interest_gaming">Gaming</string>
+    <string name="st_lp_interest_music">Music</string>
+    <string name="st_lp_interest_drawing">Drawing</string>
+    <string name="st_lp_preview_label">Here\'s how your tutor will adapt</string>
+    <string name="st_lp_preview_body">%1$s explanations, examples from %2$s where possible, and encouragement every step</string>
+    <string name="st_lp_preview_generic_interest">topics you care about</string>
+    <string name="st_lp_list_separator">, </string>
+    <string name="st_lp_list_last_join">%1$s and %2$s</string>
+    <string name="st22_edit_name_label">Name</string>
+    <string name="st22_edit_grade_label">Grade</string>
+    <string name="st22_edit_school_label">School</string>
+    <string name="st22_row_language">Language</string>
+    <string name="st22_row_appearance">Appearance</string>
+    <string name="st22_parent_linked">Linked</string>
+    <string name="st22_parent_unlinked">Not linked</string>
+
+    <!-- ST-23 · Settings — Account -->
+    <string name="st23_title">Account settings</string>
+    <string name="st23_profile_section">Profile</string>
+    <string name="st23_name_row">Name</string>
+    <string name="st23_login_section">Sign-in</string>
+    <string name="st23_email_row">Email</string>
+    <string name="st23_password_row">Password</string>
+    <string name="st23_password_masked">••••••••</string>
+    <string name="st23_danger_section">Danger zone</string>
+    <string name="st23_delete_account_row">Delete account</string>
+    <string name="st23_name_sheet_title">Edit name</string>
+    <string name="st23_email_sheet_title">Change email</string>
+    <string name="st23_email_sheet_body">We\'ll send a verification code to your new email before the change takes effect.</string>
+    <string name="st23_email_new_label">New email</string>
+    <string name="st23_email_send_code">Send verification code</string>
+    <string name="st23_email_verify_title">Verify your email</string>
+    <string name="st23_email_verify_body">Enter the code sent to %1$s.</string>
+    <string name="st23_email_confirm">Confirm change</string>
+    <string name="st23_email_invalid_code">Incorrect code. Try again.</string>
+    <string name="st23_password_sheet_title">Change password</string>
+    <string name="st23_password_current_label">Current password</string>
+    <string name="st23_password_new_label">New password</string>
+    <string name="st23_password_confirm_label">Confirm new password</string>
+    <string name="st23_password_validation_error">Check your current password, and make sure the new password matches and meets the requirements.</string>
+    <string name="st23_password_submit">Update password</string>
+    <string name="st23_password_done_title">Password updated</string>
+    <string name="st23_password_done_body">Your password has been updated successfully (mock).</string>
+    <string name="st23_delete_confirm_title">Delete your account permanently?</string>
+    <string name="st23_delete_confirm_body">All your data, results, and study progress will be permanently deleted. This cannot be undone.</string>
+    <string name="st23_delete_confirm_action">Delete account</string>
+    <string name="st23_delete_done_title">Deletion request confirmed</string>
+    <string name="st23_delete_done_body">This is a mock confirmation of your deletion request — no data has actually been deleted in this build.</string>
+
+    <!-- ST-24 · Settings — Security -->
+    <string name="st24_title">Security</string>
+    <string name="st24_two_factor_section">Two-factor authentication</string>
+    <string name="st24_two_factor_row_title">Email OTP two-factor</string>
+    <string name="st24_two_factor_row_body">An extra layer of protection using a code sent to your email at sign-in.</string>
+    <string name="st24_status_enabled">Enabled</string>
+    <string name="st24_status_disabled">Disabled</string>
+    <string name="st24_enable_action">Enable</string>
+    <string name="st24_disable_action">Disable</string>
+    <string name="st24_enable_dialog_title">Verify your email</string>
+    <string name="st24_enable_dialog_body">Enter the code sent to your email to enable two-factor authentication.</string>
+    <string name="st24_enable_confirm_action">Enable two-factor</string>
+    <string name="st24_enable_invalid_code">Incorrect code. Try again.</string>
+    <string name="st24_disable_confirm_title">Disable two-factor authentication?</string>
+    <string name="st24_disable_confirm_body">Your account will be less protected after disabling this feature.</string>
+    <string name="st24_disable_confirm_action">Disable</string>
+    <string name="st24_sessions_section">Active sessions</string>
+    <string name="st24_current_device">This device</string>
+    <string name="st24_revoke_action">End session</string>
+    <string name="st24_revoke_session_title">End this session?</string>
+    <string name="st24_revoke_session_body">This device will be signed out immediately.</string>
+    <string name="st24_no_other_sessions">No other active sessions.</string>
+    <string name="st24_revoke_all_action">Sign out of all other devices</string>
+    <string name="st24_revoke_all_title">Sign out of every other device?</string>
+    <string name="st24_revoke_all_body">This signs out every other device and session, except the one you\'re using right now.</string>
+
+    <!-- ST-25 · Settings — Language & Display -->
+    <string name="st25_title">Language &amp; Display</string>
+    <string name="st25_language_section">Language</string>
+    <string name="st25_language_ar">العربية</string>
+    <string name="st25_language_en">English</string>
+    <string name="st25_theme_section">Theme</string>
+    <string name="st25_theme_system">System</string>
+    <string name="st25_theme_light">Light</string>
+    <string name="st25_theme_dark">Dark</string>
+    <string name="st25_numerals_section">Numeral system</string>
+    <string name="st25_numerals_western">Western numerals (123)</string>
+    <string name="st25_numerals_arabic_indic">Arabic-Indic numerals (١٢٣)</string>
+    <string name="st25_numerals_note">This setting never affects verification codes, reference numbers, or prices — those always stay as-is.</string>
+    <string name="st25_text_size_section">Text size</string>
+    <string name="st25_text_size_default">Default</string>
+    <string name="st25_text_size_large">Large</string>
+    <string name="st25_text_size_note">This works alongside your Android font size setting, not instead of it.</string>
+    <string name="st25_calendar_section">Calendar</string>
+    <string name="st25_hijri_toggle_title">Use Hijri dates</string>
+    <string name="st25_hijri_toggle_body">Shows supported dates on the Hijri calendar instead of the Gregorian one.</string>
+
+    <!-- ST-26 · Settings — Notifications -->
+    <string name="st26_title">Notifications</string>
+    <string name="st26_categories_section">Notification categories</string>
+    <string name="st26_category_study_title">Study &amp; planner reminders</string>
+    <string name="st26_category_study_body">Reminders for the study sessions scheduled in your planner.</string>
+    <string name="st26_category_lessons_title">Lesson &amp; course updates</string>
+    <string name="st26_category_lessons_body">Notified when new lessons or content are available in your courses.</string>
+    <string name="st26_category_quiz_title">Quiz &amp; exam reminders</string>
+    <string name="st26_category_quiz_body">Reminders for upcoming quizzes and exam dates.</string>
+    <string name="st26_category_payment_title">Subscription &amp; payment status</string>
+    <string name="st26_category_payment_body">Updates about your subscriptions and payment status.</string>
+    <string name="st26_category_achievements_title">Achievements &amp; progress</string>
+    <string name="st26_category_achievements_body">Notified when you earn a new achievement or make notable progress.</string>
+    <string name="st26_all_disabled_note">All notifications are currently off.</string>
+    <string name="st26_quiet_hours_section">Quiet hours</string>
+    <string name="st26_quiet_hours_toggle_title">Enable quiet hours</string>
+    <string name="st26_quiet_hours_toggle_body">You won\'t receive notifications during this window, e.g. 22:00 to 07:00.</string>
+    <string name="st26_quiet_hours_start">From</string>
+    <string name="st26_quiet_hours_end">To</string>
+    <string name="st26_time_decrease">Decrease time</string>
+    <string name="st26_time_increase">Increase time</string>
+
+    <!-- Phase 2 · Projects — shared labels (difficulty/mode/medium) -->
+    <string name="pj_difficulty_beginner">Beginner</string>
+    <string name="pj_difficulty_intermediate">Intermediate</string>
+    <string name="pj_difficulty_advanced">Advanced</string>
+    <string name="pj_mode_solo">Solo</string>
+    <string name="pj_mode_team">Team</string>
+    <string name="pj_medium_physical">Physical</string>
+    <string name="pj_medium_digital">Digital</string>
+
+    <!-- PJ-01 · Projects Hub -->
+    <string name="pj01_my_projects_section">My Projects</string>
+    <string name="pj01_no_active_title">No active projects yet</string>
+    <string name="pj01_no_active_body">Open Discover and pick a first project that fits your time and subjects.</string>
+    <string name="pj01_discover_section">Discover</string>
+    <string name="pj01_milestone_progress">%1$s of %2$s milestones complete</string>
+    <string name="pj01_next_action">Next: %1$s</string>
+    <string name="pj01_no_discover_results_title">No matching results</string>
+    <string name="pj01_no_discover_results_body">Try adjusting the filters to find a suitable project.</string>
+    <string name="pj01_clear_filters">Clear filters</string>
+    <string name="pj01_gallery_tab">My Gallery</string>
+    <string name="pj01_gallery_teaser_title">Your finished projects, with their certificates</string>
+    <string name="pj01_gallery_teaser_body">See every project you\'ve completed, and its certificate, in one place.</string>
+    <string name="pj01_gallery_open_action">Open my gallery</string>
+    <string name="pj01_progress_label">Progress</string>
+    <string name="pj01_current_milestone">Current milestone</string>
+    <string name="pj01_milestones_section">Milestones</string>
+    <string name="pj01_other_projects">Other projects</string>
+
+    <!-- PJ-02 · Project Detail -->
+    <string name="pj02_title">Project Details</string>
+    <string name="pj02_skills_section">Skills you\'ll gain</string>
+    <string name="pj02_materials_section">Materials needed</string>
+    <string name="pj02_materials_hint">Prepare these before starting — this has no effect on your project progress.</string>
+    <string name="pj02_time_label">Estimated time</string>
+    <string name="pj02_difficulty_label">Difficulty</string>
+    <string name="pj02_milestones_section">Project milestones</string>
+    <string name="pj02_showcase_section">What other students built</string>
+    <string name="pj02_start_project">Start project</string>
+    <string name="pj02_continue_project">Continue project</string>
+    <string name="pj02_join_team">Join a team</string>
+    <string name="pj02_team_boundary_title">Team formation isn\'t available yet</string>
+    <string name="pj02_team_boundary_body">You\'ll soon be able to form a team and join this group project. This feature isn\'t available in this build yet.</string>
+
+    <!-- PJ-03 · Milestone Board -->
+    <string name="pj03_title">Milestone Board</string>
+    <string name="pj03_locked_hint">This milestone hasn\'t started yet</string>
+    <string name="pj03_blocked_dismiss">Got it</string>
+    <string name="pj03_blocked_generic">This task isn\'t available right now.</string>
+
+    <!-- PJ-04 · Task Detail -->
+    <string name="pj04_title">Task Detail</string>
+    <string name="pj04_context_format">%1$s · %2$s</string>
+    <string name="pj04_instructions_section">Instructions</string>
+    <string name="pj04_step_number">%1$s.</string>
+    <string name="pj04_good_example_section">What good looks like</string>
+    <string name="pj04_hints_section">Hints</string>
+    <string name="pj04_reveal_hint">Reveal next hint (costs %1$s XP)</string>
+    <string name="pj04_start_task">Start task</string>
+    <string name="pj04_continue_task">Continue</string>
+    <string name="pj04_submit_work">Submit work</string>
+    <string name="pj04_view_review_status">View review status</string>
+    <string name="pj04_view_review">View review</string>
+    <string name="pj04_status_not_started">Not started</string>
+    <string name="pj04_status_in_progress">In progress</string>
+    <string name="pj04_status_ready">Ready to submit</string>
+    <string name="pj04_status_submitted">Submitted</string>
+    <string name="pj04_status_reviewed">Reviewed</string>
+
+    <!-- PJ-05 · Submission Composer -->
+    <string name="pj05_title">Submit Work</string>
+    <string name="pj05_intro">Attach your work or write a reflection below, then submit it for review.</string>
+    <string name="pj05_reflection_section">Written reflection</string>
+    <string name="pj05_reflection_label">Write your reflection here</string>
+    <string name="pj05_attachments_section">Attachments</string>
+    <string name="pj05_add_photo">Add photo</string>
+    <string name="pj05_add_file">Add file</string>
+    <string name="pj05_link_section">Link</string>
+    <string name="pj05_link_label">Paste the link here</string>
+    <string name="pj05_validation_error">Add a written reflection or at least one attachment before submitting.</string>
+    <string name="pj05_remove_attachment">Remove attachment</string>
+    <string name="pj05_save_draft">Save draft</string>
+    <string name="pj05_submit">Submit</string>
+
+    <!-- PJ-06 · AI Review &amp; Rubric -->
+    <string name="pj06_title">Review</string>
+    <string name="pj06_submission_section">What you submitted</string>
+    <string name="pj06_rubric_section">Rubric</string>
+    <string name="pj06_overall_label">Total</string>
+    <string name="pj06_score_format">%1$s/%2$s</string>
+    <string name="pj06_strengths_section">Strengths</string>
+    <string name="pj06_improvement_section">One thing to improve</string>
+    <string name="pj06_continue_project">Continue project</string>
+    <string name="pj06_resubmit">Resubmit</string>
+    <string name="pj06_attachments_count">Attachments: %1$s</string>
+    <string name="pj06_review_a_peer">Review a classmate\'s work</string>
+
+    <!-- Shared ProjectTaskStatus labels (PJ-08) -->
+    <string name="pj_task_status_completed">Completed</string>
+    <string name="pj_task_status_current">In progress</string>
+    <string name="pj_task_status_blocked">Blocked</string>
+    <string name="pj_task_status_upcoming">Upcoming</string>
+
+    <!-- PJ-07 · Peer Review -->
+    <string name="pj07_title">Peer Review</string>
+    <string name="pj07_submitted_title">Your review has been submitted</string>
+    <string name="pj07_submitted_body">Thanks for helping your classmate with constructive feedback.</string>
+    <string name="pj07_submit">Submit review</string>
+    <string name="pj07_anonymous_notice">This review is anonymous — the author won\'t know who reviewed their work.</string>
+    <string name="pj07_rubric_section">Rubric</string>
+    <string name="pj07_comment_section">Your comment</string>
+    <string name="pj07_comment_label">Write constructive feedback for your classmate</string>
+    <string name="pj07_comment_min_length">At least %1$s characters</string>
+    <string name="pj07_tone_warning">Please review your comment\'s tone before sending — keep it constructive and respectful.</string>
+    <string name="pj07_validation_error">Rate every criterion and write a comment of the minimum length before submitting.</string>
+
+    <!-- PJ-08 · Team Workspace -->
+    <string name="pj08_title">Team Workspace</string>
+    <string name="pj08_member_count">%1$s members</string>
+    <string name="pj08_tab_overview">Overview</string>
+    <string name="pj08_tab_chat">Chat</string>
+    <string name="pj08_members_section">Team members</string>
+    <string name="pj08_tasks_section">Project tasks</string>
+    <string name="pj08_deliverable_section">Shared deliverable</string>
+    <string name="pj08_you_badge">You</string>
+    <string name="pj08_unassigned">Unassigned</string>
+    <string name="pj08_assign_to_me">Assign to me</string>
+    <string name="pj08_unassign">Unassign</string>
+    <string name="pj08_deliverable_updated_by">Last updated by %1$s — %2$s</string>
+    <string name="pj08_message_sender_format">%1$s · %2$s</string>
+    <string name="pj08_message_hint">Write a message</string>
+    <string name="pj08_send_message">Send</string>
+    <string name="pj08_role_leader">Team leader</string>
+    <string name="pj08_role_member">Member</string>
+
+    <!-- PJ-09 · Reflection Log -->
+    <string name="pj09_title">Reflection Log</string>
+    <string name="pj09_open_from_milestone">Record reflection</string>
+    <string name="pj09_empty_title">No reflection recorded yet</string>
+    <string name="pj09_empty_body">Tap the record button and talk for a few sentences about what you learned in this milestone.</string>
+    <string name="pj09_recording">Recording…</string>
+    <string name="pj09_processing">Transcribing your recording…</string>
+    <string name="pj09_failed_title">Couldn\'t transcribe that</string>
+    <string name="pj09_failed_body">Something went wrong processing your recording. Try recording again.</string>
+    <string name="pj09_transcript_label">Reflection transcript</string>
+    <string name="pj09_save">Save reflection</string>
+    <string name="pj09_stop_recording">Stop recording</string>
+    <string name="pj09_record_retry">Try again</string>
+    <string name="pj09_record">Record</string>
+
+    <!-- PJ-10 · Project Portfolio -->
+    <string name="pj10_title">Portfolio</string>
+    <string name="pj10_empty_title">No completed projects yet</string>
+    <string name="pj10_empty_body">Finish your first project and it will appear here as a ready-to-show artifact.</string>
+    <string name="pj10_intro">A showcase of my completed work on EduMind</string>
+    <string name="pj10_completed_count">%1$s completed projects</string>
+    <string name="pj10_share">Share</string>
+    <string name="pj10_completed_on">Completed on %1$s</string>
+    <string name="pj10_detail_title">Project Showcase</string>
+    <string name="pj10_what_was_built_section">What I built</string>
+    <string name="pj10_skills_section">Skills demonstrated</string>
+    <string name="pj10_milestones_section">Milestone summary</string>
+    <string name="pj10_final_deliverable_section">Final deliverable</string>
+    <string name="pj10_reflections_section">Selected reflections</string>
+    <string name="pj10_certificate_section">Certificate</string>
+    <string name="pj10_certificate_available_title">Your certificate is ready</string>
+    <string name="pj10_certificate_available_body">Get an official completion certificate for this project.</string>
+    <string name="pj10_view_certificate">View certificate</string>
+
+    <!-- PJ-11 · Project Certificate -->
+    <string name="pj11_title">Project Certificate</string>
+    <string name="pj11_brand_line">EduMind Platform</string>
+    <string name="pj11_field_holder">Name</string>
+    <string name="pj11_field_project">Project</string>
+    <string name="pj11_field_date">Completion date</string>
+    <string name="pj11_field_issuer">Issued by</string>
+    <string name="pj11_field_skills">Skills demonstrated</string>
+    <string name="pj11_verified_label">Verified certificate</string>
+    <string name="pj11_verify_action">Verify certificate</string>
+    <string name="pj11_share">Share</string>
+    <string name="pj11_export_image">Export as image</string>
+    <string name="pj11_export_mock_title">Image export (MOCK)</string>
+    <string name="pj11_export_mock_body">This is a MOCK preview only — no real image file was saved to your device in this build.</string>
+
+    <!-- PJ-12 · Materials &amp; Safety Sheet -->
+    <string name="pj12_title">Materials &amp; Safety</string>
+    <string name="pj12_materials_section">Required materials</string>
+    <string name="pj12_cost_section">Estimated cost</string>
+    <string name="pj12_cost_estimate_note">Rough estimate only — actual prices may vary.</string>
+    <string name="pj12_safety_section">Safety guidance</string>
+    <string name="pj12_optional">Optional</string>
+    <string name="pj12_quantity_format">Quantity: %1$s</string>
+    <string name="pj12_open_from_project">View materials &amp; safety guide</string>
+
+    <!-- Shared Teacher (Phase 3) boundary -->
+    <string name="tc_coming_soon_title">Coming soon</string>
+    <string name="tc_coming_soon_body">This feature will be available in the next Teacher slice.</string>
+
+    <!-- TC-01 · Teacher Setup Wizard -->
+    <string name="tc01_step_label">Step %1$s of %2$s</string>
+    <string name="tc01_validation_error">Please complete the required fields before continuing.</string>
+    <string name="tc01_finish_setup">Finish setup</string>
+    <string name="tc01_next">Next</string>
+    <string name="tc01_save">Save</string>
+    <string name="tc01_setup_title">Teacher setup</string>
+    <string name="tc01_teaching_question">What do I teach?</string>
+    <string name="tc01_progress">%1$s / %2$s</string>
+    <string name="tc01_add_photo">Add photo</string>
+    <string name="tc01_name_label">Name</string>
+    <string name="tc01_bio_label">Short bio</string>
+    <string name="tc01_bio_placeholder">Write a short note about your teaching…</string>
+    <string name="tc01_grade_10_short">Grade 10</string>
+    <string name="tc01_grade_11_short">Grade 11</string>
+    <string name="tc01_grade_12_short">Baccalaureate</string>
+    <string name="tc01_identity_title">Identity</string>
+    <string name="tc01_identity_body">Introduce yourself to your students — the name they\'ll see and a short bio.</string>
+    <string name="tc01_identity_name_label">Name shown to students</string>
+    <string name="tc01_identity_headline_label">Short professional headline</string>
+    <string name="tc01_subjects_title">Subjects &amp; Grades</string>
+    <string name="tc01_subjects_body">Choose the subjects and grades you teach — you can pick more than one of each.</string>
+    <string name="tc01_subjects_section">Subjects</string>
+    <string name="tc01_grades_section">Grades</string>
+    <string name="tc01_qualifications_title">Qualifications</string>
+    <string name="tc01_qualifications_body">Add your academic qualifications — you can add more than one.</string>
+    <string name="tc01_remove_qualification">Remove qualification</string>
+    <string name="tc01_qualification_title_label">Qualification title</string>
+    <string name="tc01_qualification_institution_label">Institution</string>
+    <string name="tc01_qualification_year_label">Graduation year (optional)</string>
+    <string name="tc01_add_qualification">Add qualification</string>
+    <string name="tc01_mode_individual">Individual</string>
+    <string name="tc01_mode_small_group">Small groups</string>
+    <string name="tc01_mode_online">Online</string>
+    <string name="tc01_experience_title">Experience</string>
+    <string name="tc01_experience_body">Tell us about your teaching experience.</string>
+    <string name="tc01_experience_years_label">Years of experience</string>
+    <string name="tc01_experience_description_label">Short description of your teaching experience</string>
+    <string name="tc01_experience_modes_section">Preferred teaching mode</string>
+    <string name="tc01_documents_title">Documents</string>
+    <string name="tc01_documents_body">Add identity and qualification documents — this is a MOCK preview only, no real file is uploaded.</string>
+    <string name="tc01_remove_document">Remove document</string>
+    <string name="tc01_add_identity_document">Add identity document</string>
+    <string name="tc01_document_identity_hint">Personal ID</string>
+    <string name="tc01_add_qualification_document">Add qualification document</string>
+    <string name="tc01_document_qualification_hint">Certificate or qualification</string>
+    <string name="tc01_documents_mock_notice">MOCK — no real file is uploaded or saved in this build.</string>
+    <string name="tc01_pricing_title">Pricing</string>
+    <string name="tc01_pricing_body">Set an approximate price for your sessions — you can change it later.</string>
+    <string name="tc01_pricing_amount_label">Price</string>
+    <string name="tc01_pricing_currency_label">Currency</string>
+    <string name="tc01_voice_title">Voice sample</string>
+    <string name="tc01_voice_body">Your voice sample is used later to personalize your students\' voice experience. This is a setup step only — no real audio is recorded or used in this build.</string>
+    <string name="tc01_voice_consent">I agree to my voice sample being used for this purpose.</string>
+    <string name="tc01_voice_recording">Recording…</string>
+    <string name="tc01_voice_recorded">Voice sample recorded (%1$s)</string>
+    <string name="tc01_voice_stop">Stop recording</string>
+    <string name="tc01_voice_record">Record voice sample</string>
+    <string name="tc01_voice_rerecord">Re-record</string>
+    <string name="tc01_review_title">Final review</string>
+    <string name="tc01_review_body">Review your information before finishing setup.</string>
+    <string name="tc01_review_name">Name</string>
+    <string name="tc01_review_subjects">Subjects</string>
+    <string name="tc01_review_qualifications">Qualifications</string>
+    <string name="tc01_review_documents">Documents</string>
+    <string name="tc01_review_pricing">Price</string>
+    <string name="tc01_review_voice">Voice sample</string>
+    <string name="tc01_voice_recorded_short">Recorded</string>
+    <string name="tc01_voice_not_recorded">Not recorded</string>
+    <string name="tc01_review_hint">You can go back to any earlier step to edit it before finishing.</string>
+
+    <!-- TC-02 · Teacher Dashboard -->
+    <string name="tc02_greeting">Hello, %1$s</string>
+    <string name="tc02_greeting_morning">Good morning, Professor %1$s</string>
+    <string name="tc02_greeting_evening">Good evening, Professor %1$s</string>
+    <string name="tc02_status_urgent">Something needs you now</string>
+    <string name="tc02_status_clear">Ready to continue?</string>
+    <string name="tc02_now_label">Most important now</string>
+    <string name="tc02_correct_now">Grade now</string>
+    <string name="tc02_reprocess">Retry processing</string>
+    <string name="tc02_open_messages">Open messages</string>
+    <string name="tc02_open_class">Open class</string>
+    <string name="tc02_today_section">Today</string>
+    <string name="tc02_all_clear_title">Everything is in order</string>
+    <string name="tc02_all_clear_body">Nothing urgent right now. You can create a class or add a lesson.</string>
+    <string name="tc02_create_class">Create class</string>
+    <string name="tc02_inactive_one">1 inactive student</string>
+    <string name="tc02_inactive_many">%1$s inactive students</string>
+    <string name="tc02_work_queue_section">Work queue</string>
+    <string name="tc02_courses_section">My courses</string>
+    <string name="tc02_courses_snapshot">%1$s courses</string>
+    <string name="tc02_open_courses">View all</string>
+    <string name="tc02_headline_hint">What needs your attention today</string>
+    <string name="tc02_metric_students">Active students</string>
+    <string name="tc02_metric_processing">Lessons processing</string>
+    <string name="tc02_metric_messages">Unread messages</string>
+
+    <!-- TC-03 · Courses List -->
+    <string name="tc03_status_draft">Draft</string>
+    <string name="tc03_status_published">Published</string>
+    <string name="tc03_status_archived">Archived</string>
+    <string name="tc03_filter_all">All</string>
+    <string name="tc03_filter_published">Published</string>
+    <string name="tc03_filter_draft">Draft</string>
+    <string name="tc03_empty_title">No classes</string>
+    <string name="tc03_empty_body">No classes match this filter.</string>
+    <string name="tc03_student_count">%1$s students</string>
+    <string name="tc03_lesson_count">%1$s lessons</string>
+    <string name="tc03_class_title">%1$s · %2$s</string>
+    <string name="tc03_class_meta">%1$s · %2$s</string>
+    <string name="tc03_needs_publish">Needs publishing</string>
+    <string name="tc03_grade_short_10">Grade 10</string>
+    <string name="tc03_grade_short_11">Grade 11</string>
+    <string name="tc03_grade_short_bac">Baccalaureate</string>
+
+    <!-- TC-04 · Course Detail -->
+    <string name="tc04_add_lesson">Add lesson</string>
+    <string name="tc04_class_title">%1$s · %2$s</string>
+    <string name="tc04_class_meta">%1$s students</string>
+    <string name="tc04_class_meta_progress">%1$s students · %2$s%%</string>
+    <string name="tc04_students_attention">Students · need follow-up</string>
+    <string name="tc04_all_students">All students</string>
+    <string name="tc04_lesson_ready">Ready</string>
+    <string name="tc04_lesson_processing_short">Processing</string>
+    <string name="tc04_lesson_meta">%1$s · %2$s</string>
+    <string name="tc04_prepared_by">Prepared by %1$s</string>
+    <string name="tc04_summary_section">Overview</string>
+    <string name="tc04_summary_students">students</string>
+    <string name="tc04_summary_lessons">lessons</string>
+    <string name="tc04_lessons_section">Lessons</string>
+    <string name="tc04_empty_title">No lessons yet</string>
+    <string name="tc04_empty_body">Add the first lesson for this course to get started.</string>
+    <string name="tc04_reorder_handle">Reorder lesson — press and hold, then drag</string>
+    <string name="tc04_lesson_status_draft">Draft</string>
+    <string name="tc04_lesson_status_processing">Processing</string>
+    <string name="tc04_lesson_status_published">Published</string>
+    <string name="tc04_content_type_pdf">PDF</string>
+    <string name="tc04_content_type_video">Video</string>
+    <string name="tc04_lesson_processing_failed_caption">Processing failed</string>
+    <string name="tc04_lesson_processing_active_caption">Now: %1$s</string>
+
+    <!-- TC-05 · Lesson Upload -->
+    <string name="tc05_title">New lesson</string>
+    <string name="tc05_step_details">1 / 3 · Lesson details</string>
+    <string name="tc05_step_content">2 / 3 · Teacher content</string>
+    <string name="tc05_step_review">3 / 3 · Review</string>
+    <string name="tc05_next">Next</string>
+    <string name="tc05_save_lesson">Save lesson</string>
+    <string name="tc05_source_video">Video</string>
+    <string name="tc05_source_link">Video link</string>
+    <string name="tc05_source_pdf">PDF file</string>
+    <string name="tc05_link_label">Video URL</string>
+    <string name="tc05_link_required">Enter a video link to continue</string>
+    <string name="tc05_uploaded">Uploaded</string>
+    <string name="tc05_selected_ready">Ready</string>
+    <string name="tc05_delete_file">Delete</string>
+    <string name="tc05_teacher_video">Teacher video</string>
+    <string name="tc05_teacher_pdf">Teacher file</string>
+    <string name="tc05_teacher_link">Video link</string>
+    <string name="tc05_one_source">One source per lesson: video, link, or PDF</string>
+    <string name="tc05_after_save_label">After saving</string>
+    <string name="tc05_after_save_body">EduMind will prepare the smart tutor and quiz after upload.</string>
+    <string name="tc05_content_type_section">Content type</string>
+    <string name="tc05_file_section">File</string>
+    <string name="tc05_no_file_selected">No file selected yet</string>
+    <string name="tc05_select_file">Select file</string>
+    <string name="tc05_replace_file">Replace</string>
+    <string name="tc05_remove_file">Remove</string>
+    <string name="tc05_file_required">Select a file to continue</string>
+    <string name="tc05_size_mb">%1$s MB</string>
+    <string name="tc05_details_section">Lesson details</string>
+    <string name="tc05_lesson_title_label">Lesson title</string>
+    <string name="tc05_lesson_title_required">Enter a lesson title</string>
+    <string name="tc05_order_label">Lesson order</string>
+    <string name="tc05_order_decrease">Move earlier</string>
+    <string name="tc05_order_increase">Move later</string>
+    <string name="tc05_ai_options_section">AI processing options</string>
+    <string name="tc05_ai_options_hint">These options produce AI-assisted content — you can choose more than one.</string>
+    <string name="tc05_option_quiz_title">Generate a quiz</string>
+    <string name="tc05_option_quiz_body">Jouri writes questions based on the lesson\'s content once it\'s processed.</string>
+    <string name="tc05_option_narration_title">Generate voice narration</string>
+    <string name="tc05_option_narration_body">Jouri adds a voice narration of the lesson for students to listen to.</string>
+    <string name="tc05_option_index_title">Index for the AI tutor</string>
+    <string name="tc05_option_index_body">Lets Jouri answer student questions grounded in this specific lesson\'s content.</string>
+    <string name="tc05_upload_action">Upload lesson</string>
+    <string name="tc05_upload_stage_preparing">Preparing…</string>
+    <string name="tc05_upload_stage_uploading">Uploading…</string>
+    <string name="tc05_upload_stage_paused">Upload paused</string>
+    <string name="tc05_upload_stage_completed">Upload complete</string>
+    <string name="tc05_bytes_progress">%1$s of %2$s</string>
+    <string name="tc05_pause">Pause</string>
+    <string name="tc05_resume">Resume</string>
+    <string name="tc05_cancel">Cancel</string>
+    <string name="tc05_cancel_confirm_title">Cancel upload?</string>
+    <string name="tc05_cancel_confirm_body">This lesson won\'t be saved — you can start again anytime.</string>
+    <string name="tc05_cancel_confirm_action">Cancel upload</string>
+
+    <!-- TC-06 · Lesson Processing Status -->
+    <string name="tc06_title">Preparing the lesson</string>
+    <string name="tc06_headline">EduMind is preparing the smart lesson and quiz</string>
+    <string name="tc06_background_ok">You can leave this screen. Processing continues.</string>
+    <string name="tc06_open_preview">Preview</string>
+    <string name="tc06_currently_running">Now: %1$s</string>
+    <string name="tc06_stages_section">Processing stages</string>
+    <string name="tc06_retry">Retry</string>
+    <string name="tc06_overall_running">Processing</string>
+    <string name="tc06_overall_failed">Processing failed</string>
+    <string name="tc06_overall_completed">Processing complete</string>
+    <string name="tc06_stage_extract">Extract</string>
+    <string name="tc06_stage_chunk">Split</string>
+    <string name="tc06_stage_index">Index</string>
+    <string name="tc06_stage_quiz">Smart quiz</string>
+    <string name="tc06_stage_narrate">Insight</string>
+    <string name="tc06_stage_status_pending">Pending</string>
+    <string name="tc06_stage_status_running">Running</string>
+    <string name="tc06_stage_status_complete">Complete</string>
+    <string name="tc06_stage_status_failed">Failed</string>
+    <string name="tc06_stage_status_skipped">Skipped</string>
+
+    <!-- TC-02 · Dashboard (TC-09 entry point) -->
+    <string name="tc02_voice_profile_section">Voice profile</string>
+    <string name="tc02_voice_profile_snapshot">Your voice for narration</string>
+    <string name="tc02_grades_section">Grades</string>
+    <string name="tc02_grades_snapshot">Course gradebook</string>
+    <string name="tc02_open_grades">Open gradebook</string>
+    <string name="tc02_analytics_section">Analytics</string>
+    <string name="tc02_analytics_snapshot">Student performance and engagement</string>
+    <string name="tc02_open_analytics">Open analytics</string>
+
+    <!-- TC-07 · Lesson Editor -->
+    <string name="tc07_content_section">Lesson content</string>
+    <string name="tc07_content_label">Extracted lesson text</string>
+    <string name="tc07_unsaved_changes">Unsaved changes</string>
+    <string name="tc07_all_saved">All changes saved</string>
+    <string name="tc07_chunks_section">Content chunks</string>
+    <string name="tc07_chunk_number">Chunk %1$s</string>
+    <string name="tc07_chunk_text_label">Chunk text</string>
+    <string name="tc07_split_chunk">Split</string>
+    <string name="tc07_merge_up">Merge with previous</string>
+    <string name="tc07_merge_down">Merge with next</string>
+    <string name="tc07_save_chunks">Save chunks</string>
+    <string name="tc07_quiz_section">Generated quiz questions</string>
+    <string name="tc07_question_prompt_label">Question text</string>
+    <string name="tc07_mark_correct">Correct</string>
+    <string name="tc07_option_label">Option text</string>
+    <string name="tc07_explanation_label">Explanation</string>
+    <string name="tc07_save_question">Save edits</string>
+    <string name="tc07_edit">Edit</string>
+    <string name="tc07_accept">Accept</string>
+    <string name="tc07_reject">Reject</string>
+    <string name="tc07_review_unreviewed">Not reviewed yet</string>
+    <string name="tc07_review_accepted">Accepted</string>
+    <string name="tc07_review_rejected">Rejected</string>
+    <string name="tc07_insights_section">AI insights about this lesson</string>
+    <string name="tc07_insight_kind_difficult">Likely difficult concept</string>
+    <string name="tc07_insight_kind_prerequisite">Prerequisite reminder</string>
+    <string name="tc07_insight_kind_misconception">Common misconception warning</string>
+    <string name="tc07_publish_section">Preview &amp; Publish</string>
+    <string name="tc07_publish_gate_hint">Finish the review below to enable Publish.</string>
+    <string name="tc07_preview">Preview</string>
+    <string name="tc07_publish">Publish</string>
+    <string name="tc07_publish_blocked_title">Not ready to publish yet</string>
+    <string name="tc07_gate_content">Save the lesson content first.</string>
+    <string name="tc07_gate_chunks">Add at least one non-empty chunk.</string>
+    <string name="tc07_gate_questions">Review every generated quiz question (Accept or Reject).</string>
+    <string name="tc07_gate_insights">Review every AI insight (Accept or Reject).</string>
+
+    <!-- TC-08 · Lesson Preview -->
+    <string name="tc08_title">Lesson preview</string>
+    <string name="tc08_edit">Edit</string>
+    <string name="tc08_teacher_source">Teacher explanation</string>
+    <string name="tc08_ai_after_processing">The smart tutor and quiz appear after processing</string>
+    <string name="tc08_open_link">Open link</string>
+    <string name="tc08_student_preview_badge">Previewing as a student would see it</string>
+    <string name="tc08_draft_banner">This lesson is still a draft — this previews what students will see once it\'s published.</string>
+    <string name="tc08_no_content">No content has been saved for this lesson yet.</string>
+    <string name="tc08_quiz_section">Lesson quiz</string>
+
+    <!-- TC-09 · Voice Profile -->
+    <string name="tc09_title">Voice</string>
+    <string name="tc09_intro">Record your voice so EduMind can read the lesson in your voice.</string>
+    <string name="tc09_consent_section">Consent</string>
+    <string name="tc09_consent_label">I consent to my voice samples being used to generate narration</string>
+    <string name="tc09_consent_explainer">Your sample is only used to generate narration in a voice aligned with yours for your lessons — the AI never becomes your actual voice, and you can turn generated narration off at any time without deleting your samples.</string>
+    <string name="tc09_samples_section">Voice samples</string>
+    <string name="tc09_no_samples">No voice samples yet.</string>
+    <string name="tc09_record_sample">Record sample</string>
+    <string name="tc09_more">More</string>
+    <string name="tc09_sample_n">Sample %1$s</string>
+    <string name="tc09_sample_ready">Ready</string>
+    <string name="tc09_sample_processing">Processing</string>
+    <string name="tc09_upload_sample">Upload sample</string>
+    <string name="tc09_remove_sample">Remove sample</string>
+    <string name="tc09_source_recorded">Recorded</string>
+    <string name="tc09_source_uploaded">Uploaded</string>
+    <string name="tc09_quality_good">Good quality</string>
+    <string name="tc09_quality_needs_improvement">Needs improvement</string>
+    <string name="tc09_generate_section">Generate voice profile</string>
+    <string name="tc09_status_not_ready">Not ready</string>
+    <string name="tc09_status_ready_to_generate">Ready to generate</string>
+    <string name="tc09_status_processing">Generating…</string>
+    <string name="tc09_status_ready">Ready</string>
+    <string name="tc09_status_failed">Generation failed</string>
+    <string name="tc09_not_ready_hint">Give consent and add at least one voice sample to enable generation.</string>
+    <string name="tc09_generate_failed_hint">Couldn\'t generate the voice profile. Try again.</string>
+    <string name="tc09_generate">Generate</string>
+    <string name="tc09_regenerate">Regenerate</string>
+    <string name="tc09_retry_generate">Retry</string>
+    <string name="tc09_preview_section">Narration preview</string>
+    <string name="tc09_preview_paragraph">\"Motion is a change in an object\'s position relative to a reference point over time, described using vector quantities such as displacement and velocity.\"</string>
+    <string name="tc09_preview_disclosure">A mock preview only — not real generated audio.</string>
+    <string name="tc09_play_preview">Play</string>
+    <string name="tc09_stop_preview">Stop</string>
+    <string name="tc09_narration_section">Generated narration</string>
+    <string name="tc09_narration_toggle_label">Enable narration in your voice</string>
+    <string name="tc09_narration_disabled_hint">This requires consent and a Ready voice profile.</string>
+
+    <!-- TC-02 · Dashboard (TC-10 entry point) -->
+    <string name="tc02_quizzes_section">Quizzes</string>
+    <string name="tc02_quizzes_snapshot">%1$s quizzes</string>
+    <string name="tc02_open_quizzes">Manage quizzes</string>
+
+    <!-- TC-10 · Quiz Builder -->
+    <string name="tc10_title">Quizzes</string>
+    <string name="tc10_editor_title">Quiz editor</string>
+    <string name="tc10_setup_title">Create quiz</string>
+    <string name="tc10_question_title">Question</string>
+    <string name="tc10_field_title">Title</string>
+    <string name="tc10_field_description">Description</string>
+    <string name="tc10_save_continue">Save and continue to questions</string>
+    <string name="tc10_save_question">Save question</string>
+    <string name="tc10_publish_after_save">Publish after save</string>
+    <string name="tc10_type_essay">Essay</string>
+    <string name="tc10_mark_label">Mark</string>
+    <string name="tc10_prompt_label">Question text</string>
+    <string name="tc10_pick_course">Choose a class</string>
+    <string name="tc10_attempts_count">%1$s attempts</string>
+    <string name="tc10_average_meta">Avg %1$s</string>
+    <string name="tc10_empty_filter">No quizzes in this tab.</string>
+    <string name="tc10_edit_quiz">Edit quiz</string>
+    <string name="tc10_empty_title">No quizzes yet</string>
+    <string name="tc10_empty_body">Create the first quiz for one of your courses to get started.</string>
+    <string name="tc10_add_quiz">Add quiz</string>
+    <string name="tc10_untitled_quiz">Untitled quiz</string>
+    <string name="tc10_question_count">%1$s questions</string>
+    <string name="tc10_total_points">%1$s points</string>
+    <string name="tc10_view_results">View results</string>
+    <string name="tc10_metadata_section">Quiz details</string>
+    <string name="tc10_quiz_title_label">Quiz title</string>
+    <string name="tc10_quiz_instructions_label">Short instructions (optional)</string>
+    <string name="tc10_questions_section">Questions</string>
+    <string name="tc10_no_questions">No questions added yet.</string>
+    <string name="tc10_untitled_question">Untitled question</string>
+    <string name="tc10_type_multiple_choice">Multiple choice</string>
+    <string name="tc10_type_true_false">True / False</string>
+    <string name="tc10_type_short_answer">Short answer</string>
+    <string name="tc10_type_gap_fill">Gap fill</string>
+    <string name="tc10_add_option">Add option</string>
+    <string name="tc10_remove_option">Remove option</string>
+    <string name="tc10_expected_answer_label">Expected answer</string>
+    <string name="tc10_points_label">Points</string>
+    <string name="tc10_points_value">%1$s points</string>
+    <string name="tc10_points_decrease">Decrease points</string>
+    <string name="tc10_points_increase">Increase points</string>
+    <string name="tc10_duplicate">Duplicate</string>
+    <string name="tc10_delete">Delete</string>
+    <string name="tc10_add_question_section">Add a question</string>
+    <string name="tc10_ai_import_action">Import AI-generated questions</string>
+    <string name="tc10_ai_import_title">Review generated questions</string>
+    <string name="tc10_ai_import_intro">Review each question and decide whether to accept or reject it. Only accepted questions are added to the quiz.</string>
+    <string name="tc10_publish_section">Preview &amp; Publish</string>
+    <string name="tc10_publish_gate_hint">Finish the quiz details and its questions to enable Publish.</string>
+    <string name="tc10_publish">Publish</string>
+    <string name="tc10_publish_blocked_title">Not ready to publish yet</string>
+    <string name="tc10_gate_title">Enter a quiz title and save it.</string>
+    <string name="tc10_gate_questions">Add at least one question.</string>
+    <string name="tc10_gate_prompts">Make sure every question has text.</string>
+    <string name="tc10_gate_points">Make sure every question\'s points are greater than zero.</string>
+    <string name="tc10_attention_title">Needs review</string>
+    <string name="tc10_attention_body">%1$s essay answers waiting for you</string>
+    <string name="tc10_pending_pill">%1$s pending</string>
+    <string name="tc10_duration_label">Duration</string>
+    <string name="tc10_duration_15">15 min</string>
+    <string name="tc10_duration_30">30 min</string>
+    <string name="tc10_duration_unlimited">No limit</string>
+    <string name="tc10_pass_mark_label">Pass mark</string>
+    <string name="tc10_pass_mark_placeholder">60%</string>
+    <string name="tc10_single_attempt">One attempt per student</string>
+
+    <!-- TC-11 · Quiz Results -->
+    <string name="tc11_title">Quiz results</string>
+    <string name="tc11_distribution_section">Score distribution</string>
+    <string name="tc11_question_difficulty_section">Question difficulty</string>
+    <string name="tc11_students_section">Student results</string>
+    <string name="tc11_stat_attempts">Attempts</string>
+    <string name="tc11_stat_average">Average</string>
+    <string name="tc11_stat_highest">Highest score</string>
+    <string name="tc11_submission_count">%1$s of %2$s submitted</string>
+    <string name="tc11_bucket_range">%1$s–%2$s</string>
+    <string name="tc11_question_number">Question %1$s</string>
+    <string name="tc11_correct_count">%1$s of %2$s answered correctly</string>
+    <string name="tc11_hardest_question">The question the class struggled most with</string>
+    <string name="tc11_not_submitted">Not submitted yet</string>
+    <string name="tc11_submitted_on">Submitted %1$s</string>
+    <string name="tc11_score_of">%1$s of %2$s</string>
+    <string name="tc11_answer_correct">Correct</string>
+    <string name="tc11_answer_incorrect">Incorrect</string>
+    <string name="tc11_answer_unanswered">Not answered</string>
+    <string name="tc11_pending_students">%1$s students need essay grading</string>
+    <string name="tc11_stat_pending">Pending</string>
+    <string name="tc11_essay_pending">Essay awaiting grading</string>
+    <string name="tc11_grade_action">Grade</string>
+    <string name="tc11_open_first_essay">Open first essay</string>
+    <string name="tc11_essay_meta">Question %1$s · Essay</string>
+    <string name="tc11_score_label">Score</string>
+    <string name="tc11_feedback_label">Notes for the student</string>
+    <string name="tc11_save_grade">Save grade</string>
+
+    <!-- TC-12 · Students List -->
+    <string name="tc12_empty_title">No matching students</string>
+    <string name="tc12_empty_body">Try adjusting your search.</string>
+    <string name="tc12_search_hint">Search</string>
+    <string name="tc12_last_active">Last active: %1$s</string>
+    <string name="tc12_row_meta">%1$s · %2$s</string>
+    <string name="tc12_status_active">Active</string>
+    <string name="tc12_status_needs_attention">Needs attention</string>
+    <string name="tc12_status_inactive">Idle</string>
+    <string name="tc12_flag_low_progress">Low progress</string>
+    <string name="tc12_flag_quiz_risk">Struggling with quizzes</string>
+    <string name="tc12_flag_missing_work">Missing work</string>
+
+    <!-- TC-13 · Student Profile — Teacher View -->
+    <string name="tc13_title">Student profile</string>
+    <string name="tc13_progress">Progress</string>
+    <string name="tc13_quiz">Quiz</string>
+    <string name="tc13_attention_one">One need</string>
+    <string name="tc13_attention_count">%1$s needs</string>
+    <string name="tc13_no_attention">No follow-up needed right now</string>
+    <string name="tc13_quiz_none">No result yet</string>
+    <string name="tc13_message_parent">Message parents</string>
+    <string name="tc13_add_parent_note">Add note</string>
+    <string name="tc13_no_parent_thread_title">No parent conversation</string>
+    <string name="tc13_no_parent_thread_body">This student does not have a linked parent conversation yet.</string>
+    <string name="tc13n_title">Note to parents</string>
+    <string name="tc13n_you">You · %1$s</string>
+    <string name="tc13n_reply_hint">Write a reply…</string>
+    <string name="tc13n_empty">Start a note to the parents</string>
+    <string name="tc13_overview_section">Overview</string>
+    <string name="tc13_overall_progress">Overall progress</string>
+    <string name="tc13_completed_work">Completed work</string>
+    <string name="tc13_outstanding_work">Outstanding work</string>
+    <string name="tc13_quiz_history_section">Quiz history</string>
+    <string name="tc13_quiz_history_empty">No published quizzes in this student\'s course yet.</string>
+    <string name="tc13_not_submitted">Not submitted</string>
+    <string name="tc13_attendance_section">Attendance</string>
+    <string name="tc13_attendance_summary">Present: %1$s · Late: %2$s · Absent: %3$s</string>
+    <string name="tc13_attendance_present">Present</string>
+    <string name="tc13_attendance_absent">Absent</string>
+    <string name="tc13_attendance_late">Late</string>
+    <string name="tc13_activity_section">Activity timeline</string>
+    <string name="tc13_activity_lesson_completed">Completed a lesson</string>
+    <string name="tc13_activity_quiz_submitted">Submitted a quiz</string>
+    <string name="tc13_activity_course_opened">Opened the course</string>
+    <string name="tc13_activity_assignment_missed">Missed an assignment</string>
+    <string name="tc13_activity_project_submitted">Submitted a project</string>
+    <string name="tc13_private_notes_section">Private notes</string>
+    <string name="tc13_private_notes_hint">Visible only to you — never shown to the student or a parent.</string>
+    <string name="tc13_add_note">Add note</string>
+    <string name="tc13_private_notes_empty">No private notes yet.</string>
+    <string name="tc13_add_note_title">New private note</string>
+    <string name="tc13_edit_note_title">Edit note</string>
+    <string name="tc13_note_field_label">Note text</string>
+    <string name="tc13_delete_note_title">Delete this note?</string>
+    <string name="tc13_delete_note_body">This can\'t be undone.</string>
+    <string name="tc13_contact_section">Contact</string>
+    <string name="tc13_send_parent_note">Send note to parent</string>
+    <string name="tc13_message_student">Message student</string>
+    <string name="tc13_parent_note_title">Note to parent</string>
+    <string name="tc13_parent_note_recipient">Will be sent to %1$s\'s parent</string>
+    <string name="tc13_parent_note_sent">Note sent to the parent.</string>
+    <string name="tc13_message_title">Message %1$s</string>
+    <string name="tc13_message_sent">Message sent to the student.</string>
+    <string name="tc13_send">Send</string>
+
+    <!-- TC-14 · Grades -->
+    <string name="tc14_title">Gradebook</string>
+    <string name="tc14_status_draft">Draft</string>
+    <string name="tc14_status_published">Published</string>
+    <string name="tc14_coursework">Coursework</string>
+    <string name="tc14_quiz_component">Quizzes</string>
+    <string name="tc14_overall">Overall grade</string>
+    <string name="tc14_no_value">—</string>
+    <string name="tc14_publish">Publish</string>
+    <string name="tc14_bulk_publish">Publish all drafts</string>
+    <string name="tc14_bulk_publish_title">Publish every grade in this course?</string>
+    <string name="tc14_bulk_publish_body">Every grade still in Draft for this course will be published.</string>
+    <string name="tc14_empty">No students in this course.</string>
+    <string name="tc14_editor_title">Enter grade</string>
+    <string name="tc14_comment_label">Comment (optional)</string>
+    <string name="tc14_score_range_error">Enter a number between 0 and 100</string>
+
+    <!-- TC-15 · Teacher Analytics -->
+    <string name="tc15_title">Analytics</string>
+    <string name="tc15_all_courses">All courses</string>
+    <string name="tc15_enrolled_summary">%1$s students enrolled</string>
+    <string name="tc15_period_7d">7 days</string>
+    <string name="tc15_period_30d">30 days</string>
+    <string name="tc15_period_term">Term</string>
+    <string name="tc15_engagement_section">Engagement over time</string>
+    <string name="tc15_funnel_section">Course completion funnel</string>
+    <string name="tc15_funnel_enrolled">Enrolled</string>
+    <string name="tc15_funnel_started">Started</string>
+    <string name="tc15_funnel_lessons_progressed">Progressed in lessons</string>
+    <string name="tc15_funnel_quiz_attempted">Attempted a quiz</string>
+    <string name="tc15_funnel_course_completed">Nearly completed</string>
+    <string name="tc15_at_risk_section">Students needing attention</string>
+    <string name="tc15_at_risk_empty">No students need attention right now.</string>
+    <string name="tc15_view_profile">View profile</string>
+    <string name="tc15_risk_low_progress">Low progress</string>
+    <string name="tc15_risk_low_quiz">Struggling with quizzes</string>
+    <string name="tc15_risk_missing_work">Missing work</string>
+    <string name="tc15_risk_inactivity">Inactive</string>
+    <string name="tc15_risk_poor_attendance">Poor attendance</string>
+    <string name="tc15_insight_needs_reinforcement">%1$s needs reinforcement</string>
+    <string name="tc15_lesson_completion">Lesson completion %1$s</string>
+    <string name="tc15_attention_section">Needs attention</string>
+    <string name="tc15_attention_empty">Nothing needs attention right now.</string>
+    <string name="tc15_attention_quiz">%1$s — %2$s</string>
+    <string name="tc15_attention_inactive">%1$s — %2$s</string>
+
+    <!-- TC-16 · Teacher Profile / CV Editor -->
+    <string name="tc16_no_name">No name yet</string>
+    <string name="tc16_row_profile">Profile</string>
+    <string name="tc16_row_voice">Voice</string>
+    <string name="tc16_row_phrases">EduMind phrases</string>
+    <string name="tc16_row_teaching">Teaching page</string>
+    <string name="tc16_row_settings">Settings</string>
+    <string name="tc16_change_photo">Change photo</string>
+    <string name="tc16_bio_field">Bio</string>
+    <string name="tc16_teaching_title">Teaching page</string>
+    <string name="tc16_teaching_heading">Qualifications and background</string>
+    <string name="tc16_teaching_body">This page is still being prepared on the web. Photo, name, and bio are edited from Profile for now.</string>
+    <string name="tc16_teaching_ok">OK</string>
+    <string name="tc16_preview">Preview</string>
+    <string name="tc16_preview_title">Profile preview</string>
+    <string name="tc16_about_section">About</string>
+    <string name="tc16_bio_label">Bio</string>
+    <string name="tc16_why_label">Why study with me</string>
+    <string name="tc16_unsaved">Unsaved changes</string>
+    <string name="tc16_all_saved">All changes saved</string>
+    <string name="tc16_qualifications_section">Qualifications</string>
+    <string name="tc16_add_qualification">Add qualification</string>
+    <string name="tc16_qualifications_empty">No qualifications added yet.</string>
+    <string name="tc16_add_qualification_title">Add qualification</string>
+    <string name="tc16_edit_qualification_title">Edit qualification</string>
+    <string name="tc16_delete_qualification_title">Delete this qualification?</string>
+    <string name="tc16_delete_qualification_body">This can\'t be undone.</string>
+    <string name="tc16_experience_section">Experience</string>
+    <string name="tc16_experience_description_label">Short description of your teaching experience</string>
+    <string name="tc16_documents_section">Documents</string>
+    <string name="tc16_add_document">Add document</string>
+    <string name="tc16_add_document_title">Add document</string>
+    <string name="tc16_document_label">Document name</string>
+    <string name="tc16_documents_empty">No documents added yet.</string>
+    <string name="tc16_document_uploaded">Uploaded</string>
+    <string name="tc16_document_not_added">Not added</string>
+    <string name="tc16_delete_document_title">Delete this document?</string>
+    <string name="tc16_delete_document_body">This can\'t be undone.</string>
+    <string name="tc16_mock_add">Add (mock)</string>
+    <string name="tc16_voice_section">Voice intro</string>
+    <string name="tc16_voice_available">A voice sample is available</string>
+    <string name="tc16_voice_unavailable">No voice sample yet</string>
+    <string name="tc16_voice_open_hint">Open your voice profile to manage samples and consent</string>
+
+    <!-- TC-17 · Project Authoring -->
+    <string name="tc17_review_queue_entry">Project review queue</string>
+    <string name="tc17_empty_title">No projects yet</string>
+    <string name="tc17_empty_body">Create your first project for one of your courses.</string>
+    <string name="tc17_add_project">Add project</string>
+    <string name="tc17_untitled_project">Untitled project</string>
+    <string name="tc17_team_size">Team of %1$s</string>
+    <string name="tc17_status_draft">Draft</string>
+    <string name="tc17_status_published">Published</string>
+    <string name="tc17_media_image">Image</string>
+    <string name="tc17_media_document">Document</string>
+    <string name="tc17_media_video">Video</string>
+    <string name="tc17_safety_caution">Caution</string>
+    <string name="tc17_safety_important">Important</string>
+    <string name="tc17_editor_title">Edit project</string>
+    <string name="tc17_metadata_section">Project details</string>
+    <string name="tc17_title_label">Title</string>
+    <string name="tc17_deliverable_label">Deliverable</string>
+    <string name="tc17_description_label">Description</string>
+    <string name="tc17_team_size_label">Team size</string>
+    <string name="tc17_medium_label">Project type</string>
+    <string name="tc17_milestones_section">Milestones</string>
+    <string name="tc17_add_milestone">Add milestone</string>
+    <string name="tc17_no_milestones">No milestones added yet.</string>
+    <string name="tc17_add_milestone_title">Add milestone</string>
+    <string name="tc17_edit_milestone_title">Edit milestone</string>
+    <string name="tc17_untitled_milestone">Untitled milestone</string>
+    <string name="tc17_context_label">Context / due hint (optional)</string>
+    <string name="tc17_delete_milestone_title">Delete this milestone?</string>
+    <string name="tc17_delete_milestone_body">Its tasks will be deleted too. This can\'t be undone.</string>
+    <string name="tc17_add_task">Add task</string>
+    <string name="tc17_add_task_title">Add task</string>
+    <string name="tc17_edit_task_title">Edit task</string>
+    <string name="tc17_untitled_task">Untitled task</string>
+    <string name="tc17_move_up">Move up</string>
+    <string name="tc17_move_down">Move down</string>
+    <string name="tc17_rubric_section">Rubric</string>
+    <string name="tc17_rubric_total">Total: %1$s%%</string>
+    <string name="tc17_add_criterion">Add criterion</string>
+    <string name="tc17_add_criterion_title">Add criterion</string>
+    <string name="tc17_edit_criterion_title">Edit criterion</string>
+    <string name="tc17_untitled_criterion">Untitled criterion</string>
+    <string name="tc17_no_rubric">No rubric criteria added yet.</string>
+    <string name="tc17_weight_label">Weight (%)</string>
+    <string name="tc17_materials_section">Materials</string>
+    <string name="tc17_add_material">Add material</string>
+    <string name="tc17_add_material_title">Add material</string>
+    <string name="tc17_material_label">Material name</string>
+    <string name="tc17_material_quantity_label">Quantity (optional)</string>
+    <string name="tc17_safety_section">Safety guidance</string>
+    <string name="tc17_add_safety_note">Add safety note</string>
+    <string name="tc17_add_safety_note_title">Add safety note</string>
+    <string name="tc17_safety_text_label">Guidance text</string>
+    <string name="tc17_media_section">Media</string>
+    <string name="tc17_add_media">Add media</string>
+    <string name="tc17_add_media_title">Add media (mock)</string>
+    <string name="tc17_media_label">File name</string>
+    <string name="tc17_media_mock_notice">Mock only — no real file is uploaded in this build.</string>
+    <string name="tc17_no_media">No media added yet.</string>
+    <string name="tc17_publish_section">Publish</string>
+    <string name="tc17_publish">Publish project</string>
+    <string name="tc17_already_published">This project is already published.</string>
+    <string name="tc17_publish_failed">Couldn\'t publish — review the requirements below.</string>
+    <string name="tc17_gate_title">Add a project title</string>
+    <string name="tc17_gate_deliverable">Add the deliverable</string>
+    <string name="tc17_gate_milestones">Add at least one milestone</string>
+    <string name="tc17_gate_milestone_titles">Make sure every milestone has a title</string>
+    <string name="tc17_gate_rubric_total">Make the rubric weights add up to exactly 100%</string>
+    <string name="tc17_gate_materials">Add at least one material for a physical project</string>
+
+    <!-- TC-18 · Project Review Queue -->
+    <string name="tc18_title">Project review queue</string>
+    <string name="tc18_empty_title">Nothing awaiting review</string>
+    <string name="tc18_empty_body">Student submissions will show up here as they arrive.</string>
+    <string name="tc18_ai_ready">AI pre-review available</string>
+    <string name="tc18_ai_unavailable">No AI pre-review available</string>
+    <string name="tc18_status_awaiting">Awaiting review</string>
+    <string name="tc18_status_in_review">In review</string>
+    <string name="tc18_status_reviewed">Reviewed</string>
+    <string name="tc18_detail_title">Review submission</string>
+    <string name="tc18_submission_section">Submission</string>
+    <string name="tc18_ai_pre_review_section">AI pre-review</string>
+    <string name="tc18_ai_strengths">Strengths</string>
+    <string name="tc18_ai_concerns">Concerns</string>
+    <string name="tc18_ai_suggested_feedback">Suggested feedback</string>
+    <string name="tc18_rubric_section">Rubric</string>
+    <string name="tc18_score_of">%1$d of %2$d</string>
+    <string name="tc18_score_pending">Not scored yet</string>
+    <string name="tc18_ai_suggestion">AI suggestion: %1$d of %2$d</string>
+    <string name="tc18_accept_ai">Accept AI suggestion</string>
+    <string name="tc18_override">Override score</string>
+    <string name="tc18_score_label">Score (out of %1$d)</string>
+    <string name="tc18_score_range_error">Enter a number between 0 and %1$d</string>
+    <string name="tc18_feedback_section">Feedback</string>
+    <string name="tc18_feedback_label">Feedback for the student</string>
+    <string name="tc18_use_ai_feedback">Use AI suggested feedback</string>
+    <string name="tc18_private_comment_label">Private comment (teacher only)</string>
+    <string name="tc18_finalize_section">Finalize review</string>
+    <string name="tc18_finalize">Finalize review</string>
+    <string name="tc18_finalize_hint">Every criterion is confirmed — you can finalize this review now.</string>
+    <string name="tc18_finalize_blocked">Confirm or override every criterion\'s score before finalizing (%1$d of %2$d confirmed).</string>
+    <string name="tc18_already_finalized">This review has been finalized.</string>
+    <string name="tc18_finalize_failed">Couldn\'t finalize the review.</string>
+    <string name="tc18_finalize_confirm_title">Finalize this review?</string>
+    <string name="tc18_finalize_confirm_body">The final score becomes locked in and this submission will no longer show as pending.</string>
+
+    <!-- Student language journey + grammar polish -->
+    <string name="ln6c_ai_teacher_journey">AI Teacher Journey</string>
+    <string name="ln6c_day_streak">%1$s day streak</string>
+    <string name="ln6c_min_today">%1$s min today</string>
+    <string name="ln6c_start_today_session">Start today session</string>
+    <string name="ln6c_progress">Progress</string>
+    <string name="ln6c_stage_progress">Stage %1$s of %2$s · %3$s/%4$s missions complete</string>
+    <string name="ln6c_energy">Energy</string>
+    <string name="ln6c_confidence">Confidence</string>
+    <string name="ln6c_timeline_title">Timeline / stages</string>
+    <string name="ln6c_timeline_subtitle">Completed, current, and locked missions grouped by CEFR</string>
+    <string name="ln6c_session_entry">Session entry</string>
+    <string name="ln6c_preview_sections">Preview sections</string>
+    <string name="ln6c_preview_section_item">%1$s · %2$s · %3$s min</string>
+    <string name="ln6c_ai_teacher">AI Teacher</string>
+    <string name="ln6c_ai_teacher_body">Keeps the daily mission connected to the current language stage</string>
+    <string name="ln6c_today_session">Today session</string>
+    <string name="ln6c_mission">Mission</string>
+    <string name="ln6c_session_content">Session content</string>
+    <string name="ln6c_session_content_body">Same ordered section list used by the live web session</string>
+    <string name="ln6c_section_meta">%1$s · %2$s min</string>
+    <string name="ln6c_complete_session">Complete session</string>
+    <string name="ln6c_back_to_journey">Back to journey</string>
+    <string name="ln6c_minutes_short">%1$s min</string>
+    <string name="ln6c_mission_complete">Mission complete</string>
+    <string name="ln6c_streak">Streak</string>
+    <string name="ln6c_journey">Journey</string>
+    <string name="ln6c_journey_home">Journey home</string>
+    <string name="ln6c_next_mission">Next mission</string>
+    <string name="ln6c_grammar_engine">Grammar engine</string>
+    <string name="ln6c_stage_badge">Stage %1$s/%2$s</string>
+    <string name="ln6c_completed">Completed</string>
+    <string name="ln6c_mastery">Mastery</string>
+    <string name="ln6c_start_lesson">Start lesson</string>
+    <string name="ln6c_progress_body">Current CEFR, stage progress, remaining roadmap, and percent</string>
+    <string name="ln6c_cefr_roadmap">CEFR roadmap</string>
+    <string name="ln6c_cefr_roadmap_body">Accordion-style levels with completed, current, and locked grammar stages</string>
+    <string name="ln6c_engine_sidebar">Engine sidebar</string>
+    <string name="ln6c_next_action">Next action</string>
+    <string name="ln6c_current_grammar">Current grammar: %1$s</string>
+    <string name="ln6c_next_grammar">Next grammar: %1$s</string>
+    <string name="ln6c_ask_tutor_after_mistakes">Ask tutor after mistakes</string>
+    <string name="ln6c_grammar_stage_meta">%1$s · %2$s min · %3$s%% mastery</string>
+    <string name="ln6c_back_to_roadmap">Back to roadmap</string>
+    <string name="ln6c_welcome">Welcome</string>
+    <string name="ln6c_today_goal">Today goal</string>
+    <string name="ln6c_teacher_available">Your teacher stays available during the lesson.</string>
+    <string name="ln6c_where_used">Where used</string>
+    <string name="ln6c_why_useful">Why useful</string>
+    <string name="ln6c_start_learning">Start learning</string>
+    <string name="ln6c_learn">Learn</string>
+    <string name="ln6c_learn_body">Explanation, model examples, and common mistakes before practice</string>
+    <string name="ln6c_explanation">Explanation</string>
+    <string name="ln6c_practice">Practice</string>
+    <string name="ln6c_practice_body">Guided checks with feedback before the lesson can finish</string>
+    <string name="ln6c_progress_correct">%1$s/%2$s correct</string>
+    <string name="ln6c_question_number">Question %1$s</string>
+    <string name="ln6c_your_answer">Your answer</string>
+    <string name="ln6c_built_sentence">Built sentence</string>
+    <string name="ln6c_correct">Correct</string>
+    <string name="ln6c_review">Review</string>
+    <string name="ln6c_check">Check</string>
+    <string name="ln6c_production_body">Production checkpoint stays in the lesson flow</string>
+    <string name="ln6c_reflection">Reflection</string>
+    <string name="ln6c_finish_lesson">Finish lesson</string>
+    <string name="ln6c_lesson_complete">Lesson complete</string>
+    <string name="ln6c_practice_correct">%1$s/%2$s practice correct</string>
+    <string name="ln6c_ask_teacher">Ask Teacher</string>
+    <string name="ln6c_embedded_help">Embedded help connected to %1$s</string>
+    <string name="ln6c_ai_teacher_label">AI Teacher</string>
+    <string name="ln6c_you">You</string>
+    <string name="ln6c_ask_about_lesson">Ask about this lesson</string>
+    <string name="ln6c_explain_last_example">Explain the last example</string>
+    <string name="ln6c_example">Example</string>
+    <string name="ln6c_example_prompt">Give me one more school example.</string>
+    <string name="ln6c_ask">Ask</string>
+    <string name="ln6c_grammar_updated">Grammar updated</string>
+    <string name="ln6c_next_actions">Next actions</string>
+    <string name="ln6c_review_mistakes">Review mistakes</string>
+    <string name="ln6c_ask_tutor_followup">Ask Tutor follow-up</string>
+    <string name="ln6c_start_next_grammar">Start %1$s</string>
+    <string name="ln6c_roadmap">Roadmap</string>
+    <string name="ln6c_next_lesson">Next lesson</string>
+    <string name="ln6c_status_completed">completed</string>
+    <string name="ln6c_status_current">current</string>
+    <string name="ln6c_status_open">open</string>
+    <string name="ln6c_status_locked">locked</string>
+    <string name="ln6c_phase_welcome">Welcome</string>
+    <string name="ln6c_phase_mission">Mission</string>
+    <string name="ln6c_phase_learn">Learn</string>
+    <string name="ln6c_phase_practice">Practice</string>
+    <string name="ln6c_phase_speaking">Speaking</string>
+    <string name="ln6c_phase_writing">Writing</string>
+    <string name="ln6c_phase_reflection">Reflection</string>
+    <string name="ln6c_phase_complete">Complete</string>
+    <string name="st12_priority_high">High</string>
+    <string name="st12_priority_medium">Medium</string>
+    <string name="st12_priority_low">Low</string>
+    <string name="st13_status_upcoming">Upcoming</string>
 
     <!-- ── placeholders for not-yet-built screens ──────────────────── -->
     <string name="placeholder_title">This screen isn\'t built yet</string>

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.locale.AppLocale
 import com.rork.eduspark.core.locale.LocaleController
 import com.rork.eduspark.core.preferences.AppPreferences
-import com.rork.eduspark.data.model.UserRole
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.repository.AuthRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -35,14 +35,18 @@ sealed interface SplashDecision {
     /** First launch ever: no language has been chosen, so the gate is shown. */
     data object LanguageGate : SplashDecision
 
-    /** Language known, but the value carousel has not been seen. */
+    /** Legacy intro carousel route; retained for direct navigation/back-stack compatibility. */
     data object Carousel : SplashDecision
 
-    /** No stored session — A-04. */
+    /** No stored session — public entry / role landing. */
     data object Login : SplashDecision
 
-    /** A stored session was found; go straight to that role's shell. */
-    data class Home(val role: UserRole) : SplashDecision
+    /**
+     * A stored session was found. Carries the whole [SessionUser], not just the role —
+     * a student whose session says `hasCompletedOnboarding = false` (an onboarding flow
+     * killed mid-way and relaunched) must resume SO-01…SO-05, not land on Student Core.
+     */
+    data class Home(val user: SessionUser) : SplashDecision
 }
 
 data class SplashState(
@@ -91,13 +95,11 @@ class SplashViewModel(
     }
 
     private suspend fun afterLanguageGate(): SplashDecision {
-        // No refresh call — we read what is already stored and trust it or fall back to login.
+        // No refresh call — we read what is already stored and trust it or fall back to the
+        // public role landing. The landing now carries the product value message, so logged-out
+        // launches should not stop on the older value carousel first.
         val session = authRepository.session.first()
-        return when {
-            !preferences.hasSeenValueCarousel.first() -> SplashDecision.Carousel
-            session == null -> SplashDecision.Login
-            else -> SplashDecision.Home(session.role)
-        }
+        return session?.let { SplashDecision.Home(it) } ?: SplashDecision.Login
     }
 
     private companion object {

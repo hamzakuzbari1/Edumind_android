@@ -45,11 +45,11 @@ fun EduChip(
     leadingIcon: ImageVector? = null,
 ) {
     val shape = RoundedCornerShape(Radius.pill)
-    val container = if (selected) EduTheme.colors.zaytounSoft else EduTheme.colors.surface
-    val border = if (selected) EduTheme.colors.zaytoun else EduTheme.colors.border
+    val container = if (selected) EduTheme.colors.primaryContainer else EduTheme.colors.surface
+    val border = if (selected) EduTheme.colors.primary else EduTheme.colors.border
     val content = when {
-        !enabled -> EduTheme.colors.textMuted
-        selected -> EduTheme.colors.zaytoun
+        !enabled -> EduTheme.colors.textSecondary
+        selected -> EduTheme.colors.primary
         else -> EduTheme.colors.textPrimary
     }
     val selectedLabel = stringResource(R.string.a11y_selected)

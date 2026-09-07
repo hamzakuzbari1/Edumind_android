@@ -29,8 +29,11 @@
     <string name="common_done">تم</string>
     <string name="common_save">احفظ</string>
     <string name="common_delete">احذف</string>
+    <string name="common_edit">تعديل</string>
     <string name="common_more_options">خيارات إضافية</string>
     <string name="common_loading">جارٍ التحميل</string>
+    <string name="common_active">نشط</string>
+    <string name="common_not_available">—</string>
     <string name="common_press_back_again">اضغط رجوع مرة أخرى للخروج</string>
 
     <!-- ── states (A-14 Global States Kit) ─────────────────────────── -->
@@ -67,6 +70,8 @@
     <string name="a11y_streak_flame">أيام المواظبة</string>
     <string name="a11y_selected">محدّد</string>
     <string name="a11y_password_strength">قوة كلمة المرور: %1$s</string>
+    <string name="a11y_open_student_menu">فتح قائمة الطالب</string>
+    <string name="a11y_open_teacher_menu">فتح قائمة المعلّم</string>
 
     <!-- ── ai ──────────────────────────────────────────────────────── -->
     <string name="ai_label">المعلّم الذكي</string>
@@ -99,13 +104,15 @@
 
     <!-- ── role tab bars (Screen Inventory · Navigation shells) ────── -->
     <string name="tab_student_home">الرئيسية</string>
+    <string name="tab_student_routine">روتيني</string>
     <string name="tab_student_courses">موادي</string>
     <string name="tab_student_projects">مشاريعي</string>
-    <string name="tab_student_english">الإنجليزية</string>
+    <string name="tab_student_english">اللغات</string>
     <string name="tab_student_me">حسابي</string>
-    <string name="tab_teacher_dashboard">لوحتي</string>
-    <string name="tab_teacher_courses">موادي</string>
-    <string name="tab_teacher_students">طلابي</string>
+    <string name="tab_teacher_dashboard">الرئيسية</string>
+    <string name="tab_teacher_courses">الصفوف</string>
+    <string name="tab_teacher_students">الطلاب</string>
+    <string name="tab_teacher_quizzes">الاختبارات</string>
     <string name="tab_teacher_projects">مشاريع</string>
     <string name="tab_teacher_me">حسابي</string>
     <string name="tab_parent_home">الرئيسية</string>
@@ -115,6 +122,51 @@
     <string name="tab_parent_me">حسابي</string>
     <string name="topbar_messages">الرسائل</string>
     <string name="topbar_notifications">الإشعارات</string>
+    <string name="drawer_logout">تسجيل الخروج</string>
+    <string name="drawer_logout_confirm_title">هل تريد تسجيل الخروج؟</string>
+    <string name="drawer_logout_confirm_body">سيتم إنهاء جلستك على هذا الجهاز والعودة إلى شاشة تسجيل الدخول.</string>
+
+    <!-- ── Phase 6 · X-01 Messages List / X-02 Conversation Thread / X-03 New Conversation ── -->
+    <string name="x01_title">الرسائل</string>
+    <string name="x01_new_conversation">محادثة جديدة</string>
+    <string name="x01_empty_title">لا توجد رسائل بعد</string>
+    <string name="x01_empty_body">ابدأ محادثة جديدة للتواصل.</string>
+    <string name="x01_search_empty_title">لا نتائج</string>
+    <string name="x01_search_empty_body">جرّب كلمات بحث مختلفة.</string>
+    <string name="x01_voice_message_preview">رسالة صوتية</string>
+    <string name="x01_category_parents">الأهالي</string>
+    <string name="x01_empty_students">لا توجد محادثات مع الطلاب</string>
+    <string name="x01_empty_parents">لا توجد محادثات مع الأهالي</string>
+    <string name="x01_teacher_search_empty">لا توجد نتائج</string>
+
+    <string name="x02_title_fallback">المحادثة</string>
+    <string name="x02_search">بحث في المحادثة</string>
+    <string name="x02_participant_info">معلومات المشارك</string>
+    <string name="x02_receipt_sent">أُرسلت</string>
+    <string name="x02_receipt_read">تمت القراءة</string>
+    <string name="x02_attach">إرفاق</string>
+    <string name="x02_composer_label">رسالة</string>
+    <string name="x02_composer_placeholder">اكتب رسالة…</string>
+    <string name="x02_send">إرسال</string>
+    <string name="x02_attach_title">إضافة مرفق</string>
+    <string name="x02_attach_image">صورة</string>
+    <string name="x02_attach_file">ملف</string>
+    <string name="x02_attach_link">رابط</string>
+    <string name="x02_role_teacher">معلّم</string>
+    <string name="x02_role_student">طالب</string>
+    <string name="x02_role_parent">ولي أمر</string>
+    <string name="x02_student_subtitle">طالب · %1$s</string>
+    <string name="x02_view_profile">عرض الملف الشخصي</string>
+    <string name="x02_mic">تسجيل رسالة صوتية</string>
+    <string name="x02_recording_cancel">إلغاء التسجيل</string>
+    <string name="x02_recording_finish">إنهاء التسجيل</string>
+    <string name="x02_voice_preview_delete">حذف التسجيل</string>
+    <string name="x02_play">تشغيل</string>
+    <string name="x02_pause">إيقاف مؤقت</string>
+
+    <string name="x03_title">محادثة جديدة</string>
+    <string name="x03_empty_title">لا يوجد جهات اتصال</string>
+    <string name="x03_empty_body">لا يوجد أشخاص يمكن مراسلتهم حالياً.</string>
 
     <!-- ── settings (locale + theme foundations) ───────────────────── -->
     <string name="settings_language">اللغة</string>
@@ -183,14 +235,20 @@
     <!-- ── A-03 · Role Select ──────────────────────────────────────── -->
     <string name="a03_title">من أنت؟</string>
     <string name="a03_body">نختار لك الشاشات والمحتوى المناسب. يمكنك تغيير ذلك لاحقاً من الإعدادات.</string>
+    <string name="a03_entry_headline">جيل جديد من التعلّم الذكي</string>
+    <string name="a03_entry_subtitle">EduMind يجمع الدروس، المعلّم الذكي، الاختبارات، والخطة اليومية في تجربة واحدة للطالب والأهل والمعلّم.</string>
+    <string name="a03_benefit_ai_tutor">معلّم ذكي</string>
+    <string name="a03_benefit_daily_plan">خطة يومية</string>
+    <string name="a03_benefit_progress">متابعة التقدّم</string>
+    <string name="a03_role_section_title">اختر تجربتك</string>
     <string name="a03_role_student">طالب</string>
-    <string name="a03_role_student_line">أدرس، أحلّ الاختبارات، وأسأل المعلّم الذكي</string>
+    <string name="a03_role_student_line">ابدأ الدروس والاختبارات مع معلّمك الذكي</string>
     <string name="a03_role_student_monogram">ط</string>
     <string name="a03_role_teacher">معلّم</string>
-    <string name="a03_role_teacher_line">أنشر الدروس، أصحّح المشاريع، وأتابع صفوفي</string>
+    <string name="a03_role_teacher_line">انشر الدروس وتابع صفوفك</string>
     <string name="a03_role_teacher_monogram">م</string>
     <string name="a03_role_parent">وليّ أمر</string>
-    <string name="a03_role_parent_line">أتابع تقدّم ابني أو ابنتي وأتواصل مع المعلّم</string>
+    <string name="a03_role_parent_line">تابع تقدّم ابنك وتواصل مع المعلّمين</string>
     <string name="a03_role_parent_monogram">و</string>
     <string name="a03_have_account">لديك حساب؟</string>
     <string name="a03_login_action">تسجيل الدخول</string>
@@ -294,6 +352,2549 @@
     <string name="a07_grade_10">الصف العاشر</string>
     <string name="a07_grade_11">الصف الحادي عشر</string>
     <string name="a07_grade_12">البكالوريا</string>
+
+    <!-- Student/Parent only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
+    <string name="reg_terms_with_age">أوافق على شروط الاستخدام وسياسة الخصوصية. عمري 13 عاماً أو أكثر.</string>
+
+    <!-- ── password strength — actionable guidance, not just a score ─ -->
+    <string name="reg_strength_hint_add_number">أضف رقماً لتصبح أقوى</string>
+    <string name="reg_strength_hint_add_uppercase">أضف حرفاً كبيراً لتصبح أقوى</string>
+    <string name="reg_strength_hint_add_symbol">أضف رمزاً خاصاً لتصبح أقوى</string>
+    <string name="reg_strength_hint_add_length">أطِل كلمة المرور لتصبح أقوى</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-08 · VERIFY EMAIL
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a08_title">تحقّق من بريدك</string>
+    <string name="a08_body">أرسلنا رمزاً من 6 أرقام إلى %1$s</string>
+    <string name="a08_code_hint">الرمز صالح لمدة 10 دقائق</string>
+    <string name="a08_verify">تحقّق</string>
+    <string name="a08_verifying">نتحقّق من الرمز…</string>
+    <string name="a08_error_invalid_code">الرمز غير صحيح. حاول مرة أخرى.</string>
+    <plurals name="a08_error_invalid_code_attempts">
+        <item quantity="zero">الرمز غير صحيح. لم تبقَ لك محاولات، سنرسل رمزاً جديداً.</item>
+        <item quantity="one">الرمز غير صحيح. بقيت لك محاولة واحدة قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="two">الرمز غير صحيح. بقيت لك محاولتان قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="few">الرمز غير صحيح. بقيت لك %1$d محاولات قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="many">الرمز غير صحيح. بقيت لك %1$d محاولة قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="other">الرمز غير صحيح. بقيت لك %1$d محاولة قبل أن نرسل رمزاً جديداً.</item>
+    </plurals>
+    <string name="a08_error_expired">انتهت صلاحية هذا الرمز. أرسل رمزاً جديداً.</string>
+    <string name="a08_action_send_new_code">أرسل رمزاً جديداً</string>
+    <string name="a08_success_title">تم تأكيد بريدك</string>
+    <string name="a08_success_body">حسابك جاهز الآن.</string>
+    <string name="a08_resend_prompt">لم يصلك الرمز؟</string>
+    <string name="a08_resend_action">أعد الإرسال</string>
+    <string name="a08_resend_cooldown">يمكنك إعادة الإرسال خلال %1$s</string>
+    <string name="a08_change_email_prompt">البريد غير صحيح؟</string>
+    <string name="a08_change_email_hint">غيّره وسنرسل رمزاً جديداً</string>
+    <string name="a08_change_email_action">غيّر</string>
+    <string name="a11y_a08_otp">خانات رمز تأكيد البريد الإلكتروني</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-09 · TWO-FACTOR VERIFY
+         Backend reality (Source Audit §3): the second factor is EMAIL OTP.
+         TOTP returns 501 and there is no SMS/phone channel — never build toward one.
+         The badge word stays untranslated, like the EDUMIND wordmark on A-04: a
+         security-label convention, not prose.
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a09_security_badge">SECURITY</string>
+    <string name="a09_band_label">التحقق بخطوتين</string>
+    <string name="a09_title">خطوة أمان إضافية</string>
+    <string name="a09_body">أدخل الرمز المرسل إلى %1$s</string>
+    <string name="a09_trust_device">أثق بهذا الجهاز</string>
+    <string name="a09_trust_device_hint">لن نطلب الرمز لمدة 30 يوماً</string>
+    <string name="a09_confirm">تأكيد الرمز</string>
+    <string name="a09_confirming">نتحقّق من الرمز…</string>
+    <string name="a09_error_invalid_code">الرمز غير صحيح. حاول مرة أخرى.</string>
+    <plurals name="a09_error_invalid_code_attempts">
+        <item quantity="zero">الرمز غير صحيح. لم تبقَ لك محاولات، سنرسل رمزاً جديداً.</item>
+        <item quantity="one">الرمز غير صحيح. بقيت لك محاولة واحدة قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="two">الرمز غير صحيح. بقيت لك محاولتان قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="few">الرمز غير صحيح. بقيت لك %1$d محاولات قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="many">الرمز غير صحيح. بقيت لك %1$d محاولة قبل أن نرسل رمزاً جديداً.</item>
+        <item quantity="other">الرمز غير صحيح. بقيت لك %1$d محاولة قبل أن نرسل رمزاً جديداً.</item>
+    </plurals>
+    <string name="a09_resend_sent_count">أُرسل %1$d من %2$d رموز مسموحة</string>
+    <string name="a09_resend_cap_reached">استخدمت كل الرموز المسموحة. حاول لاحقاً أو راسل الدعم.</string>
+    <string name="a09_success_title">تم التأكيد</string>
+    <string name="a09_success_body">جارٍ تسجيل الدخول…</string>
+    <string name="a11y_a09_otp">خانات رمز التحقق بخطوتين</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-10 · FORGOT PASSWORD
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a10_title">نسيت كلمة المرور؟</string>
+    <string name="a10_body">أدخل بريدك وسنرسل رابطاً لإعادة التعيين. الرابط صالح لمدة ساعة واحدة.</string>
+    <string name="a10_submit">أرسل الرابط</string>
+    <string name="a10_submitting">جارٍ الإرسال…</string>
+    <string name="a10_sent_body">إن كان لديك حساب بهذا البريد، أرسلنا رابط إعادة التعيين إلى %1$s</string>
+    <string name="a10_sent_spam_hint">لم يصلك شيء بعد؟ تحقّق من مجلد الرسائل غير المرغوبة — رسائل إعادة التعيين تصل إليه أحياناً.</string>
+    <string name="a10_sent_validity">الرابط صالح ساعة واحدة، ويُستخدم مرة واحدة فقط.</string>
+    <string name="a10_open_mail_app">افتح تطبيق البريد</string>
+    <string name="a10_try_another_email_action">جرّب بريداً آخر</string>
+    <string name="a10_remembered">تذكّرتها؟</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-11 · RESET PASSWORD
+         Reached by deep link. The email line renders only when the link (or the A-10
+         hand-off) actually carried one — see a11_body_generic for the fallback.
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a11_title">كلمة مرور جديدة</string>
+    <string name="a11_body_for_email">للحساب %1$s</string>
+    <string name="a11_body_generic">لحسابك</string>
+    <string name="a11_new_password_label">كلمة المرور الجديدة</string>
+    <string name="a11_signed_out_note">سيتم تسجيل خروجك من أجهزتك الأخرى بعد الحفظ.</string>
+    <string name="a11_submit">احفظ وسجّل الدخول</string>
+    <string name="a11_submitting">جارٍ الحفظ…</string>
+    <string name="a11_expired_title">انتهت صلاحية الرابط</string>
+    <string name="a11_expired_body">روابط إعادة التعيين صالحة ساعة واحدة وتُستخدم مرة واحدة فقط.</string>
+    <string name="a11_expired_resend_known">سنرسل رابطاً جديداً إلى %1$s</string>
+    <string name="a11_action_send_new_link">أرسل رابطاً جديداً</string>
+    <string name="a11_link_resent">أُرسل رابط جديد إلى %1$s</string>
+    <string name="a11_action_use_different_email">استخدم بريداً آخر</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         PHASE 0 · A-12 · CERTIFICATE VERIFICATION (public, no session)
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="a12_title">التحقق من الشهادة</string>
+    <string name="a12_valid_badge">شهادة موثّقة</string>
+    <string name="a12_field_holder">الاسم</string>
+    <string name="a12_field_title">الشهادة</string>
+    <string name="a12_field_level">المستوى / المشروع</string>
+    <string name="a12_field_date">تاريخ الإصدار</string>
+    <string name="a12_field_teacher">المعلّم المُصدِر</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT ONBOARDING · SO-01 … SO-05
+         The horizontal spine reads "step X / 4" across all four; SO-05 is the payoff
+         and deliberately has no spine.
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="so_step_label">الخطوة %1$d / %2$d</string>
+    <string name="so_subject_french">اللغة الفرنسية</string>
+
+    <!-- ── SO-01 · Grade ─────────────────────────────────────────────── -->
+    <string name="so01_title">في أي صف أنت؟</string>
+    <string name="so01_body">نبني المسار على منهاج صفّك ومواعيد امتحاناته.</string>
+    <string name="so01_grade_10_hint">أساسيات ما قبل البكالوريا</string>
+    <string name="so01_grade_11_hint">يمهّد للفرع العلمي أو الأدبي</string>
+    <string name="so01_grade_12_hint">الصف الثالث الثانوي — سنة الشهادة</string>
+    <string name="so01_track_label">اختر الفرع</string>
+    <string name="so01_track_science">علمي</string>
+    <string name="so01_track_literary">أدبي</string>
+    <string name="so01_error_grade">اختر صفك للمتابعة</string>
+    <string name="so01_error_track">اختر الفرع للمتابعة</string>
+    <string name="so01_continue">متابعة — اختيار المواد</string>
+
+    <!-- ── SO-02 · Subjects ──────────────────────────────────────────── -->
+    <string name="so02_title">ما المواد التي تريد التركيز عليها؟</string>
+    <string name="so02_body">اختر مادة واحدة على الأقل. يمكنك إضافة المزيد لاحقاً.</string>
+    <string name="so02_group_science_core">أساسيات الفرع العلمي</string>
+    <string name="so02_group_literary_core">أساسيات الفرع الأدبي</string>
+    <string name="so02_group_languages_general">لغات ومواد عامة</string>
+    <string name="so02_error_min_one">اختر مادة واحدة على الأقل لنبني لك مساراً.</string>
+    <plurals name="so02_selected_count">
+        <item quantity="zero">لم تختر أي مادة بعد</item>
+        <item quantity="one">اخترت مادة واحدة</item>
+        <item quantity="two">اخترت مادتين</item>
+        <item quantity="few">اخترت %1$d مواد</item>
+        <item quantity="many">اخترت %1$d مادة</item>
+        <item quantity="other">اخترت %1$d مادة</item>
+    </plurals>
+    <string name="so02_continue">متابعة — اختيار المعلّمين</string>
+
+    <!-- ── SO-03 · Teachers ──────────────────────────────────────────── -->
+    <string name="so03_title">اختر معلّماً لكل مادة</string>
+    <string name="so03_body">استمع لمقدمة قصيرة قبل أن تقرر. يمكنك التبديل لاحقاً.</string>
+    <plurals name="so03_years_teaching">
+        <item quantity="zero">أقل من سنة تدريس</item>
+        <item quantity="one">سنة واحدة تدريس</item>
+        <item quantity="two">سنتا تدريس</item>
+        <item quantity="few">%1$d سنوات تدريس</item>
+        <item quantity="many">%1$d سنة تدريس</item>
+        <item quantity="other">%1$d سنة تدريس</item>
+    </plurals>
+    <plurals name="so03_students_count">
+        <item quantity="zero">لا طلاب بعد</item>
+        <item quantity="one">طالب واحد</item>
+        <item quantity="two">طالبان</item>
+        <item quantity="few">%1$d طلاب</item>
+        <item quantity="many">%1$d طالباً</item>
+        <item quantity="other">%1$d طالب</item>
+    </plurals>
+    <string name="so03_per_session">الحصة</string>
+    <string name="so03_error_teachers">اختر معلّماً لكل مادة</string>
+    <string name="so03_continue">متابعة — التخصيص</string>
+    <string name="a11y_so03_play_intro">تشغيل المقطع التعريفي الصوتي</string>
+    <string name="a11y_so03_pause_intro">إيقاف المقطع التعريفي الصوتي</string>
+
+    <!-- ── SO-04 · Personalize ───────────────────────────────────────── -->
+    <string name="so04_question_label">سؤال %1$d من %2$d</string>
+    <string name="so04_not_sure_yet">لست متأكداً بعد</string>
+    <string name="so04_next">التالي</string>
+    <string name="so04_build_plan">ابنِ خطتي</string>
+
+    <string name="so04_q1_title">كم وقتٍ تستطيع الدراسة يومياً؟</string>
+    <string name="so04_q1_body">نوزّع الدروس على هذا الوقت حتى لا تشعر بالضغط. كن صادقاً — يمكنك تعديله لاحقاً.</string>
+    <string name="so04_hours_30min">نصف ساعة — بين الحصص</string>
+    <string name="so04_hours_1h">ساعة واحدة</string>
+    <string name="so04_hours_2h">ساعتان</string>
+    <string name="so04_hours_3h_plus">3 ساعات أو أكثر</string>
+
+    <string name="so04_q2_title">في أي مادة أنت الأقوى؟</string>
+    <string name="so04_q2_body">سنسرع هنا ونصرف الوقت الموفَّر في مكان آخر.</string>
+
+    <string name="so04_q3_title">وأي مادة تحتاج وقتاً أطول؟</string>
+    <string name="so04_q3_body">لا حكم على أحد — سنبدأ من الأساسيات ونمنحها وقتاً أكبر للممارسة.</string>
+
+    <string name="so04_q4_title">متى أول امتحان مهم؟</string>
+    <string name="so04_q4_body">حدّد الموعد لنكثّف المراجعة له.</string>
+    <string name="so04_exam_date_not_sure">لا أعرف بعد</string>
+    <string name="so04_weekday_sun">ح</string>
+    <string name="so04_weekday_mon">ن</string>
+    <string name="so04_weekday_tue">ث</string>
+    <string name="so04_weekday_wed">ر</string>
+    <string name="so04_weekday_thu">خ</string>
+    <string name="so04_weekday_fri">ج</string>
+    <string name="so04_weekday_sat">س</string>
+    <string name="a11y_so04_prev_month">الشهر السابق</string>
+    <string name="a11y_so04_next_month">الشهر التالي</string>
+    <plurals name="so04_exam_days_until">
+        <item quantity="zero">الامتحان اليوم</item>
+        <item quantity="one">الامتحان بعد يوم واحد</item>
+        <item quantity="two">الامتحان بعد يومين</item>
+        <item quantity="few">الامتحان بعد %1$d أيام</item>
+        <item quantity="many">الامتحان بعد %1$d يوماً</item>
+        <item quantity="other">الامتحان بعد %1$d يوم</item>
+    </plurals>
+
+    <string name="so04_q5_title">متى تدرس بأفضل حال؟</string>
+    <string name="so04_q5_body">سيصلك التذكير حينها، وستُبنى خطتك حوله.</string>
+    <string name="so04_time_morning">الصباح الباكر</string>
+    <string name="so04_time_morning_hint">قبل المدرسة</string>
+    <string name="so04_time_afternoon">بعد الظهر</string>
+    <string name="so04_time_afternoon_hint">بعد المدرسة مباشرة</string>
+    <string name="so04_time_evening">المساء</string>
+    <string name="so04_time_evening_hint">بعد العشاء، 19:00–22:00</string>
+    <string name="so04_time_late">وقت متأخر من الليل</string>
+    <string name="so04_time_late_hint">بعد 22:00</string>
+
+    <!-- ── SO-05 · Complete ──────────────────────────────────────────── -->
+    <string name="so05_celebration_title">مسارك جاهز، %1$s</string>
+    <string name="so05_celebration_body">بنينا خطة أسبوعية حول موادك والأيام المتبقية حتى امتحانك.</string>
+    <string name="so05_xp_earned">‎+50 نقطة خبرة لإكمال الإعداد</string>
+    <string name="so05_summary_title">ملخص اختياراتك</string>
+    <string name="so05_field_grade">الصف</string>
+    <string name="so05_field_subjects">المواد</string>
+    <string name="so05_field_teachers">المعلّمون</string>
+    <string name="so05_field_study">الدراسة</string>
+    <string name="so05_field_exam">الامتحان</string>
+    <string name="so05_grade_track_format">%1$s — %2$s</string>
+    <string name="so05_exam_not_sure">لم يُحدَّد بعد</string>
+    <string name="so05_study_summary">%1$s يومياً · %2$s</string>
+    <string name="so05_footer_note">يمكنك تعديل أي من هذا من صفحة حسابي في أي وقت.</string>
+    <string name="so05_cta">ابدأ درسك الأول</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-01 · Student Home
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st01_greeting">صباح الخير، %1$s</string>
+    <string name="st01_continue_eyebrow">تابع من حيث توقفت</string>
+    <plurals name="st01_minutes_left">
+        <item quantity="zero">أقل من دقيقة متبقية</item>
+        <item quantity="one">بقيت دقيقة واحدة</item>
+        <item quantity="two">بقيت دقيقتان</item>
+        <item quantity="few">بقيت %1$d دقائق</item>
+        <item quantity="many">بقيت %1$d دقيقة</item>
+        <item quantity="other">بقيت %1$d دقيقة</item>
+    </plurals>
+    <string name="st01_start_lesson">متابعة الدرس</string>
+    <string name="st01_continue_subject_teacher">%1$s · %2$s</string>
+    <string name="st01_subject_teacher_percent">%1$s · %2$d٪</string>
+    <string name="st01_today_plan">خطة اليوم</string>
+    <string name="st01_see_full_plan">عرض الكل</string>
+    <string name="st01_today_this_week_title">اليوم / هذا الأسبوع</string>
+    <string name="st01_today_this_week_subtitle">ما يحتاج انتباهك الآن من الخطة والروتين.</string>
+    <string name="st01_today_empty">لا يوجد شيء عاجل الآن. افتح المخطط لتضيف جلسة أو امتحاناً.</string>
+    <string name="st01_open_planner">افتح المخطط</string>
+    <string name="st01_routine_signal_title">من روتينك</string>
+    <string name="st01_routine_time_range">%1$s - %2$s</string>
+    <plurals name="st01_plan_duration">
+        <item quantity="zero">أقل من دقيقة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتان</item>
+        <item quantity="few">%1$d دقائق</item>
+        <item quantity="many">%1$d دقيقة</item>
+        <item quantity="other">%1$d دقيقة</item>
+    </plurals>
+    <string name="st01_my_subjects">موادي</string>
+    <string name="st01_project_title">مشروعي</string>
+    <string name="st01_project_empty_body">وحدة المشاريع قيد الإعداد — ستصلك عندما تكون جاهزة.</string>
+    <string name="st01_english_title">الإنجليزية</string>
+    <string name="st01_english_teaser_body">وحدة اللغة الإنجليزية قيد الإعداد — ستصلك عندما تكون جاهزة.</string>
+    <string name="st01_first_day_title">أهلاً، %1$s</string>
+    <string name="st01_first_day_subtitle">يومك الأول في EduMind</string>
+    <string name="st01_first_day_heading">لنبدأ بدرس واحد</string>
+    <string name="st01_first_day_body">اختر مادة، وسنبني لك مساراً حولها.</string>
+    <string name="st01_first_day_pick_subject">اختر مادتك الأولى</string>
+    <string name="st01_quick_actions_title">اختصارات</string>
+    <string name="st01_quick_action_messages">الرسائل</string>
+    <string name="st01_quick_action_planner">المخطط</string>
+    <string name="st01_quick_action_routine">الروتين</string>
+    <string name="st01_quick_action_achievements">الإنجازات</string>
+    <string name="st01_report_title">تقريرك</string>
+    <string name="st01_report_active_subjects">مواد نشطة</string>
+    <string name="st01_report_completed_lessons">دروس مكتملة</string>
+    <string name="st01_report_last_quiz">آخر اختبار</string>
+    <string name="st01_report_study_days">أيام دراسة هذا الأسبوع</string>
+    <string name="st01_achievements_preview_title">إنجازاتك</string>
+    <string name="st01_achievement_recent_label">آخر إنجاز</string>
+    <string name="st01_achievement_next_label">التالي</string>
+    <string name="st01_no_achievements_yet">لم تحقق إنجازاً بعد</string>
+    <string name="st01_hero_greeting_morning">صباح الخير</string>
+    <string name="st01_mission_headline_lesson">مهمتك التالية في %1$s</string>
+    <string name="st01_mission_headline_empty">ابدأ رحلتك التعليمية</string>
+    <string name="st01_mission_complete_lesson">أكمل «%1$s»</string>
+    <string name="st01_mission_empty_body">افتح مادة لتبدأ أول درس مع معلّمك.</string>
+    <string name="st01_mission_progress">%1$s من %2$s دروس مكتملة</string>
+    <string name="st01_current_start_here">ابدأ من هون</string>
+    <string name="st01_brand_wordmark">EduMind</string>
+    <string name="st01_ready_to_continue">جاهزة نكمّل؟</string>
+    <string name="st01_today_title">اليوم</string>
+    <string name="st01_see_daily">عرض يومي</string>
+    <string name="st01_lets_review_this">خلينا نراجع هاد</string>
+    <string name="st01_review_ten_minutes">مراجعة ١٠ دقائق</string>
+    <string name="st01_continue_lesson_cta">كمّل الدرس</string>
+    <string name="st01_review_reason_score">آخر نتيجة %1$s٪</string>
+    <string name="st01_review_reason_weak">يحتاج تثبيتاً سريعاً</string>
+    <string name="st01_start_here_meta">%1$s · %2$s دقيقة · الدرس %3$s من %4$s</string>
+    <string name="st01_progress_level_short">المستوى</string>
+    <string name="st01_progress_days_short">أيام</string>
+    <string name="st01_progress_xp_short">XP</string>
+    <string name="st01_guidance_section_title">توصية EduMind</string>
+    <string name="st01_guidance_section_subtitle">إشارة واحدة واضحة مبنية على تقدّمك وخطتك الحالية.</string>
+    <string name="st01_guidance_planner_title">ابدأ من خطة اليوم</string>
+    <string name="st01_guidance_quiz_title">راجع قبل الاختبار القادم</string>
+    <string name="st01_guidance_quiz_body">آخر نتيجة اختبار لديك %1$s٪، و%2$s يحتاج تثبيتاً سريعاً.</string>
+    <string name="st01_guidance_quiz_detail">ابدأ من «%1$s» ثم خذ الاختبار عندما تكون جاهزاً.</string>
+    <string name="st01_guidance_review_action">راجع الدرس</string>
+    <string name="st01_guidance_weak_title">نقطة تحتاج انتباهك</string>
+    <string name="st01_guidance_weak_body">%1$s عند %2$s٪ فقط من المسار الحالي.</string>
+    <string name="st01_guidance_open_subject">افتح المادة</string>
+    <string name="st01_guidance_continue_title">تابع المهمّة الحالية</string>
+    <string name="st01_guidance_continue_body">أفضل خطوة الآن هي متابعة «%1$s».</string>
+    <string name="st01_guidance_empty_title">ابنِ أول مسار</string>
+    <string name="st01_guidance_empty_body">افتح مادة جاهزة أو اشتراكاً لتبدأ EduMind بتوجيهك.</string>
+    <string name="st01_progress_snapshot_subtitle">مؤشرات صغيرة عن المستوى، الدروس، الاختبارات، والثبات.</string>
+    <string name="st01_level_label">المستوى %1$s</string>
+    <string name="st01_xp_to_next">%1$s من %2$s XP للمستوى التالي</string>
+    <string name="st01_streak_days_value">%1$s أيام</string>
+    <string name="st01_last_quiz_percent">%1$s٪</string>
+    <string name="st01_subjects_eyebrow">مسارك</string>
+    <string name="st01_subject_snapshot_title">لمحة المواد</string>
+    <string name="st01_subject_snapshot_subtitle">نظرة سريعة على مواد %1$s. الكتالوج الكامل في تبويب موادي.</string>
+    <string name="st01_subject_snapshot_active_count">%1$s مواد نشطة</string>
+    <string name="st01_subject_snapshot_more">+%1$s مواد أخرى في موادي</string>
+    <string name="st01_subjects_subtitle">مواد %1$s المفتوحة والمقفلة في مكان واحد.</string>
+    <string name="st01_subjects_subtitle_no_grade">موادك المفتوحة والمقفلة في مكان واحد.</string>
+    <string name="st01_subjects_empty_title">لا توجد مواد بعد</string>
+    <string name="st01_subjects_empty_body">عندما تتوفر مواد لصفك ستظهر هنا.</string>
+    <string name="st01_continue_title">تابع التعلم</string>
+    <string name="st01_continue_subtitle">اختصاراتك المباشرة للدرس أو التمرين التالي.</string>
+    <string name="st01_continue_empty_title">لا يوجد درس للمتابعة</string>
+    <string name="st01_continue_empty_body">اشترك بمادة أو افتح مادة جاهزة لتبدأ أول نشاط.</string>
+    <string name="st01_achievements_title">إنجازاتك</string>
+    <string name="st01_achievements_subtitle">آخر إنجاز حققته، وما تعمل لفتحه بعد ذلك.</string>
+    <string name="st01_recent_achievement_empty">أول إنجازك قريب</string>
+    <string name="st01_next_achievement_empty">لا يوجد إنجاز تالٍ حالياً</string>
+    <string name="st01_view_all_achievements">عرض كل الإنجازات</string>
+    <string name="st01_catalog_progress_zero_of">0 من %1$s دروس</string>
+    <string name="st01_catalog_progress_unavailable">التقدّم غير متاح بعد</string>
+    <string name="st01_catalog_progress_of">%1$s من %2$s دروس</string>
+    <string name="st01_catalog_progress_completed_only">%1$s دروس مكتملة</string>
+    <string name="st01_catalog_progress_not_started">لم تبدأ بعد</string>
+    <string name="st01_catalog_cta_locked">الاشتراكات</string>
+    <string name="st01_catalog_cta_done">مكتمل</string>
+    <string name="st01_catalog_cta_active">تابع المادة</string>
+    <string name="st01_catalog_cta_ready">استكشف المادة</string>
+    <string name="st01_catalog_cta_coming_soon">قيد الإعداد</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LANGUAGE MODULE · LN-01 / LN-04 foundation
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="ln01_access_eyebrow">رحلتك في الإنجليزية</string>
+    <string name="ln01_home_title">أهلاً بعودتك</string>
+    <string name="ln01_home_subtitle">اختر مهارة وتابع التقدم.</string>
+    <string name="ln01_paywall_title">تعلّم الإنجليزية</string>
+    <string name="ln01_paywall_subtitle">فعّل الاشتراك لفتح اختبار المستوى والمسار الشخصي.</string>
+    <string name="ln01_status_active">اشتراك نشط</string>
+    <string name="ln01_status_expiring">ينتهي قريباً</string>
+    <string name="ln01_status_expired">منتهٍ</string>
+    <string name="ln01_status_inactive">غير نشط</string>
+    <string name="ln01_overall_value">العام: %1$s</string>
+    <string name="ln01_renews_on">يتجدد في %1$s</string>
+    <string name="ln01_paywall_bullet_exam">اختبار مستوى لأربع مهارات</string>
+    <string name="ln01_paywall_bullet_path">مسار تعلّم شخصي</string>
+    <string name="ln01_paywall_bullet_guardian">متابعة ذكية للتقدّم</string>
+    <string name="ln01_paywall_price">%1$s / %2$s يوم</string>
+    <string name="ln01_paywall_cta">اشترك الآن</string>
+    <string name="ln01_from_placement">من نتيجة تحديد المستوى</string>
+    <string name="ln01_next_step">خطوتك التالية</string>
+    <string name="ln01_start_here_focus">ابدأ هنا: ركّز على %1$s</string>
+    <string name="ln01_continue_path">تابع مسارك التعليمي</string>
+    <string name="ln01_go_learning_path">افتح مساري التعليمي</string>
+    <string name="ln01_common_mistakes">أخطاء شائعة للعمل عليها</string>
+    <string name="ln01_lessons_done">دروس مكتملة</string>
+    <string name="ln01_to_goal">نحو هدفك</string>
+    <string name="ln01_overall_level_label">المستوى العام</string>
+    <string name="ln01_target_level">المستوى الهدف</string>
+    <string name="ln01_target_value">الهدف: %1$s</string>
+    <string name="ln01_target_eta">حوالي %1$s متبقية</string>
+    <string name="ln01_your_levels">مستوياتك</string>
+    <string name="ln01_levels_subtitle">مستويات القراءة والاستماع والكتابة والمحادثة من اختبارك.</string>
+    <string name="ln01_strength_focus">قوة: %1$s · تركيز: %2$s</string>
+    <string name="ln01_strength_only">قوة: %1$s</string>
+    <string name="ln01_focus_only">تركيز: %1$s</string>
+    <string name="ln01_results">النتائج</string>
+    <string name="ln01_retake">إعادة الاختبار</string>
+    <string name="ln01_next_retake">موعد الإعادة المقترح: %1$s</string>
+    <string name="ln01_growth_value">+%1$s%% نمو</string>
+    <string name="ln01_continue_learning">تابع التعلّم</string>
+    <string name="ln01_continue_learning_subtitle">افتح مهارة أو مسارك.</string>
+    <string name="ln01_today_english">اليوم بالإنجليزية</string>
+    <string name="ln01_start_conversation">ابدأ المحادثة</string>
+    <string name="ln01_start_mission">ابدأ</string>
+    <string name="ln01_mission_minutes">%1$s دقائق</string>
+    <string name="ln01_home_skill_listening">استماع</string>
+    <string name="ln01_home_skill_speaking">تحدث</string>
+    <string name="ln01_home_skill_reading">قراءة</string>
+    <string name="ln01_home_skill_writing">كتابة</string>
+    <string name="ln01_home_more_practice">تدرّب أكثر</string>
+    <string name="ln01_home_vocab_shortcut">مفردات</string>
+    <string name="ln01_home_grammar_shortcut">قواعد</string>
+    <string name="ln_deep_more">مهارات أخرى</string>
+    <string name="ln_deep_listen">استمع</string>
+    <string name="ln_deep_replay">إعادة الاستماع</string>
+    <string name="ln_deep_not_quite">مو تمام</string>
+    <string name="ln_deep_answer_is">الجواب الصحيح: %1$s</string>
+    <string name="ln_deep_press_speak">اضغط وتحدث</string>
+    <string name="ln_deep_know">أعرفها</string>
+    <string name="ln_deep_hard_word">صعبة</string>
+    <string name="ln_deep_new_word">جديدة</string>
+    <string name="ln_deep_show_meaning">إظهار المعنى</string>
+    <string name="ln_deep_read">اقرأ</string>
+    <string name="ln_deep_revise">عدّل إجابتك</string>
+    <string name="ln_deep_ask_example">اعطيني مثال</string>
+    <string name="ln_deep_progress">%1$s / %2$s</string>
+    <string name="ln_deep_explain_sentence">اشرحلي الجملة</string>
+    <string name="ln_deep_say_simpler">كيف أقولها أبسط؟</string>
+    <string name="ln_deep_word_meaning">شو معنى هالكلمة؟</string>
+    <string name="ln_deep_fix_sentence">صححلي الجملة</string>
+    <string name="ln_deep_tools">المزيد</string>
+    <string name="ln_deep_ready">جاهز</string>
+    <string name="ln_deep_recording">تسجيل</string>
+    <string name="ln_deep_processing">جاري المعالجة</string>
+    <string name="ln_deep_next_turn">الدور التالي</string>
+    <string name="ln01_level_range">%1$s → %2$s</string>
+    <string name="ln_area_home">الرئيسية</string>
+    <string name="ln_area_reading">القراءة</string>
+    <string name="ln_area_listening">الاستماع</string>
+    <string name="ln_area_writing">الكتابة</string>
+    <string name="ln_area_speaking">المحادثة</string>
+    <string name="ln_area_vocabulary">المفردات</string>
+    <string name="ln_area_journey">الرحلة</string>
+    <string name="ln_area_grammar">القواعد</string>
+    <string name="ln_area_home_subtitle">لوحة تعلم اللغة.</string>
+    <string name="ln_area_reading_subtitle">تدريب قراءة موجّه بالذكاء الاصطناعي.</string>
+    <string name="ln_area_listening_subtitle">تدريب على الصوت والحوارات.</string>
+    <string name="ln_area_writing_subtitle">مطالبات كتابة موجّهة.</string>
+    <string name="ln_area_speaking_subtitle">تحدث مع المعلّم الذكي.</string>
+    <string name="ln_area_vocabulary_subtitle">بطاقات ومراجعة متباعدة.</string>
+    <string name="ln_area_journey_subtitle">مسارك التعليمي.</string>
+    <string name="ln_area_grammar_subtitle">رحلة القواعد والمراجعة.</string>
+    <string name="ln_area_foundation_title">الوجهة موصولة</string>
+    <string name="ln_area_foundation_body">%1$s أصبحت وجهة شقيقة داخل وحدة اللغة. تجربة التدريب الكاملة تُركّب هنا بعد اعتماد الأساس.</string>
+    <string name="ln_area_back_home">العودة للرئيسية</string>
+    <string name="ln_area_review_placement">مراجعة المستوى</string>
+    <string name="ln_skill_reading">القراءة</string>
+    <string name="ln_skill_listening">الاستماع</string>
+    <string name="ln_skill_writing">الكتابة</string>
+    <string name="ln_skill_speaking">المحادثة</string>
+    <string name="ln_skill_vocabulary">المفردات</string>
+    <string name="ln_skill_grammar">القواعد</string>
+    <string name="ln04_eyebrow">تعلّم اللغات</string>
+    <string name="ln04_title">اختبار تحديد المستوى بالذكاء الاصطناعي</string>
+    <string name="ln04_subtitle">محادثة واستماع وقراءة وكتابة، ثم تقرير مستوى كامل.</string>
+    <string name="ln04_intro_title">اختبار مستوى كامل لكل المهارات الأساسية</string>
+    <string name="ln04_intro_body">لديك 60 دقيقة. ستتحدث وتستمع وتقرأ وتكتب. تُقيّم كل مهارة وحدها، ثم يحدد EduMind مستوى CEFR ويفتح مسارك.</string>
+    <string name="ln04_timer_notice">يبدأ المؤقت عند بدء الاختبار</string>
+    <string name="ln04_skill_speaking_hint">تحدث مع الذكاء الاصطناعي</string>
+    <string name="ln04_skill_listening_hint">استمع وأجب</string>
+    <string name="ln04_skill_reading_hint">اقرأ وأجب</string>
+    <string name="ln04_skill_writing_hint">اكتب رداً</string>
+    <string name="ln04_skill_vocab_hint">استخدم الإنجليزية بدقة</string>
+    <string name="ln04_skill_grammar_hint">استخدم الإنجليزية بدقة</string>
+    <string name="ln04_instructions_title">قبل أن تبدأ</string>
+    <string name="ln04_instruction_skills">يتضمن الاختبار المحادثة والاستماع والقراءة والكتابة.</string>
+    <string name="ln04_instruction_adaptive">تتكيّف الأسئلة مع إجاباتك، لذلك قد تصبح المهام التالية أسهل أو أصعب.</string>
+    <string name="ln04_instruction_speaking">في المحادثة، سجّل أو ارفع صوتك ثم أرسله يدوياً.</string>
+    <string name="ln04_instruction_integrity">لا تستخدم أدوات القواعد أو الترجمة أو مساعدة خارجية أثناء الاختبار.</string>
+    <string name="ln04_start_exam">بدء الاختبار</string>
+    <string name="ln04_skip_title">تريد تخطي اختبار المستوى؟</string>
+    <string name="ln04_skip_body">اختر المستوى الذي تريد البدء منه، ثم افتح المنصة مباشرة.</string>
+    <string name="ln04_skip_cta">تخطي الاختبار والبدء من %1$s</string>
+    <string name="ln04_section_progress">%1$s/%2$s أقسام محفوظة</string>
+    <string name="ln04_time_remaining">%1$s دقيقة متبقية</string>
+    <string name="ln04_question_count">السؤال %1$s من %2$s</string>
+    <string name="ln04_audio_title">الصوت</string>
+    <string name="ln04_audio_cta">تشغيل الصوت</string>
+    <string name="ln04_audio_unlocked">تم فتح السؤال</string>
+    <string name="ln04_listen_first">استمع أولاً — يظهر السؤال بعد تشغيل المقطع.</string>
+    <string name="ln04_reading_passage">النص</string>
+    <string name="ln04_speaking_prompt">اضغط التسجيل لالتقاط إجابتك الصوتية.</string>
+    <string name="ln04_speaking_helper">هذا الأساس التجريبي يحفظ تسجيلاً حتمياً للمراجعة.</string>
+    <string name="ln04_record_answer">تسجيل الإجابة</string>
+    <string name="ln04_record_saved">تم حفظ الإجابة الصوتية</string>
+    <string name="ln04_write_answer">إجابتك</string>
+    <string name="ln04_write_placeholder">اكتب إجابتك بالإنجليزية.</string>
+    <string name="ln04_words_count">%1$s كلمة · الهدف %2$s-%3$s</string>
+    <string name="ln04_submit_next">القسم التالي</string>
+    <string name="ln04_submit_finish">إنهاء الاختبار</string>
+    <string name="ln04_start_fresh">بدء محاولة جديدة</string>
+    <string name="ln04_evaluating_title">نبني تقرير مستواك</string>
+    <string name="ln04_evaluating_body">يقيم EduMind كل مهارة ويجهز نقطة البداية المناسبة.</string>
+    <string name="ln05_overall_level">مستواك العام</string>
+    <string name="ln05_confidence">الثقة %1$s%%</string>
+    <string name="ln05_skill_score">%1$s%% · %2$s</string>
+    <string name="ln05_strongest">أقوى مهارة</string>
+    <string name="ln05_focus_skill">مهارة التركيز</string>
+    <string name="ln05_eta">الوقت المتوقع للمستوى التالي</string>
+    <string name="ln05_eta_weeks">%1$s أسابيع</string>
+    <string name="ln05_strengths">نقاط القوة</string>
+    <string name="ln05_to_work_on">للعمل عليها</string>
+    <string name="ln05_language_feedback">ملاحظات اللغة</string>
+    <string name="ln05_study_plan">خطة الدراسة</string>
+    <string name="ln05_start_here">ابدأ هنا</string>
+    <string name="ln05_go_home">الانتقال إلى لوحة التعلّم</string>
+    <string name="ln05_open_journey">فتح المسار التعليمي</string>
+    <string name="ln05_retake">إعادة تحديد المستوى</string>
+    <string name="ln06_title">سجل تحديد المستوى</string>
+    <string name="ln06_subtitle">نتائج للقراءة فقط من اختبارات تحديد المستوى المكتملة.</string>
+    <string name="ln06_empty_title">لا توجد نتيجة مستوى بعد</string>
+    <string name="ln06_empty_body">أنه اختبار تحديد المستوى أو اختر مستوى بداية لإنشاء أول سجل.</string>
+    <string name="ln06_result_title">نتيجة تحديد المستوى</string>
+
+    <!-- LANGUAGE MODULE · STEP 6B skill experiences -->
+    <string name="ln6b_tab_journey">الرحلة</string>
+    <string name="ln6b_tab_practice">التدريب</string>
+    <string name="ln6b_tab_promotion">الترقية</string>
+    <string name="ln6b_tab_lesson">الدرس</string>
+    <string name="ln6b_tab_discussion">النقاش</string>
+    <string name="ln6b_tab_alex">Alex</string>
+    <string name="ln6b_tab_assessment">التقييم</string>
+    <string name="ln6b_tab_daily">كلمات اليوم الجديدة</string>
+    <string name="ln6b_tab_bank">بنك المراجعة</string>
+    <string name="ln6b_filter_all">الكل</string>
+    <string name="ln6b_filter_due">مستحقة</string>
+    <string name="ln6b_filter_difficult">صعبة</string>
+    <string name="ln6b_start">ابدأ</string>
+    <string name="ln6b_start_practice">ابدأ التدريب</string>
+    <string name="ln6b_readiness_test">اختبار الجاهزية</string>
+    <string name="ln6b_submit_answers">إرسال الإجابات</string>
+    <string name="ln6b_retry">إعادة المحاولة</string>
+    <string name="ln6b_back_to_skill">العودة للمهارة</string>
+    <string name="ln6b_score_value">%1$s%%</string>
+    <string name="ln6b_answered_count">%1$s / %2$s مجاب</string>
+    <string name="ln6b_question_number">السؤال %1$s</string>
+    <string name="ln6b_correct">صحيح</string>
+    <string name="ln6b_review">مراجعة</string>
+    <string name="ln6b_your_answer">إجابتك</string>
+    <string name="ln6b_mastery">الإتقان</string>
+    <string name="ln6b_evidence">الأدلة</string>
+    <string name="ln6b_readiness">الجاهزية</string>
+    <string name="ln6b_focus">التركيز</string>
+    <string name="ln6b_need_more">يحتاج أكثر</string>
+    <string name="ln6b_unlock_next">لفتح الخطوة التالية</string>
+    <string name="ln6b_ready_to_progress">جاهز للتقدم</string>
+    <string name="ln6b_recent">الأحدث</string>
+    <string name="ln6b_reading_stage">مرحلة القراءة الحالية</string>
+    <string name="ln6b_reading_subtitle">مرحلة بعد مرحلة — تدرب واجمع الدليل وافتح التالي.</string>
+    <string name="ln6b_stage_evidence">أدلة المرحلة</string>
+    <string name="ln6b_stage_evidence_subtitle">ابنِ الدليل من التدريب، لا من النقاط فقط.</string>
+    <string name="ln6b_reading_journey">رحلة القراءة</string>
+    <string name="ln6b_reading_journey_subtitle">ستة مستويات CEFR مع مراحل مبتدئ وأساسي ومتقدم.</string>
+    <string name="ln6b_grammar_focus">القواعد: %1$s</string>
+    <string name="ln6b_questions">الأسئلة</string>
+    <string name="ln6b_questions_subtitle">أجب عن كل العناصر قبل الإرسال.</string>
+    <string name="ln6b_listening_title">رحلة الاستماع</string>
+    <string name="ln6b_listening_intro">ابدأ درس استماع</string>
+    <string name="ln6b_listening_intro_body">أنشئ مهمة الصوت الحالية، استمع، أجب، ثم راجع التغذية الراجعة.</string>
+    <string name="ln6b_mission">المهمة</string>
+    <string name="ln6b_today_we_practice">نتدرب اليوم على</string>
+    <string name="ln6b_audio_surface">الصوت</string>
+    <string name="ln6b_today_improved">تحسّن اليوم</string>
+    <string name="ln6b_needs_practice">يحتاج تدريباً</string>
+    <string name="ln6b_next_clip">المقطع التالي</string>
+    <string name="ln6b_path_map">خريطة المسار</string>
+    <string name="ln6b_history">السجل</string>
+    <string name="ln6b_goal_title">الهدف</string>
+    <string name="ln6b_goal_subtitle">اختر السياق الذي يشكّل المهمة التالية.</string>
+    <string name="ln6b_goal_school">المدرسة</string>
+    <string name="ln6b_goal_travel">السفر</string>
+    <string name="ln6b_goal_conversation">المحادثة</string>
+    <string name="ln6b_promotion_title">اختبار الترقية</string>
+    <string name="ln6b_promotion_subtitle">بوابات التدريب تحدد متى يفتح اختبار المستوى التالي.</string>
+    <string name="ln6b_unlocked">مفتوح</string>
+    <string name="ln6b_locked_more_practice">يحتاج تدريباً إضافياً</string>
+    <string name="ln6b_writing_title">رحلة الكتابة</string>
+    <string name="ln6b_writing_intro">أنشئ مهمة كتابة</string>
+    <string name="ln6b_writing_intro_body">احصل على مطلب، اكتب مسودة، ثم استقبل تقييماً حتمياً بأسلوب الذكاء الاصطناعي.</string>
+    <string name="ln6b_generate_lesson">إنشاء الدرس</string>
+    <string name="ln6b_blockers">العوائق</string>
+    <string name="ln6b_lessons_remaining">دروس متبقية</string>
+    <string name="ln6b_today_goal">هدف اليوم</string>
+    <string name="ln6b_prompt">المطلب</string>
+    <string name="ln6b_instructions">التعليمات</string>
+    <string name="ln6b_success_criteria">معايير النجاح</string>
+    <string name="ln6b_editor_label">محرر الكتابة</string>
+    <string name="ln6b_submit_draft">إرسال المسودة</string>
+    <string name="ln6b_resubmit">إعادة الإرسال</string>
+    <string name="ln6b_complete">إكمال</string>
+    <string name="ln6b_evaluation">التقييم</string>
+    <string name="ln6b_writing_completed">اكتملت مهمة الكتابة</string>
+    <string name="ln6b_new_lesson">درس جديد</string>
+    <string name="ln6b_speaking_title">رحلة المحادثة</string>
+    <string name="ln6b_speaking_intro">ابدأ جلسة المحادثة اليوم</string>
+    <string name="ln6b_speaking_intro_body">افتح حزمة الدرس، حضّر اللغة، ثم انتقل إلى نقاش موجّه.</string>
+    <string name="ln6b_start_session">بدء الجلسة</string>
+    <string name="ln6b_today_steps">خطوات اليوم</string>
+    <string name="ln6b_objectives">الأهداف</string>
+    <string name="ln6b_vocabulary">المفردات</string>
+    <string name="ln6b_teaching_blocks">كتل التعليم</string>
+    <string name="ln6b_start_discussion">بدء النقاش</string>
+    <string name="ln6b_discussion_intro">افتح النقاش الموجّه</string>
+    <string name="ln6b_discussion_intro_body">ناقش الحالة بالصوت والنص والتصحيح.</string>
+    <string name="ln6b_characters">الشخصيات</string>
+    <string name="ln6b_live_voice_discussion">نقاش صوتي مباشر</string>
+    <string name="ln6b_press_record">اضغط التسجيل وتحدث بالإنجليزية.</string>
+    <string name="ln6b_empty_speaking">اضغط بدء التسجيل وتحدث بالإنجليزية.</string>
+    <string name="ln6b_you">أنت</string>
+    <string name="ln6b_pronunciation_score">النطق %1$s</string>
+    <string name="ln6b_fluency_score">الطلاقة %1$s</string>
+    <string name="ln6b_transcript">النص المنطوق</string>
+    <string name="ln6b_transcript_placeholder">اكتب أو احفظ ما قلته.</string>
+    <string name="ln6b_start_recording">بدء التسجيل</string>
+    <string name="ln6b_stop_recording">إيقاف</string>
+    <string name="ln6b_send_voice">إرسال الصوت</string>
+    <string name="ln6b_new_conversation">محادثة جديدة</string>
+    <string name="ln6b_alex_title">تدريب مباشر مع Alex</string>
+    <string name="ln6b_alex_need_session">ابدأ من النقاش أولاً.</string>
+    <string name="ln6b_alex_body">يحافظ هذا الغلاف المحمول على اتصال الحالة الحالية بمنطقة الصوت المباشر.</string>
+    <string name="ln6b_back_discussion">العودة للنقاش</string>
+    <string name="ln6b_vocab_level_notice">مستوى القراءة لديك: %1$s — البطاقات المتاحة حالياً في مستوى %2$s.</string>
+    <string name="ln6b_vocab_generator">مولّد المفردات</string>
+    <string name="ln6b_vocab_generator_subtitle">دفعة ذكية مخصصة حسب مستواك واهتماماتك.</string>
+    <string name="ln6b_generate_words">أنشئ كلماتي</string>
+    <string name="ln6b_ai_words_left">%1$s من 10 كلمات ذكية متبقية اليوم</string>
+    <string name="ln6b_today_index">%1$s / %2$s اليوم</string>
+    <string name="ln6b_vocab_generate_hint">اضغط أنشئ كلماتي للحصول على دفعة مخصصة.</string>
+    <string name="ln6b_total">المجموع</string>
+    <string name="ln6b_known">معروفة</string>
+    <string name="ln6b_due_today">مستحقة اليوم</string>
+    <string name="ln6b_not_learned">لم تُتعلّم بعد</string>
+    <string name="ln6b_daily_goal">%1$s/%2$s كلمات متعلّمة اليوم</string>
+    <string name="ln6b_show_arabic">إظهار العربية</string>
+    <string name="ln6b_hide_arabic">إخفاء العربية</string>
+    <string name="ln6b_again">مرة أخرى</string>
+    <string name="ln6b_hard">صعب</string>
+    <string name="ln6b_good">جيد</string>
+    <string name="ln6b_easy">سهل</string>
+    <string name="ln6b_lookup_word">ابحث عن كلمة</string>
+    <string name="ln6b_lookup_subtitle">تحليل كلمة إنجليزية بأسلوب الذكاء الاصطناعي.</string>
+    <string name="ln6b_lookup_label">كلمة إنجليزية</string>
+    <string name="ln6b_lookup_placeholder">اكتب كلمة إنجليزية</string>
+    <string name="ln6b_analyze">تحليل</string>
+    <string name="ln6b_daily_vocab_quiz">اختبار المفردات اليومي</string>
+    <string name="ln6b_daily_vocab_quiz_subtitle">إملاء ونطق من الكلمات المتعلّمة.</string>
+    <string name="ln6b_done_today">مكتمل اليوم</string>
+    <string name="ln6b_word_count">الكلمة %1$s / %2$s</string>
+    <string name="ln6b_type_word">اكتب الكلمة</string>
+    <string name="ln6b_check">تحقق</string>
+    <string name="ln6b_score_pronunciation">تقييم النطق</string>
+    <string name="ln6b_finish_quiz">إنهاء الاختبار</string>
+    <string name="ln6b_spelling">الإملاء</string>
+    <string name="ln6b_pronunciation">النطق</string>
+    <string name="ln6b_daily_challenge">تحدي اليوم</string>
+    <string name="ln6b_daily_challenge_subtitle">املأ الفراغات من كلمات المراجعة.</string>
+    <string name="ln6b_check_answers">تحقق من الإجابات</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-02 · Course Detail
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st02_lessons_of">%1$d من %2$d دروس</string>
+    <plurals name="st02_quiz_count">
+        <item quantity="zero">لا اختبارات</item>
+        <item quantity="one">اختبار واحد</item>
+        <item quantity="two">اختباران</item>
+        <item quantity="few">%1$d اختبارات</item>
+        <item quantity="many">%1$d اختباراً</item>
+        <item quantity="other">%1$d اختبار</item>
+    </plurals>
+    <string name="st02_lesson_current">الدرس الحالي</string>
+    <string name="st02_lesson_completed">مكتمل</string>
+    <string name="st02_xp_earned">%1$d نقطة خبرة</string>
+    <string name="st02_locked_requires_step">مقفل — أكمل «%1$s» ليُفتح</string>
+    <plurals name="st02_locked_requires_count">
+        <item quantity="zero">مقفل</item>
+        <item quantity="one">مقفل — يُفتح بعد درس واحد</item>
+        <item quantity="two">مقفل — يُفتح بعد درسين</item>
+        <item quantity="few">مقفل — يُفتح بعد %1$d دروس</item>
+        <item quantity="many">مقفل — يُفتح بعد %1$d درساً</item>
+        <item quantity="other">مقفل — يُفتح بعد %1$d درس</item>
+    </plurals>
+    <string name="st02_milestone_badge">محطة</string>
+    <string name="st02_next_incomplete">الدرس التالي غير المكتمل</string>
+    <string name="st02_not_published_title">المسار قيد الإعداد</string>
+    <string name="st02_not_published_body">سينشر %1$s دروس هذه الوحدة قريباً.</string>
+    <string name="st02_locked_requires_entitlement">مقفل — اشترك بالمادة ليُفتح</string>
+    <string name="st02_locked_subject_eyebrow">مادة %1$s</string>
+    <string name="st02_locked_teacher_name">مع %1$s</string>
+    <string name="st02_locked_with_teacher">مع %1$s</string>
+    <string name="st02_locked_title">هالمادة مقفلة</string>
+    <plurals name="st02_locked_subscribe_prompt">
+        <item quantity="zero">اشترك مع %2$s لفتح دروس هذه المادة.</item>
+        <item quantity="one">اشترك لفتح درس واحد مع %2$s.</item>
+        <item quantity="two">اشترك لفتح درسين مع %2$s.</item>
+        <item quantity="few">اشترك لفتح %1$d دروس مع %2$s.</item>
+        <item quantity="many">اشترك لفتح %1$d درساً مع %2$s.</item>
+        <item quantity="other">اشترك لفتح %1$d درس مع %2$s.</item>
+    </plurals>
+    <string name="st02_locked_cta_subscribe">اشترك الآن</string>
+    <string name="st02_locked_back_to_subjects">الرجوع لموادي</string>
+    <string name="st_courses_enrolled_section">قيد الدراسة</string>
+    <string name="st_courses_discover_section">اكتشف موادّ جديدة</string>
+    <string name="st_courses_catalog_body">كل موادّك في مكان واحد: تابع المفتوح منها، وافتح المقفل من صفحة المادة نفسها.</string>
+    <string name="st_courses_active_label">%1$s نشطة</string>
+    <string name="st_courses_locked_label">%1$s مقفلة</string>
+    <string name="st_courses_coming_soon">قيد الإعداد</string>
+    <string name="st_courses_ready_to_start">ابدأ الآن</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-03 · Lesson Player
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st03_processing_title">الدرس قيد المعالجة</string>
+    <string name="st03_processing_body">يُجهَّز هذا الدرس الآن. جرّب مرة أخرى بعد قليل.</string>
+    <string name="st03_context">%1$s · الدرس %2$d من %3$d</string>
+    <string name="st03_previous_page">الصفحة السابقة</string>
+    <string name="st03_pdf_page">صفحة %1$s من %2$s</string>
+    <string name="st03_zoom_in">تكبير</string>
+    <string name="st03_zoom_out">تصغير</string>
+    <string name="st03_next_page">الصفحة التالية</string>
+    <string name="st03_pause">إيقاف مؤقت</string>
+    <string name="st03_play">تشغيل</string>
+    <string name="st03_captions_sample">السطر الحالي من الترجمة يظهر هنا</string>
+    <string name="st03_speed">السرعة %1$s×</string>
+    <string name="st03_captions">الترجمة</string>
+    <string name="st03_audio_transcript">النص المصاحب</string>
+    <string name="st03_download_offline">تنزيل للعمل دون اتصال</string>
+    <string name="st03_downloading">جارٍ التنزيل…</string>
+    <string name="st03_offline_available">متاح دون اتصال</string>
+    <string name="st03_ask_tutor">اسأل المعلّم الذكي</string>
+    <string name="st03_step_learn">تعلّم</string>
+    <string name="st03_step_ask">اسأل</string>
+    <string name="st03_step_quiz">اختبار</string>
+    <string name="st03_step_finish">إنهاء</string>
+    <string name="st03_key_ideas_title">الأفكار الأساسية</string>
+    <string name="st03_ask_inline_title">ما فهمت نقطة؟</string>
+    <string name="st03_ask_inline_subtitle">اسأل معلّمك الذكي بأسلوب %1$s</string>
+    <string name="st03_take_quiz">ابدأ الاختبار</string>
+    <string name="st03_completed_label">أكملت هذا الدرس</string>
+    <string name="st03_mark_complete">إنهاء الدرس</string>
+    <string name="st03_concept_explain">اشرح لي</string>
+    <string name="st03_concept_example">أعطني مثالاً</string>
+    <string name="st03_concept_quiz">اختبرني</string>
+    <string name="st03_concept_explain_prompt">اشرح لي فكرة \"%1$s\" من درس %2$s</string>
+    <string name="st03_concept_example_prompt">أعطني مثالاً على \"%1$s\" من درس %2$s</string>
+    <string name="st03_concept_quiz_prompt">اختبرني بسؤال عن \"%1$s\" من درس %2$s</string>
+    <string name="st03_completion_title">قبل أن تُنهي الدرس</string>
+    <string name="st03_completion_subtitle">تأكد من هذه النقاط قبل تسجيل الدرس كمكتمل</string>
+    <string name="st03_completion_check_content">شاهدت أو قرأت محتوى الدرس</string>
+    <string name="st03_completion_check_quiz">أكملت اختبار الدرس</string>
+    <string name="st03_completion_confirm">تأكيد الإكمال</string>
+    <string name="st03_nav_back_to_course">العودة إلى الدروس</string>
+    <string name="st03_header_position">الدرس %1$s من %2$s</string>
+    <string name="st03_header_session_progress">تقدّم الجلسة</string>
+    <string name="st03_header_next_step">الخطوة التالية</string>
+    <string name="st03_next_watch_or_read">ابدأ بمحتوى الدرس.</string>
+    <string name="st03_next_ask_teacher">اسأل المعلّم الذكي أو انتقل للاختبار.</string>
+    <string name="st03_next_take_quiz">ابدأ اختبار الدرس.</string>
+    <string name="st03_next_finish">تحقق من الإكمال ليُحدّث تقدّمك.</string>
+    <string name="st03_next_completed">تم حفظ التقدّم. اختر الدرس التالي من المادة.</string>
+    <string name="st03_review_quiz_results">مراجعة النتيجة</string>
+    <string name="st03_learn_eyebrow">تعلّم</string>
+    <string name="st03_learn_title_with_teacher">تعلّم مع %1$s</string>
+    <string name="st03_learn_prompt_watch">المشاهدة</string>
+    <string name="st03_learn_prompt_read">القراءة</string>
+    <string name="st03_learn_prompt_review">مراجعة الأفكار</string>
+    <string name="st03_learn_prompt_interact">التفاعل مع المفاهيم</string>
+    <string name="st03_learn_prompt_empty">لا يوجد محتوى درس متاح بعد.</string>
+    <string name="st03_learn_prompt_joined">أكمل هذا المسار: %1$s.</string>
+    <string name="st03_session_tools_title">اسأل المعلّم / الاختبار</string>
+    <string name="st03_session_ask_hint">المفاهيم والأخطاء تحمل سياق الدرس تلقائياً.</string>
+    <string name="st03_session_ask_summary_prompt">اشرح لي الأفكار الأساسية من درس %1$s</string>
+    <string name="st03_session_ask_quiz_prompt">اختبرني بسرعة من درس %1$s</string>
+    <string name="st03_quiz_none_title">لا يوجد اختبار للدرس بعد</string>
+    <string name="st03_quiz_none_body">عندما يتوفر اختبار، سيظهر هنا داخل جلسة الدرس.</string>
+    <string name="st03_quiz_continue">متابعة الاختبار</string>
+    <string name="st03_quiz_session_title">اختبار الدرس</string>
+    <string name="st03_quiz_answered_count">أجبت عن %1$s من %2$s</string>
+    <string name="st03_quiz_result_title">نتيجة الاختبار</string>
+    <string name="st03_mistake_review_title">مراجعة الأخطاء</string>
+    <string name="st03_quiz_no_mistakes">لا توجد أخطاء للمراجعة. أحسنت.</string>
+    <string name="st03_practice_mistakes">تدرّب على الأخطاء</string>
+    <string name="st03_next_action_title">جاهز للخطوة التالية</string>
+    <string name="st03_next_action_body">ارجع إلى %1$s وتابع رحلة الدروس.</string>
+    <string name="st03_phase_concept">مفهوم</string>
+    <string name="st03_phase_teacher">درس الأستاذ</string>
+    <string name="st03_phase_understand">افهم</string>
+    <string name="st03_phase_example">مثال</string>
+    <string name="st03_phase_try">جرّب</string>
+    <string name="st03_phase_quick_check">سؤال سريع</string>
+    <string name="st03_phase_finish">انتهى</string>
+    <string name="st03_lesson_material">محتوى الدرس</string>
+    <string name="st03_teacher_explain">شرح %1$s</string>
+    <string name="st03_play_video">تشغيل الفيديو</string>
+    <string name="st03_open_file">فتح الملف</string>
+    <string name="st03_media_video">فيديو</string>
+    <string name="st03_media_pdf">ملف PDF</string>
+    <string name="st03_media_audio">صوت</string>
+    <string name="st03_pdf_filename">%1$s.pdf</string>
+    <string name="st03_pdf_pages">%1$s صفحات</string>
+    <string name="st03_media_clock">%1$s:00</string>
+    <string name="st03_attachments_title">مرفقات الدرس</string>
+    <string name="st03_done_teacher">أنهيت محتوى الدرس</string>
+    <string name="st03_done_understand">فهمت الفكرة</string>
+    <string name="st03_done_try">أنهيت النشاط</string>
+    <string name="st03_done_check">السؤال السريع</string>
+    <string name="st03_phase_count">%1$s من %2$s · %3$s</string>
+    <string name="st03_example_title">مثال على %1$s</string>
+    <string name="st03_example_body">نحوّل الفكرة إلى علاقة بسيطة، ثم نطبّقها على حالة قصيرة.</string>
+    <string name="st03_try_title">جرّب بنفسك</string>
+    <string name="st03_try_prompt">اختر العلاقة الصحيحة</string>
+    <string name="st03_try_physics_correct">F = m · a</string>
+    <string name="st03_try_physics_wrong">F = m / a</string>
+    <string name="st03_try_math_correct">fʺ(x) = (fʹ(x))ʹ</string>
+    <string name="st03_try_math_wrong">fʺ(x) = ∫ f(x) dx</string>
+    <string name="st03_try_correct">صحيح — هيك منطبّق الفكرة</string>
+    <string name="st03_try_incorrect">جرّب مرة تانية</string>
+    <string name="st03_try_show_media">اعرض المادة</string>
+    <string name="st03_quick_check_local_prompt">شو الفكرة الأساسية؟</string>
+    <string name="st03_quick_check_wrong">فكرة ثانية من الدرس</string>
+    <string name="st03_open_full_quiz">الاختبار الكامل</string>
+    <string name="st03_quick_check_title">تأكد من الفكرة بسؤال واحد</string>
+    <string name="st03_quick_check_body">افتح اختبار الدرس حتى نحفظ إجابتك بنفس محرك الاختبارات.</string>
+    <string name="st03_quick_check_completed">تم حفظ اختبار الدرس. راجع النتيجة أو انتقل للإنهاء.</string>
+    <string name="st03_formula_physics">ω = v / r</string>
+    <string name="st03_formula_math">fʺ(x) = (fʹ(x))ʹ</string>
+    <string name="st03_quick_file_summary">الملف والملخص</string>
+    <string name="st03_quick_quizzes">الاختبارات</string>
+    <string name="st03_test_not_started">لم يبدأ</string>
+    <string name="st03_test_completed">مكتمل</string>
+    <string name="st03_quiz_required_label">مطلوب</string>
+    <string name="st03_quiz_optional_label">اختياري</string>
+    <string name="st03_quiz_questions">%1$s أسئلة</string>
+    <string name="st03_view_quiz_result">عرض النتيجة</string>
+    <string name="st03_start_quick_check">ابدأ السؤال السريع</string>
+    <string name="st03_open_quick_check">افتح السؤال السريع</string>
+    <string name="st03_ask_edumind">اسأل EduMind عن هذا الدرس</string>
+    <string name="st03_teacher_source">مصدر الأستاذ</string>
+    <string name="st03_edumind_summary">EduMind يساعدك تفهمه</string>
+    <string name="st03_no_video">لا يوجد فيديو لهذا الدرس</string>
+    <string name="st03_no_document">لا يوجد ملف للدرس بعد</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-04 · AI Tutor Chat
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st04_title">المعلّم الذكي</string>
+    <string name="st04_lesson_context">بخصوص درس: %1$s</string>
+    <string name="st04_voice_mode">التحدث صوتياً</string>
+    <string name="st04_empty_title">اسأل عن أي شيء في هذا الدرس</string>
+    <string name="st04_empty_body">المعلّم الذكي يجيب اعتماداً على محتوى الدرس الحالي.</string>
+    <string name="st04_suggestion_1">ما هي المشتقة الثانية؟</string>
+    <string name="st04_suggestion_2">أعطني مثالاً</string>
+    <string name="st04_suggestion_3">اشرح بشكل أبسط</string>
+    <string name="st04_input_hint">اكتب سؤالك…</string>
+    <string name="st04_chip_another_example">مثال آخر</string>
+    <string name="st04_chip_explain_simpler">اشرحلي أبسط</string>
+    <string name="st04_chip_quiz_me">اختبرني</string>
+    <string name="st04_send">إرسال</string>
+    <string name="st04_action_copy">نسخ</string>
+    <string name="st04_action_regenerate">إعادة المحاولة</string>
+    <string name="st04_action_simpler">اشرح بشكل أبسط</string>
+    <string name="st04_action_example">أعطني مثالاً</string>
+    <string name="st04_error_body">تعذّر الحصول على رد.</string>
+    <string name="st04_panel_teacher_name">المعلّم الذكي</string>
+    <string name="st04_panel_header_hint">مرتبط بالدرس الحالي</string>
+    <string name="st04_panel_title">اسأل المعلّم</string>
+    <string name="st04_panel_subtitle">مساعدة وأمثلة وأسئلة سريعة مرتبطة بالدرس.</string>
+    <string name="st04_panel_message_count">%1$d رسائل</string>
+    <string name="st04_answer_why">ليش؟</string>
+    <string name="st04_structured_summary">الرد مرتبط بدرس %1$s، لذلك يبدأ بشرح قصير ثم مثال أو علاقة تساعدك تثبّت الفكرة.</string>
+    <string name="st04_formula_physics">ω = v / r</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-05 · AI Tutor Voice Mode
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st05_title">الوضع الصوتي</string>
+    <string name="st05_hold_to_speak">اضغط مطولاً للتحدث</string>
+    <string name="st05_recording">جارٍ الاستماع…</string>
+    <string name="st05_resolving">جارٍ تحويل الصوت إلى نص…</string>
+    <string name="st05_failed_title">تعذّر فهم الصوت</string>
+    <string name="st05_failed_body">لم نتمكن من تحويل الصوت إلى نص. حاول مرة أخرى.</string>
+    <string name="st05_mic_permission_title">يحتاج هذا إلى الميكروفون</string>
+    <string name="st05_mic_permission_body">امنح الإذن لاستخدام الميكروفون للتحدث مع المعلّم الذكي.</string>
+    <string name="st05_mic_permission_action">تفعيل الميكروفون</string>
+    <string name="st05_play_response">تشغيل الرد</string>
+    <string name="st05_your_question">سؤالك:</string>
+
+    <!-- ST-02 addition — ST-09 entry point (manual/course quiz row). -->
+    <string name="st02_manual_quiz_row">اختبار الوحدة</string>
+    <string name="st02_tab_lessons">الدروس</string>
+    <string name="st02_tab_quizzes">الاختبارات</string>
+    <string name="st02_tab_quizzes_count">الاختبارات · %1$d</string>
+    <string name="st02_no_quizzes">لا اختبارات لهذه المادة بعد</string>
+    <string name="st02_hero_welcome">مرحباً بك في مسار المادة. تابع الدروس، الاختبارات، ورسائل المعلّم من هنا.</string>
+    <string name="st02_hero_message_teacher">مراسلة المعلّم</string>
+    <string name="st02_hero_view_profile">عرض الملف</string>
+    <string name="st02_hero_progress_empty">سيظهر التقدّم عند نشر الدروس.</string>
+    <plurals name="st02_hero_lessons_waiting">
+        <item quantity="zero">لا توجد دروس منشورة بعد.</item>
+        <item quantity="one">درس واحد بانتظارك.</item>
+        <item quantity="two">درسان بانتظارك.</item>
+        <item quantity="few">%1$d دروس بانتظارك.</item>
+        <item quantity="many">%1$d درساً بانتظارك.</item>
+        <item quantity="other">%1$d درس بانتظارك.</item>
+    </plurals>
+    <string name="st02_hero_progress_all_completed">أنهيت كل دروس هذه المادة.</string>
+    <string name="st02_hero_lessons_completed">%1$s من %2$s دروس مكتملة.</string>
+    <string name="st02_current_empty_title">لا يوجد درس حالي</string>
+    <string name="st02_current_empty_body">سينشر المعلّم الدروس قريباً.</string>
+    <string name="st02_current_eyebrow_all_done">كل الدروس مكتملة</string>
+    <string name="st02_current_eyebrow_current">الدرس الحالي</string>
+    <string name="st02_current_eyebrow_continue">تابع من هنا</string>
+    <string name="st02_current_eyebrow_here">كمّل من هون</string>
+    <string name="st02_you_are_here">أنت هنا</string>
+    <string name="st02_duration_minutes_short">%1$s د</string>
+    <string name="st02_current_meta">مع %1$s · الدرس %2$s من %3$s</string>
+    <string name="st02_current_cta_review">مراجعة الدرس</string>
+    <string name="st02_current_cta_start">ابدأ الدرس</string>
+    <string name="st02_current_cta_continue">متابعة الدرس</string>
+    <string name="st02_journey_title">مسار الدروس</string>
+    <string name="st02_journey_lesson_number">الدرس %1$s</string>
+    <string name="st02_journey_state_completed">مكتمل</string>
+    <string name="st02_journey_state_current">الدرس الحالي</string>
+    <string name="st02_journey_state_upcoming">قادم</string>
+    <string name="st02_journey_state_locked">مقفل</string>
+    <string name="st02_journey_empty_title">لا توجد دروس بعد</string>
+    <string name="st02_journey_empty_body">سيظهر مسار الدروس هنا عند نشره.</string>
+    <string name="st02_quizzes_title">اختبارات المادة</string>
+    <string name="st02_quizzes_subtitle">اختبارات يضعها المعلّم لهذه المادة.</string>
+    <plurals name="st02_quizzes_meta">
+        <item quantity="zero">لا توجد اختبارات منشورة.</item>
+        <item quantity="one">اختبار واحد متاح.</item>
+        <item quantity="two">اختباران متاحان.</item>
+        <item quantity="few">%1$d اختبارات متاحة.</item>
+        <item quantity="many">%1$d اختباراً متاحاً.</item>
+        <item quantity="other">%1$d اختبار متاح.</item>
+    </plurals>
+    <string name="st02_quizzes_status_available">متاح</string>
+    <string name="st02_quizzes_cta_start">ابدأ الاختبار</string>
+    <string name="st02_quizzes_empty_body">عندما ينشر المعلّم اختباراً سيظهر هنا.</string>
+    <string name="st02_teacher_profile_title">ملف %1$s</string>
+    <string name="st02_teacher_profile_body">%1$s · %2$s</string>
+    <string name="st02_course_progress_label">تقدّمك</string>
+    <string name="st02_unit_progress">%1$s من %2$s مكتملة</string>
+    <string name="st02_unit_physics_motion">الوحدة ١ — الحركة</string>
+    <string name="st02_unit_physics_forces">الوحدة ٢ — القوى</string>
+    <string name="st02_unit_physics_energy">الوحدة ٣ — الطاقة</string>
+    <string name="st02_unit_math_limits">الوحدة ١ — النهايات</string>
+    <string name="st02_unit_math_derivatives">الوحدة ٢ — المشتقات</string>
+    <string name="st02_unit_math_applications">الوحدة ٣ — التطبيقات</string>
+    <string name="st02_unit_default_1">الوحدة ١</string>
+    <string name="st02_unit_default_2">الوحدة ٢</string>
+    <string name="st02_unit_default_3">الوحدة ٣</string>
+    <string name="st02_unit_review">الوحدة ٤ — المراجعة</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-06 · Quiz Runner (shared shell — also ST-08, ST-09)
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st06_question_of">%1$s من %2$s</string>
+    <string name="st06_validation_required">يرجى الإجابة على السؤال قبل المتابعة</string>
+    <string name="st06_answer_placeholder_gap">اكتب الإجابة هنا</string>
+    <string name="st06_answer_placeholder_short">اكتب إجابتك…</string>
+    <string name="st06_correct">إجابة صحيحة</string>
+    <string name="st06_incorrect">إجابة غير صحيحة</string>
+    <string name="st06_submit_error">تعذّر إرسال الاختبار. حاول مرة أخرى.</string>
+    <string name="st06_previous">السابق</string>
+    <string name="st06_next">التالي</string>
+    <string name="st06_submit">إنهاء الاختبار</string>
+    <string name="st06_continue">متابعة</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-07 · Quiz Results
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st07_title">نتيجة الاختبار</string>
+    <string name="st07_correct_count">%1$s من %2$s إجابات صحيحة</string>
+    <string name="st07_review_wrong">مراجعة الإجابات الخاطئة</string>
+    <string name="st07_show_all">عرض جميع الأسئلة</string>
+    <string name="st07_practice_again">تدرّب على هذه الأسئلة مرة أخرى</string>
+    <string name="st07_no_wrong_title">أحسنت! لا توجد إجابات خاطئة لمراجعتها</string>
+    <string name="st07_your_answer">إجابتك: %1$s</string>
+    <string name="st07_correct_answer">الإجابة الصحيحة: %1$s</string>
+    <string name="st07_question_number">السؤال %1$s</string>
+    <string name="st07_stat_correct">إجابات صحيحة</string>
+    <string name="st07_stat_wrong">إجابة خاطئة</string>
+    <string name="st07_stat_time">الوقت المستغرق</string>
+    <string name="st07_xp_earned">‎+%1$s نقطة خبرة</string>
+    <string name="st07_ask_tutor_about_mistake">اسأل المساعد الذكي</string>
+    <string name="st07_ask_tutor_mistake_prompt">أخطأت بسؤال \"%1$s\" — أجبت \"%2$s\" لكن الإجابة الصحيحة هي \"%3$s\". اشرح لي ليش</string>
+    <string name="st07_follow_up_mistakes">راجع الأخطاء، اسأل المعلّم عن نقطة محددة، ثم أنشئ تدريباً موجهاً.</string>
+    <string name="st07_follow_up_mastery">لا توجد أخطاء. ارجع إلى الدرس وأكمل تحقق الإنهاء.</string>
+    <string name="st07_weakest_topic">أصعب نقطة</string>
+    <string name="st07_edumind_recommendation">EduMind يقترح</string>
+    <string name="st07_review_minutes">راجعها ١٠ دقائق ثم جرّب التدريب الموجّه.</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-08 · Remedial Quiz
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st08_practice_banner">هذا تدريب وليس اختباراً — لا يوجد ضغط على العلامة</string>
+    <string name="st08_show_hint">أظهر تلميحاً</string>
+    <string name="st08_complete_title">أحسنت! أنهيت التدريب</string>
+    <string name="st08_complete_body">%1$s من %2$s إجابات صحيحة في هذه الجولة</string>
+    <string name="st08_retry">إعادة المحاولة</string>
+    <string name="st08_back_to_results">العودة إلى النتيجة</string>
+    <string name="st08_back_to_lesson">العودة إلى الدرس</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-09 · Manual Quiz Runner
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st09_teacher_authored">بقلم %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-10 · Planner
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st10_title">المخطط الدراسي</string>
+    <string name="st10_day_sunday">الأحد</string>
+    <string name="st10_day_monday">الاثنين</string>
+    <string name="st10_day_tuesday">الثلاثاء</string>
+    <string name="st10_day_wednesday">الأربعاء</string>
+    <string name="st10_day_thursday">الخميس</string>
+    <string name="st10_day_friday">الجمعة</string>
+    <string name="st10_day_saturday">السبت</string>
+    <string name="st10_regenerate">أعِد ترتيب الأسبوع</string>
+    <string name="st10_empty_day_title">لا توجد حصص هذا اليوم</string>
+    <string name="st10_empty_day_body">استرح، أو استخدم الوقت لمراجعة حرة.</string>
+    <string name="st10_status_upcoming">قادمة</string>
+    <string name="st10_status_completed">مكتملة</string>
+    <string name="st10_status_missed">فائتة</string>
+    <string name="st10_mark_complete_a11y">وضع علامة مكتملة</string>
+    <string name="st10_mark_incomplete_a11y">إلغاء علامة الاكتمال</string>
+    <string name="st10_priority_reason_label">لماذا هذا التوقيت؟</string>
+    <string name="st10_ask_assistant">عدّل مع المساعد الذكي</string>
+    <string name="st10_ask_assistant_prompt_example">"غيّر جلسة الرياضيات ليوم الخميس" أو أي تعديل تريده</string>
+    <string name="st10_close">إغلاق</string>
+    <string name="st10_open_exam_capture">التقاط جدول الامتحانات</string>
+    <string name="st10_open_routine">عرض الروتين</string>
+    <plurals name="st10_exams_reflected">
+        <item quantity="zero">لا امتحانات قادمة</item>
+        <item quantity="one">امتحان واحد قادم</item>
+        <item quantity="two">امتحانان قادمان</item>
+        <item quantity="few">%1$d امتحانات قادمة</item>
+        <item quantity="many">%1$d امتحاناً قادماً</item>
+        <item quantity="other">%1$d امتحان قادم</item>
+    </plurals>
+    <string name="st10_subject_strength_title">أداؤك بالمواد</string>
+    <string name="st10_strength_weak">بحاجة لتركيز</string>
+    <string name="st10_strength_medium">على المسار الصحيح</string>
+    <string name="st10_strength_strong">ممتاز</string>
+    <string name="st10_suggests">EduMind يقترح</string>
+    <string name="st10_apply">تطبيق</string>
+    <string name="st10_ignore">تجاهل</string>
+    <string name="st10_tomorrow">غداً</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-11 · Planner AI Chat
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st11_title">مساعد المخطط</string>
+    <string name="st11_empty_title">اطلب أي تعديل على خطتك</string>
+    <string name="st11_empty_body">أخبرني بما تحتاجه، وسأقترح تعديلاً يمكنك قبوله أو رفضه.</string>
+    <string name="st11_suggestion_1">لدي تدريب كرة قدم يوم الثلاثاء، انقل حصة الكيمياء</string>
+    <string name="st11_suggestion_2">أجّل حصة الفيزياء يوماً</string>
+    <string name="st11_suggestion_3">لماذا حصة الرياضيات مهمة هذا الأسبوع؟</string>
+    <string name="st11_input_hint">اكتب طلبك…</string>
+    <string name="st11_attach_exam_schedule">إضافة جدول امتحانات</string>
+    <string name="st11_exam_intent_message">أريد إضافة جدول امتحاناتي</string>
+    <string name="st11_diff_old">الحالي</string>
+    <string name="st11_diff_new">المقترح</string>
+    <string name="st11_accept">قبول</string>
+    <string name="st11_reject">رفض</string>
+    <string name="st11_accepted_label">تم القبول</string>
+    <string name="st11_rejected_label">تم الرفض</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-12 · Routine Builder
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st12_title">بناء روتينك الأسبوعي</string>
+    <string name="st12_q1_title">متى تستيقظ عادة؟</string>
+    <string name="st12_q1_body">سيساعدنا هذا في بناء يومك الدراسي.</string>
+    <string name="st12_q2_title">ما هي ساعات دوامك المدرسي؟</string>
+    <string name="st12_q2_body">اختر الأقرب لجدولك.</string>
+    <string name="st12_school_early">دوام مبكر</string>
+    <string name="st12_school_early_hint">٨:٠٠ – ٢:٠٠</string>
+    <string name="st12_school_standard">دوام عادي</string>
+    <string name="st12_school_standard_hint">٨:٠٠ – ٣:٠٠</string>
+    <string name="st12_school_late">دوام متأخر</string>
+    <string name="st12_school_late_hint">٩:٠٠ – ٣:٣٠</string>
+    <string name="st12_q3_title">هل لديك التزامات أسبوعية ثابتة؟</string>
+    <string name="st12_q3_body">اختر كل ما ينطبق — يمكنك عدم اختيار أي شيء.</string>
+    <string name="st12_commitment_sports">تدريب رياضي</string>
+    <string name="st12_commitment_tutoring">دروس خصوصية</string>
+    <string name="st12_commitment_schedule_days">%1$s — الأيام</string>
+    <string name="st12_commitment_schedule_time">الوقت</string>
+    <string name="st12_commitment_schedule_from">من</string>
+    <string name="st12_commitment_schedule_to">إلى</string>
+    <string name="st12_commitment_club">نادٍ مدرسي</string>
+    <string name="st12_commitment_volunteer">نشاط تطوعي</string>
+    <string name="st12_q4_title">متى تفضّل الدراسة عادة؟</string>
+    <string name="st12_q4_body">اختر كل الأوقات التي تناسبك.</string>
+    <string name="st12_window_early_morning">قبل المدرسة</string>
+    <string name="st12_window_after_school">بعد المدرسة مباشرة</string>
+    <string name="st12_window_evening">في المساء</string>
+    <string name="st12_window_late_night">في وقت متأخر من الليل</string>
+    <string name="st12_q5_title">متى يكون تركيزك في أفضل حالاته؟</string>
+    <string name="st12_q5_body">هذا يساعدنا في وضع أهم المهام في وقتك الأقوى.</string>
+    <string name="st12_q6_title">متى تخلد إلى النوم عادة؟</string>
+    <string name="st12_q6_body">سيحدد هذا نهاية يومك الدراسي.</string>
+    <string name="st12_review_title">راجع روتينك قبل التأكيد</string>
+    <string name="st12_review_wake">الاستيقاظ</string>
+    <string name="st12_review_school">الدوام المدرسي</string>
+    <string name="st12_review_commitments">الالتزامات</string>
+    <string name="st12_review_commitments_none">لا التزامات</string>
+    <string name="st12_review_windows">أوقات الدراسة المفضلة</string>
+    <string name="st12_review_windows_none">دون تفضيل محدد</string>
+    <string name="st12_review_energy">أفضل وقت للتركيز</string>
+    <string name="st12_review_sleep">النوم</string>
+    <string name="st12_edit">تعديل</string>
+    <string name="st12_confirm">تأكيد الروتين</string>
+    <string name="st12_confirm_error">تعذّر تأكيد الروتين. حاول مرة أخرى.</string>
+    <string name="st12_ai_build_title">بناء روتين ذكي</string>
+    <string name="st12_ai_build_body">يبني الأسبوع يوم بيوم مع الدوام، النوم، الالتزامات، والامتحانات.</string>
+    <string name="st12_ai_build_loading">يتم تجهيز مسودة الروتين...</string>
+    <string name="st12_days_confirmed">أيام مثبتة</string>
+    <string name="st12_current_day">اليوم الحالي</string>
+    <string name="st12_ai_chat_title">محادثة التعديل</string>
+    <string name="st12_ai_chat_body">اسأل أو عدّل قبل تثبيت اليوم الحالي.</string>
+    <string name="st12_ai_message_label">رسالة للذكاء الاصطناعي</string>
+    <string name="st12_ai_message_placeholder">مثلاً: عندي اختبار رياضيات الخميس</string>
+    <string name="st12_exams_title">الامتحانات</string>
+    <string name="st12_exams_body">اربط بناء الروتين بنفس التقاط الامتحانات الحالي: صورة، PDF، أو إدخال يدوي.</string>
+    <string name="st12_add_exam">إضافة امتحان</string>
+    <string name="st12_week_progress">تقدّم الأسبوع</string>
+    <string name="st12_day_confirmed">%1$s تم</string>
+    <string name="st12_day_activity_count">%1$s %2$s نشاط</string>
+    <string name="st12_review_ai_suggestions">مراجعة الاقتراحات الذكية</string>
+    <string name="st12_all_days_required">ثبّت كل الأيام قبل المراجعة.</string>
+    <string name="st12_ai_review_title">مراجعة ذكية</string>
+    <string name="st12_ai_review_empty">راجعت المسودة، اختر ما تريد قبوله قبل تثبيت الأسبوع.</string>
+    <string name="st12_saved_week_preview">معاينة الأسبوع المحفوظ</string>
+    <string name="st12_saved_week_preview_body">بعد التثبيت ستظهر نفس الأيام في روتينك الأسبوعي مع إنجاز / تفويت / تراجع.</string>
+    <string name="st12_edit_schedule">تعديل الجدول</string>
+    <string name="st12_finish_routine">إنهاء الروتين</string>
+    <string name="st12_sender_ai">EduMind AI</string>
+    <string name="st12_sender_you">أنت</string>
+    <string name="st12_day_empty">لا توجد أنشطة لهذا اليوم.</string>
+    <string name="st12_day_confirmed_button">اليوم مثبت</string>
+    <string name="st12_confirm_this_day">ثبّت هذا اليوم</string>
+    <string name="st12_suggestion_accept">قبول</string>
+    <string name="st12_suggestion_accepted">مقبول</string>
+    <string name="st12_suggestion_reject">رفض</string>
+    <string name="st12_suggestion_rejected">مرفوض</string>
+    <string name="st12_suggestion_reset">إعادة ضبط</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-13 · Routine Week View
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st13_title">روتينك الأسبوعي</string>
+    <string name="st13_rebuild">تعديل الروتين</string>
+    <string name="st13_first_time_title">لم تبنِ روتينك بعد</string>
+    <string name="st13_first_time_body">أجب عن بضعة أسئلة لنبني لك روتيناً أسبوعياً يناسب يومك.</string>
+    <string name="st13_first_time_action">ابدأ بناء الروتين</string>
+    <string name="st13_empty_day_title">لا عناصر في روتين هذا اليوم</string>
+    <string name="st13_empty_day_body">يوم حر — لا استيقاظ أو دوام مجدول هنا.</string>
+    <string name="st13_today_chip">اليوم</string>
+    <string name="st13_summary_completed">مكتمل %1$s</string>
+    <string name="st13_summary_upcoming">قادم %1$s</string>
+    <plurals name="st13_activity_count">
+        <item quantity="zero">لا نشاطات</item>
+        <item quantity="one">نشاط واحد</item>
+        <item quantity="two">نشاطان</item>
+        <item quantity="few">%1$s نشاطات</item>
+        <item quantity="many">%1$s نشاطاً</item>
+        <item quantity="other">%1$s نشاط</item>
+    </plurals>
+    <string name="st13_renewal_title">هل ما زال روتينك مناسباً؟</string>
+    <string name="st13_renewal_body">راجع روتينك الأسبوعي أو أعد بناءه إذا تغيّر جدولك.</string>
+    <string name="st13_renewal_rebuild">إعادة البناء</string>
+    <string name="st13_renewal_keep">لا يزال مناسباً</string>
+    <string name="st13_renew_week">تجديد الأسبوع</string>
+    <string name="st13_delete_routine">حذف الروتين</string>
+    <string name="st13_delete_routine_body">سيتم حذف الروتين الأسبوعي الحالي ويمكنك بناء واحد جديد لاحقاً.</string>
+    <string name="st13_complete">إنجاز</string>
+    <string name="st13_miss">تفويت</string>
+    <string name="st13_undo">تراجع</string>
+    <string name="st13_status_completed">منجَز</string>
+    <string name="st13_status_missed">فائت</string>
+    <string name="st13_today_line">خط اليوم</string>
+    <string name="st13_day_tasks">%1$s مهام</string>
+    <string name="st13_start">ابدأ</string>
+    <string name="st13_continue">أكمل</string>
+    <string name="st13_done">تم</string>
+    <string name="st13_now">الآن</string>
+    <string name="st13_strong_today">روتين قوي اليوم</string>
+    <string name="st13_keep_going">أكمل روتينك</string>
+    <string name="st13_one_left">بقيت مهمة واحدة</string>
+    <string name="st13_tasks_left">بقي %1$s</string>
+    <string name="st13_all_done">أنهيت روتين اليوم</string>
+    <string name="st13_week_adherence">التزام هذا الأسبوع</string>
+    <string name="st13_current_streak">أيام متتالية</string>
+    <string name="st13_longest_streak">أطول سلسلة: %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         STUDENT CORE · ST-14 · Exam Schedule Capture
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st14_title">التقاط جدول الامتحانات</string>
+    <string name="st14_no_image_title">التقط صورة جدول الامتحانات</string>
+    <string name="st14_no_image_body">سنقرأ منها مواعيد الامتحانات تلقائياً.</string>
+    <string name="st14_capture_error">تعذّرت قراءة الصورة. حاول مرة أخرى.</string>
+    <string name="st14_take_photo">التقاط صورة</string>
+    <string name="st14_import_gallery">استيراد من المعرض</string>
+    <string name="st14_processing_title">جارٍ قراءة الجدول…</string>
+    <string name="st14_processing_body">نستخرج المواد والمواعيد من الصورة.</string>
+    <string name="st14_review_title">راجع الامتحانات المستخرجة</string>
+    <string name="st14_review_body">تحقق من كل امتحان وصحّح ما يلزم قبل التأكيد.</string>
+    <string name="st14_add_manual">إضافة امتحان يدوياً</string>
+    <string name="st14_confirm">تأكيد الجدول</string>
+    <string name="st14_confirm_error">تعذّر تأكيد الجدول. حاول مرة أخرى.</string>
+    <string name="st14_unknown_subject">مادة غير معروفة</string>
+    <string name="st14_edit_entry">تعديل</string>
+    <string name="st14_remove_entry">حذف</string>
+    <string name="st14_low_confidence_hint">لم نتعرف على هذا الامتحان بوضوح — يرجى المراجعة</string>
+    <string name="st14_no_date">بدون تاريخ</string>
+    <string name="st14_confidence_high">دقة عالية</string>
+    <string name="st14_confidence_medium">دقة متوسطة</string>
+    <string name="st14_confidence_low">دقة منخفضة</string>
+    <string name="st14_confirmed_title">تم تأكيد الجدول</string>
+    <string name="st14_confirmed_body">تم حفظ %1$d من الامتحانات في جدولك الدراسي.</string>
+    <string name="st14_back_to_planner">العودة إلى المخطط</string>
+    <string name="st14_edit_title">تعديل بيانات الامتحان</string>
+    <string name="st14_edit_subject_label">المادة</string>
+    <string name="st14_edit_date_label">تاريخ الامتحان</string>
+    <string name="st14_edit_time_label">الوقت (اختياري)</string>
+    <string name="st14_no_time">بدون وقت</string>
+    <string name="st14_save_entry">حفظ</string>
+    <string name="st14_close">إغلاق</string>
+
+    <!-- ST-15 · Achievements -->
+    <string name="st15_title">الإنجازات</string>
+    <string name="st15_level_label">المستوى</string>
+    <string name="st15_xp_to_next_level">%1$s نقطة متبقية للمستوى التالي</string>
+    <string name="st15_xp_total">%1$s نقطة خبرة</string>
+    <string name="st15_xp_to_level">%1$s نقطة للمستوى %2$s</string>
+    <string name="st15_stat_streak_label">السلسلة الحالية</string>
+    <string name="st15_stat_longest_streak_label">أطول سلسلة</string>
+    <string name="st15_stat_badges_label">الأوسمة</string>
+    <string name="st15_badges_fraction">%1$s / %2$s</string>
+    <string name="st15_streak_history_label">آخر أيام المواظبة</string>
+    <string name="st15_achievements_section">الإنجازات</string>
+    <string name="st15_recent_xp_section">آخر نقاط الخبرة</string>
+    <string name="st15_xp_rules_section">كيف تعمل نقاط الخبرة</string>
+    <string name="st15_xp_gain_format">+%1$s XP</string>
+    <string name="st15_earned">مُنجَز</string>
+    <string name="st15_locked">مقفل</string>
+    <string name="st15_no_earned_title">ابدأ رحلتك!</string>
+    <string name="st15_no_earned_body">لم تحصل على أي إنجاز بعد — أكمل درسك الأول لتبدأ.</string>
+    <string name="st15_detail_requirement_label">للحصول على هذا الإنجاز</string>
+    <string name="st15_detail_earned_label">تم الحصول عليه</string>
+    <string name="st15_next_badge">الشارة القادمة</string>
+    <string name="st15_collection">مجموعتك</string>
+    <string name="st15_progress_of">%1$s من %2$s</string>
+
+    <!-- ST-16 · Subscriptions -->
+    <string name="st16_title">الاشتراكات</string>
+    <string name="st16_overview_title">وصول المواد</string>
+    <string name="st16_overview_body">راجع المواد المفتوحة، التجديدات، والعروض المتاحة من مكان واحد.</string>
+    <string name="st16_active_count_label">مواد مفتوحة</string>
+    <string name="st16_available_count_label">عروض متاحة</string>
+    <string name="st16_active_section">اشتراكاتي الحالية</string>
+    <string name="st16_available_section">مقررات إضافية متاحة</string>
+    <string name="st16_available_eyebrow">عرض اشتراك</string>
+    <string name="st16_no_subscriptions_title">لا اشتراكات نشطة بعد</string>
+    <string name="st16_no_subscriptions_body">استعرض المقررات المتاحة أدناه لتبدأ.</string>
+    <string name="st16_status_active">نشط</string>
+    <string name="st16_status_expiring">ينتهي قريباً</string>
+    <string name="st16_status_expired">منتهي</string>
+    <string name="st16_expires_on">ينتهي في %1$s</string>
+    <string name="st16_renew">تجديد الاشتراك</string>
+    <string name="st16_continue_course">متابعة المادة</string>
+    <string name="st16_subscribe">اشترك الآن</string>
+    <plurals name="st16_expires_in_days">
+        <item quantity="zero">ينتهي اليوم</item>
+        <item quantity="one">ينتهي خلال يوم واحد</item>
+        <item quantity="two">ينتهي خلال يومين</item>
+        <item quantity="few">ينتهي خلال %1$s أيام</item>
+        <item quantity="many">ينتهي خلال %1$s يوماً</item>
+        <item quantity="other">ينتهي خلال %1$s يوم</item>
+    </plurals>
+    <string name="st16_verified_purchase_title">تم تأكيد وصولك</string>
+    <string name="st16_verified_purchase_body">تم التحقق من دفعتك لمادة %1$s — اضغط لفتح الوصول.</string>
+    <string name="st16_voucher_section">قسيمة استخدام</string>
+    <string name="st16_voucher_row_title">استخدام قسيمة</string>
+    <string name="st16_voucher_row_supporting">لديك بطاقة أو رمز قسيمة؟ استخدمه هنا للحصول على الوصول</string>
+
+    <!-- X-04 · Student Notifications -->
+    <string name="x04_title">الإشعارات</string>
+    <string name="x04_subtitle">رسائل المعلمين، تحديثات الدفع، وتنبيهات التعلم المهمة.</string>
+    <string name="x04_mark_all_read">قراءة الكل</string>
+    <string name="x04_unread">جديد</string>
+    <string name="x04_empty_title">لا إشعارات حالياً</string>
+    <string name="x04_empty_body">سنضع هنا أي رسالة أو تحديث يحتاج انتباهك.</string>
+
+    <!-- STUDENT_ME · account hub (ST-15/ST-16 entry points) -->
+    <string name="st_me_section_progress">التقدم والحساب</string>
+    <string name="st_me_achievements_supporting">مستواك، تتابعك، وإنجازاتك</string>
+    <string name="st_me_subscriptions_supporting">إدارة اشتراكات موادك</string>
+
+    <!-- Shared payment display — structured Money, not string arithmetic; every fixture is USD. -->
+    <string name="payment_amount_usd">%1$s$</string>
+    <string name="payment_amount_syp">%1$s ل.س</string>
+    <string name="payment_amount_generic">%1$s %2$s</string>
+
+    <!-- ST-17 · Course Paywall Sheet -->
+    <string name="st17_title">تفاصيل الاشتراك</string>
+    <string name="st17_benefit_lessons">دروس المادة كاملة</string>
+    <string name="st17_benefit_quizzes">اختبارات المادة</string>
+    <string name="st17_benefit_tutor">مساعدة المعلم الذكي</string>
+    <string name="st17_benefit_progress">تتبع تقدمك في المادة</string>
+    <string name="st17_access_period_label">مدة الوصول</string>
+    <string name="st17_price_label">السعر</string>
+    <string name="st17_cta_renew">متابعة التجديد</string>
+    <string name="st17_cta_subscribe">متابعة الاشتراك</string>
+    <string name="st17_already_subscribed_title">أنت مشترك بالفعل</string>
+    <string name="st17_already_subscribed_body">لديك وصول نشط إلى %1$s، ولا حاجة لاشتراك جديد.</string>
+    <string name="st17_close_action">حسناً</string>
+    <string name="st17_have_voucher">لدي رمز قسيمة</string>
+
+    <!-- ST-18 · Payment Method Select -->
+    <string name="st18_title">اختيار طريقة الدفع</string>
+    <string name="st18_order_summary_label">ملخص الطلب</string>
+    <string name="st18_amount_label">المبلغ</string>
+    <string name="st18_methods_section">طرق الدفع المباشر المتاحة</string>
+    <string name="st18_continue">متابعة</string>
+
+    <!-- ST-19 · Payment Pending -->
+    <string name="st19_title">حالة الدفع</string>
+    <string name="st19_submitting_title">جارٍ إرسال طلب الدفع…</string>
+    <string name="st19_submitting_body">يرجى الانتظار قليلاً.</string>
+    <string name="st19_status_pending">قيد المراجعة</string>
+    <string name="st19_pending_headline">طلب الدفع بانتظار التحقق</string>
+    <string name="st19_course_label">المادة</string>
+    <string name="st19_amount_label">المبلغ</string>
+    <string name="st19_method_label">طريقة الدفع</string>
+    <string name="st19_reference_label">رقم العملية المرجعي</string>
+    <string name="st19_submitted_label">تاريخ الإرسال</string>
+    <string name="st19_explanation">تم استلام طلب الدفع الخاص بك، وهو الآن بانتظار المراجعة والتحقق يدوياً من فريق EduMind.</string>
+    <string name="st19_next_steps">سيتم تفعيل وصولك إلى المادة فور اعتماد عملية الدفع. يمكنك متابعة حالة اشتراكاتك من صفحة الاشتراكات في أي وقت.</string>
+    <string name="st19_done">العودة إلى الاشتراكات</string>
+    <string name="st19_failed_title">تعذّر إرسال طلب الدفع</string>
+    <string name="st19_failed_body">حدث خطأ أثناء إرسال طلب الدفع. حاول مرة أخرى.</string>
+
+    <!-- ST-20 · Purchase Success -->
+    <string name="st20_title">تأكيد الشراء</string>
+    <string name="st20_status_confirmed">مؤكد</string>
+    <string name="st20_headline">تم تأكيد وصولك</string>
+    <string name="st20_headline_already">وصولك مفعّل بالفعل</string>
+    <string name="st20_course_label">المادة</string>
+    <string name="st20_amount_label">المبلغ</string>
+    <string name="st20_reference_label">رقم العملية المرجعي</string>
+    <string name="st20_access_confirmation">تم تفعيل وصولك الكامل إلى دروس هذه المادة واختباراتها.</string>
+    <string name="st20_open_now">مفتوحة الآن</string>
+    <string name="st20_course_teacher_format">%1$s — %2$s</string>
+    <string name="st20_open_course">افتح المادة الآن</string>
+    <string name="st20_back_to_subscriptions">العودة إلى الاشتراكات</string>
+
+    <!-- ST-21 · Voucher Redeem -->
+    <string name="st21_title">استخدام قسيمة</string>
+    <string name="st21_intro">أدخل رمز القسيمة المطبوع على بطاقتك للحصول على الوصول فوراً.</string>
+    <string name="st21_code_label">رمز القسيمة</string>
+    <string name="st21_code_placeholder">مثال: EDU-VALID-001</string>
+    <string name="st21_validate">تحقق من الرمز</string>
+    <string name="st21_confirm_redeem">تأكيد الاستخدام</string>
+    <string name="st21_grant_title">هذه القسيمة تمنحك</string>
+    <string name="st21_grant_course_label">المادة</string>
+    <string name="st21_grant_period_label">مدة الوصول</string>
+    <string name="st21_status_redeemed">تم الاستخدام</string>
+    <string name="st21_redeemed_headline">تم تفعيل وصولك</string>
+    <string name="st21_open_course">افتح المادة الآن</string>
+    <string name="st21_error_invalid">هذا الرمز غير صحيح. تحقق منه وحاول مرة أخرى.</string>
+    <string name="st21_error_expired">انتهت صلاحية هذه القسيمة.</string>
+    <string name="st21_error_used">تم استخدام هذه القسيمة مسبقاً.</string>
+
+    <!-- ST-22 · Student Profile -->
+    <string name="st22_grade_school_format">%1$s · %2$s</string>
+    <string name="st22_identity_section">الهوية</string>
+    <string name="st22_learning_profile_section">ملف التعلّم</string>
+    <string name="st22_relationships_section">العلاقات</string>
+    <string name="st22_settings_section">الإعدادات والحساب</string>
+    <string name="st22_edit_profile">تعديل الملف الشخصي</string>
+    <string name="st22_quick_stats_section">إحصائيات سريعة</string>
+    <string name="st22_progress_percent">%1$s٪</string>
+    <string name="st22_linked_parents_section">أولياء الأمور المرتبطون</string>
+    <string name="st22_no_parents_title">لا يوجد أولياء أمور مرتبطون</string>
+    <string name="st22_no_parents_body">لم يقم أي ولي أمر بربط حسابه بحسابك بعد.</string>
+    <string name="st22_parent_relationship_format">%1$s · %2$s</string>
+    <string name="st22_revoke_parent_action">إلغاء ربط ولي الأمر</string>
+    <string name="st22_revoke_parent_title">إلغاء ربط ولي الأمر؟</string>
+    <string name="st22_revoke_parent_body">لن يتمكن %1$s بعد الآن من متابعة تقدمك الدراسي.</string>
+    <string name="st22_revoke_confirm">إلغاء الربط</string>
+    <string name="st22_links_section">الإعدادات والمزيد</string>
+    <string name="st22_edit_sheet_title">تعديل الملف الشخصي</string>
+
+    <!-- Student · Parent Linking -->
+    <string name="st_parent_link_title">ربط ولي الأمر</string>
+    <string name="st_parent_link_code_label">رمز ربط الطالب</string>
+    <string name="st_parent_link_copy">نسخ الرمز</string>
+    <string name="st_parent_link_copied">تم نسخ رمز الربط</string>
+    <string name="st_parent_link_help">أرسل هذا الرمز لولي الأمر حتى يربط حسابه ويتابع تقدمك من حسابه الخاص.</string>
+    <string name="st_parent_link_linked_section">الحسابات المرتبطة</string>
+    <string name="st_parent_link_empty_body">لا يوجد ولي أمر مرتبط بعد. شارك رمز الربط عندما ترغب بإضافة ولي أمر.</string>
+    <plurals name="st_parent_link_hub_linked">
+        <item quantity="one">ولي أمر واحد مرتبط · الرمز %2$s</item>
+        <item quantity="two">وليّا أمر مرتبطان · الرمز %2$s</item>
+        <item quantity="few">%1$d أولياء أمور مرتبطون · الرمز %2$s</item>
+        <item quantity="many">%1$d ولي أمر مرتبطاً · الرمز %2$s</item>
+        <item quantity="other">%1$d ولي أمر مرتبط · الرمز %2$s</item>
+    </plurals>
+    <string name="st_parent_link_hub_empty">لا يوجد ولي أمر مرتبط · الرمز %1$s</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Learning Preferences — new, extends ST-22
+         ═══════════════════════════════════════════════════════════════ -->
+    <string name="st_lp_title">أسلوب التعلّم</string>
+    <string name="st_lp_intro">هالإعدادات بتساعد معلّمك الذكي يتكيّف معك — بشرحلك وبيختبرك بالطريقة يلي بتناسبك</string>
+    <string name="st_lp_goal_section">هدفك</string>
+    <string name="st_lp_goal_improve_grades">تحسين علاماتي</string>
+    <string name="st_lp_goal_prepare_bac">التحضير للبكالوريا</string>
+    <string name="st_lp_goal_deeper_understanding">فهم أعمق للمادة</string>
+    <string name="st_lp_length_section">طول الشرح</string>
+    <string name="st_lp_length_brief">مختصر</string>
+    <string name="st_lp_length_balanced">متوازن</string>
+    <string name="st_lp_length_detailed">مفصّل</string>
+    <string name="st_lp_interests_section">اهتماماتي</string>
+    <string name="st_lp_interest_football">كرة القدم</string>
+    <string name="st_lp_interest_gaming">الألعاب</string>
+    <string name="st_lp_interest_music">الموسيقى</string>
+    <string name="st_lp_interest_drawing">الرسم</string>
+    <string name="st_lp_preview_label">هيك رح يتكيّف معلّمك</string>
+    <string name="st_lp_preview_body">شرح %1$s، أمثلة من %2$s لما يكون ممكن، وتشجيع على كل خطوة</string>
+    <string name="st_lp_preview_generic_interest">مواضيع تهمك</string>
+    <string name="st_lp_list_separator">، </string>
+    <string name="st_lp_list_last_join">%1$s و%2$s</string>
+    <string name="st22_edit_name_label">الاسم</string>
+    <string name="st22_edit_grade_label">الصف الدراسي</string>
+    <string name="st22_edit_school_label">المدرسة</string>
+    <string name="st22_row_language">اللغة</string>
+    <string name="st22_row_appearance">المظهر</string>
+    <string name="st22_parent_linked">مربوط</string>
+    <string name="st22_parent_unlinked">غير مربوط</string>
+
+    <!-- ST-23 · Settings — Account -->
+    <string name="st23_title">إعدادات الحساب</string>
+    <string name="st23_profile_section">الملف الشخصي</string>
+    <string name="st23_name_row">الاسم</string>
+    <string name="st23_login_section">تسجيل الدخول</string>
+    <string name="st23_email_row">البريد الإلكتروني</string>
+    <string name="st23_password_row">كلمة المرور</string>
+    <string name="st23_password_masked">••••••••</string>
+    <string name="st23_danger_section">منطقة الخطر</string>
+    <string name="st23_delete_account_row">حذف الحساب</string>
+    <string name="st23_name_sheet_title">تعديل الاسم</string>
+    <string name="st23_email_sheet_title">تغيير البريد الإلكتروني</string>
+    <string name="st23_email_sheet_body">سنرسل رمز تحقق إلى بريدك الإلكتروني الجديد قبل اعتماد التغيير.</string>
+    <string name="st23_email_new_label">البريد الإلكتروني الجديد</string>
+    <string name="st23_email_send_code">إرسال رمز التحقق</string>
+    <string name="st23_email_verify_title">تحقق من بريدك الإلكتروني</string>
+    <string name="st23_email_verify_body">أدخل الرمز المرسل إلى %1$s.</string>
+    <string name="st23_email_confirm">تأكيد التغيير</string>
+    <string name="st23_email_invalid_code">رمز غير صحيح. حاول مرة أخرى.</string>
+    <string name="st23_password_sheet_title">تغيير كلمة المرور</string>
+    <string name="st23_password_current_label">كلمة المرور الحالية</string>
+    <string name="st23_password_new_label">كلمة المرور الجديدة</string>
+    <string name="st23_password_confirm_label">تأكيد كلمة المرور الجديدة</string>
+    <string name="st23_password_validation_error">تحقق من كلمة المرور الحالية، وتأكد من تطابق كلمة المرور الجديدة وتوافقها مع الشروط.</string>
+    <string name="st23_password_submit">تحديث كلمة المرور</string>
+    <string name="st23_password_done_title">تم تحديث كلمة المرور</string>
+    <string name="st23_password_done_body">تم تحديث كلمة مرورك بنجاح (تجريبي).</string>
+    <string name="st23_delete_confirm_title">حذف الحساب نهائياً؟</string>
+    <string name="st23_delete_confirm_body">سيتم حذف جميع بياناتك ونتائجك وتقدمك الدراسي نهائياً، ولا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="st23_delete_confirm_action">حذف الحساب</string>
+    <string name="st23_delete_done_title">تم تأكيد طلب الحذف</string>
+    <string name="st23_delete_done_body">هذا تأكيد تجريبي لطلب حذف الحساب — لم يتم حذف أي بيانات فعلياً في هذا الإصدار.</string>
+
+    <!-- ST-24 · Settings — Security -->
+    <string name="st24_title">الأمان</string>
+    <string name="st24_two_factor_section">التحقق بخطوتين</string>
+    <string name="st24_two_factor_row_title">التحقق بخطوتين عبر البريد الإلكتروني</string>
+    <string name="st24_two_factor_row_body">طبقة حماية إضافية عبر رمز يُرسل إلى بريدك الإلكتروني عند تسجيل الدخول.</string>
+    <string name="st24_status_enabled">مفعّل</string>
+    <string name="st24_status_disabled">غير مفعّل</string>
+    <string name="st24_enable_action">تفعيل</string>
+    <string name="st24_disable_action">إيقاف</string>
+    <string name="st24_enable_dialog_title">تحقق من بريدك الإلكتروني</string>
+    <string name="st24_enable_dialog_body">أدخل الرمز المرسل إلى بريدك الإلكتروني لتفعيل التحقق بخطوتين.</string>
+    <string name="st24_enable_confirm_action">تفعيل التحقق بخطوتين</string>
+    <string name="st24_enable_invalid_code">رمز غير صحيح. حاول مرة أخرى.</string>
+    <string name="st24_disable_confirm_title">إيقاف التحقق بخطوتين؟</string>
+    <string name="st24_disable_confirm_body">سيصبح حسابك أقل حماية بعد إيقاف هذه الميزة.</string>
+    <string name="st24_disable_confirm_action">إيقاف</string>
+    <string name="st24_sessions_section">الجلسات النشطة</string>
+    <string name="st24_current_device">هذا الجهاز</string>
+    <string name="st24_revoke_action">إنهاء الجلسة</string>
+    <string name="st24_revoke_session_title">إنهاء هذه الجلسة؟</string>
+    <string name="st24_revoke_session_body">سيتم تسجيل الخروج من هذا الجهاز فوراً.</string>
+    <string name="st24_no_other_sessions">لا توجد جلسات أخرى نشطة.</string>
+    <string name="st24_revoke_all_action">تسجيل الخروج من جميع الأجهزة الأخرى</string>
+    <string name="st24_revoke_all_title">تسجيل الخروج من كل الأجهزة الأخرى؟</string>
+    <string name="st24_revoke_all_body">سيتم تسجيل الخروج من جميع الأجهزة والجلسات الأخرى، باستثناء هذا الجهاز الذي تستخدمه الآن.</string>
+
+    <!-- ST-25 · Settings — Language & Display -->
+    <string name="st25_title">اللغة والعرض</string>
+    <string name="st25_language_section">اللغة</string>
+    <string name="st25_language_ar">العربية</string>
+    <string name="st25_language_en">English</string>
+    <string name="st25_theme_section">المظهر</string>
+    <string name="st25_theme_system">حسب النظام</string>
+    <string name="st25_theme_light">فاتح</string>
+    <string name="st25_theme_dark">داكن</string>
+    <string name="st25_numerals_section">نظام الأرقام</string>
+    <string name="st25_numerals_western">أرقام غربية (123)</string>
+    <string name="st25_numerals_arabic_indic">أرقام عربية هندية (١٢٣)</string>
+    <string name="st25_numerals_note">لا يشمل هذا الإعداد أرقام رموز التحقق أو أرقام العمليات المرجعية أو الأسعار — تبقى كما هي دائماً.</string>
+    <string name="st25_text_size_section">حجم النص</string>
+    <string name="st25_text_size_default">افتراضي</string>
+    <string name="st25_text_size_large">كبير</string>
+    <string name="st25_text_size_note">يعمل هذا الإعداد إلى جانب إعداد حجم الخط في نظام أندرويد، دون إلغائه.</string>
+    <string name="st25_calendar_section">التقويم</string>
+    <string name="st25_hijri_toggle_title">استخدام التقويم الهجري</string>
+    <string name="st25_hijri_toggle_body">يعرض التواريخ المتوافقة بالتقويم الهجري بدلاً من الميلادي.</string>
+
+    <!-- ST-26 · Settings — Notifications -->
+    <string name="st26_title">الإشعارات</string>
+    <string name="st26_categories_section">فئات الإشعارات</string>
+    <string name="st26_category_study_title">تذكيرات الدراسة والمخطط</string>
+    <string name="st26_category_study_body">تذكيرات بجلسات الدراسة المجدولة في مخططك.</string>
+    <string name="st26_category_lessons_title">تحديثات الدروس والمقررات</string>
+    <string name="st26_category_lessons_body">إشعارات عند توفر دروس أو محتوى جديد في مقرراتك.</string>
+    <string name="st26_category_quiz_title">تذكيرات الاختبارات والامتحانات</string>
+    <string name="st26_category_quiz_body">تذكيرات بالاختبارات ومواعيد الامتحانات القادمة.</string>
+    <string name="st26_category_payment_title">حالة الاشتراك والدفع</string>
+    <string name="st26_category_payment_body">تحديثات حول اشتراكاتك وحالة عمليات الدفع.</string>
+    <string name="st26_category_achievements_title">الإنجازات والتقدم</string>
+    <string name="st26_category_achievements_body">إشعارات عند تحقيق إنجاز جديد أو تقدم ملحوظ.</string>
+    <string name="st26_all_disabled_note">جميع الإشعارات موقوفة حالياً.</string>
+    <string name="st26_quiet_hours_section">ساعات الهدوء</string>
+    <string name="st26_quiet_hours_toggle_title">تفعيل ساعات الهدوء</string>
+    <string name="st26_quiet_hours_toggle_body">لن تصلك إشعارات خلال هذه الفترة، مثل ٢٢:٠٠ إلى ٠٧:٠٠.</string>
+    <string name="st26_quiet_hours_start">من الساعة</string>
+    <string name="st26_quiet_hours_end">إلى الساعة</string>
+    <string name="st26_time_decrease">تقليل الوقت</string>
+    <string name="st26_time_increase">زيادة الوقت</string>
+
+    <!-- Phase 2 · Projects — shared labels (difficulty/mode/medium) -->
+    <string name="pj_difficulty_beginner">مبتدئ</string>
+    <string name="pj_difficulty_intermediate">متوسط</string>
+    <string name="pj_difficulty_advanced">متقدم</string>
+    <string name="pj_mode_solo">فردي</string>
+    <string name="pj_mode_team">جماعي</string>
+    <string name="pj_medium_physical">عملي</string>
+    <string name="pj_medium_digital">رقمي</string>
+
+    <!-- PJ-01 · Projects Hub -->
+    <string name="pj01_my_projects_section">مشاريعي</string>
+    <string name="pj01_no_active_title">لا مشاريع نشطة بعد</string>
+    <string name="pj01_no_active_body">افتح تبويب الاستكشاف واختر أول مشروع يناسب وقتك وموادك.</string>
+    <string name="pj01_discover_section">استكشف</string>
+    <string name="pj01_milestone_progress">اكتملت %1$s من %2$s مراحل</string>
+    <string name="pj01_next_action">الخطوة التالية: %1$s</string>
+    <string name="pj01_no_discover_results_title">لا نتائج مطابقة</string>
+    <string name="pj01_no_discover_results_body">جرّب تعديل عوامل التصفية للعثور على مشروع مناسب.</string>
+    <string name="pj01_clear_filters">مسح عوامل التصفية</string>
+    <string name="pj01_gallery_tab">معرضي</string>
+    <string name="pj01_gallery_teaser_title">مشاريعك المكتملة، بشهاداتها</string>
+    <string name="pj01_gallery_teaser_body">شوف كل مشروع أنجزته مع الشهادة الصادرة له في مكان واحد.</string>
+    <string name="pj01_gallery_open_action">افتح معرضي</string>
+    <string name="pj01_progress_label">التقدّم</string>
+    <string name="pj01_current_milestone">المرحلة الحالية</string>
+    <string name="pj01_milestones_section">المراحل</string>
+    <string name="pj01_other_projects">مشاريع أخرى</string>
+
+    <!-- PJ-02 · Project Detail -->
+    <string name="pj02_title">تفاصيل المشروع</string>
+    <string name="pj02_skills_section">مهارات ستكتسبها</string>
+    <string name="pj02_materials_section">المواد المطلوبة</string>
+    <string name="pj02_materials_hint">جهّز هذه المواد قبل البدء — لا يؤثر ذلك على تقدمك في المشروع.</string>
+    <string name="pj02_time_label">الوقت المقدر</string>
+    <string name="pj02_difficulty_label">المستوى</string>
+    <string name="pj02_milestones_section">مراحل المشروع</string>
+    <string name="pj02_showcase_section">أمثلة مما أنجزه طلاب آخرون</string>
+    <string name="pj02_start_project">ابدأ المشروع</string>
+    <string name="pj02_continue_project">متابعة المشروع</string>
+    <string name="pj02_join_team">الانضمام إلى فريق</string>
+    <string name="pj02_team_boundary_title">تشكيل الفرق غير متاح بعد</string>
+    <string name="pj02_team_boundary_body">ستتمكن قريباً من تشكيل فريق والانضمام إلى هذا المشروع الجماعي. هذه الميزة غير متوفرة في هذا الإصدار.</string>
+
+    <!-- PJ-03 · Milestone Board -->
+    <string name="pj03_title">لوحة المراحل</string>
+    <string name="pj03_locked_hint">لم تبدأ هذه المرحلة بعد</string>
+    <string name="pj03_blocked_dismiss">فهمت</string>
+    <string name="pj03_blocked_generic">هذه المهمة غير متاحة الآن.</string>
+
+    <!-- PJ-04 · Task Detail -->
+    <string name="pj04_title">تفاصيل المهمة</string>
+    <string name="pj04_context_format">%1$s · %2$s</string>
+    <string name="pj04_instructions_section">التعليمات</string>
+    <string name="pj04_step_number">%1$s.</string>
+    <string name="pj04_good_example_section">كيف يبدو العمل الجيد</string>
+    <string name="pj04_hints_section">تلميحات</string>
+    <string name="pj04_reveal_hint">عرض تلميح آخر (بتكلفة %1$s نقطة خبرة)</string>
+    <string name="pj04_start_task">ابدأ المهمة</string>
+    <string name="pj04_continue_task">متابعة</string>
+    <string name="pj04_submit_work">إرسال العمل</string>
+    <string name="pj04_view_review_status">عرض حالة التقييم</string>
+    <string name="pj04_view_review">عرض التقييم</string>
+    <string name="pj04_status_not_started">لم تبدأ</string>
+    <string name="pj04_status_in_progress">قيد التنفيذ</string>
+    <string name="pj04_status_ready">جاهزة للإرسال</string>
+    <string name="pj04_status_submitted">تم الإرسال</string>
+    <string name="pj04_status_reviewed">تم التقييم</string>
+
+    <!-- PJ-05 · Submission Composer -->
+    <string name="pj05_title">إرسال العمل</string>
+    <string name="pj05_intro">أرفق عملك أو اكتب انعكاسك أدناه، ثم أرسله للتقييم.</string>
+    <string name="pj05_reflection_section">انعكاسك الكتابي</string>
+    <string name="pj05_reflection_label">اكتب انعكاسك هنا</string>
+    <string name="pj05_attachments_section">المرفقات</string>
+    <string name="pj05_add_photo">إضافة صورة</string>
+    <string name="pj05_add_file">إضافة ملف</string>
+    <string name="pj05_link_section">رابط</string>
+    <string name="pj05_link_label">الصق الرابط هنا</string>
+    <string name="pj05_validation_error">أضف انعكاسًا كتابيًا أو مرفقًا واحدًا على الأقل قبل الإرسال.</string>
+    <string name="pj05_remove_attachment">إزالة المرفق</string>
+    <string name="pj05_save_draft">حفظ كمسودة</string>
+    <string name="pj05_submit">إرسال</string>
+
+    <!-- PJ-06 · AI Review &amp; Rubric -->
+    <string name="pj06_title">التقييم</string>
+    <string name="pj06_submission_section">ما أرسلته</string>
+    <string name="pj06_rubric_section">معايير التقييم</string>
+    <string name="pj06_overall_label">المجموع</string>
+    <string name="pj06_score_format">%1$s/%2$s</string>
+    <string name="pj06_strengths_section">نقاط القوة</string>
+    <string name="pj06_improvement_section">نقطة للتحسين</string>
+    <string name="pj06_continue_project">متابعة المشروع</string>
+    <string name="pj06_resubmit">إعادة الإرسال</string>
+    <string name="pj06_attachments_count">المرفقات: %1$s</string>
+    <string name="pj06_review_a_peer">راجع عمل زميل</string>
+
+    <!-- Shared ProjectTaskStatus labels (PJ-08) -->
+    <string name="pj_task_status_completed">مكتملة</string>
+    <string name="pj_task_status_current">قيد التنفيذ</string>
+    <string name="pj_task_status_blocked">معلّقة</string>
+    <string name="pj_task_status_upcoming">قادمة</string>
+
+    <!-- PJ-07 · Peer Review -->
+    <string name="pj07_title">مراجعة زميل</string>
+    <string name="pj07_submitted_title">تم إرسال مراجعتك</string>
+    <string name="pj07_submitted_body">شكراً لمساعدتك زميلك بملاحظات بنّاءة.</string>
+    <string name="pj07_submit">إرسال المراجعة</string>
+    <string name="pj07_anonymous_notice">هذه المراجعة مجهولة الهوية — لن يُعرف من راجع العمل.</string>
+    <string name="pj07_rubric_section">معايير التقييم</string>
+    <string name="pj07_comment_section">ملاحظتك</string>
+    <string name="pj07_comment_label">اكتب ملاحظة بنّاءة لزميلك</string>
+    <string name="pj07_comment_min_length">بحد أدنى %1$s حرفاً</string>
+    <string name="pj07_tone_warning">يرجى مراجعة نبرة ملاحظتك قبل الإرسال — اجعلها بنّاءة ومحترمة.</string>
+    <string name="pj07_validation_error">قيّم كل معيار واكتب ملاحظة بالحد الأدنى المطلوب قبل الإرسال.</string>
+
+    <!-- PJ-08 · Team Workspace -->
+    <string name="pj08_title">مساحة عمل الفريق</string>
+    <string name="pj08_member_count">%1$s أعضاء</string>
+    <string name="pj08_tab_overview">نظرة عامة</string>
+    <string name="pj08_tab_chat">المحادثة</string>
+    <string name="pj08_members_section">أعضاء الفريق</string>
+    <string name="pj08_tasks_section">مهام المشروع</string>
+    <string name="pj08_deliverable_section">الناتج المشترك</string>
+    <string name="pj08_you_badge">أنت</string>
+    <string name="pj08_unassigned">غير مُسندة</string>
+    <string name="pj08_assign_to_me">أسندها لي</string>
+    <string name="pj08_unassign">إلغاء الإسناد</string>
+    <string name="pj08_deliverable_updated_by">آخر تحديث بواسطة %1$s — %2$s</string>
+    <string name="pj08_message_sender_format">%1$s · %2$s</string>
+    <string name="pj08_message_hint">اكتب رسالة</string>
+    <string name="pj08_send_message">إرسال</string>
+    <string name="pj08_role_leader">قائد الفريق</string>
+    <string name="pj08_role_member">عضو</string>
+
+    <!-- PJ-09 · Reflection Log -->
+    <string name="pj09_title">سجل الانعكاس</string>
+    <string name="pj09_open_from_milestone">تسجيل انعكاس</string>
+    <string name="pj09_empty_title">لم تسجّل انعكاساً بعد</string>
+    <string name="pj09_empty_body">اضغط على زر التسجيل وتحدث بضع جمل عمّا تعلّمته في هذه المرحلة.</string>
+    <string name="pj09_recording">جارٍ التسجيل...</string>
+    <string name="pj09_processing">جارٍ تحويل التسجيل إلى نص...</string>
+    <string name="pj09_failed_title">تعذّر تحويل التسجيل</string>
+    <string name="pj09_failed_body">حدث خطأ أثناء معالجة تسجيلك. جرّب التسجيل مرة أخرى.</string>
+    <string name="pj09_transcript_label">نص الانعكاس</string>
+    <string name="pj09_save">حفظ الانعكاس</string>
+    <string name="pj09_stop_recording">إيقاف التسجيل</string>
+    <string name="pj09_record_retry">أعد المحاولة</string>
+    <string name="pj09_record">تسجيل</string>
+
+    <!-- PJ-10 · Project Portfolio -->
+    <string name="pj10_title">السجل الشخصي</string>
+    <string name="pj10_empty_title">لا توجد مشاريع مكتملة بعد</string>
+    <string name="pj10_empty_body">أكمل مشروعك الأول ليظهر هنا كعمل جاهز للعرض.</string>
+    <string name="pj10_intro">سجل يعرض أعمالي المكتملة عبر EduMind</string>
+    <string name="pj10_completed_count">%1$s مشاريع مكتملة</string>
+    <string name="pj10_share">مشاركة</string>
+    <string name="pj10_completed_on">اكتمل بتاريخ %1$s</string>
+    <string name="pj10_detail_title">عرض المشروع</string>
+    <string name="pj10_what_was_built_section">ماذا بنيت</string>
+    <string name="pj10_skills_section">المهارات المكتسبة</string>
+    <string name="pj10_milestones_section">ملخص المراحل</string>
+    <string name="pj10_final_deliverable_section">الناتج النهائي</string>
+    <string name="pj10_reflections_section">انعكاسات مختارة</string>
+    <string name="pj10_certificate_section">الشهادة</string>
+    <string name="pj10_certificate_available_title">شهادتك جاهزة</string>
+    <string name="pj10_certificate_available_body">احصل على شهادة إتمام رسمية لهذا المشروع.</string>
+    <string name="pj10_view_certificate">عرض الشهادة</string>
+
+    <!-- PJ-11 · Project Certificate -->
+    <string name="pj11_title">شهادة المشروع</string>
+    <string name="pj11_brand_line">منصّة EduMind</string>
+    <string name="pj11_field_holder">الاسم</string>
+    <string name="pj11_field_project">المشروع</string>
+    <string name="pj11_field_date">تاريخ الإتمام</string>
+    <string name="pj11_field_issuer">جهة الإصدار</string>
+    <string name="pj11_field_skills">المهارات المكتسبة</string>
+    <string name="pj11_verified_label">شهادة موثّقة</string>
+    <string name="pj11_verify_action">التحقق من الشهادة</string>
+    <string name="pj11_share">مشاركة</string>
+    <string name="pj11_export_image">تصدير كصورة</string>
+    <string name="pj11_export_mock_title">تصدير الصورة (تجريبي)</string>
+    <string name="pj11_export_mock_body">هذه معاينة تجريبية فقط — لم يتم حفظ أي ملف صورة حقيقي على جهازك في هذا الإصدار.</string>
+
+    <!-- PJ-12 · Materials &amp; Safety Sheet -->
+    <string name="pj12_title">المواد والسلامة</string>
+    <string name="pj12_materials_section">المواد المطلوبة</string>
+    <string name="pj12_cost_section">التكلفة التقديرية</string>
+    <string name="pj12_cost_estimate_note">تقدير تقريبي فقط — الأسعار الفعلية قد تختلف.</string>
+    <string name="pj12_safety_section">إرشادات السلامة</string>
+    <string name="pj12_optional">اختياري</string>
+    <string name="pj12_quantity_format">الكمية: %1$s</string>
+    <string name="pj12_open_from_project">عرض دليل المواد والسلامة</string>
+
+    <!-- Shared Teacher (Phase 3) boundary -->
+    <string name="tc_coming_soon_title">قريباً</string>
+    <string name="tc_coming_soon_body">هذه الميزة ستتوفر في شريحة المعلم القادمة.</string>
+
+    <!-- TC-01 · Teacher Setup Wizard -->
+    <string name="tc01_step_label">الخطوة %1$s من %2$s</string>
+    <string name="tc01_validation_error">يرجى إكمال الحقول المطلوبة قبل المتابعة.</string>
+    <string name="tc01_finish_setup">إنهاء الإعداد</string>
+    <string name="tc01_next">التالي</string>
+    <string name="tc01_save">حفظ</string>
+    <string name="tc01_setup_title">إعداد المعلم</string>
+    <string name="tc01_teaching_question">ماذا أدرّس؟</string>
+    <string name="tc01_progress">%1$s / %2$s</string>
+    <string name="tc01_add_photo">أضف صورة</string>
+    <string name="tc01_name_label">الاسم</string>
+    <string name="tc01_bio_label">نبذة قصيرة</string>
+    <string name="tc01_bio_placeholder">أكتب نبذة عن تدريسك…</string>
+    <string name="tc01_grade_10_short">عاشر</string>
+    <string name="tc01_grade_11_short">حادي عشر</string>
+    <string name="tc01_grade_12_short">بكالوريا</string>
+    <string name="tc01_identity_title">الهوية</string>
+    <string name="tc01_identity_body">عرّف نفسك لطلابك — الاسم الذي سيظهر لهم ونبذة قصيرة عنك.</string>
+    <string name="tc01_identity_name_label">الاسم الظاهر للطلاب</string>
+    <string name="tc01_identity_headline_label">نبذة مهنية قصيرة</string>
+    <string name="tc01_subjects_title">المواد والصفوف</string>
+    <string name="tc01_subjects_body">اختر المواد والصفوف التي تدرّسها — يمكنك اختيار أكثر من مادة وصف.</string>
+    <string name="tc01_subjects_section">المواد</string>
+    <string name="tc01_grades_section">الصفوف</string>
+    <string name="tc01_qualifications_title">المؤهلات</string>
+    <string name="tc01_qualifications_body">أضف مؤهلاتك العلمية — يمكنك إضافة أكثر من مؤهل.</string>
+    <string name="tc01_remove_qualification">حذف المؤهل</string>
+    <string name="tc01_qualification_title_label">اسم المؤهل</string>
+    <string name="tc01_qualification_institution_label">الجهة المانحة</string>
+    <string name="tc01_qualification_year_label">سنة التخرج (اختياري)</string>
+    <string name="tc01_add_qualification">إضافة مؤهل</string>
+    <string name="tc01_mode_individual">فردي</string>
+    <string name="tc01_mode_small_group">مجموعات صغيرة</string>
+    <string name="tc01_mode_online">عبر الإنترنت</string>
+    <string name="tc01_experience_title">الخبرة</string>
+    <string name="tc01_experience_body">أخبرنا عن خبرتك في التدريس.</string>
+    <string name="tc01_experience_years_label">سنوات الخبرة</string>
+    <string name="tc01_experience_description_label">وصف مختصر لخبرتك التدريسية</string>
+    <string name="tc01_experience_modes_section">أسلوب التدريس المفضل</string>
+    <string name="tc01_documents_title">المستندات</string>
+    <string name="tc01_documents_body">أضف مستندات الهوية والمؤهلات — هذه معاينة تجريبية فقط، لا يتم رفع أي ملف حقيقي.</string>
+    <string name="tc01_remove_document">حذف المستند</string>
+    <string name="tc01_add_identity_document">إضافة مستند هوية</string>
+    <string name="tc01_document_identity_hint">الهوية الشخصية</string>
+    <string name="tc01_add_qualification_document">إضافة مستند مؤهل</string>
+    <string name="tc01_document_qualification_hint">شهادة أو مؤهل</string>
+    <string name="tc01_documents_mock_notice">تجريبي — لا يتم رفع أو حفظ أي ملف حقيقي في هذا الإصدار.</string>
+    <string name="tc01_pricing_title">التسعير</string>
+    <string name="tc01_pricing_body">حدد سعراً تقريبياً لجلساتك — يمكنك تعديله لاحقاً.</string>
+    <string name="tc01_pricing_amount_label">السعر</string>
+    <string name="tc01_pricing_currency_label">العملة</string>
+    <string name="tc01_voice_title">عيّنة صوتية</string>
+    <string name="tc01_voice_body">تُستخدم عيّنة صوتك لاحقاً لتخصيص تجربة طلابك الصوتية. هذه خطوة إعداد فقط — لا يتم تسجيل أو استخدام أي صوت حقيقي في هذا الإصدار.</string>
+    <string name="tc01_voice_consent">أوافق على استخدام عيّنة صوتي لهذا الغرض.</string>
+    <string name="tc01_voice_recording">جارٍ التسجيل...</string>
+    <string name="tc01_voice_recorded">تم تسجيل عيّنة صوتية (%1$s)</string>
+    <string name="tc01_voice_stop">إيقاف التسجيل</string>
+    <string name="tc01_voice_record">تسجيل عيّنة صوتية</string>
+    <string name="tc01_voice_rerecord">إعادة التسجيل</string>
+    <string name="tc01_review_title">المراجعة النهائية</string>
+    <string name="tc01_review_body">راجع المعلومات قبل إنهاء الإعداد.</string>
+    <string name="tc01_review_name">الاسم</string>
+    <string name="tc01_review_subjects">عدد المواد</string>
+    <string name="tc01_review_qualifications">عدد المؤهلات</string>
+    <string name="tc01_review_documents">عدد المستندات</string>
+    <string name="tc01_review_pricing">السعر</string>
+    <string name="tc01_review_voice">العيّنة الصوتية</string>
+    <string name="tc01_voice_recorded_short">مسجّلة</string>
+    <string name="tc01_voice_not_recorded">غير مسجّلة</string>
+    <string name="tc01_review_hint">يمكنك العودة لأي خطوة سابقة لتعديلها قبل الإنهاء.</string>
+
+    <!-- TC-02 · Teacher Dashboard -->
+    <string name="tc02_greeting">مرحباً، %1$s</string>
+    <string name="tc02_greeting_morning">صباح الخير أستاذ %1$s</string>
+    <string name="tc02_greeting_evening">مساء الخير أستاذ %1$s</string>
+    <string name="tc02_status_urgent">في شغلة مستعجلة</string>
+    <string name="tc02_status_clear">جاهز نكمّل؟</string>
+    <string name="tc02_now_label">أهم شيء الآن</string>
+    <string name="tc02_correct_now">صحّح الآن</string>
+    <string name="tc02_reprocess">أعد المعالجة</string>
+    <string name="tc02_open_messages">افتح الرسائل</string>
+    <string name="tc02_open_class">افتح الصف</string>
+    <string name="tc02_today_section">اليوم</string>
+    <string name="tc02_all_clear_title">كل شيء مرتّب</string>
+    <string name="tc02_all_clear_body">لا يوجد شيء مستعجل الآن. يمكنك إنشاء صف أو إضافة درس.</string>
+    <string name="tc02_create_class">إنشاء صف</string>
+    <string name="tc02_inactive_one">طالب بلا نشاط</string>
+    <string name="tc02_inactive_many">%1$s طلاب بلا نشاط</string>
+    <string name="tc02_work_queue_section">قائمة المهام</string>
+    <string name="tc02_courses_section">موادي</string>
+    <string name="tc02_courses_snapshot">%1$s مواد</string>
+    <string name="tc02_open_courses">عرض الكل</string>
+    <string name="tc02_headline_hint">أهم ما يحتاج انتباهك اليوم</string>
+    <string name="tc02_metric_students">طالب نشط</string>
+    <string name="tc02_metric_processing">دروس قيد المعالجة</string>
+    <string name="tc02_metric_messages">رسائل غير مقروءة</string>
+
+    <!-- TC-03 · Courses List -->
+    <string name="tc03_status_draft">مسودة</string>
+    <string name="tc03_status_published">منشورة</string>
+    <string name="tc03_status_archived">مؤرشفة</string>
+    <string name="tc03_filter_all">الكل</string>
+    <string name="tc03_filter_published">منشور</string>
+    <string name="tc03_filter_draft">مسودة</string>
+    <string name="tc03_empty_title">ما في صفوف</string>
+    <string name="tc03_empty_body">ما في صفوف تطابق هذا التصفية.</string>
+    <string name="tc03_student_count">%1$s طالبًا</string>
+    <string name="tc03_lesson_count">%1$s دروس</string>
+    <string name="tc03_class_title">%1$s · %2$s</string>
+    <string name="tc03_class_meta">%1$s · %2$s</string>
+    <string name="tc03_needs_publish">يحتاج نشرًا</string>
+    <string name="tc03_grade_short_10">العاشر</string>
+    <string name="tc03_grade_short_11">الحادي عشر</string>
+    <string name="tc03_grade_short_bac">البكالوريا</string>
+
+    <!-- TC-04 · Course Detail -->
+    <string name="tc04_add_lesson">أضف درسًا</string>
+    <string name="tc04_class_title">%1$s · %2$s</string>
+    <string name="tc04_class_meta">%1$s طالبًا</string>
+    <string name="tc04_class_meta_progress">%1$s طالبًا · ٪%2$s</string>
+    <string name="tc04_students_attention">الطلاب · يحتاجون متابعة</string>
+    <string name="tc04_all_students">كل الطلاب</string>
+    <string name="tc04_lesson_ready">جاهز</string>
+    <string name="tc04_lesson_processing_short">يعالج</string>
+    <string name="tc04_lesson_meta">%1$s · %2$s</string>
+    <string name="tc04_prepared_by">إعداد %1$s</string>
+    <string name="tc04_summary_section">نظرة عامة</string>
+    <string name="tc04_summary_students">طالب</string>
+    <string name="tc04_summary_lessons">درس</string>
+    <string name="tc04_lessons_section">الدروس</string>
+    <string name="tc04_empty_title">لا توجد دروس بعد</string>
+    <string name="tc04_empty_body">أضف أول درس لهذه المادة لتبدأ.</string>
+    <string name="tc04_reorder_handle">إعادة ترتيب الدرس — اضغط مطولاً واسحب</string>
+    <string name="tc04_lesson_status_draft">مسودة</string>
+    <string name="tc04_lesson_status_processing">قيد المعالجة</string>
+    <string name="tc04_lesson_status_published">منشور</string>
+    <string name="tc04_content_type_pdf">ملف PDF</string>
+    <string name="tc04_content_type_video">فيديو</string>
+    <string name="tc04_lesson_processing_failed_caption">تعذّرت المعالجة</string>
+    <string name="tc04_lesson_processing_active_caption">جارٍ الآن: %1$s</string>
+
+    <!-- TC-05 · Lesson Upload -->
+    <string name="tc05_title">درس جديد</string>
+    <string name="tc05_step_details">١ / ٣ · تفاصيل الدرس</string>
+    <string name="tc05_step_content">٢ / ٣ · محتوى الأستاذ</string>
+    <string name="tc05_step_review">٣ / ٣ · مراجعة</string>
+    <string name="tc05_next">التالي</string>
+    <string name="tc05_save_lesson">حفظ الدرس</string>
+    <string name="tc05_source_video">فيديو</string>
+    <string name="tc05_source_link">رابط فيديو</string>
+    <string name="tc05_source_pdf">ملف PDF</string>
+    <string name="tc05_link_label">رابط الفيديو</string>
+    <string name="tc05_link_required">أدخل رابط الفيديو للمتابعة</string>
+    <string name="tc05_uploaded">تم الرفع</string>
+    <string name="tc05_selected_ready">جاهز</string>
+    <string name="tc05_delete_file">حذف</string>
+    <string name="tc05_teacher_video">فيديو الأستاذ</string>
+    <string name="tc05_teacher_pdf">ملف الأستاذ</string>
+    <string name="tc05_teacher_link">رابط الفيديو</string>
+    <string name="tc05_one_source">مصدر واحد لكل درس: فيديو أو رابط أو PDF</string>
+    <string name="tc05_after_save_label">بعد الحفظ</string>
+    <string name="tc05_after_save_body">EduMind سيجهّز المعلّم الذكي والاختبار بعد الرفع.</string>
+    <string name="tc05_content_type_section">نوع المحتوى</string>
+    <string name="tc05_file_section">الملف</string>
+    <string name="tc05_no_file_selected">لم يُختر أي ملف بعد</string>
+    <string name="tc05_select_file">اختيار ملف</string>
+    <string name="tc05_replace_file">استبدال</string>
+    <string name="tc05_remove_file">إزالة</string>
+    <string name="tc05_file_required">اختر ملفاً للمتابعة</string>
+    <string name="tc05_size_mb">%1$s م.ب</string>
+    <string name="tc05_details_section">تفاصيل الدرس</string>
+    <string name="tc05_lesson_title_label">عنوان الدرس</string>
+    <string name="tc05_lesson_title_required">أدخل عنواناً للدرس</string>
+    <string name="tc05_order_label">ترتيب الدرس</string>
+    <string name="tc05_order_decrease">تقديم الترتيب</string>
+    <string name="tc05_order_increase">تأخير الترتيب</string>
+    <string name="tc05_ai_options_section">خيارات المعالجة بالذكاء الاصطناعي</string>
+    <string name="tc05_ai_options_hint">هذه الخيارات تُنتج محتوى بمساعدة الذكاء الاصطناعي — يمكنك اختيار أكثر من واحد.</string>
+    <string name="tc05_option_quiz_title">توليد اختبار قصير</string>
+    <string name="tc05_option_quiz_body">ينشئ جوري أسئلة مرتبطة بمحتوى الدرس بعد معالجته.</string>
+    <string name="tc05_option_narration_title">توليد سرد صوتي</string>
+    <string name="tc05_option_narration_body">يضيف جوري تعليقاً صوتياً للدرس ليستمع إليه الطلاب.</string>
+    <string name="tc05_option_index_title">فهرسة للمعلم الذكي</string>
+    <string name="tc05_option_index_body">يتيح لجوري الإجابة عن أسئلة الطلاب استناداً إلى محتوى هذا الدرس تحديداً.</string>
+    <string name="tc05_upload_action">رفع الدرس</string>
+    <string name="tc05_upload_stage_preparing">جارٍ التحضير…</string>
+    <string name="tc05_upload_stage_uploading">جارٍ الرفع…</string>
+    <string name="tc05_upload_stage_paused">الرفع متوقف مؤقتاً</string>
+    <string name="tc05_upload_stage_completed">اكتمل الرفع</string>
+    <string name="tc05_bytes_progress">%1$s من %2$s</string>
+    <string name="tc05_pause">إيقاف مؤقت</string>
+    <string name="tc05_resume">استئناف</string>
+    <string name="tc05_cancel">إلغاء</string>
+    <string name="tc05_cancel_confirm_title">إلغاء الرفع؟</string>
+    <string name="tc05_cancel_confirm_body">لن يُحفظ هذا الدرس، ويمكنك البدء من جديد لاحقاً.</string>
+    <string name="tc05_cancel_confirm_action">إلغاء الرفع</string>
+
+    <!-- TC-06 · Lesson Processing Status -->
+    <string name="tc06_title">تجهيز الدرس</string>
+    <string name="tc06_headline">EduMind يجهّز المحتوى الذكي والاختبار</string>
+    <string name="tc06_background_ok">يمكنك إغلاق الشاشة. المعالجة تتابع.</string>
+    <string name="tc06_open_preview">معاينة</string>
+    <string name="tc06_currently_running">جارٍ الآن: %1$s</string>
+    <string name="tc06_stages_section">مراحل المعالجة</string>
+    <string name="tc06_retry">إعادة المحاولة</string>
+    <string name="tc06_overall_running">قيد المعالجة</string>
+    <string name="tc06_overall_failed">فشلت المعالجة</string>
+    <string name="tc06_overall_completed">اكتملت المعالجة</string>
+    <string name="tc06_stage_extract">استخراج</string>
+    <string name="tc06_stage_chunk">تقسيم</string>
+    <string name="tc06_stage_index">فهرسة</string>
+    <string name="tc06_stage_quiz">اختبار ذكي</string>
+    <string name="tc06_stage_narrate">رؤية</string>
+    <string name="tc06_stage_status_pending">قيد الانتظار</string>
+    <string name="tc06_stage_status_running">جارٍ الآن</string>
+    <string name="tc06_stage_status_complete">اكتملت</string>
+    <string name="tc06_stage_status_failed">فشلت</string>
+    <string name="tc06_stage_status_skipped">تم تخطيها</string>
+
+    <!-- TC-02 · Dashboard (TC-09 entry point) -->
+    <string name="tc02_voice_profile_section">الملف الصوتي</string>
+    <string name="tc02_voice_profile_snapshot">صوت المعلم للسرد الصوتي</string>
+    <string name="tc02_grades_section">الدرجات</string>
+    <string name="tc02_grades_snapshot">سجل درجات المواد</string>
+    <string name="tc02_open_grades">فتح سجل الدرجات</string>
+    <string name="tc02_analytics_section">التحليلات</string>
+    <string name="tc02_analytics_snapshot">أداء الطلاب ومؤشرات المتابعة</string>
+    <string name="tc02_open_analytics">فتح التحليلات</string>
+
+    <!-- TC-07 · Lesson Editor -->
+    <string name="tc07_content_section">محتوى الدرس</string>
+    <string name="tc07_content_label">النص المستخرج من الدرس</string>
+    <string name="tc07_unsaved_changes">تغييرات غير محفوظة</string>
+    <string name="tc07_all_saved">تم حفظ كل التغييرات</string>
+    <string name="tc07_chunks_section">مقاطع المحتوى</string>
+    <string name="tc07_chunk_number">المقطع %1$s</string>
+    <string name="tc07_chunk_text_label">نص المقطع</string>
+    <string name="tc07_split_chunk">تقسيم</string>
+    <string name="tc07_merge_up">دمج مع السابق</string>
+    <string name="tc07_merge_down">دمج مع التالي</string>
+    <string name="tc07_save_chunks">حفظ المقاطع</string>
+    <string name="tc07_quiz_section">أسئلة الاختبار المولّدة</string>
+    <string name="tc07_question_prompt_label">نص السؤال</string>
+    <string name="tc07_mark_correct">صحيحة</string>
+    <string name="tc07_option_label">نص الخيار</string>
+    <string name="tc07_explanation_label">الشرح</string>
+    <string name="tc07_save_question">حفظ التعديلات</string>
+    <string name="tc07_edit">تعديل</string>
+    <string name="tc07_accept">قبول</string>
+    <string name="tc07_reject">رفض</string>
+    <string name="tc07_review_unreviewed">لم تُراجَع بعد</string>
+    <string name="tc07_review_accepted">مقبولة</string>
+    <string name="tc07_review_rejected">مرفوضة</string>
+    <string name="tc07_insights_section">ملاحظات ذكية عن الدرس</string>
+    <string name="tc07_insight_kind_difficult">مفهوم قد يصعب على الطلاب</string>
+    <string name="tc07_insight_kind_prerequisite">تذكير بمتطلب سابق</string>
+    <string name="tc07_insight_kind_misconception">تحذير من فهم خاطئ شائع</string>
+    <string name="tc07_publish_section">المعاينة والنشر</string>
+    <string name="tc07_publish_gate_hint">أكمل المراجعة أدناه لتفعيل زر النشر.</string>
+    <string name="tc07_preview">معاينة</string>
+    <string name="tc07_publish">نشر</string>
+    <string name="tc07_publish_blocked_title">لا يمكن النشر بعد</string>
+    <string name="tc07_gate_content">احفظ محتوى الدرس أولاً.</string>
+    <string name="tc07_gate_chunks">أضف مقطعاً واحداً على الأقل غير فارغ.</string>
+    <string name="tc07_gate_questions">راجع جميع أسئلة الاختبار المولّدة (قبول أو رفض).</string>
+    <string name="tc07_gate_insights">راجع جميع الملاحظات الذكية (قبول أو رفض).</string>
+
+    <!-- TC-08 · Lesson Preview -->
+    <string name="tc08_title">معاينة الدرس</string>
+    <string name="tc08_edit">تعديل</string>
+    <string name="tc08_teacher_source">شرح الأستاذ</string>
+    <string name="tc08_ai_after_processing">المعلّم الذكي والاختبار يظهران بعد المعالجة</string>
+    <string name="tc08_open_link">فتح الرابط</string>
+    <string name="tc08_student_preview_badge">معاينة كما يراها الطالب</string>
+    <string name="tc08_draft_banner">هذا الدرس لا يزال مسودة — هذه معاينة لما سيظهر للطالب بعد نشره.</string>
+    <string name="tc08_no_content">لم يُحفظ أي محتوى لهذا الدرس بعد.</string>
+    <string name="tc08_quiz_section">اختبار الدرس</string>
+
+    <!-- TC-09 · Voice Profile -->
+    <string name="tc09_title">الصوت</string>
+    <string name="tc09_intro">سجّل صوتك حتى يقرأ EduMind الدرس بصوتك.</string>
+    <string name="tc09_consent_section">الموافقة</string>
+    <string name="tc09_consent_label">أوافق على استخدام عينات صوتي لتوليد سرد صوتي</string>
+    <string name="tc09_consent_explainer">تُستخدم العينة فقط لتوليد سرد صوتي بأسلوب يتماشى مع صوتك في دروسك — الذكاء الاصطناعي لا يصبح صوتك الحقيقي، ويمكنك إيقاف السرد المولّد في أي وقت من دون حذف العينات.</string>
+    <string name="tc09_samples_section">عينات الصوت</string>
+    <string name="tc09_no_samples">لا توجد عينات صوت بعد.</string>
+    <string name="tc09_record_sample">سجّل عيّنة</string>
+    <string name="tc09_more">المزيد</string>
+    <string name="tc09_sample_n">عيّنة %1$s</string>
+    <string name="tc09_sample_ready">جاهزة</string>
+    <string name="tc09_sample_processing">يعالج</string>
+    <string name="tc09_upload_sample">رفع عينة</string>
+    <string name="tc09_remove_sample">إزالة العينة</string>
+    <string name="tc09_source_recorded">مسجّلة</string>
+    <string name="tc09_source_uploaded">مرفوعة</string>
+    <string name="tc09_quality_good">جودة جيدة</string>
+    <string name="tc09_quality_needs_improvement">تحتاج تحسيناً</string>
+    <string name="tc09_generate_section">توليد الملف الصوتي</string>
+    <string name="tc09_status_not_ready">غير جاهز</string>
+    <string name="tc09_status_ready_to_generate">جاهز للتوليد</string>
+    <string name="tc09_status_processing">جارٍ التوليد…</string>
+    <string name="tc09_status_ready">جاهز</string>
+    <string name="tc09_status_failed">فشل التوليد</string>
+    <string name="tc09_not_ready_hint">وافق على الاستخدام وأضف عينة صوت واحدة على الأقل لتفعيل التوليد.</string>
+    <string name="tc09_generate_failed_hint">تعذّر توليد الملف الصوتي. حاول مرة أخرى.</string>
+    <string name="tc09_generate">توليد</string>
+    <string name="tc09_regenerate">إعادة التوليد</string>
+    <string name="tc09_retry_generate">إعادة المحاولة</string>
+    <string name="tc09_preview_section">معاينة السرد الصوتي</string>
+    <string name="tc09_preview_paragraph">\"الحركة هي تغيّر موضع الجسم بالنسبة إلى نقطة مرجعية عبر الزمن، وتُوصف باستخدام كميات متجهة مثل الإزاحة والسرعة.\"</string>
+    <string name="tc09_preview_disclosure">معاينة تجريبية فقط — ليست صوتاً حقيقياً مولّداً.</string>
+    <string name="tc09_play_preview">تشغيل</string>
+    <string name="tc09_stop_preview">إيقاف</string>
+    <string name="tc09_narration_section">السرد الصوتي المولّد</string>
+    <string name="tc09_narration_toggle_label">تفعيل السرد الصوتي بأسلوب صوتك</string>
+    <string name="tc09_narration_disabled_hint">يتطلب هذا الخيار الموافقة على الاستخدام وملفاً صوتياً جاهزاً.</string>
+
+    <!-- TC-02 · Dashboard (TC-10 entry point) -->
+    <string name="tc02_quizzes_section">الاختبارات</string>
+    <string name="tc02_quizzes_snapshot">%1$s اختبار</string>
+    <string name="tc02_open_quizzes">إدارة الاختبارات</string>
+
+    <!-- TC-10 · Quiz Builder -->
+    <string name="tc10_title">الاختبارات</string>
+    <string name="tc10_editor_title">محرر الاختبار</string>
+    <string name="tc10_setup_title">إعداد الاختبار</string>
+    <string name="tc10_question_title">سؤال</string>
+    <string name="tc10_field_title">العنوان</string>
+    <string name="tc10_field_description">الوصف</string>
+    <string name="tc10_save_continue">حفظ ومتابعة للأسئلة</string>
+    <string name="tc10_save_question">حفظ السؤال</string>
+    <string name="tc10_publish_after_save">نشر بعد الحفظ</string>
+    <string name="tc10_type_essay">مقالي</string>
+    <string name="tc10_mark_label">العلامة</string>
+    <string name="tc10_prompt_label">نص السؤال</string>
+    <string name="tc10_pick_course">اختر المادة</string>
+    <string name="tc10_attempts_count">%1$s محاولة</string>
+    <string name="tc10_average_meta">متوسط %1$s</string>
+    <string name="tc10_empty_filter">لا توجد اختبارات في هذا التبويب.</string>
+    <string name="tc10_edit_quiz">تعديل الاختبار</string>
+    <string name="tc10_empty_title">لا توجد اختبارات بعد</string>
+    <string name="tc10_empty_body">أنشئ أول اختبار لأحد موادك لتبدأ.</string>
+    <string name="tc10_add_quiz">إضافة اختبار</string>
+    <string name="tc10_untitled_quiz">اختبار بلا عنوان</string>
+    <string name="tc10_question_count">%1$s سؤال</string>
+    <string name="tc10_total_points">%1$s نقطة</string>
+    <string name="tc10_view_results">عرض النتائج</string>
+    <string name="tc10_metadata_section">بيانات الاختبار</string>
+    <string name="tc10_quiz_title_label">عنوان الاختبار</string>
+    <string name="tc10_quiz_instructions_label">تعليمات مختصرة (اختياري)</string>
+    <string name="tc10_questions_section">الأسئلة</string>
+    <string name="tc10_no_questions">لم تُضف أي أسئلة بعد.</string>
+    <string name="tc10_untitled_question">سؤال بلا نص</string>
+    <string name="tc10_type_multiple_choice">اختيار من متعدد</string>
+    <string name="tc10_type_true_false">صح / خطأ</string>
+    <string name="tc10_type_short_answer">إجابة قصيرة</string>
+    <string name="tc10_type_gap_fill">إكمال الفراغ</string>
+    <string name="tc10_add_option">إضافة خيار</string>
+    <string name="tc10_remove_option">إزالة الخيار</string>
+    <string name="tc10_expected_answer_label">الإجابة المتوقعة</string>
+    <string name="tc10_points_label">النقاط</string>
+    <string name="tc10_points_value">%1$s نقطة</string>
+    <string name="tc10_points_decrease">إنقاص النقاط</string>
+    <string name="tc10_points_increase">زيادة النقاط</string>
+    <string name="tc10_duplicate">تكرار</string>
+    <string name="tc10_delete">حذف</string>
+    <string name="tc10_add_question_section">إضافة سؤال</string>
+    <string name="tc10_ai_import_action">استيراد أسئلة من الذكاء الاصطناعي</string>
+    <string name="tc10_ai_import_title">مراجعة الأسئلة المولّدة</string>
+    <string name="tc10_ai_import_intro">راجع كل سؤال وقرر قبوله أو رفضه. الأسئلة المقبولة فقط تُضاف إلى الاختبار.</string>
+    <string name="tc10_publish_section">المعاينة والنشر</string>
+    <string name="tc10_publish_gate_hint">أكمل بيانات الاختبار وأسئلته لتفعيل زر النشر.</string>
+    <string name="tc10_publish">نشر</string>
+    <string name="tc10_publish_blocked_title">لا يمكن النشر بعد</string>
+    <string name="tc10_gate_title">أدخل عنواناً للاختبار واحفظه.</string>
+    <string name="tc10_gate_questions">أضف سؤالاً واحداً على الأقل.</string>
+    <string name="tc10_gate_prompts">تأكد أن كل سؤال يحتوي نصاً.</string>
+    <string name="tc10_gate_points">تأكد أن نقاط كل سؤال أكبر من صفر.</string>
+    <string name="tc10_attention_title">يحتاج مراجعة</string>
+    <string name="tc10_attention_body">%1$s إجابات مقالية بانتظارك</string>
+    <string name="tc10_pending_pill">%1$s بانتظار</string>
+    <string name="tc10_duration_label">المدة</string>
+    <string name="tc10_duration_15">١٥ د</string>
+    <string name="tc10_duration_30">٣٠ د</string>
+    <string name="tc10_duration_unlimited">بدون حد</string>
+    <string name="tc10_pass_mark_label">درجة النجاح</string>
+    <string name="tc10_pass_mark_placeholder">60%</string>
+    <string name="tc10_single_attempt">محاولة واحدة لكل طالب</string>
+
+    <!-- TC-11 · Quiz Results -->
+    <string name="tc11_title">نتائج الاختبار</string>
+    <string name="tc11_distribution_section">توزّع الدرجات</string>
+    <string name="tc11_question_difficulty_section">صعوبة الأسئلة</string>
+    <string name="tc11_students_section">نتائج الطلاب</string>
+    <string name="tc11_stat_attempts">محاولة</string>
+    <string name="tc11_stat_average">المتوسط</string>
+    <string name="tc11_stat_highest">أعلى درجة</string>
+    <string name="tc11_submission_count">%1$s من %2$s سلّموا الاختبار</string>
+    <string name="tc11_bucket_range">%1$s–%2$s</string>
+    <string name="tc11_question_number">السؤال %1$s</string>
+    <string name="tc11_correct_count">%1$s من %2$s أجابوا بشكل صحيح</string>
+    <string name="tc11_hardest_question">السؤال الذي واجه الصف أكبر صعوبة فيه</string>
+    <string name="tc11_not_submitted">لم يُسلَّم بعد</string>
+    <string name="tc11_submitted_on">سُلِّم %1$s</string>
+    <string name="tc11_score_of">%1$s من %2$s</string>
+    <string name="tc11_answer_correct">إجابة صحيحة</string>
+    <string name="tc11_answer_incorrect">إجابة خاطئة</string>
+    <string name="tc11_answer_unanswered">لم تتم الإجابة</string>
+    <string name="tc11_pending_students">%1$s طلاب يحتاجون تصحيحًا مقاليًا</string>
+    <string name="tc11_stat_pending">معلق</string>
+    <string name="tc11_essay_pending">مقال بانتظار التصحيح</string>
+    <string name="tc11_grade_action">صحّح</string>
+    <string name="tc11_open_first_essay">افتح أول مقال</string>
+    <string name="tc11_essay_meta">السؤال %1$s · مقالي</string>
+    <string name="tc11_score_label">الدرجة</string>
+    <string name="tc11_feedback_label">ملاحظات للطالب</string>
+    <string name="tc11_save_grade">حفظ التصحيح</string>
+
+    <!-- TC-12 · Students List -->
+    <string name="tc12_empty_title">لا يوجد طلاب مطابقون</string>
+    <string name="tc12_empty_body">جرّب تعديل البحث.</string>
+    <string name="tc12_search_hint">بحث</string>
+    <string name="tc12_last_active">آخر نشاط: %1$s</string>
+    <string name="tc12_row_meta">%1$s · %2$s</string>
+    <string name="tc12_status_active">نشط</string>
+    <string name="tc12_status_needs_attention">يحتاج متابعة</string>
+    <string name="tc12_status_inactive">خامل</string>
+    <string name="tc12_flag_low_progress">تقدّم منخفض</string>
+    <string name="tc12_flag_quiz_risk">أداء ضعيف في الاختبارات</string>
+    <string name="tc12_flag_missing_work">واجبات ناقصة</string>
+
+    <!-- TC-13 · Student Profile — Teacher View -->
+    <string name="tc13_title">ملف الطالب</string>
+    <string name="tc13_progress">التقدّم</string>
+    <string name="tc13_quiz">الاختبار</string>
+    <string name="tc13_attention_one">احتياج واحد</string>
+    <string name="tc13_attention_count">%1$s احتياجات</string>
+    <string name="tc13_no_attention">لا يحتاج متابعة الآن</string>
+    <string name="tc13_quiz_none">لا توجد نتيجة بعد</string>
+    <string name="tc13_message_parent">راسل الأهل</string>
+    <string name="tc13_add_parent_note">أضف ملاحظة</string>
+    <string name="tc13_no_parent_thread_title">لا توجد محادثة مع الأهل</string>
+    <string name="tc13_no_parent_thread_body">لم يُربط ولي أمر بهذا الطالب بعد.</string>
+    <string name="tc13n_title">ملاحظة للأهل</string>
+    <string name="tc13n_you">أنت · %1$s</string>
+    <string name="tc13n_reply_hint">اكتب ردًا...</string>
+    <string name="tc13n_empty">ابدأ ملاحظة للأهل</string>
+    <string name="tc13_overview_section">نظرة عامة</string>
+    <string name="tc13_overall_progress">التقدّم العام</string>
+    <string name="tc13_completed_work">أعمال مكتملة</string>
+    <string name="tc13_outstanding_work">أعمال متبقية</string>
+    <string name="tc13_quiz_history_section">سجل الاختبارات</string>
+    <string name="tc13_quiz_history_empty">لا توجد اختبارات منشورة في مادة هذا الطالب بعد.</string>
+    <string name="tc13_not_submitted">لم يُسلَّم</string>
+    <string name="tc13_attendance_section">الحضور</string>
+    <string name="tc13_attendance_summary">حاضر: %1$s · متأخر: %2$s · غائب: %3$s</string>
+    <string name="tc13_attendance_present">حاضر</string>
+    <string name="tc13_attendance_absent">غائب</string>
+    <string name="tc13_attendance_late">متأخر</string>
+    <string name="tc13_activity_section">سجل النشاط</string>
+    <string name="tc13_activity_lesson_completed">أكمل درساً</string>
+    <string name="tc13_activity_quiz_submitted">سلّم اختباراً</string>
+    <string name="tc13_activity_course_opened">فتح المادة</string>
+    <string name="tc13_activity_assignment_missed">واجب لم يُسلَّم</string>
+    <string name="tc13_activity_project_submitted">سلّم مشروعاً</string>
+    <string name="tc13_private_notes_section">ملاحظات خاصة</string>
+    <string name="tc13_private_notes_hint">مرئية لك فقط — لا تظهر للطالب أو لولي الأمر.</string>
+    <string name="tc13_add_note">إضافة ملاحظة</string>
+    <string name="tc13_private_notes_empty">لا توجد ملاحظات خاصة بعد.</string>
+    <string name="tc13_add_note_title">ملاحظة خاصة جديدة</string>
+    <string name="tc13_edit_note_title">تعديل الملاحظة</string>
+    <string name="tc13_note_field_label">نص الملاحظة</string>
+    <string name="tc13_delete_note_title">حذف الملاحظة؟</string>
+    <string name="tc13_delete_note_body">لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="tc13_contact_section">التواصل</string>
+    <string name="tc13_send_parent_note">إرسال ملاحظة لولي الأمر</string>
+    <string name="tc13_message_student">مراسلة الطالب</string>
+    <string name="tc13_parent_note_title">ملاحظة إلى ولي الأمر</string>
+    <string name="tc13_parent_note_recipient">سترسَل إلى ولي أمر %1$s</string>
+    <string name="tc13_parent_note_sent">تم إرسال الملاحظة إلى ولي الأمر.</string>
+    <string name="tc13_message_title">مراسلة %1$s</string>
+    <string name="tc13_message_sent">تم إرسال الرسالة إلى الطالب.</string>
+    <string name="tc13_send">إرسال</string>
+
+    <!-- TC-14 · Grades -->
+    <string name="tc14_title">سجل الدرجات</string>
+    <string name="tc14_status_draft">مسودة</string>
+    <string name="tc14_status_published">منشورة</string>
+    <string name="tc14_coursework">الأعمال الصفية</string>
+    <string name="tc14_quiz_component">الاختبارات</string>
+    <string name="tc14_overall">الدرجة النهائية</string>
+    <string name="tc14_no_value">—</string>
+    <string name="tc14_publish">نشر</string>
+    <string name="tc14_bulk_publish">نشر كل المسودات</string>
+    <string name="tc14_bulk_publish_title">نشر جميع درجات هذه المادة؟</string>
+    <string name="tc14_bulk_publish_body">سيتم نشر كل الدرجات التي لا تزال مسودة في هذه المادة.</string>
+    <string name="tc14_empty">لا يوجد طلاب في هذه المادة.</string>
+    <string name="tc14_editor_title">إدخال الدرجة</string>
+    <string name="tc14_comment_label">ملاحظة (اختياري)</string>
+    <string name="tc14_score_range_error">أدخل رقماً بين ٠ و١٠٠</string>
+
+    <!-- TC-15 · Teacher Analytics -->
+    <string name="tc15_title">التحليلات</string>
+    <string name="tc15_all_courses">كل المواد</string>
+    <string name="tc15_enrolled_summary">%1$s طالباً مسجلاً</string>
+    <string name="tc15_period_7d">٧ أيام</string>
+    <string name="tc15_period_30d">٣٠ يوماً</string>
+    <string name="tc15_period_term">الفصل الدراسي</string>
+    <string name="tc15_engagement_section">التفاعل عبر الوقت</string>
+    <string name="tc15_funnel_section">مسار إتمام المادة</string>
+    <string name="tc15_funnel_enrolled">مسجلون</string>
+    <string name="tc15_funnel_started">بدأوا</string>
+    <string name="tc15_funnel_lessons_progressed">تقدّموا في الدروس</string>
+    <string name="tc15_funnel_quiz_attempted">خاضوا اختباراً</string>
+    <string name="tc15_funnel_course_completed">أوشكوا على الإكمال</string>
+    <string name="tc15_at_risk_section">طلاب بحاجة للمتابعة</string>
+    <string name="tc15_at_risk_empty">لا يوجد طلاب بحاجة للمتابعة حالياً.</string>
+    <string name="tc15_view_profile">عرض الملف الشخصي</string>
+    <string name="tc15_risk_low_progress">تقدّم منخفض</string>
+    <string name="tc15_risk_low_quiz">أداء ضعيف في الاختبارات</string>
+    <string name="tc15_risk_missing_work">واجبات ناقصة</string>
+    <string name="tc15_risk_inactivity">غير نشط</string>
+    <string name="tc15_risk_poor_attendance">حضور ضعيف</string>
+    <string name="tc15_insight_needs_reinforcement">%1$s تحتاج تثبيتاً</string>
+    <string name="tc15_lesson_completion">إكمال الدروس %1$s</string>
+    <string name="tc15_attention_section">يحتاج انتباهاً</string>
+    <string name="tc15_attention_empty">لا يوجد ما يحتاج انتباهاً حالياً.</string>
+    <string name="tc15_attention_quiz">%1$s — %2$s</string>
+    <string name="tc15_attention_inactive">%1$s — %2$s</string>
+
+    <!-- TC-16 · Teacher Account / Profile / Teaching Page -->
+    <string name="tc16_no_name">بلا اسم</string>
+    <string name="tc16_row_profile">الملف الشخصي</string>
+    <string name="tc16_row_voice">الصوت</string>
+    <string name="tc16_row_phrases">عبارات EduMind</string>
+    <string name="tc16_row_teaching">صفحة التدريس</string>
+    <string name="tc16_row_settings">الإعدادات</string>
+    <string name="tc16_change_photo">غيّر الصورة</string>
+    <string name="tc16_bio_field">نبذة</string>
+    <string name="tc16_teaching_title">صفحة التدريس</string>
+    <string name="tc16_teaching_heading">المؤهلات والسيرة</string>
+    <string name="tc16_teaching_body">هذه الصفحة قيد التجهيز على الويب. الصورة والاسم والنبذة تتعدّل من الملف الشخصي الآن.</string>
+    <string name="tc16_teaching_ok">حسناً</string>
+    <string name="tc16_preview">معاينة</string>
+    <string name="tc16_preview_title">معاينة الملف الشخصي</string>
+    <string name="tc16_about_section">نبذة عني</string>
+    <string name="tc16_bio_label">نبذة تعريفية</string>
+    <string name="tc16_why_label">لماذا تدرس معي</string>
+    <string name="tc16_unsaved">تغييرات غير محفوظة</string>
+    <string name="tc16_all_saved">تم حفظ كل التغييرات</string>
+    <string name="tc16_qualifications_section">المؤهلات</string>
+    <string name="tc16_add_qualification">إضافة مؤهل</string>
+    <string name="tc16_qualifications_empty">لا توجد مؤهلات مضافة بعد.</string>
+    <string name="tc16_add_qualification_title">إضافة مؤهل</string>
+    <string name="tc16_edit_qualification_title">تعديل المؤهل</string>
+    <string name="tc16_delete_qualification_title">حذف المؤهل؟</string>
+    <string name="tc16_delete_qualification_body">لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="tc16_experience_section">الخبرة</string>
+    <string name="tc16_experience_description_label">وصف مختصر لخبرتك التدريسية</string>
+    <string name="tc16_documents_section">المستندات</string>
+    <string name="tc16_add_document">إضافة مستند</string>
+    <string name="tc16_add_document_title">إضافة مستند</string>
+    <string name="tc16_document_label">اسم المستند</string>
+    <string name="tc16_documents_empty">لا توجد مستندات مضافة بعد.</string>
+    <string name="tc16_document_uploaded">مرفوع</string>
+    <string name="tc16_document_not_added">غير مضاف</string>
+    <string name="tc16_delete_document_title">حذف المستند؟</string>
+    <string name="tc16_delete_document_body">لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="tc16_mock_add">إضافة (تجريبي)</string>
+    <string name="tc16_voice_section">مقدمة صوتية</string>
+    <string name="tc16_voice_available">تتوفر عينة صوتية</string>
+    <string name="tc16_voice_unavailable">لا تتوفر عينة صوتية بعد</string>
+    <string name="tc16_voice_open_hint">افتح الملف الصوتي لإدارة العينات والموافقة</string>
+
+    <!-- TC-17 · Project Authoring -->
+    <string name="tc17_review_queue_entry">قائمة مراجعة المشاريع</string>
+    <string name="tc17_empty_title">لا توجد مشاريع بعد</string>
+    <string name="tc17_empty_body">أنشئ أول مشروع لأحد موادك.</string>
+    <string name="tc17_add_project">إضافة مشروع</string>
+    <string name="tc17_untitled_project">مشروع بلا عنوان</string>
+    <string name="tc17_team_size">فريق من %1$s</string>
+    <string name="tc17_status_draft">مسودة</string>
+    <string name="tc17_status_published">منشور</string>
+    <string name="tc17_media_image">صورة</string>
+    <string name="tc17_media_document">مستند</string>
+    <string name="tc17_media_video">فيديو</string>
+    <string name="tc17_safety_caution">تنبيه</string>
+    <string name="tc17_safety_important">مهم</string>
+    <string name="tc17_editor_title">تحرير المشروع</string>
+    <string name="tc17_metadata_section">بيانات المشروع</string>
+    <string name="tc17_title_label">العنوان</string>
+    <string name="tc17_deliverable_label">الناتج النهائي</string>
+    <string name="tc17_description_label">الوصف</string>
+    <string name="tc17_team_size_label">حجم الفريق</string>
+    <string name="tc17_medium_label">نوع المشروع</string>
+    <string name="tc17_milestones_section">المراحل</string>
+    <string name="tc17_add_milestone">إضافة مرحلة</string>
+    <string name="tc17_no_milestones">لا توجد مراحل مضافة بعد.</string>
+    <string name="tc17_add_milestone_title">إضافة مرحلة</string>
+    <string name="tc17_edit_milestone_title">تعديل المرحلة</string>
+    <string name="tc17_untitled_milestone">مرحلة بلا عنوان</string>
+    <string name="tc17_context_label">سياق زمني (اختياري)</string>
+    <string name="tc17_delete_milestone_title">حذف المرحلة؟</string>
+    <string name="tc17_delete_milestone_body">سيتم حذف كل مهامها أيضاً. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="tc17_add_task">إضافة مهمة</string>
+    <string name="tc17_add_task_title">إضافة مهمة</string>
+    <string name="tc17_edit_task_title">تعديل المهمة</string>
+    <string name="tc17_untitled_task">مهمة بلا عنوان</string>
+    <string name="tc17_move_up">تحريك للأعلى</string>
+    <string name="tc17_move_down">تحريك للأسفل</string>
+    <string name="tc17_rubric_section">معايير التقييم</string>
+    <string name="tc17_rubric_total">المجموع: %1$s%%</string>
+    <string name="tc17_add_criterion">إضافة معيار</string>
+    <string name="tc17_add_criterion_title">إضافة معيار</string>
+    <string name="tc17_edit_criterion_title">تعديل المعيار</string>
+    <string name="tc17_untitled_criterion">معيار بلا عنوان</string>
+    <string name="tc17_no_rubric">لا توجد معايير تقييم مضافة بعد.</string>
+    <string name="tc17_weight_label">الوزن (%)</string>
+    <string name="tc17_materials_section">المواد المطلوبة</string>
+    <string name="tc17_add_material">إضافة مادة</string>
+    <string name="tc17_add_material_title">إضافة مادة</string>
+    <string name="tc17_material_label">اسم المادة</string>
+    <string name="tc17_material_quantity_label">الكمية (اختياري)</string>
+    <string name="tc17_safety_section">إرشادات السلامة</string>
+    <string name="tc17_add_safety_note">إضافة إرشاد سلامة</string>
+    <string name="tc17_add_safety_note_title">إضافة إرشاد سلامة</string>
+    <string name="tc17_safety_text_label">نص الإرشاد</string>
+    <string name="tc17_media_section">الوسائط</string>
+    <string name="tc17_add_media">إضافة وسائط</string>
+    <string name="tc17_add_media_title">إضافة وسائط (تجريبي)</string>
+    <string name="tc17_media_label">اسم الملف</string>
+    <string name="tc17_media_mock_notice">تجريبي — لا يتم رفع أي ملف حقيقي في هذا الإصدار.</string>
+    <string name="tc17_no_media">لا توجد وسائط مضافة بعد.</string>
+    <string name="tc17_publish_section">النشر</string>
+    <string name="tc17_publish">نشر المشروع</string>
+    <string name="tc17_already_published">هذا المشروع منشور بالفعل.</string>
+    <string name="tc17_publish_failed">تعذّر النشر — راجع المتطلبات أدناه.</string>
+    <string name="tc17_gate_title">أضف عنواناً للمشروع</string>
+    <string name="tc17_gate_deliverable">أضف الناتج النهائي</string>
+    <string name="tc17_gate_milestones">أضف مرحلة واحدة على الأقل</string>
+    <string name="tc17_gate_milestone_titles">تأكد من وجود عنوان لكل مرحلة</string>
+    <string name="tc17_gate_rubric_total">اجعل مجموع أوزان المعايير %100 بالضبط</string>
+    <string name="tc17_gate_materials">أضف مادة واحدة على الأقل لمشروع عملي</string>
+
+    <!-- TC-18 · Project Review Queue -->
+    <string name="tc18_title">قائمة مراجعة المشاريع</string>
+    <string name="tc18_empty_title">لا توجد تسليمات بانتظار المراجعة</string>
+    <string name="tc18_empty_body">ستظهر هنا تسليمات الطلاب فور وصولها.</string>
+    <string name="tc18_ai_ready">تحليل ذكي متوفر</string>
+    <string name="tc18_ai_unavailable">لا يتوفر تحليل ذكي</string>
+    <string name="tc18_status_awaiting">بانتظار المراجعة</string>
+    <string name="tc18_status_in_review">قيد المراجعة</string>
+    <string name="tc18_status_reviewed">تمت المراجعة</string>
+    <string name="tc18_detail_title">مراجعة التسليم</string>
+    <string name="tc18_submission_section">التسليم</string>
+    <string name="tc18_ai_pre_review_section">التحليل الأولي للمعلّم الذكي</string>
+    <string name="tc18_ai_strengths">نقاط القوة</string>
+    <string name="tc18_ai_concerns">ملاحظات</string>
+    <string name="tc18_ai_suggested_feedback">تغذية راجعة مقترحة</string>
+    <string name="tc18_rubric_section">معايير التقييم</string>
+    <string name="tc18_score_of">%1$d من %2$d</string>
+    <string name="tc18_score_pending">لم يُحدَّد بعد</string>
+    <string name="tc18_ai_suggestion">اقتراح المعلّم الذكي: %1$d من %2$d</string>
+    <string name="tc18_accept_ai">قبول اقتراح المعلّم الذكي</string>
+    <string name="tc18_override">تعديل الدرجة</string>
+    <string name="tc18_score_label">الدرجة (من %1$d)</string>
+    <string name="tc18_score_range_error">أدخل رقماً بين ٠ و%1$d</string>
+    <string name="tc18_feedback_section">التغذية الراجعة</string>
+    <string name="tc18_feedback_label">ملاحظات للطالب</string>
+    <string name="tc18_use_ai_feedback">استخدام اقتراح المعلّم الذكي</string>
+    <string name="tc18_private_comment_label">ملاحظة خاصة (للمعلم فقط)</string>
+    <string name="tc18_finalize_section">إنهاء المراجعة</string>
+    <string name="tc18_finalize">إنهاء المراجعة</string>
+    <string name="tc18_finalize_hint">جميع المعايير مؤكَّدة — يمكنك الآن إنهاء المراجعة.</string>
+    <string name="tc18_finalize_blocked">أكِّد أو عدِّل درجة كل معيار قبل الإنهاء (%1$d من %2$d مؤكَّدة).</string>
+    <string name="tc18_already_finalized">تم إنهاء هذه المراجعة.</string>
+    <string name="tc18_finalize_failed">تعذّر إنهاء المراجعة.</string>
+    <string name="tc18_finalize_confirm_title">إنهاء المراجعة؟</string>
+    <string name="tc18_finalize_confirm_body">ستصبح الدرجة النهائية معتمدة ولن تظهر هذه المراجعة كمنتظرة بعد الآن.</string>
+
+    <!-- Student language journey + grammar polish -->
+    <string name="ln6c_ai_teacher_journey">رحلة المعلّم الذكي</string>
+    <string name="ln6c_day_streak">%1$s أيام متتالية</string>
+    <string name="ln6c_min_today">%1$s دقيقة اليوم</string>
+    <string name="ln6c_start_today_session">ابدأ جلسة اليوم</string>
+    <string name="ln6c_progress">التقدّم</string>
+    <string name="ln6c_stage_progress">المرحلة %1$s من %2$s · %3$s/%4$s مهام مكتملة</string>
+    <string name="ln6c_energy">الطاقة</string>
+    <string name="ln6c_confidence">الثقة</string>
+    <string name="ln6c_timeline_title">المسار والمراحل</string>
+    <string name="ln6c_timeline_subtitle">مهام مكتملة وحالية ومقفلة مجمّعة حسب مستوى CEFR</string>
+    <string name="ln6c_session_entry">مدخل الجلسة</string>
+    <string name="ln6c_preview_sections">أقسام المعاينة</string>
+    <string name="ln6c_preview_section_item">%1$s · %2$s · %3$s دقيقة</string>
+    <string name="ln6c_ai_teacher">المعلّم الذكي</string>
+    <string name="ln6c_ai_teacher_body">يبقي مهمة اليوم مرتبطة بمرحلة اللغة الحالية</string>
+    <string name="ln6c_today_session">جلسة اليوم</string>
+    <string name="ln6c_mission">المهمة</string>
+    <string name="ln6c_session_content">محتوى الجلسة</string>
+    <string name="ln6c_session_content_body">نفس ترتيب الأقسام المستخدم في جلسة الويب الحية</string>
+    <string name="ln6c_section_meta">%1$s · %2$s دقيقة</string>
+    <string name="ln6c_complete_session">إنهاء الجلسة</string>
+    <string name="ln6c_back_to_journey">العودة إلى الرحلة</string>
+    <string name="ln6c_minutes_short">%1$s دقيقة</string>
+    <string name="ln6c_mission_complete">اكتملت المهمة</string>
+    <string name="ln6c_streak">الاستمرارية</string>
+    <string name="ln6c_journey">الرحلة</string>
+    <string name="ln6c_journey_home">صفحة الرحلة</string>
+    <string name="ln6c_next_mission">المهمة التالية</string>
+    <string name="ln6c_grammar_engine">محرك القواعد</string>
+    <string name="ln6c_stage_badge">المرحلة %1$s/%2$s</string>
+    <string name="ln6c_completed">مكتمل</string>
+    <string name="ln6c_mastery">الإتقان</string>
+    <string name="ln6c_start_lesson">ابدأ الدرس</string>
+    <string name="ln6c_progress_body">مستوى CEFR الحالي، تقدّم المرحلة، خارطة الطريق المتبقية، والنسبة</string>
+    <string name="ln6c_cefr_roadmap">خارطة CEFR</string>
+    <string name="ln6c_cefr_roadmap_body">مستويات قابلة للتوسيع مع مراحل قواعد مكتملة وحالية ومقفلة</string>
+    <string name="ln6c_engine_sidebar">لوحة المحرك</string>
+    <string name="ln6c_next_action">الإجراء التالي</string>
+    <string name="ln6c_current_grammar">القواعد الحالية: %1$s</string>
+    <string name="ln6c_next_grammar">القواعد التالية: %1$s</string>
+    <string name="ln6c_ask_tutor_after_mistakes">اسأل المعلّم بعد الأخطاء</string>
+    <string name="ln6c_grammar_stage_meta">%1$s · %2$s دقيقة · %3$s%% إتقان</string>
+    <string name="ln6c_back_to_roadmap">العودة إلى الخارطة</string>
+    <string name="ln6c_welcome">الترحيب</string>
+    <string name="ln6c_today_goal">هدف اليوم</string>
+    <string name="ln6c_teacher_available">المعلّم يبقى متاحاً خلال الدرس.</string>
+    <string name="ln6c_where_used">أين يُستخدم</string>
+    <string name="ln6c_why_useful">لماذا يفيدك</string>
+    <string name="ln6c_start_learning">ابدأ التعلّم</string>
+    <string name="ln6c_learn">تعلّم</string>
+    <string name="ln6c_learn_body">شرح وأمثلة نموذجية وأخطاء شائعة قبل التدريب</string>
+    <string name="ln6c_explanation">الشرح</string>
+    <string name="ln6c_practice">تدريب</string>
+    <string name="ln6c_practice_body">تحقّقات موجّهة مع تغذية راجعة قبل إنهاء الدرس</string>
+    <string name="ln6c_progress_correct">%1$s/%2$s صحيح</string>
+    <string name="ln6c_question_number">السؤال %1$s</string>
+    <string name="ln6c_your_answer">إجابتك</string>
+    <string name="ln6c_built_sentence">الجملة المركّبة</string>
+    <string name="ln6c_correct">صحيح</string>
+    <string name="ln6c_review">مراجعة</string>
+    <string name="ln6c_check">تحقّق</string>
+    <string name="ln6c_production_body">نقطة إنتاج تبقى ضمن تدفق الدرس</string>
+    <string name="ln6c_reflection">تأمّل</string>
+    <string name="ln6c_finish_lesson">إنهاء الدرس</string>
+    <string name="ln6c_lesson_complete">اكتمل الدرس</string>
+    <string name="ln6c_practice_correct">%1$s/%2$s تدريب صحيح</string>
+    <string name="ln6c_ask_teacher">اسأل المعلّم</string>
+    <string name="ln6c_embedded_help">مساعدة مدمجة مرتبطة بـ %1$s</string>
+    <string name="ln6c_ai_teacher_label">المعلّم الذكي</string>
+    <string name="ln6c_you">أنت</string>
+    <string name="ln6c_ask_about_lesson">اسأل عن هذا الدرس</string>
+    <string name="ln6c_explain_last_example">اشرح المثال الأخير</string>
+    <string name="ln6c_example">مثال</string>
+    <string name="ln6c_example_prompt">أعطني مثالاً مدرسياً إضافياً.</string>
+    <string name="ln6c_ask">اسأل</string>
+    <string name="ln6c_grammar_updated">تم تحديث القواعد</string>
+    <string name="ln6c_next_actions">الخطوات التالية</string>
+    <string name="ln6c_review_mistakes">راجع الأخطاء</string>
+    <string name="ln6c_ask_tutor_followup">متابعة مع المعلّم</string>
+    <string name="ln6c_start_next_grammar">ابدأ %1$s</string>
+    <string name="ln6c_roadmap">الخارطة</string>
+    <string name="ln6c_next_lesson">الدرس التالي</string>
+    <string name="ln6c_status_completed">مكتمل</string>
+    <string name="ln6c_status_current">حالي</string>
+    <string name="ln6c_status_open">متاح</string>
+    <string name="ln6c_status_locked">مقفل</string>
+    <string name="ln6c_phase_welcome">الترحيب</string>
+    <string name="ln6c_phase_mission">المهمة</string>
+    <string name="ln6c_phase_learn">تعلّم</string>
+    <string name="ln6c_phase_practice">تدريب</string>
+    <string name="ln6c_phase_speaking">تحدث</string>
+    <string name="ln6c_phase_writing">كتابة</string>
+    <string name="ln6c_phase_reflection">تأمّل</string>
+    <string name="ln6c_phase_complete">اكتمال</string>
+    <string name="st12_priority_high">عالٍ</string>
+    <string name="st12_priority_medium">متوسط</string>
+    <string name="st12_priority_low">منخفض</string>
+    <string name="st13_status_upcoming">قادم</string>
 
     <!-- ── placeholders for not-yet-built screens ──────────────────── -->
     <string name="placeholder_title">لم تُبنَ هذه الشاشة بعد</string>

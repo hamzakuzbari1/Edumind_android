@@ -31,7 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
 import com.rork.eduspark.core.locale.AppLocale
-import com.rork.eduspark.data.model.UserRole
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.action.SecondaryButton
@@ -62,7 +62,7 @@ import org.koin.androidx.compose.koinViewModel
 fun LoginScreen(
     locale: AppLocale,
     onSelectLocale: (AppLocale) -> Unit,
-    onAuthenticated: (UserRole) -> Unit,
+    onAuthenticated: (SessionUser) -> Unit,
     onTwoFactorRequired: (String) -> Unit,
     onVerifyEmail: (String) -> Unit,
     onForgotPassword: () -> Unit,
@@ -79,7 +79,7 @@ fun LoginScreen(
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
             when (event) {
-                is LoginEvent.Authenticated -> onAuthenticated(event.role)
+                is LoginEvent.Authenticated -> onAuthenticated(event.user)
                 is LoginEvent.TwoFactorRequired -> onTwoFactorRequired(event.email)
                 is LoginEvent.VerifyEmailRequested -> onVerifyEmail(event.email)
             }

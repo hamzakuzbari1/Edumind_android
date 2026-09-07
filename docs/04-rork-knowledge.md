@@ -1,3 +1,5 @@
+> **Stack pivot notice:** The original React Native + Expo mobile implementation plan has been superseded for Android by Kotlin + Jetpack Compose. All product, UX, screen inventory, RTL, accessibility, performance, backend-boundary, source-audit, and reuse rules remain authoritative unless explicitly superseded.
+
 # Rork Project Knowledge — EduSpark Mobile
 **Paste this into Rork's project knowledge / custom instructions once. It governs every prompt afterward.**
 **Also paste the full contents of `01-EduSpark-Design-System.md` below it.**

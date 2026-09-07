@@ -42,7 +42,7 @@ import com.rork.eduspark.ui.theme.Spacing
  * Surfaces — Design System §5 and §7.
  *
  * Elevation has exactly two levels and neither uses a shadow:
- *  • Level 1 (cards)  = `surface` on `background` + a 1px `hajar-300` hairline.
+ *  • Level 1 (cards)  = `surface` on `background` + a 1px `border` hairline.
  *  • Level 2 (sheets) = `surface` + hairline + a 6% scrim behind it.
  *
  * Soft shadows are banned outright — cheap Android GPUs render them badly and it costs
@@ -79,6 +79,35 @@ fun EduCard(
 }
 
 /**
+ * [EduCard]'s subtle/grouped sibling — same shape and padding rhythm, but a tint-only
+ * treatment (`neutralAlpha100` fill, no hairline) instead of `surface` + border. This is the
+ * same "elevation is tint, never a shadow" rule this file's own doc comment already states,
+ * applied one step lighter than the primary card's level-1 treatment — not a new visual
+ * language, just the existing secondary-surface tint (`neutralAlpha100`) the app already uses
+ * for skeletons, disabled buttons and the offline banner, now available as a card shape.
+ *
+ * Use this for supporting/grouped content sitting *inside* an already-bordered primary
+ * surface (a stat summary, a compact history list) so a dense screen does not read as a
+ * stack of identically-weighted bordered boxes — never as a replacement for [EduCard] on a
+ * screen's actual entities.
+ */
+@Composable
+fun EduGroupedSurface(
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(Spacing.card),
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val shape = RoundedCornerShape(Radius.md)
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(EduTheme.colors.neutralAlpha100, shape)
+            .padding(contentPadding),
+        content = content,
+    )
+}
+
+/**
  * The app has ONE list row. Height floors at the 48dp touch target; the chevron
  * mirrors in RTL because it is a directional affordance.
  */
@@ -88,7 +117,7 @@ fun ListRow(
     modifier: Modifier = Modifier,
     supporting: String? = null,
     leading: ImageVector? = null,
-    leadingTint: Color = EduTheme.colors.zaytoun,
+    leadingTint: Color = EduTheme.colors.primary,
     trailingContent: @Composable (RowScope.() -> Unit)? = null,
     showChevron: Boolean = false,
     onClick: (() -> Unit)? = null,
@@ -122,7 +151,7 @@ fun ListRow(
                 Text(
                     text = supporting,
                     style = EduTheme.typography.caption,
-                    color = EduTheme.colors.textMuted,
+                    color = EduTheme.colors.textSecondary,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -133,7 +162,7 @@ fun ListRow(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
-                tint = EduTheme.colors.textMuted,
+                tint = EduTheme.colors.textSecondary,
                 modifier = Modifier
                     .size(Sizing.icon)
                     .mirrorInRtl(),
@@ -184,8 +213,8 @@ fun EduDivider(modifier: Modifier = Modifier) {
 fun StatusPill(
     label: String,
     modifier: Modifier = Modifier,
-    contentColor: Color = EduTheme.colors.textMuted,
-    containerColor: Color = EduTheme.colors.hajar100,
+    contentColor: Color = EduTheme.colors.textSecondary,
+    containerColor: Color = EduTheme.colors.neutralAlpha100,
     icon: ImageVector? = null,
 ) {
     Row(
@@ -208,7 +237,7 @@ fun StatusPill(
 }
 
 /**
- * Skeleton placeholder — skeletons use `hajar-100`.
+ * Skeleton placeholder — skeletons use `neutralAlpha100`.
  *
  * Deliberately a static block, not a shimmer sweep: a continuously animating gradient
  * across a list costs frames and battery on the device floor, and §8 bans ambient loops.
@@ -224,7 +253,7 @@ fun SkeletonBlock(
         modifier = modifier
             .fillMaxWidth(widthFraction)
             .height(height)
-            .background(EduTheme.colors.hajar100, RoundedCornerShape(cornerRadius))
+            .background(EduTheme.colors.neutralAlpha100, RoundedCornerShape(cornerRadius))
     )
 }
 
@@ -233,7 +262,7 @@ fun SkeletonCircle(size: Dp, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .size(size)
-            .background(EduTheme.colors.hajar100, RoundedCornerShape(Radius.pill))
+            .background(EduTheme.colors.neutralAlpha100, RoundedCornerShape(Radius.pill))
     )
 }
 
@@ -268,5 +297,25 @@ fun SkeletonCard(modifier: Modifier = Modifier) {
         SkeletonBlock(widthFraction = 1f)
         Box(modifier = Modifier.height(Spacing.xs))
         SkeletonBlock(widthFraction = 0.8f)
+    }
+}
+
+/**
+ * Detail-page skeleton — a header block plus a few paragraph-width lines, for screens whose
+ * loading state is a single record (a certificate, a lesson, a profile) rather than a list.
+ * A-14 · Global States Kit calls for list, card and detail skeletons; this is the third.
+ */
+@Composable
+fun SkeletonDetail(modifier: Modifier = Modifier) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        SkeletonBlock(widthFraction = 0.6f, height = 24.dp)
+        SkeletonBlock(widthFraction = 0.4f, height = 16.dp)
+        Box(modifier = Modifier.height(Spacing.xs))
+        SkeletonBlock(widthFraction = 1f)
+        SkeletonBlock(widthFraction = 1f)
+        SkeletonBlock(widthFraction = 0.75f)
     }
 }

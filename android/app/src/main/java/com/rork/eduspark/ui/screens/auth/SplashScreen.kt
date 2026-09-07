@@ -1,6 +1,10 @@
 package com.rork.eduspark.ui.screens.auth
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +21,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,6 +39,7 @@ import com.rork.eduspark.ui.theme.Radius
 import com.rork.eduspark.ui.theme.Sizing
 import com.rork.eduspark.ui.theme.Spacing
 import com.rork.eduspark.ui.theme.standardSpec
+import kotlinx.coroutines.launch
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
@@ -68,7 +76,7 @@ fun SplashScreen(
     ) {
         Box(modifier = Modifier.weight(if (isLanguageGate) 0.8f else 1f))
 
-        BrandWordmark(size = WordmarkSize.Hero)
+        AnimatedBrandEntrance()
 
         if (isLanguageGate) {
             Text(
@@ -118,6 +126,29 @@ fun SplashScreen(
             Box(modifier = Modifier.weight(1f))
         }
     }
+}
+
+@Composable
+private fun AnimatedBrandEntrance(modifier: Modifier = Modifier) {
+    val alpha = remember { Animatable(0f) }
+    val scale = remember { Animatable(0.86f) }
+    val offsetY = remember { Animatable(22f) }
+
+    LaunchedEffect(Unit) {
+        launch { alpha.animateTo(1f, animationSpec = tween(420, easing = LinearOutSlowInEasing)) }
+        launch { scale.animateTo(1f, animationSpec = tween(720, easing = FastOutSlowInEasing)) }
+        launch { offsetY.animateTo(0f, animationSpec = tween(720, easing = FastOutSlowInEasing)) }
+    }
+
+    BrandWordmark(
+        size = WordmarkSize.Hero,
+        modifier = modifier.graphicsLayer {
+            this.alpha = alpha.value
+            scaleX = scale.value
+            scaleY = scale.value
+            translationY = offsetY.value
+        },
+    )
 }
 
 /**

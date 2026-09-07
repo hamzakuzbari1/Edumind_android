@@ -45,7 +45,7 @@ import com.rork.eduspark.ui.theme.spineFillSpec
  *
  * Bead vocabulary:
  *  • [SpineNodeState.Completed] — filled zaytoun, solid rail between beads.
- *  • [SpineNodeState.Current]   — larger, barq ring, gentle pulse (off under reduced motion).
+ *  • [SpineNodeState.Current]   — larger, highlight ring, gentle pulse (off under reduced motion).
  *  • [SpineNodeState.Locked]    — hollow bead, hairline rail.
  *
  * Hard rules encoded here:
@@ -135,8 +135,8 @@ private fun SpineRail(
         label = "spineFill",
     )
 
-    val railActive = colors.zaytoun
-    val railInactive = colors.hajar300
+    val railActive = colors.primary
+    val railInactive = colors.border
     val beadRadius = when (state) {
         SpineNodeState.Current -> Sizing.spineBeadCurrent / 2
         else -> Sizing.spineBead / 2
@@ -185,9 +185,9 @@ private fun SpineRail(
                     radius = radiusPx,
                     center = Offset(centerX, centerY),
                 )
-                // Barq ring marks "you are here" — one of the few sanctioned barq usages.
+                // Highlight ring marks "you are here" — one of the few sanctioned highlight usages.
                 drawCircle(
-                    color = colors.barq,
+                    color = colors.highlight,
                     radius = radiusPx,
                     center = Offset(centerX, centerY),
                     style = Stroke(width = railWidth * 1.5f),
@@ -266,10 +266,13 @@ fun HorizontalSpine(
                 index * (segmentWidth + gap)
             }
             drawRoundRect(
+                // Current and completed segments are both indigo (approved design: ST-06's
+                // horizontal strip does not colour-differentiate "current" from "done" — see
+                // QuizRunner.dc.html's `.seg.cur{background:#6366F1}`, identical to `.seg.done`).
+                // Only the vertical spine's bead ring keeps the amber "current" treatment.
                 color = when {
-                    index < currentIndex -> colors.zaytoun
-                    index == currentIndex -> colors.barq
-                    else -> colors.hajar300
+                    index <= currentIndex -> colors.primary
+                    else -> colors.border
                 },
                 topLeft = Offset(fromStart, y - Sizing.spineRail.toPx()),
                 size = androidx.compose.ui.geometry.Size(segmentWidth, Sizing.spineRail.toPx() * 2),

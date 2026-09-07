@@ -103,7 +103,7 @@ private fun OtpCell(
 ) {
     val borderColor = when {
         isError -> EduTheme.colors.danger
-        isFocused -> EduTheme.colors.zaytoun
+        isFocused -> EduTheme.colors.primary
         else -> EduTheme.colors.border
     }
     val shape = RoundedCornerShape(Radius.sm)

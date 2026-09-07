@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material.icons.filled.Inbox
@@ -112,7 +113,7 @@ fun OfflineBanner(
             horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
             modifier = modifier
                 .fillMaxWidth()
-                .background(EduTheme.colors.hajar100)
+                .background(EduTheme.colors.neutralAlpha100)
                 .padding(horizontal = Spacing.gutter, vertical = Spacing.xs)
                 .semantics { liveRegion = LiveRegionMode.Polite },
         ) {
@@ -131,7 +132,7 @@ fun OfflineBanner(
                 Text(
                     text = stringResource(R.string.state_offline_cached),
                     style = EduTheme.typography.caption,
-                    color = EduTheme.colors.textMuted,
+                    color = EduTheme.colors.textSecondary,
                 )
             }
         }
@@ -148,7 +149,7 @@ fun MessageState(
     title: String,
     body: String,
     modifier: Modifier = Modifier,
-    iconTint: Color = EduTheme.colors.textMuted,
+    iconTint: Color = EduTheme.colors.textSecondary,
     primaryActionLabel: String? = null,
     onPrimaryAction: (() -> Unit)? = null,
     secondaryActionLabel: String? = null,
@@ -178,7 +179,7 @@ fun MessageState(
         Text(
             text = body,
             style = EduTheme.typography.body,
-            color = EduTheme.colors.textMuted,
+            color = EduTheme.colors.textSecondary,
             textAlign = TextAlign.Center,
         )
         if (primaryActionLabel != null && onPrimaryAction != null) {
@@ -325,6 +326,21 @@ fun PermissionDeniedState(
 }
 
 /**
+ * Server-side maintenance window — the last of A-14's named states. Purely informational:
+ * no retry action, because a retry cannot fix scheduled maintenance.
+ */
+@Composable
+fun MaintenanceState(modifier: Modifier = Modifier) {
+    MessageState(
+        icon = Icons.Filled.Build,
+        title = stringResource(R.string.state_maintenance_title),
+        body = stringResource(R.string.state_maintenance_body),
+        iconTint = EduTheme.colors.warning,
+        modifier = modifier,
+    )
+}
+
+/**
  * Default loading state — a skeleton, never a bare spinner, so the screen keeps its
  * shape and does not jump when content arrives.
  */
@@ -352,7 +368,7 @@ fun InlineLoader(modifier: Modifier = Modifier) {
             .padding(Spacing.section),
     ) {
         androidx.compose.material3.CircularProgressIndicator(
-            color = EduTheme.colors.zaytoun,
+            color = EduTheme.colors.primary,
             strokeWidth = Sizing.hairline * 2,
             modifier = Modifier.size(Sizing.iconLg),
         )

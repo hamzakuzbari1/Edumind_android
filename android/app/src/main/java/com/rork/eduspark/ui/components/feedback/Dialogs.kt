@@ -42,7 +42,7 @@ fun ConfirmDialog(
             Text(
                 text = body,
                 style = EduTheme.typography.body,
-                color = EduTheme.colors.textMuted,
+                color = EduTheme.colors.textSecondary,
             )
         },
         confirmButton = {
@@ -57,7 +57,7 @@ fun ConfirmDialog(
         },
         containerColor = EduTheme.colors.surface,
         titleContentColor = EduTheme.colors.textPrimary,
-        textContentColor = EduTheme.colors.textMuted,
+        textContentColor = EduTheme.colors.textSecondary,
         modifier = modifier,
     )
 }

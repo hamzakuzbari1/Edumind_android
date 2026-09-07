@@ -62,11 +62,11 @@ fun RoleTabBar(
                 },
                 alwaysShowLabel = true,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = EduTheme.colors.zaytoun,
-                    selectedTextColor = EduTheme.colors.zaytoun,
-                    indicatorColor = EduTheme.colors.zaytounSoft,
-                    unselectedIconColor = EduTheme.colors.textMuted,
-                    unselectedTextColor = EduTheme.colors.textMuted,
+                    selectedIconColor = EduTheme.colors.primary,
+                    selectedTextColor = EduTheme.colors.primary,
+                    indicatorColor = EduTheme.colors.primaryContainer,
+                    unselectedIconColor = EduTheme.colors.textSecondary,
+                    unselectedTextColor = EduTheme.colors.textSecondary,
                 ),
             )
         }

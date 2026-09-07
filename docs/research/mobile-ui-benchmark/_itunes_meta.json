@@ -1,0 +1,196 @@
+{
+  "khan-academy": {
+    "trackName": "Khan Academy",
+    "version": "8.5.1",
+    "releaseDate": "2026-08-13T15:04:27Z",
+    "store": "https://apps.apple.com/us/app/id469863705",
+    "screenshots": [
+      {
+        "file": "01.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/6d/95/0a/6d950a24-dab9-cd4d-84d0-9bbb8f63fbd4/2202ea67-fa88-4a35-a215-26e47da28d94_0_APP_IPHONE_55_0.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/6d/95/0a/6d950a24-dab9-cd4d-84d0-9bbb8f63fbd4/2202ea67-fa88-4a35-a215-26e47da28d94_0_APP_IPHONE_55_0.png/1242x2688bb.png",
+        "bytes": 729731
+      },
+      {
+        "file": "02.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/f6/ba/14/f6ba1421-5cd5-6be9-27e9-d0fcef00dde8/5b614bf0-8fe3-4734-9af6-093a9c4ede20_1_APP_IPHONE_55_1.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/f6/ba/14/f6ba1421-5cd5-6be9-27e9-d0fcef00dde8/5b614bf0-8fe3-4734-9af6-093a9c4ede20_1_APP_IPHONE_55_1.png/1242x2688bb.png",
+        "bytes": 509965
+      },
+      {
+        "file": "03.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/1d/95/8b/1d958b3a-6db7-c084-407a-c3432e7d52b8/6f94f77f-3431-4f20-8007-d1d44a10f0a1_2_APP_IPHONE_55_2.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/1d/95/8b/1d958b3a-6db7-c084-407a-c3432e7d52b8/6f94f77f-3431-4f20-8007-d1d44a10f0a1_2_APP_IPHONE_55_2.png/1242x2688bb.png",
+        "bytes": 751243
+      },
+      {
+        "file": "04.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/8b/ca/47/8bca474a-78be-33f4-b663-64a65d4e092a/ec539f1f-1de6-4808-b179-c0e2e8a2c2c4_3_APP_IPHONE_55_3.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/8b/ca/47/8bca474a-78be-33f4-b663-64a65d4e092a/ec539f1f-1de6-4808-b179-c0e2e8a2c2c4_3_APP_IPHONE_55_3.png/1242x2688bb.png",
+        "bytes": 493350
+      },
+      {
+        "file": "05.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/46/c3/64/46c364dd-03a7-97c7-677e-b90e73d86c65/74f35ab9-2c8c-4a82-871d-6fe39a542ee6_4_APP_IPHONE_55_4.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/46/c3/64/46c364dd-03a7-97c7-677e-b90e73d86c65/74f35ab9-2c8c-4a82-871d-6fe39a542ee6_4_APP_IPHONE_55_4.png/1242x2688bb.png",
+        "bytes": 585154
+      },
+      {
+        "file": "06.png",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/27/2f/a9/272fa90f-dbf3-3dc2-6c04-68c1046bf455/e694f46a-970d-4a75-9d48-d85f6712bd47_5_APP_IPHONE_55_5.png/392x696bb.png",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/27/2f/a9/272fa90f-dbf3-3dc2-6c04-68c1046bf455/e694f46a-970d-4a75-9d48-d85f6712bd47_5_APP_IPHONE_55_5.png/1242x2688bb.png",
+        "bytes": 553247
+      }
+    ]
+  },
+  "coursera": {
+    "trackName": "Coursera: Grow your career",
+    "version": "8.18.1",
+    "releaseDate": "2026-08-31T14:19:48Z",
+    "store": "https://apps.apple.com/us/app/id736535961",
+    "screenshots": [
+      {
+        "file": "01.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/87/c3/cb/87c3cbf3-1cdf-5c19-18e6-9c493f3918d7/ios_english_1320x2868_1.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/87/c3/cb/87c3cbf3-1cdf-5c19-18e6-9c493f3918d7/ios_english_1320x2868_1.png/1242x2688bb.jpg",
+        "bytes": 489759
+      },
+      {
+        "file": "02.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/73/38/29/73382955-ae1b-fac5-9586-9bc10a951267/ios_english_1320x2868_2.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/73/38/29/73382955-ae1b-fac5-9586-9bc10a951267/ios_english_1320x2868_2.png/1242x2688bb.jpg",
+        "bytes": 287903
+      },
+      {
+        "file": "03.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/80/77/0a/80770ad5-90be-c5ef-9b36-1ed99ce262da/ios_english_1320x2868_3.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/80/77/0a/80770ad5-90be-c5ef-9b36-1ed99ce262da/ios_english_1320x2868_3.png/1242x2688bb.jpg",
+        "bytes": 366800
+      },
+      {
+        "file": "04.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/21/2e/95/212e953f-a76a-23cb-2859-2eecff4e1206/ios_english_1320x2868_4.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/21/2e/95/212e953f-a76a-23cb-2859-2eecff4e1206/ios_english_1320x2868_4.png/1242x2688bb.jpg",
+        "bytes": 552677
+      },
+      {
+        "file": "05.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/99/1b/9f/991b9f2b-e984-1f61-f2b2-9838a21e2676/ios_english_1320x2868_5.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/99/1b/9f/991b9f2b-e984-1f61-f2b2-9838a21e2676/ios_english_1320x2868_5.png/1242x2688bb.jpg",
+        "bytes": 295578
+      },
+      {
+        "file": "06.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d9/02/1d/d9021d61-b2de-e3a6-f769-a65c1cc74a11/ios_english_1320x2868_6.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d9/02/1d/d9021d61-b2de-e3a6-f769-a65c1cc74a11/ios_english_1320x2868_6.png/1242x2688bb.jpg",
+        "bytes": 256278
+      },
+      {
+        "file": "07.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c6/b4/27/c6b4277c-50fe-0466-b6b8-4c6ffaa61124/ios_english_1320x2868_7.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c6/b4/27/c6b4277c-50fe-0466-b6b8-4c6ffaa61124/ios_english_1320x2868_7.png/1242x2688bb.jpg",
+        "bytes": 373316
+      }
+    ]
+  },
+  "duolingo": {
+    "trackName": "Duolingo: Language Lessons",
+    "version": "7.138.0",
+    "releaseDate": "2026-09-02T14:15:21Z",
+    "store": "https://apps.apple.com/us/app/id570060128",
+    "screenshots": [
+      {
+        "file": "01.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6e/ef/30/6eef3023-de04-3b29-21f8-a993245b9abd/iPhone6.5_-_Default_-_first_screen_adapt_Var_2_01.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6e/ef/30/6eef3023-de04-3b29-21f8-a993245b9abd/iPhone6.5_-_Default_-_first_screen_adapt_Var_2_01.jpg/1242x2688bb.jpg",
+        "bytes": 225053
+      },
+      {
+        "file": "02.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cb/ee/31/cbee31c9-a814-b59b-db16-3136ce60d20d/V2_iOS6.5_02.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cb/ee/31/cbee31c9-a814-b59b-db16-3136ce60d20d/V2_iOS6.5_02.jpg/1242x2688bb.jpg",
+        "bytes": 213464
+      },
+      {
+        "file": "03.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e0/aa/36/e0aa3660-a5e3-431d-908a-fc04035a62a8/V2_iOS6.5_03.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e0/aa/36/e0aa3660-a5e3-431d-908a-fc04035a62a8/V2_iOS6.5_03.jpg/1242x2688bb.jpg",
+        "bytes": 243288
+      },
+      {
+        "file": "04.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c2/f5/5c/c2f55ce1-38da-64cc-a7ec-af549fd053e6/V2_iOS6.5_04.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c2/f5/5c/c2f55ce1-38da-64cc-a7ec-af549fd053e6/V2_iOS6.5_04.jpg/1242x2688bb.jpg",
+        "bytes": 244079
+      },
+      {
+        "file": "05.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/60/9d/f5/609df56a-1d35-f7fa-92bb-4120ad5ec16c/V2_iOS6.5_05.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/60/9d/f5/609df56a-1d35-f7fa-92bb-4120ad5ec16c/V2_iOS6.5_05.jpg/1242x2688bb.jpg",
+        "bytes": 309013
+      },
+      {
+        "file": "06.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/b0/99/37b099cd-086d-b920-2ed3-0be6507353c4/V2_iOS6.5_06.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/b0/99/37b099cd-086d-b920-2ed3-0be6507353c4/V2_iOS6.5_06.jpg/1242x2688bb.jpg",
+        "bytes": 215226
+      },
+      {
+        "file": "07.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/02/4f/ca/024fcaa8-bc94-def3-4df8-f8f06589c2e4/V2_iOS6.5_07.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/02/4f/ca/024fcaa8-bc94-def3-4df8-f8f06589c2e4/V2_iOS6.5_07.jpg/1242x2688bb.jpg",
+        "bytes": 175415
+      },
+      {
+        "file": "08.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6b/a0/8e/6ba08efd-ba4a-b4f8-25a4-dfd749c570a7/V2_iOS6.5_08.jpg/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6b/a0/8e/6ba08efd-ba4a-b4f8-25a4-dfd749c570a7/V2_iOS6.5_08.jpg/1242x2688bb.jpg",
+        "bytes": 203136
+      }
+    ]
+  },
+  "upwork": {
+    "trackName": "Upwork",
+    "version": "2.12.0",
+    "releaseDate": "2026-08-26T16:43:22Z",
+    "store": "https://apps.apple.com/us/app/id1446736499",
+    "screenshots": [
+      {
+        "file": "01.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/16/6a/b4/166ab45c-93e2-3cc2-62ac-33eef975e1e9/FL_1.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/16/6a/b4/166ab45c-93e2-3cc2-62ac-33eef975e1e9/FL_1.png/1242x2688bb.jpg",
+        "bytes": 118030
+      },
+      {
+        "file": "02.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/52/93/be/5293be76-7496-5a72-d9cc-53651717af68/FL_2.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/52/93/be/5293be76-7496-5a72-d9cc-53651717af68/FL_2.png/1242x2688bb.jpg",
+        "bytes": 559835
+      },
+      {
+        "file": "03.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3f/4e/5b/3f4e5bbb-1946-f3a5-c1e6-161eba8306d4/FL_3.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3f/4e/5b/3f4e5bbb-1946-f3a5-c1e6-161eba8306d4/FL_3.png/1242x2688bb.jpg",
+        "bytes": 353347
+      },
+      {
+        "file": "04.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d9/3d/24/d93d2464-99f2-a911-9594-d80bd9b650fa/FL_4.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d9/3d/24/d93d2464-99f2-a911-9594-d80bd9b650fa/FL_4.png/1242x2688bb.jpg",
+        "bytes": 373389
+      },
+      {
+        "file": "05.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d0/2c/fa/d02cfa17-986e-80bf-00d9-659fe9f0bd32/FL_5.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d0/2c/fa/d02cfa17-986e-80bf-00d9-659fe9f0bd32/FL_5.png/1242x2688bb.jpg",
+        "bytes": 440290
+      },
+      {
+        "file": "06.jpg",
+        "itunes_thumb": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/38/0c/90380c46-80a2-60e3-939f-9c35776bfd93/FL_6.png/320x480bb.jpg",
+        "downloaded": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/38/0c/90380c46-80a2-60e3-939f-9c35776bfd93/FL_6.png/1242x2688bb.jpg",
+        "bytes": 360392
+      }
+    ]
+  }
+}

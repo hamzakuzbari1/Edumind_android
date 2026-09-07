@@ -1,11 +1,14 @@
 package com.rork.eduspark.ui.components.nav
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -16,7 +19,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -45,21 +51,45 @@ import com.rork.eduspark.ui.theme.Sizing
 fun EduTopBar(
     title: String,
     modifier: Modifier = Modifier,
+    subtitle: String? = null,
     onBack: (() -> Unit)? = null,
+    showBrandMark: Boolean = false,
+    navigationIcon: (@Composable () -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Text(
-                text = title,
-                style = EduTheme.typography.title,
-                color = EduTheme.colors.textPrimary,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    if (showBrandMark) {
+                        TopBarBrandMark()
+                    }
+                    Text(
+                        text = title,
+                        style = EduTheme.typography.title,
+                        color = EduTheme.colors.textPrimary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                if (!subtitle.isNullOrBlank()) {
+                    Text(
+                        text = subtitle,
+                        style = EduTheme.typography.caption,
+                        color = EduTheme.colors.textSecondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
         },
         navigationIcon = {
-            if (onBack != null) {
+            if (navigationIcon != null) {
+                navigationIcon()
+            } else if (onBack != null) {
                 EduIconButton(
                     icon = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(R.string.a11y_back),
@@ -75,6 +105,20 @@ fun EduTopBar(
             actionIconContentColor = EduTheme.colors.textPrimary,
         ),
         modifier = modifier,
+    )
+}
+
+@Composable
+private fun TopBarBrandMark(modifier: Modifier = Modifier) {
+    val shape = RoundedCornerShape(Radius.sm)
+
+    Image(
+        painter = painterResource(R.drawable.ic_launcher_foreground),
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+        modifier = modifier
+            .size(Sizing.avatarSm)
+            .clip(shape),
     )
 }
 
@@ -128,7 +172,7 @@ fun SheetHandle(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .size(width = 36.dp, height = 4.dp)
-                .background(EduTheme.colors.hajar300, RoundedCornerShape(Radius.pill))
+                .background(EduTheme.colors.border, RoundedCornerShape(Radius.pill))
         )
     }
 }

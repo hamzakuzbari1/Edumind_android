@@ -2,9 +2,11 @@ package com.rork.eduspark.ui.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -13,59 +15,85 @@ import com.rork.eduspark.R
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
- * Typography — Design System §4.
+ * Typography — NEW identity, migrated from the old 3-face system per the
+ * approved Part 1/Part 2 Batch 1 plan.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Three faces, with a strict division of labour:
+ * Two faces, replacing the old system-font/Plex-brand-only split — the reference bundles
+ * one Arabic-first face across essentially all UI text, not just brand moments:
  *
- *  • UI face — the **system stack** ([FontFamily.Default] resolves to Noto Sans Arabic /
- *    Roboto on Android). Zero bundle cost on a device floor where every megabyte matters,
- *    native shaping for Arabic, free font-scaling support. ~95% of the app's text.
+ *  • UI face — **Cairo**, bundled as a single variable font (`wght` axis) rather than four
+ *    static files, instanced per weight via [FontVariation]. This is a deliberate reversal
+ *    of the old "OS system font for 95% of text" rule — the new visual authority bundles
+ *    Cairo for all of it — and a real bundle-size cost against the app's documented
+ *    low-end-Android device floor that should get verified once real screens use it at
+ *    scale, not just assumed away.
  *
- *  • Display face — **IBM Plex Sans Arabic**, bundled, for brand moments only: splash,
- *    onboarding headlines, certificates, celebration overlays, empty-state headlines.
+ *  • Utility face — **Tajawal**, for numerals: scores, timers, codes, day/level chips —
+ *    matching the reference's deliberate prose/numeral font split. It replaces IBM Plex
+ *    Mono; note it is not a monospaced font (Tajawal digits are not guaranteed tabular),
+ *    which is a real risk for ticking timers and worth a dedicated check before it's used
+ *    behind a live countdown.
  *
- *  • Utility face — **IBM Plex Mono**, for scores, timers, codes and IDs. Never for prose.
- *
- * Practical rule: interface text → system face; brand text → Plex. Never mixed in one block.
- *
- * THE CRITICAL PART — line height switches with the locale. Arabic needs ~1.6–1.8× where
- * Latin needs ~1.35–1.45; a single shared line-height clips Arabic diacritics and descenders.
- * [eduTypographyFor] therefore builds a different ramp per script, and every screen gets the
- * right one automatically from [EduTheme.typography].
+ * RTL line-height ramp is UNCHANGED in mechanism from the old system: Arabic needs ~1.6–1.8×
+ * where Latin needs ~1.35–1.45×, which is why [eduTypographyFor] still builds a different
+ * ramp per script — this is exactly the ratio range the new reference's own CSS uses too, so
+ * the old ramp logic carries over unmodified, only the concrete sizes/weights change below.
  */
-private val PlexArabic = FontFamily(
-    Font(R.font.plex_arabic_regular, FontWeight.Normal),
-    Font(R.font.plex_arabic_semibold, FontWeight.SemiBold),
-    Font(R.font.plex_arabic_bold, FontWeight.Bold),
+// The Font(resId, weight, style, loadingStrategy, variationSettings) overload used below to
+// instance the Cairo variable font per weight is @ExperimentalTextApi in androidx.compose.ui.text
+// (see androidx.compose.ui.text.font.Font.kt) — opting in here only, not file-wide, since this
+// is the only declaration in this file that touches it.
+@OptIn(ExperimentalTextApi::class)
+private val Cairo = FontFamily(
+    Font(
+        resId = R.font.cairo,
+        weight = FontWeight.Normal,
+        variationSettings = FontVariation.Settings(FontVariation.weight(400)),
+    ),
+    Font(
+        resId = R.font.cairo,
+        weight = FontWeight.SemiBold,
+        variationSettings = FontVariation.Settings(FontVariation.weight(600)),
+    ),
+    Font(
+        resId = R.font.cairo,
+        weight = FontWeight.Bold,
+        variationSettings = FontVariation.Settings(FontVariation.weight(700)),
+    ),
+    Font(
+        resId = R.font.cairo,
+        weight = FontWeight.ExtraBold,
+        variationSettings = FontVariation.Settings(FontVariation.weight(800)),
+    ),
 )
 
-private val PlexMono = FontFamily(
-    Font(R.font.plex_mono_medium, FontWeight.Medium),
+private val Tajawal = FontFamily(
+    Font(R.font.tajawal_regular, FontWeight.Normal),
+    Font(R.font.tajawal_medium, FontWeight.Medium),
+    Font(R.font.tajawal_bold, FontWeight.Bold),
+    Font(R.font.tajawal_extrabold, FontWeight.ExtraBold),
 )
-
-/** System stack: Noto Sans Arabic + Roboto on Android, SF Arabic + SF Pro on iOS later. */
-private val SystemUi = FontFamily.Default
 
 @Immutable
 data class EduTypography(
-    /** Brand display, Plex — 32pt. Splash, certificates, celebration. */
+    /** Brand display — 28pt ExtraBold. Splash, certificates, celebration. */
     val display: TextStyle,
-    /** Brand title, Plex — 24pt. Onboarding + empty-state headlines. */
+    /** Brand title — 22pt ExtraBold. Onboarding + empty-state headlines. */
     val brandTitle: TextStyle,
-    /** UI title-lg — 24pt. */
+    /** UI title-lg — 22pt ExtraBold. Screen titles. */
     val titleLg: TextStyle,
-    /** UI title — 20pt. */
+    /** UI title — 20pt Bold. Card/lesson titles. */
     val title: TextStyle,
-    /** UI body-lg — 17pt. Reading-heavy surfaces: lessons, tutor replies. */
+    /** UI body-lg — 17pt Regular. Reading-heavy surfaces: lessons, tutor replies. */
     val bodyLg: TextStyle,
-    /** UI body — 15pt. The default. */
+    /** UI body — 15pt Regular. The default. */
     val body: TextStyle,
-    /** UI caption — 13pt. */
+    /** UI caption — 12pt Bold. Matches the reference's dominant caption size/weight. */
     val caption: TextStyle,
-    /** Utility mono — 15pt. Scores, timers, voucher codes, reference numbers. */
+    /** Utility numeral face (Tajawal) — 15pt Medium. Scores, timers, codes, IDs. */
     val mono: TextStyle,
-    /** Button label — pill buttons name the outcome, so labels are short and firm. */
+    /** Button label — 14pt ExtraBold, bold-forward per the new reference's CTA treatment. */
     val label: TextStyle,
 )
 
@@ -78,36 +106,36 @@ private val EduLineHeightStyle = LineHeightStyle(
 /**
  * Builds the type ramp for the active script.
  *
- * @param isRtl true for Arabic — selects the taller Arabic leading and the Plex Arabic
- * subset for brand styles.
+ * @param isRtl true for Arabic — selects the taller Arabic leading.
+ * @param textScale ST-25's text-size preference, applied as a multiplier on top of the base
+ * `.sp` sizes below — 1f for [com.rork.eduspark.core.preferences.TextSizePreference.Default].
  */
-fun eduTypographyFor(isRtl: Boolean): EduTypography {
-    // Design System §4 scale: "size / line-height (AR)" vs "line-height (EN)".
+fun eduTypographyFor(isRtl: Boolean, textScale: Float = 1f): EduTypography {
     fun style(
         size: Int,
         arabicLineHeight: Int,
         latinLineHeight: Int,
         weight: FontWeight,
-        family: FontFamily = SystemUi,
+        family: FontFamily = Cairo,
     ) = TextStyle(
         fontFamily = family,
-        fontSize = size.sp,
-        lineHeight = (if (isRtl) arabicLineHeight else latinLineHeight).sp,
+        fontSize = (size * textScale).sp,
+        lineHeight = ((if (isRtl) arabicLineHeight else latinLineHeight) * textScale).sp,
         fontWeight = weight,
         lineHeightStyle = EduLineHeightStyle,
         textAlign = TextAlign.Start,
     )
 
     return EduTypography(
-        display = style(32, 48, 42, FontWeight.Bold, PlexArabic),
-        brandTitle = style(24, 38, 32, FontWeight.SemiBold, PlexArabic),
-        titleLg = style(24, 38, 32, FontWeight.SemiBold),
-        title = style(20, 32, 28, FontWeight.SemiBold),
-        bodyLg = style(17, 30, 26, FontWeight.Normal),
-        body = style(15, 27, 23, FontWeight.Normal),
-        caption = style(13, 22, 18, FontWeight.Medium),
-        mono = style(15, 20, 20, FontWeight.Medium, PlexMono),
-        label = style(15, 24, 20, FontWeight.SemiBold),
+        display = style(28, 48, 40, FontWeight.ExtraBold),
+        brandTitle = style(22, 38, 32, FontWeight.ExtraBold),
+        titleLg = style(22, 38, 32, FontWeight.ExtraBold),
+        title = style(20, 34, 28, FontWeight.Bold),
+        bodyLg = style(17, 29, 24, FontWeight.Normal),
+        body = style(15, 26, 21, FontWeight.Normal),
+        caption = style(12, 20, 17, FontWeight.Bold),
+        mono = style(15, 20, 20, FontWeight.Medium, Tajawal),
+        label = style(14, 24, 20, FontWeight.ExtraBold),
     )
 }
 

@@ -38,6 +38,7 @@ fun EduScaffold(
     title: String,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
+    subtitle: String? = null,
     actions: @Composable RowScope.() -> Unit = {},
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     bottomBar: @Composable () -> Unit = {},
@@ -49,7 +50,7 @@ fun EduScaffold(
     BackHandler(enabled = onBack != null) { onBack?.invoke() }
 
     Scaffold(
-        topBar = { EduTopBar(title = title, onBack = onBack, actions = actions) },
+        topBar = { EduTopBar(title = title, subtitle = subtitle, onBack = onBack, actions = actions) },
         bottomBar = bottomBar,
         floatingActionButton = floatingActionButton,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -71,13 +72,23 @@ fun EduScaffold(
 fun EduRootScaffold(
     title: String,
     modifier: Modifier = Modifier,
+    navigationIcon: (@Composable () -> Unit)? = null,
+    showBrandMark: Boolean = true,
     actions: @Composable RowScope.() -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        topBar = { EduTopBar(title = title, onBack = null, actions = actions) },
+        topBar = {
+            EduTopBar(
+                title = title,
+                onBack = null,
+                showBrandMark = showBrandMark,
+                navigationIcon = navigationIcon,
+                actions = actions,
+            )
+        },
         bottomBar = bottomBar,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         containerColor = EduTheme.colors.background,
