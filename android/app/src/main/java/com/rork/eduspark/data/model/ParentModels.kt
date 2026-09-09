@@ -73,3 +73,34 @@ data class ParentAchievementSummary(
     val badgeCount: Int,
     val level: Int,
 )
+
+data class ParentAttendanceStudyTimeSnapshot(
+    val period: ParentAttendancePeriod,
+    val attendancePercent: Int,
+    val studyHours: Float,
+    val activeDays: Int,
+    val averageSessionMinutes: Int,
+    val dailyStudyMinutes: List<ParentDailyStudyTime>,
+)
+
+enum class ParentAttendancePeriod {
+    ThisWeek,
+    PreviousWeek,
+    ThisMonth,
+}
+
+data class ParentDailyStudyTime(
+    val day: ParentStudyDay,
+    val minutes: Int,
+    val isToday: Boolean,
+)
+
+enum class ParentStudyDay {
+    Saturday,
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+}

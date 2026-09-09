@@ -1,8 +1,11 @@
 package com.rork.eduspark.data.repository.mock
 
 import com.rork.eduspark.core.result.AppResult
+import com.rork.eduspark.data.model.ParentAttendancePeriod
+import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentAchievementSummary
+import com.rork.eduspark.data.model.ParentDailyStudyTime
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
 import com.rork.eduspark.data.model.ParentPerformanceTrend
@@ -11,6 +14,7 @@ import com.rork.eduspark.data.model.ParentRecentActivityType
 import com.rork.eduspark.data.model.ParentSubjectKind
 import com.rork.eduspark.data.model.ParentSubjectPerformance
 import com.rork.eduspark.data.model.ParentSubjectPerformanceStatus
+import com.rork.eduspark.data.model.ParentStudyDay
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -99,6 +103,50 @@ class MockParentRepository(
                     badgeCount = 3,
                     level = 5,
                 ),
+            )
+        )
+    }
+
+    override suspend fun getAttendanceStudyTime(
+        studentId: String,
+        period: ParentAttendancePeriod,
+    ): AppResult<ParentAttendanceStudyTimeSnapshot> {
+        delay(MOCK_DELAY_MS)
+        val minutes = when (period) {
+            ParentAttendancePeriod.ThisWeek -> listOf(42, 68, 54, 80, 64, 34, 42)
+            ParentAttendancePeriod.PreviousWeek -> listOf(24, 42, 38, 55, 46, 18, 26)
+            ParentAttendancePeriod.ThisMonth -> listOf(44, 50, 48, 56, 52, 34, 40)
+        }
+        val attendancePercent = when (period) {
+            ParentAttendancePeriod.ThisWeek -> 96
+            ParentAttendancePeriod.PreviousWeek -> 91
+            ParentAttendancePeriod.ThisMonth -> 94
+        }
+        val activeDays = when (period) {
+            ParentAttendancePeriod.ThisWeek -> 5
+            ParentAttendancePeriod.PreviousWeek -> 4
+            ParentAttendancePeriod.ThisMonth -> 21
+        }
+        val averageSessionMinutes = when (period) {
+            ParentAttendancePeriod.ThisWeek -> 48
+            ParentAttendancePeriod.PreviousWeek -> 42
+            ParentAttendancePeriod.ThisMonth -> 45
+        }
+
+        return AppResult.Success(
+            ParentAttendanceStudyTimeSnapshot(
+                period = period,
+                attendancePercent = attendancePercent,
+                studyHours = minutes.sum() / 60f,
+                activeDays = activeDays,
+                averageSessionMinutes = averageSessionMinutes,
+                dailyStudyMinutes = ParentStudyDay.entries.mapIndexed { index, day ->
+                    ParentDailyStudyTime(
+                        day = day,
+                        minutes = minutes[index],
+                        isToday = period == ParentAttendancePeriod.ThisWeek && index == 3,
+                    )
+                },
             )
         )
     }

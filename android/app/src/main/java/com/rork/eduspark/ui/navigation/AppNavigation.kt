@@ -60,6 +60,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingPersonalizeScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingSubjectsScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeScreen
 import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
@@ -1859,6 +1860,9 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                     Routes.PARENT_PROGRESS to {
                         ParentProgressScreen(
                             onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                            onOpenAttendanceStudyTime = {
+                                navController.navigate(Routes.PARENT_ATTENDANCE_STUDY_TIME)
+                            },
                         )
                     },
                     Routes.PARENT_ME to {
@@ -1872,6 +1876,13 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
 
         composable(Routes.PARENT_LINK_STUDENT) {
             ParentLinkStudentScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Routes.PARENT_ATTENDANCE_STUDY_TIME) {
+            ParentAttendanceStudyTimeScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
     }
 }

@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -53,6 +54,7 @@ import com.rork.eduspark.ui.components.input.EduChip
 import com.rork.eduspark.ui.components.progress.EduLinearProgress
 import com.rork.eduspark.ui.components.state.ScreenStateHost
 import com.rork.eduspark.ui.components.surface.EduCard
+import com.rork.eduspark.ui.components.surface.ListRow
 import com.rork.eduspark.ui.components.surface.SkeletonCard
 import com.rork.eduspark.ui.components.surface.SkeletonListItem
 import com.rork.eduspark.ui.components.surface.StatusPill
@@ -65,6 +67,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ParentProgressScreen(
     onOpenLinkStudent: () -> Unit,
+    onOpenAttendanceStudyTime: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentProgressViewModel = koinViewModel(),
 ) {
@@ -81,6 +84,7 @@ fun ParentProgressScreen(
             data = data,
             onSelectStudent = viewModel::selectStudent,
             onOpenLinkStudent = onOpenLinkStudent,
+            onOpenAttendanceStudyTime = onOpenAttendanceStudyTime,
         )
     }
 }
@@ -90,6 +94,7 @@ private fun ParentProgressContent(
     data: ParentProgressData,
     onSelectStudent: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenAttendanceStudyTime: () -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentProgressEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -120,6 +125,7 @@ private fun ParentProgressContent(
         } else {
             item { ParentPerformanceSummaryRow(performance = performance) }
             item { ParentAcademicTrendCard(performance = performance) }
+            item { ParentAttendanceStudyTimeEntry(onOpen = onOpenAttendanceStudyTime) }
             item { ParentSubjectPerformanceCard(subjects = performance.subjects) }
             item { ParentAchievementSummaryCard(summary = performance.achievementSummary) }
             item { Spacer(modifier = Modifier.height(Spacing.section)) }
@@ -371,6 +377,21 @@ private fun ParentTrendChart(
 
         drawSeries(trend.previousScores, previousLine, dashed = true)
         drawSeries(trend.currentScores, currentLine, dashed = false)
+    }
+}
+
+@Composable
+private fun ParentAttendanceStudyTimeEntry(onOpen: () -> Unit) {
+    val colors = EduTheme.colors
+    EduCard {
+        ListRow(
+            title = stringResource(R.string.pr04_title),
+            supporting = stringResource(R.string.pr04_nav_body),
+            leading = Icons.Filled.Timer,
+            leadingTint = colors.primary,
+            showChevron = true,
+            onClick = onOpen,
+        )
     }
 }
 

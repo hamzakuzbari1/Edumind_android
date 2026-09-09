@@ -63,6 +63,7 @@ import com.rork.eduspark.ui.screens.auth.TwoFactorViewModel
 import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentHomeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
 import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
@@ -578,6 +579,7 @@ val appModule = module {
     // PR-01/PR-02/PR-03/PR-13 — Parent account, dashboard, performance and student linking. Frontend-only mock state; no backend/API work.
     viewModel { ParentHomeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel {
         ParentMeViewModel(
             authRepository = get(),
