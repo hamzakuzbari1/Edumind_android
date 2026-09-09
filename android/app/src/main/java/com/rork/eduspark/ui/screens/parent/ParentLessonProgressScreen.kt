@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Info
@@ -46,6 +47,7 @@ import com.rork.eduspark.data.model.ParentLessonTopic
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentSubjectKind
 import com.rork.eduspark.ui.components.action.PrimaryButton
+import com.rork.eduspark.ui.components.foundation.eduClickable
 import com.rork.eduspark.ui.components.input.EduChip
 import com.rork.eduspark.ui.components.progress.EduLinearProgress
 import com.rork.eduspark.ui.components.scaffold.EduScaffold
@@ -65,6 +67,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ParentLessonProgressScreen(
     onBack: () -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenLessonDetails: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentLessonProgressViewModel = koinViewModel(),
 ) {
@@ -87,6 +90,7 @@ fun ParentLessonProgressScreen(
                 onSelectStudent = viewModel::selectStudent,
                 onSelectFilter = viewModel::selectFilter,
                 onOpenLinkStudent = onOpenLinkStudent,
+                onOpenLessonDetails = onOpenLessonDetails,
             )
         }
     }
@@ -98,6 +102,7 @@ private fun ParentLessonProgressContent(
     onSelectStudent: (String) -> Unit,
     onSelectFilter: (ParentLessonProgressFilter) -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenLessonDetails: (String) -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentLessonProgressEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -136,6 +141,7 @@ private fun ParentLessonProgressContent(
             item {
                 ParentLessonListCard(
                     lessons = snapshot.lessons.filteredBy(data.selectedFilter),
+                    onOpenLessonDetails = onOpenLessonDetails,
                 )
             }
             item { ParentLessonGuidanceCard() }
@@ -309,12 +315,16 @@ private fun ParentLessonFilterRow(
 }
 
 @Composable
-private fun ParentLessonListCard(lessons: List<ParentLessonProgressItem>) {
+private fun ParentLessonListCard(
+    lessons: List<ParentLessonProgressItem>,
+    onOpenLessonDetails: (String) -> Unit,
+) {
     EduCard {
         lessons.forEachIndexed { index, lesson ->
             ParentLessonProgressRow(
                 lesson = lesson,
                 index = index,
+                onOpenLessonDetails = onOpenLessonDetails,
             )
             if (index != lessons.lastIndex) {
                 EduDivider()
@@ -327,6 +337,7 @@ private fun ParentLessonListCard(lessons: List<ParentLessonProgressItem>) {
 private fun ParentLessonProgressRow(
     lesson: ParentLessonProgressItem,
     index: Int,
+    onOpenLessonDetails: (String) -> Unit,
 ) {
     val colors = EduTheme.colors
     val title = parentLessonTopicLabel(lesson.topic)
@@ -343,6 +354,7 @@ private fun ParentLessonProgressRow(
         horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
         modifier = Modifier
             .fillMaxWidth()
+            .eduClickable(onClickLabel = title) { onOpenLessonDetails(lesson.id) }
             .padding(vertical = Spacing.sm)
             .semantics { contentDescription = description },
     ) {
@@ -391,6 +403,12 @@ private fun ParentLessonProgressRow(
                 )
             }
         }
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = colors.textSecondary,
+            modifier = Modifier.size(Sizing.icon),
+        )
     }
 }
 

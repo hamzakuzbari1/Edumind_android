@@ -65,6 +65,7 @@ import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentHomeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLessonProgressViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
 import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
@@ -582,6 +583,13 @@ val appModule = module {
     viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentLessonProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { (lessonId: String) ->
+        ParentLessonDetailsViewModel(
+            lessonId = lessonId,
+            parentRepository = get(),
+            connectivity = get(),
+        )
+    }
     viewModel {
         ParentMeViewModel(
             authRepository = get(),

@@ -137,3 +137,55 @@ enum class ParentLessonProgressFilter {
     InProgress,
     Completed,
 }
+
+data class ParentLessonDetails(
+    val lesson: ParentLessonProgressItem,
+    val unit: ParentLessonUnit,
+    val pagesViewed: Int,
+    val totalPages: Int,
+    val learningMinutes: Int,
+    val requirementsCompleted: Int,
+    val requirementsTotal: Int,
+    val checklist: List<ParentLessonVerificationItem>,
+    val missingRequirements: Int,
+    val timeline: List<ParentLessonActivityEvent>,
+)
+
+enum class ParentLessonUnit {
+    UnitThree,
+}
+
+data class ParentLessonVerificationItem(
+    val id: String,
+    val type: ParentLessonVerificationType,
+    val status: ParentLessonVerificationStatus,
+)
+
+enum class ParentLessonVerificationType {
+    OpenedLessonFile,
+    ReadRequiredPages,
+    CompletedVerificationActivity,
+}
+
+enum class ParentLessonVerificationStatus {
+    Complete,
+    Missing,
+}
+
+data class ParentLessonActivityEvent(
+    val id: String,
+    val type: ParentLessonActivityType,
+    val time: ParentLessonActivityTime,
+)
+
+enum class ParentLessonActivityType {
+    CompletedTermsActivity,
+    OpenedPages,
+    StartedLesson,
+}
+
+enum class ParentLessonActivityTime {
+    Today1640,
+    Today1615,
+    Today1600,
+}

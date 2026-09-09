@@ -1,16 +1,25 @@
 package com.rork.eduspark.data.repository.mock
 
+import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.ParentAttendancePeriod
 import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentAchievementSummary
 import com.rork.eduspark.data.model.ParentDailyStudyTime
+import com.rork.eduspark.data.model.ParentLessonActivityEvent
+import com.rork.eduspark.data.model.ParentLessonActivityTime
+import com.rork.eduspark.data.model.ParentLessonActivityType
+import com.rork.eduspark.data.model.ParentLessonDetails
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentLessonProgressItem
 import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentLessonProgressStatus
 import com.rork.eduspark.data.model.ParentLessonTopic
+import com.rork.eduspark.data.model.ParentLessonUnit
+import com.rork.eduspark.data.model.ParentLessonVerificationItem
+import com.rork.eduspark.data.model.ParentLessonVerificationStatus
+import com.rork.eduspark.data.model.ParentLessonVerificationType
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
 import com.rork.eduspark.data.model.ParentPerformanceTrend
 import com.rork.eduspark.data.model.ParentRecentActivity
@@ -161,38 +170,111 @@ class MockParentRepository(
             ParentLessonProgressSnapshot(
                 completedLessons = 18,
                 totalLessons = 24,
-                lessons = listOf(
-                    ParentLessonProgressItem(
-                        id = "$studentId-decimal-fractions",
-                        topic = ParentLessonTopic.DecimalFractions,
-                        subject = ParentSubjectKind.Mathematics,
-                        status = ParentLessonProgressStatus.Completed,
-                        progressPercent = 100,
-                        completedActivities = 6,
-                        totalActivities = 6,
-                    ),
-                    ParentLessonProgressItem(
-                        id = "$studentId-respiratory-system",
-                        topic = ParentLessonTopic.RespiratorySystem,
-                        subject = ParentSubjectKind.Science,
-                        status = ParentLessonProgressStatus.InProgress,
-                        progressPercent = 67,
-                        completedActivities = 4,
-                        totalActivities = 6,
-                    ),
-                    ParentLessonProgressItem(
-                        id = "$studentId-object-pronoun",
-                        topic = ParentLessonTopic.ObjectPronoun,
-                        subject = ParentSubjectKind.Arabic,
-                        status = ParentLessonProgressStatus.InProgress,
-                        progressPercent = 40,
-                        completedActivities = 2,
-                        totalActivities = 5,
-                    ),
-                ),
+                lessons = lessonProgressItems(studentId),
             )
         )
     }
+
+    override suspend fun getLessonDetails(lessonId: String): AppResult<ParentLessonDetails> {
+        delay(MOCK_DELAY_MS)
+        val student = linkStore.linkedStudents.value.firstOrNull { lessonId.startsWith("${it.id}-") }
+            ?: return AppResult.Failure(AppError.NotFound)
+        val lesson = lessonProgressItems(student.id).firstOrNull { it.id == lessonId }
+            ?: return AppResult.Failure(AppError.NotFound)
+
+        val (pagesViewed, totalPages, learningMinutes) = when (lesson.topic) {
+            ParentLessonTopic.DecimalFractions -> Triple(12, 12, 28)
+            ParentLessonTopic.RespiratorySystem -> Triple(8, 12, 32)
+            ParentLessonTopic.ObjectPronoun -> Triple(5, 10, 21)
+        }
+        val missingRequirements = (lesson.totalActivities - lesson.completedActivities).coerceAtLeast(0)
+        return AppResult.Success(
+            ParentLessonDetails(
+                lesson = lesson,
+                unit = ParentLessonUnit.UnitThree,
+                pagesViewed = pagesViewed,
+                totalPages = totalPages,
+                learningMinutes = learningMinutes,
+                requirementsCompleted = lesson.completedActivities,
+                requirementsTotal = lesson.totalActivities,
+                checklist = lessonVerificationChecklist(lesson),
+                missingRequirements = missingRequirements,
+                timeline = lessonActivityTimeline(lesson.id),
+            )
+        )
+    }
+
+    private fun lessonProgressItems(studentId: String): List<ParentLessonProgressItem> = listOf(
+        ParentLessonProgressItem(
+            id = "$studentId-decimal-fractions",
+            topic = ParentLessonTopic.DecimalFractions,
+            subject = ParentSubjectKind.Mathematics,
+            status = ParentLessonProgressStatus.Completed,
+            progressPercent = 100,
+            completedActivities = 6,
+            totalActivities = 6,
+        ),
+        ParentLessonProgressItem(
+            id = "$studentId-respiratory-system",
+            topic = ParentLessonTopic.RespiratorySystem,
+            subject = ParentSubjectKind.Science,
+            status = ParentLessonProgressStatus.InProgress,
+            progressPercent = 67,
+            completedActivities = 4,
+            totalActivities = 6,
+        ),
+        ParentLessonProgressItem(
+            id = "$studentId-object-pronoun",
+            topic = ParentLessonTopic.ObjectPronoun,
+            subject = ParentSubjectKind.Arabic,
+            status = ParentLessonProgressStatus.InProgress,
+            progressPercent = 40,
+            completedActivities = 2,
+            totalActivities = 5,
+        ),
+    )
+
+    private fun lessonVerificationChecklist(
+        lesson: ParentLessonProgressItem,
+    ): List<ParentLessonVerificationItem> = listOf(
+        ParentLessonVerificationItem(
+            id = "${lesson.id}-opened",
+            type = ParentLessonVerificationType.OpenedLessonFile,
+            status = ParentLessonVerificationStatus.Complete,
+        ),
+        ParentLessonVerificationItem(
+            id = "${lesson.id}-read",
+            type = ParentLessonVerificationType.ReadRequiredPages,
+            status = ParentLessonVerificationStatus.Complete,
+        ),
+        ParentLessonVerificationItem(
+            id = "${lesson.id}-activity",
+            type = ParentLessonVerificationType.CompletedVerificationActivity,
+            status = if (lesson.status == ParentLessonProgressStatus.Completed) {
+                ParentLessonVerificationStatus.Complete
+            } else {
+                ParentLessonVerificationStatus.Missing
+            },
+        ),
+    )
+
+    private fun lessonActivityTimeline(lessonId: String): List<ParentLessonActivityEvent> = listOf(
+        ParentLessonActivityEvent(
+            id = "$lessonId-terms",
+            type = ParentLessonActivityType.CompletedTermsActivity,
+            time = ParentLessonActivityTime.Today1640,
+        ),
+        ParentLessonActivityEvent(
+            id = "$lessonId-pages",
+            type = ParentLessonActivityType.OpenedPages,
+            time = ParentLessonActivityTime.Today1615,
+        ),
+        ParentLessonActivityEvent(
+            id = "$lessonId-started",
+            type = ParentLessonActivityType.StartedLesson,
+            time = ParentLessonActivityTime.Today1600,
+        ),
+    )
 
     private companion object {
         const val MOCK_DELAY_MS = 400L

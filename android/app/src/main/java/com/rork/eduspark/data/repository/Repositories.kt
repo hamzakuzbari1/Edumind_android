@@ -28,6 +28,7 @@ import com.rork.eduspark.data.model.PendingPayment
 import com.rork.eduspark.data.model.ParentAttendancePeriod
 import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
+import com.rork.eduspark.data.model.ParentLessonDetails
 import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
@@ -528,6 +529,7 @@ interface ParentRepository {
         period: ParentAttendancePeriod,
     ): AppResult<ParentAttendanceStudyTimeSnapshot>
     suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot>
+    suspend fun getLessonDetails(lessonId: String): AppResult<ParentLessonDetails>
 }
 
 /**
