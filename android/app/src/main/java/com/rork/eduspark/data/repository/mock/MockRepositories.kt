@@ -4097,44 +4097,33 @@ class MockVoucherRepository : VoucherRepository {
  * doc comment for why ST-01 is never retroactively touched. One linked parent is seeded so
  * both "linked" and, after revoking, "no linked parents" are reachable by hand.
  */
-class MockProfileRepository : ProfileRepository {
+class MockProfileRepository(
+    private val linkStore: MockParentStudentLinkStore,
+) : ProfileRepository {
 
-    private val _profile = MutableStateFlow(
-        StudentProfile(
-            displayName = "ريم الحلبي",
-            grade = Grade.Baccalaureate,
-            school = "مدرسة الفارابي الثانوية",
-            avatarInitial = "ر",
-            parentLinkCode = "REEM-7429",
-        )
-    )
-    override val profile: Flow<StudentProfile> = _profile.asStateFlow()
+    override val profile: Flow<StudentProfile> = linkStore.studentProfile
 
-    private val _linkedParents = MutableStateFlow(
-        listOf(LinkedParent(id = "parent-1", name = "محمد الحلبي", relationship = "الأب", email = "m.halabi@example.com"))
-    )
-    override val linkedParents: Flow<List<LinkedParent>> = _linkedParents.asStateFlow()
+    override val linkedParents: Flow<List<LinkedParent>> = linkStore.linkedParents
 
     override suspend fun getProfile(): AppResult<StudentProfile> {
         delay(MockLatency.FAST_MS)
-        return AppResult.Success(_profile.value)
+        return AppResult.Success(linkStore.studentProfile.value)
     }
 
     override suspend fun updateProfile(displayName: String, grade: Grade, school: String): AppResult<StudentProfile> {
         delay(MockLatency.FAST_MS)
-        val updated = _profile.value.copy(displayName = displayName, grade = grade, school = school, avatarInitial = displayName.take(1))
-        _profile.value = updated
+        val updated = linkStore.updateStudentProfile(displayName = displayName, grade = grade, school = school)
         return AppResult.Success(updated)
     }
 
     override suspend fun getLinkedParents(): AppResult<List<LinkedParent>> {
         delay(MockLatency.FAST_MS)
-        return AppResult.Success(_linkedParents.value)
+        return AppResult.Success(linkStore.linkedParents.value)
     }
 
     override suspend fun revokeLinkedParent(parentId: String): AppResult<Unit> {
         delay(MockLatency.FAST_MS)
-        _linkedParents.value = _linkedParents.value.filterNot { it.id == parentId }
+        linkStore.revokeParent(parentId)
         return AppResult.Success(Unit)
     }
 

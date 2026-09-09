@@ -16,6 +16,7 @@ import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.NotificationRepository
 import com.rork.eduspark.data.repository.ExamRepository
 import com.rork.eduspark.data.repository.OnboardingRepository
+import com.rork.eduspark.data.repository.ParentRepository
 import com.rork.eduspark.data.repository.PaymentRepository
 import com.rork.eduspark.data.repository.PlannerRepository
 import com.rork.eduspark.data.repository.ProfileRepository
@@ -36,6 +37,8 @@ import com.rork.eduspark.data.repository.mock.MockLanguageRepository
 import com.rork.eduspark.data.repository.mock.MockMessagingRepository
 import com.rork.eduspark.data.repository.mock.MockNotificationRepository
 import com.rork.eduspark.data.repository.mock.MockOnboardingRepository
+import com.rork.eduspark.data.repository.mock.MockParentStudentLinkStore
+import com.rork.eduspark.data.repository.mock.MockParentRepository
 import com.rork.eduspark.data.repository.mock.MockPaymentRepository
 import com.rork.eduspark.data.repository.mock.MockPlannerRepository
 import com.rork.eduspark.data.repository.mock.MockProfileRepository
@@ -60,6 +63,8 @@ import com.rork.eduspark.ui.screens.auth.TwoFactorViewModel
 import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
+import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
 import com.rork.eduspark.ui.screens.student.CourseDetailViewModel
 import com.rork.eduspark.ui.screens.student.ExamCaptureViewModel
 import com.rork.eduspark.ui.screens.student.LessonPlayerViewModel
@@ -161,6 +166,7 @@ val appModule = module {
     single { ConnectivityObserver(androidApplication()) }
     single { LocaleController(androidApplication()) }
     single { MockStudentEntitlements() }
+    single { MockParentStudentLinkStore() }
 
     // Replaced by a Keystore-backed store when the real API layer lands.
     single<SecureTokenStore> { InMemoryTokenStore() }
@@ -294,7 +300,7 @@ val appModule = module {
 
     single<ProfileRepository> {
         when (dataSourceMode) {
-            DataSourceMode.MOCK -> MockProfileRepository()
+            DataSourceMode.MOCK -> MockProfileRepository(linkStore = get())
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
             )
@@ -306,6 +312,15 @@ val appModule = module {
             DataSourceMode.MOCK -> MockSecurityRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
+            )
+        }
+    }
+
+    single<ParentRepository> {
+        when (dataSourceMode) {
+            DataSourceMode.MOCK -> MockParentRepository(linkStore = get())
+            DataSourceMode.REMOTE -> error(
+                "Remote repositories are not implemented yet."
             )
         }
     }
@@ -557,6 +572,17 @@ val appModule = module {
     // ST-26 — no parameters; local preferences only, no ConnectivityObserver needed (see
     // NotificationSettingsViewModel's own doc comment).
     viewModel { NotificationSettingsViewModel(preferences = get()) }
+
+    // PR-01/PR-13 — Parent account and student linking. Frontend-only mock state; no backend/API work.
+    viewModel {
+        ParentMeViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            securityRepository = get(),
+            connectivity = get(),
+        )
+    }
+    viewModel { ParentLinkStudentViewModel(parentRepository = get(), connectivity = get()) }
 
     // ── Phase 2 · Projects ─────────────────────────────────────────────────
     // PJ-01 — no parameters; ProjectRepository's own hot activeProjects flow is the shared state.

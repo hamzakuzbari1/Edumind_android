@@ -407,6 +407,7 @@ object Routes {
     const val PARENT_REPORTS = "parent/reports"
     const val PARENT_MESSAGES = "parent/messages"
     const val PARENT_ME = "parent/me"
+    const val PARENT_LINK_STUDENT = "parent/link-student"
 
     // ── Cross-cutting (Phase 6) ───────────────────────────────────────────
     const val MESSAGES = "messages" // X-01 · Messages List

@@ -2900,5 +2900,32 @@
     <string name="placeholder_title">لم تُبنَ هذه الشاشة بعد</string>
     <string name="placeholder_body">%1$s — مجدولة ضمن %2$s.</string>
     <string name="placeholder_backend_pending">لا يوجد واجهة خلفية لهذه الميزة بعد. تُعرض بيانات تجريبية معزولة.</string>
-
+    <!-- Parent PR-01 / PR-13 -->
+    <string name="pr_linked_student_grade_section">%1$s · %2$s</string>
+    <string name="pr01_title">ربط الطالب</string>
+    <string name="pr01_hero_eyebrow">إعداد حساب ولي الأمر</string>
+    <string name="pr01_hero_title">اربط حساب ابنك</string>
+    <string name="pr01_hero_body">استخدم رمز الربط الذي حصلت عليه من المدرسة أو من حساب الطالب.</string>
+    <string name="pr01_code_label">رمز الطالب / رمز الربط</string>
+    <string name="pr01_code_placeholder">رمز الربط</string>
+    <string name="pr01_code_help">الرمز التجريبي الحالي مأخوذ من ملف الطالب الموجود في التطبيق.</string>
+    <string name="pr01_submit">ربط الطالب</string>
+    <string name="pr01_invalid_code">رمز غير صحيح. تحقق من الرمز وحاول مرة أخرى.</string>
+    <string name="pr01_success_title">تم ربط الطالب بنجاح</string>
+    <string name="pr01_success_body">يمكنك الآن متابعة %1$s من حساب ولي الأمر.</string>
+    <string name="pr01_view_account">عرض حسابي</string>
+    <string name="pr01_linked_students_section">الطلاب المرتبطون</string>
+    <string name="pr01_no_students_title">لا يوجد طالب مرتبط بعد</string>
+    <string name="pr01_no_students_body">أدخل رمز الربط لإضافة طالب إلى حسابك.</string>
+    <string name="pr13_account_status_parent">وليّ أمر · حساب نشط</string>
+    <string name="pr13_account_security_section">أمان الحساب</string>
+    <string name="pr13_password_title">كلمة المرور</string>
+    <string name="pr13_password_supporting">آخر تغيير منذ 3 أشهر</string>
+    <string name="pr13_verification_title">التحقق والأمان</string>
+    <string name="pr13_verification_supporting">إدارة إعدادات الأمان</string>
+    <string name="pr13_devices_section">الأجهزة والجلسات</string>
+    <string name="pr13_linked_students_section">الأبناء المرتبطون</string>
+    <string name="pr13_no_students_title">لم يتم ربط طالب بعد</string>
+    <string name="pr13_no_students_body">اربط حساب طالب للبدء بمتابعة تقدمه الدراسي.</string>
+    <string name="pr13_link_another_student">ربط طالب آخر</string>
 </resources>

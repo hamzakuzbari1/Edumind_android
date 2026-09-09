@@ -2806,4 +2806,32 @@
     <string name="placeholder_body">%1$s — scheduled in %2$s.</string>
     <string name="placeholder_backend_pending">This feature has no backend yet. Isolated mock data is shown.</string>
 
+    <!-- Parent PR-01 / PR-13 -->
+    <string name="pr_linked_student_grade_section">%1$s · %2$s</string>
+    <string name="pr01_title">Link student</string>
+    <string name="pr01_hero_eyebrow">Parent account setup</string>
+    <string name="pr01_hero_title">Link your child\'s account</string>
+    <string name="pr01_hero_body">Use the link code you received from the school or from the student account.</string>
+    <string name="pr01_code_label">Student code / link code</string>
+    <string name="pr01_code_placeholder">Link code</string>
+    <string name="pr01_code_help">The current mock code comes from the student profile already in the app.</string>
+    <string name="pr01_submit">Link student</string>
+    <string name="pr01_invalid_code">Incorrect code. Check the code and try again.</string>
+    <string name="pr01_success_title">Student linked</string>
+    <string name="pr01_success_body">You can now follow %1$s from your parent account.</string>
+    <string name="pr01_view_account">View account</string>
+    <string name="pr01_linked_students_section">Linked students</string>
+    <string name="pr01_no_students_title">No linked student yet</string>
+    <string name="pr01_no_students_body">Enter the link code to add a student to your account.</string>
+    <string name="pr13_account_status_parent">Parent · Active account</string>
+    <string name="pr13_account_security_section">Account security</string>
+    <string name="pr13_password_title">Password</string>
+    <string name="pr13_password_supporting">Last changed 3 months ago</string>
+    <string name="pr13_verification_title">Verification and security</string>
+    <string name="pr13_verification_supporting">Manage security settings</string>
+    <string name="pr13_devices_section">Devices and sessions</string>
+    <string name="pr13_linked_students_section">Linked children</string>
+    <string name="pr13_no_students_title">No student linked yet</string>
+    <string name="pr13_no_students_body">Link a student account to start following academic progress.</string>
+    <string name="pr13_link_another_student">Link another student</string>
 </resources>

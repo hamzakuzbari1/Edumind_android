@@ -60,6 +60,8 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingPersonalizeScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingSubjectsScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
+import com.rork.eduspark.ui.screens.parent.ParentMeScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
 import com.rork.eduspark.ui.screens.student.CoursePaywallScreen
@@ -199,7 +201,7 @@ fun AppNavigation(
             onSelectLocale = onSelectLocale,
         )
         teacherGraph(navController)
-        parentGraph()
+        parentGraph(navController)
 
         // ── Phase 6 · X-01/X-02/X-03 — outside every role graph, same shape as
         // TEACHER_SETUP/CERTIFICATE_VERIFY below: reached via the SAME shared [navController]
@@ -1831,7 +1833,7 @@ private fun NavGraphBuilder.teacherGraph(navController: NavHostController) {
 }
 
 /** Phase 4 — Parent (14 screens). */
-private fun NavGraphBuilder.parentGraph() {
+private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
     navigation(startDestination = Routes.PARENT_HOME, route = Routes.PARENT_GRAPH) {
         composable(Routes.PARENT_HOME) {
             RoleShell(
@@ -1846,7 +1848,18 @@ private fun NavGraphBuilder.parentGraph() {
                     }
                 },
                 phaseFor = { "Phase 4" },
+                overrides = mapOf(
+                    Routes.PARENT_ME to {
+                        ParentMeScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
+                ),
             )
+        }
+
+        composable(Routes.PARENT_LINK_STUDENT) {
+            ParentLinkStudentScreen(onBack = { navController.popBackStack() })
         }
     }
 }

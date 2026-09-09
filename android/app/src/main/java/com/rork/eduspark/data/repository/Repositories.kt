@@ -25,6 +25,7 @@ import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
+import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.PeerReview
 import com.rork.eduspark.data.model.PeerReviewDraft
 import com.rork.eduspark.data.model.PeerSubmissionPreview
@@ -501,6 +502,20 @@ interface SecurityRepository {
 
     /** Revokes every *other* session — the current device's session is excluded by construction, never by the caller remembering to skip it. */
     suspend fun revokeAllOtherSessions(): AppResult<Unit>
+}
+
+/**
+ * PR-01/PR-13 · Parent account and student linking.
+ *
+ * Parent linking is parent-owned: the student-side [ProfileRepository] already exposes a
+ * student's share code and linked parents, but it does not model a parent typing that code
+ * from their own account. This contract keeps that mock state separate so Student screens
+ * continue to read their existing repository unchanged.
+ */
+interface ParentRepository {
+    val linkedStudents: Flow<List<ParentLinkedStudent>>
+    suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
+    suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
 }
 
 /**
