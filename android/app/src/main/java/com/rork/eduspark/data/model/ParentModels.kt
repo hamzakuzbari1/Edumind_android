@@ -15,3 +15,23 @@ data class ParentLinkedStudent(
     val linkCode: String,
 )
 
+data class ParentDashboardSnapshot(
+    val academicAveragePercent: Int,
+    val lessonProgressPercent: Int,
+    val studyHoursThisWeek: Float,
+    val attendancePercent: Int,
+    val plannerItemsDue: Int,
+    val alertCount: Int,
+    val recentActivities: List<ParentRecentActivity>,
+)
+
+data class ParentRecentActivity(
+    val id: String,
+    val type: ParentRecentActivityType,
+)
+
+enum class ParentRecentActivityType {
+    QuizCompleted,
+    LessonCompleted,
+    PlannerMissed,
+}

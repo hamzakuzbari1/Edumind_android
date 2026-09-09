@@ -60,6 +60,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingPersonalizeScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingSubjectsScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
@@ -1849,6 +1850,11 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                 },
                 phaseFor = { "Phase 4" },
                 overrides = mapOf(
+                    Routes.PARENT_HOME to {
+                        ParentHomeScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
                     Routes.PARENT_ME to {
                         ParentMeScreen(
                             onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },

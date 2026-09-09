@@ -25,6 +25,7 @@ import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
+import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.PeerReview
 import com.rork.eduspark.data.model.PeerReviewDraft
@@ -507,15 +508,16 @@ interface SecurityRepository {
 /**
  * PR-01/PR-13 · Parent account and student linking.
  *
- * Parent linking is parent-owned: the student-side [ProfileRepository] already exposes a
- * student's share code and linked parents, but it does not model a parent typing that code
- * from their own account. This contract keeps that mock state separate so Student screens
- * continue to read their existing repository unchanged.
+ * Parent linking is parent-owned at the contract boundary: Student screens continue to read
+ * [ProfileRepository], while Parent screens type codes and read linked-student summaries here.
+ * Mock implementations may share one relationship store so both role-facing contracts stay
+ * synchronized without either UI reaching across the other's repository.
  */
 interface ParentRepository {
     val linkedStudents: Flow<List<ParentLinkedStudent>>
     suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
     suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
+    suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot>
 }
 
 /**

@@ -2806,8 +2806,44 @@
     <string name="placeholder_body">%1$s — scheduled in %2$s.</string>
     <string name="placeholder_backend_pending">This feature has no backend yet. Isolated mock data is shown.</string>
 
-    <!-- Parent PR-01 / PR-13 -->
+    <!-- Parent PR-01 / PR-02 / PR-13 -->
     <string name="pr_linked_student_grade_section">%1$s · %2$s</string>
+    <string name="pr02_empty_title">Link a student to start the parent dashboard</string>
+    <string name="pr02_empty_body">After linking, this dashboard will show performance, attendance, lesson progress, and important alerts in one place.</string>
+    <string name="pr02_empty_action">Link student</string>
+    <string name="pr02_student_active">Active</string>
+    <string name="pr02_student_selector_label">Choose a student summary</string>
+    <string name="pr02_today_summary_label">Today summary</string>
+    <string name="pr02_today_summary_title">%1$s is progressing well</string>
+    <string name="pr02_today_summary_body">Most activities were completed this week, with one small note that needs follow-up.</string>
+    <string name="pr02_hours_value">%1$s h</string>
+    <string name="pr02_percent_value">%1$s%%</string>
+    <string name="pr02_study_time_label">Study time</string>
+    <string name="pr02_test_average_label">Test average</string>
+    <string name="pr02_lesson_progress_label">Lesson progress</string>
+    <string name="pr02_ai_title">AI summary</string>
+    <string name="pr02_ai_body">Performance is stable, but algebra answer accuracy is lower than last week.</string>
+    <string name="pr02_performance_title">Performance</string>
+    <string name="pr02_performance_body">Tests and subject progress</string>
+    <string name="pr02_attendance_title">Attendance</string>
+    <string name="pr02_attendance_body">Activity and study time</string>
+    <string name="pr02_lessons_title">Lessons</string>
+    <string name="pr02_lessons_body">Progress and details</string>
+    <string name="pr02_reports_title">Reports</string>
+    <string name="pr02_reports_body">History and export</string>
+    <string name="pr02_reports_value">Ready</string>
+    <string name="pr02_planner_title">Planner and commitments</string>
+    <string name="pr02_planner_body">%1$s scheduled commitments need follow-up this week.</string>
+    <string name="pr02_planner_status">Review</string>
+    <string name="pr02_attention_title">Needs your attention</string>
+    <string name="pr02_attention_body">%1$s important alerts are ready for math and planner follow-up.</string>
+    <string name="pr02_recent_activity_title">Recent activity</string>
+    <string name="pr02_activity_quiz_title">Math quiz completed</string>
+    <string name="pr02_activity_quiz_body">Good result, with a small algebra review recommended.</string>
+    <string name="pr02_activity_lesson_title">Physics lesson progressed</string>
+    <string name="pr02_activity_lesson_body">A new lesson stage was completed.</string>
+    <string name="pr02_activity_planner_title">Planner note</string>
+    <string name="pr02_activity_planner_body">Two activities have not been checked off yet.</string>
     <string name="pr01_title">Link student</string>
     <string name="pr01_hero_eyebrow">Parent account setup</string>
     <string name="pr01_hero_title">Link your child\'s account</string>
