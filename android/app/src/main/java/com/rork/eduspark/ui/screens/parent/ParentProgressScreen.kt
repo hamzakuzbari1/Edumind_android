@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Timer
@@ -68,6 +69,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ParentProgressScreen(
     onOpenLinkStudent: () -> Unit,
     onOpenAttendanceStudyTime: () -> Unit,
+    onOpenLessonProgress: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentProgressViewModel = koinViewModel(),
 ) {
@@ -85,6 +87,7 @@ fun ParentProgressScreen(
             onSelectStudent = viewModel::selectStudent,
             onOpenLinkStudent = onOpenLinkStudent,
             onOpenAttendanceStudyTime = onOpenAttendanceStudyTime,
+            onOpenLessonProgress = onOpenLessonProgress,
         )
     }
 }
@@ -95,6 +98,7 @@ private fun ParentProgressContent(
     onSelectStudent: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
     onOpenAttendanceStudyTime: () -> Unit,
+    onOpenLessonProgress: () -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentProgressEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -126,6 +130,7 @@ private fun ParentProgressContent(
             item { ParentPerformanceSummaryRow(performance = performance) }
             item { ParentAcademicTrendCard(performance = performance) }
             item { ParentAttendanceStudyTimeEntry(onOpen = onOpenAttendanceStudyTime) }
+            item { ParentLessonProgressEntry(onOpen = onOpenLessonProgress) }
             item { ParentSubjectPerformanceCard(subjects = performance.subjects) }
             item { ParentAchievementSummaryCard(summary = performance.achievementSummary) }
             item { Spacer(modifier = Modifier.height(Spacing.section)) }
@@ -388,6 +393,21 @@ private fun ParentAttendanceStudyTimeEntry(onOpen: () -> Unit) {
             title = stringResource(R.string.pr04_title),
             supporting = stringResource(R.string.pr04_nav_body),
             leading = Icons.Filled.Timer,
+            leadingTint = colors.primary,
+            showChevron = true,
+            onClick = onOpen,
+        )
+    }
+}
+
+@Composable
+private fun ParentLessonProgressEntry(onOpen: () -> Unit) {
+    val colors = EduTheme.colors
+    EduCard {
+        ListRow(
+            title = stringResource(R.string.pr05_title),
+            supporting = stringResource(R.string.pr05_nav_body),
+            leading = Icons.Filled.AutoStories,
             leadingTint = colors.primary,
             showChevron = true,
             onClick = onOpen,

@@ -104,3 +104,36 @@ enum class ParentStudyDay {
     Thursday,
     Friday,
 }
+
+data class ParentLessonProgressSnapshot(
+    val completedLessons: Int,
+    val totalLessons: Int,
+    val lessons: List<ParentLessonProgressItem>,
+)
+
+data class ParentLessonProgressItem(
+    val id: String,
+    val topic: ParentLessonTopic,
+    val subject: ParentSubjectKind,
+    val status: ParentLessonProgressStatus,
+    val progressPercent: Int,
+    val completedActivities: Int,
+    val totalActivities: Int,
+)
+
+enum class ParentLessonTopic {
+    DecimalFractions,
+    RespiratorySystem,
+    ObjectPronoun,
+}
+
+enum class ParentLessonProgressStatus {
+    Completed,
+    InProgress,
+}
+
+enum class ParentLessonProgressFilter {
+    All,
+    InProgress,
+    Completed,
+}

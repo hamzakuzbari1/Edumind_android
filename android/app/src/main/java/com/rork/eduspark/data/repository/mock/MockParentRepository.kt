@@ -7,6 +7,10 @@ import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentAchievementSummary
 import com.rork.eduspark.data.model.ParentDailyStudyTime
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentLessonProgressItem
+import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
+import com.rork.eduspark.data.model.ParentLessonProgressStatus
+import com.rork.eduspark.data.model.ParentLessonTopic
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
 import com.rork.eduspark.data.model.ParentPerformanceTrend
 import com.rork.eduspark.data.model.ParentRecentActivity
@@ -147,6 +151,45 @@ class MockParentRepository(
                         isToday = period == ParentAttendancePeriod.ThisWeek && index == 3,
                     )
                 },
+            )
+        )
+    }
+
+    override suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot> {
+        delay(MOCK_DELAY_MS)
+        return AppResult.Success(
+            ParentLessonProgressSnapshot(
+                completedLessons = 18,
+                totalLessons = 24,
+                lessons = listOf(
+                    ParentLessonProgressItem(
+                        id = "$studentId-decimal-fractions",
+                        topic = ParentLessonTopic.DecimalFractions,
+                        subject = ParentSubjectKind.Mathematics,
+                        status = ParentLessonProgressStatus.Completed,
+                        progressPercent = 100,
+                        completedActivities = 6,
+                        totalActivities = 6,
+                    ),
+                    ParentLessonProgressItem(
+                        id = "$studentId-respiratory-system",
+                        topic = ParentLessonTopic.RespiratorySystem,
+                        subject = ParentSubjectKind.Science,
+                        status = ParentLessonProgressStatus.InProgress,
+                        progressPercent = 67,
+                        completedActivities = 4,
+                        totalActivities = 6,
+                    ),
+                    ParentLessonProgressItem(
+                        id = "$studentId-object-pronoun",
+                        topic = ParentLessonTopic.ObjectPronoun,
+                        subject = ParentSubjectKind.Arabic,
+                        status = ParentLessonProgressStatus.InProgress,
+                        progressPercent = 40,
+                        completedActivities = 2,
+                        totalActivities = 5,
+                    ),
+                ),
             )
         )
     }
