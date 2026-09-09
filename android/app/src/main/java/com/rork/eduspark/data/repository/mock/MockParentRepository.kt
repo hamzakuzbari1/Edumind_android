@@ -2,9 +2,15 @@ package com.rork.eduspark.data.repository.mock
 
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
+import com.rork.eduspark.data.model.ParentAchievementSummary
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentPerformanceSnapshot
+import com.rork.eduspark.data.model.ParentPerformanceTrend
 import com.rork.eduspark.data.model.ParentRecentActivity
 import com.rork.eduspark.data.model.ParentRecentActivityType
+import com.rork.eduspark.data.model.ParentSubjectKind
+import com.rork.eduspark.data.model.ParentSubjectPerformance
+import com.rork.eduspark.data.model.ParentSubjectPerformanceStatus
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -52,6 +58,46 @@ class MockParentRepository(
                         id = "$studentId-planner-missed",
                         type = ParentRecentActivityType.PlannerMissed,
                     ),
+                ),
+            )
+        )
+    }
+
+    override suspend fun getPerformanceSnapshot(studentId: String): AppResult<ParentPerformanceSnapshot> {
+        delay(MOCK_DELAY_MS)
+        return AppResult.Success(
+            ParentPerformanceSnapshot(
+                testAveragePercent = 91,
+                subjectProgressPercent = 82,
+                improvementPercent = 6,
+                trend = ParentPerformanceTrend(
+                    currentScores = listOf(72, 78, 76, 88, 84, 94, 97),
+                    previousScores = listOf(64, 69, 71, 72, 78, 79, 84),
+                ),
+                subjects = listOf(
+                    ParentSubjectPerformance(
+                        id = "$studentId-math",
+                        subject = ParentSubjectKind.Mathematics,
+                        percent = 76,
+                        status = ParentSubjectPerformanceStatus.NeedsAttention,
+                    ),
+                    ParentSubjectPerformance(
+                        id = "$studentId-science",
+                        subject = ParentSubjectKind.Science,
+                        percent = 92,
+                        status = ParentSubjectPerformanceStatus.Strong,
+                    ),
+                    ParentSubjectPerformance(
+                        id = "$studentId-arabic",
+                        subject = ParentSubjectKind.Arabic,
+                        percent = 88,
+                        status = ParentSubjectPerformanceStatus.Strong,
+                    ),
+                ),
+                achievementSummary = ParentAchievementSummary(
+                    streakDays = 7,
+                    badgeCount = 3,
+                    level = 5,
                 ),
             )
         )

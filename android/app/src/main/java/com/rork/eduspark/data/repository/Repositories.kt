@@ -27,6 +27,7 @@ import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentPerformanceSnapshot
 import com.rork.eduspark.data.model.PeerReview
 import com.rork.eduspark.data.model.PeerReviewDraft
 import com.rork.eduspark.data.model.PeerSubmissionPreview
@@ -518,6 +519,7 @@ interface ParentRepository {
     suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
     suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
     suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot>
+    suspend fun getPerformanceSnapshot(studentId: String): AppResult<ParentPerformanceSnapshot>
 }
 
 /**

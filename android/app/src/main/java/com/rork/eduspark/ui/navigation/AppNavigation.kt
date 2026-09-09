@@ -63,6 +63,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
+import com.rork.eduspark.ui.screens.parent.ParentProgressScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
 import com.rork.eduspark.ui.screens.student.CoursePaywallScreen
@@ -1842,7 +1843,7 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                 screenIdFor = { route ->
                     when (route) {
                         Routes.PARENT_HOME -> "PR-02 · Parent Home"
-                        Routes.PARENT_PROGRESS -> "PR-04 · Performance"
+                        Routes.PARENT_PROGRESS -> "PR-03 · Academic Performance"
                         Routes.PARENT_REPORTS -> "PR-10 · Reports"
                         Routes.PARENT_MESSAGES -> "X-02 · Conversation Thread"
                         else -> "PR-13 · Parent Notifications"
@@ -1852,6 +1853,11 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                 overrides = mapOf(
                     Routes.PARENT_HOME to {
                         ParentHomeScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
+                    Routes.PARENT_PROGRESS to {
+                        ParentProgressScreen(
                             onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
                         )
                     },

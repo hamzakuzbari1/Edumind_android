@@ -35,3 +35,41 @@ enum class ParentRecentActivityType {
     LessonCompleted,
     PlannerMissed,
 }
+
+data class ParentPerformanceSnapshot(
+    val testAveragePercent: Int,
+    val subjectProgressPercent: Int,
+    val improvementPercent: Int,
+    val trend: ParentPerformanceTrend,
+    val subjects: List<ParentSubjectPerformance>,
+    val achievementSummary: ParentAchievementSummary,
+)
+
+data class ParentPerformanceTrend(
+    val currentScores: List<Int>,
+    val previousScores: List<Int>,
+)
+
+data class ParentSubjectPerformance(
+    val id: String,
+    val subject: ParentSubjectKind,
+    val percent: Int,
+    val status: ParentSubjectPerformanceStatus,
+)
+
+enum class ParentSubjectKind {
+    Mathematics,
+    Science,
+    Arabic,
+}
+
+enum class ParentSubjectPerformanceStatus {
+    Strong,
+    NeedsAttention,
+}
+
+data class ParentAchievementSummary(
+    val streakDays: Int,
+    val badgeCount: Int,
+    val level: Int,
+)
