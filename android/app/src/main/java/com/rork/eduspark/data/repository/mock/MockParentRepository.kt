@@ -22,6 +22,11 @@ import com.rork.eduspark.data.model.ParentLessonVerificationStatus
 import com.rork.eduspark.data.model.ParentLessonVerificationType
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
 import com.rork.eduspark.data.model.ParentPerformanceTrend
+import com.rork.eduspark.data.model.ParentPlannerPattern
+import com.rork.eduspark.data.model.ParentPlannerSession
+import com.rork.eduspark.data.model.ParentPlannerSessionStatus
+import com.rork.eduspark.data.model.ParentPlannerSessionTime
+import com.rork.eduspark.data.model.ParentPlannerSnapshot
 import com.rork.eduspark.data.model.ParentRecentActivity
 import com.rork.eduspark.data.model.ParentRecentActivityType
 import com.rork.eduspark.data.model.ParentSubjectKind
@@ -263,6 +268,39 @@ class MockParentRepository(
                         weeklySessions = 3,
                     ),
                 ),
+            )
+        )
+    }
+
+    override suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot> {
+        delay(MOCK_DELAY_MS)
+        return AppResult.Success(
+            ParentPlannerSnapshot(
+                commitmentPercent = 84,
+                completedSessions = 1,
+                totalSessions = 3,
+                postponedSessions = 1,
+                sessions = listOf(
+                    ParentPlannerSession(
+                        id = "$studentId-planner-math",
+                        subject = ParentSubjectKind.Mathematics,
+                        time = ParentPlannerSessionTime.MathToday1600,
+                        status = ParentPlannerSessionStatus.Completed,
+                    ),
+                    ParentPlannerSession(
+                        id = "$studentId-planner-science",
+                        subject = ParentSubjectKind.Science,
+                        time = ParentPlannerSessionTime.ScienceToday1700,
+                        status = ParentPlannerSessionStatus.Today,
+                    ),
+                    ParentPlannerSession(
+                        id = "$studentId-planner-arabic",
+                        subject = ParentSubjectKind.Arabic,
+                        time = ParentPlannerSessionTime.ArabicTomorrow,
+                        status = ParentPlannerSessionStatus.Postponed,
+                    ),
+                ),
+                pattern = ParentPlannerPattern.AfterSchool,
             )
         )
     }

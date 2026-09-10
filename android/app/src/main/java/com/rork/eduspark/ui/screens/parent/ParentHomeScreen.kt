@@ -64,6 +64,7 @@ import java.util.Locale
 @Composable
 fun ParentHomeScreen(
     onOpenLinkStudent: () -> Unit,
+    onOpenPlanner: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentHomeViewModel = koinViewModel(),
 ) {
@@ -80,6 +81,7 @@ fun ParentHomeScreen(
             data = data,
             onSelectStudent = viewModel::selectStudent,
             onOpenLinkStudent = onOpenLinkStudent,
+            onOpenPlanner = onOpenPlanner,
         )
     }
 }
@@ -89,6 +91,7 @@ private fun ParentHomeContent(
     data: ParentHomeData,
     onSelectStudent: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenPlanner: () -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentHomeEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -120,7 +123,7 @@ private fun ParentHomeContent(
             item { ParentTodaySummaryCard(student = selectedStudent, dashboard = dashboard) }
             item { ParentAiInsightCard() }
             item { ParentQuickSummaryGrid(dashboard = dashboard) }
-            item { ParentPlannerPreviewCard(dashboard = dashboard) }
+            item { ParentPlannerPreviewCard(dashboard = dashboard, onOpenPlanner = onOpenPlanner) }
             item { ParentAttentionCard(dashboard = dashboard) }
             item { ParentRecentActivitiesCard(activities = dashboard.recentActivities) }
             item { Spacer(modifier = Modifier.height(Spacing.section)) }
@@ -430,7 +433,10 @@ private fun ParentSummaryTile(
 }
 
 @Composable
-private fun ParentPlannerPreviewCard(dashboard: ParentDashboardSnapshot) {
+private fun ParentPlannerPreviewCard(
+    dashboard: ParentDashboardSnapshot,
+    onOpenPlanner: () -> Unit,
+) {
     val colors = EduTheme.colors
     EduCard {
         ListRow(
@@ -438,6 +444,8 @@ private fun ParentPlannerPreviewCard(dashboard: ParentDashboardSnapshot) {
             supporting = stringResource(R.string.pr02_planner_body, numeral(dashboard.plannerItemsDue)),
             leading = Icons.Filled.CalendarToday,
             leadingTint = colors.primary,
+            showChevron = true,
+            onClick = onOpenPlanner,
             trailingContent = {
                 StatusPill(
                     label = stringResource(R.string.pr02_planner_status),

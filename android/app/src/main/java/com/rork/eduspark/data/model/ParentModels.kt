@@ -239,3 +239,35 @@ enum class ParentTeacherResponseTime {
     SameDay,
     OneSchoolDay,
 }
+
+data class ParentPlannerSnapshot(
+    val commitmentPercent: Int,
+    val completedSessions: Int,
+    val totalSessions: Int,
+    val postponedSessions: Int,
+    val sessions: List<ParentPlannerSession>,
+    val pattern: ParentPlannerPattern,
+)
+
+data class ParentPlannerSession(
+    val id: String,
+    val subject: ParentSubjectKind,
+    val time: ParentPlannerSessionTime,
+    val status: ParentPlannerSessionStatus,
+)
+
+enum class ParentPlannerSessionStatus {
+    Completed,
+    Today,
+    Postponed,
+}
+
+enum class ParentPlannerSessionTime {
+    MathToday1600,
+    ScienceToday1700,
+    ArabicTomorrow,
+}
+
+enum class ParentPlannerPattern {
+    AfterSchool,
+}
