@@ -25,6 +25,7 @@ import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
+import com.rork.eduspark.data.model.ParentAlertsSnapshot
 import com.rork.eduspark.data.model.ParentAttendancePeriod
 import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
@@ -534,6 +535,7 @@ interface ParentRepository {
     suspend fun getLessonDetails(lessonId: String): AppResult<ParentLessonDetails>
     suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
     suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot>
+    suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot>
 }
 
 /**

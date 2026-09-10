@@ -409,6 +409,7 @@ object Routes {
     const val PARENT_ME = "parent/me"
     const val PARENT_LINK_STUDENT = "parent/link-student"
     const val PARENT_PLANNER = "parent/home/planner"
+    const val PARENT_ALERTS = "parent/home/alerts"
     const val PARENT_ATTENDANCE_STUDY_TIME = "parent/progress/attendance-study-time"
     const val PARENT_LESSON_PROGRESS = "parent/progress/lessons"
     const val PARENT_LESSON_DETAILS = "parent/progress/lessons/{$LESSON_ID_ARG}"

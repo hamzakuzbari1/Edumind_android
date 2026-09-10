@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -65,6 +66,7 @@ import java.util.Locale
 fun ParentHomeScreen(
     onOpenLinkStudent: () -> Unit,
     onOpenPlanner: () -> Unit,
+    onOpenAlerts: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentHomeViewModel = koinViewModel(),
 ) {
@@ -82,6 +84,7 @@ fun ParentHomeScreen(
             onSelectStudent = viewModel::selectStudent,
             onOpenLinkStudent = onOpenLinkStudent,
             onOpenPlanner = onOpenPlanner,
+            onOpenAlerts = onOpenAlerts,
         )
     }
 }
@@ -92,6 +95,7 @@ private fun ParentHomeContent(
     onSelectStudent: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
     onOpenPlanner: () -> Unit,
+    onOpenAlerts: () -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentHomeEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -124,7 +128,7 @@ private fun ParentHomeContent(
             item { ParentAiInsightCard() }
             item { ParentQuickSummaryGrid(dashboard = dashboard) }
             item { ParentPlannerPreviewCard(dashboard = dashboard, onOpenPlanner = onOpenPlanner) }
-            item { ParentAttentionCard(dashboard = dashboard) }
+            item { ParentAttentionCard(dashboard = dashboard, onOpenAlerts = onOpenAlerts) }
             item { ParentRecentActivitiesCard(activities = dashboard.recentActivities) }
             item { Spacer(modifier = Modifier.height(Spacing.section)) }
         }
@@ -458,9 +462,14 @@ private fun ParentPlannerPreviewCard(
 }
 
 @Composable
-private fun ParentAttentionCard(dashboard: ParentDashboardSnapshot) {
+private fun ParentAttentionCard(
+    dashboard: ParentDashboardSnapshot,
+    onOpenAlerts: () -> Unit,
+) {
     val colors = EduTheme.colors
     EduCard(
+        onClick = onOpenAlerts,
+        onClickLabel = stringResource(R.string.pr11_open_alerts),
         containerColor = colors.highlightContainer,
         borderColor = colors.warning.copy(alpha = 0.28f),
     ) {
@@ -486,6 +495,12 @@ private fun ParentAttentionCard(dashboard: ParentDashboardSnapshot) {
                     color = colors.textSecondary,
                 )
             }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+                tint = colors.textSecondary,
+                modifier = Modifier.size(Sizing.icon),
+            )
         }
     }
 }

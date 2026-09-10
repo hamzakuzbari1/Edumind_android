@@ -271,3 +271,45 @@ enum class ParentPlannerSessionTime {
 enum class ParentPlannerPattern {
     AfterSchool,
 }
+
+data class ParentAlertsSnapshot(
+    val alerts: List<ParentAlert>,
+    val preferences: List<ParentAlertPreference>,
+)
+
+data class ParentAlert(
+    val id: String,
+    val type: ParentAlertType,
+    val time: ParentAlertTime,
+    val severity: ParentAlertSeverity,
+    val isUnread: Boolean,
+)
+
+enum class ParentAlertType {
+    MathPerformanceDrop,
+    ScienceLessonCompleted,
+    TeacherNote,
+}
+
+enum class ParentAlertTime {
+    Minutes35Ago,
+    TwoHoursAgo,
+    Yesterday,
+}
+
+enum class ParentAlertSeverity {
+    Important,
+    Success,
+    Info,
+}
+
+data class ParentAlertPreference(
+    val category: ParentAlertPreferenceCategory,
+    val enabled: Boolean,
+)
+
+enum class ParentAlertPreferenceCategory {
+    Performance,
+    LessonProgress,
+    TeacherNotes,
+}

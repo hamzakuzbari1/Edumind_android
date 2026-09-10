@@ -2,6 +2,13 @@ package com.rork.eduspark.data.repository.mock
 
 import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
+import com.rork.eduspark.data.model.ParentAlert
+import com.rork.eduspark.data.model.ParentAlertPreference
+import com.rork.eduspark.data.model.ParentAlertPreferenceCategory
+import com.rork.eduspark.data.model.ParentAlertSeverity
+import com.rork.eduspark.data.model.ParentAlertTime
+import com.rork.eduspark.data.model.ParentAlertType
+import com.rork.eduspark.data.model.ParentAlertsSnapshot
 import com.rork.eduspark.data.model.ParentAttendancePeriod
 import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
@@ -301,6 +308,51 @@ class MockParentRepository(
                     ),
                 ),
                 pattern = ParentPlannerPattern.AfterSchool,
+            )
+        )
+    }
+
+    override suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        return AppResult.Success(
+            ParentAlertsSnapshot(
+                alerts = listOf(
+                    ParentAlert(
+                        id = "$studentId-alert-math-performance",
+                        type = ParentAlertType.MathPerformanceDrop,
+                        time = ParentAlertTime.Minutes35Ago,
+                        severity = ParentAlertSeverity.Important,
+                        isUnread = true,
+                    ),
+                    ParentAlert(
+                        id = "$studentId-alert-science-lesson",
+                        type = ParentAlertType.ScienceLessonCompleted,
+                        time = ParentAlertTime.TwoHoursAgo,
+                        severity = ParentAlertSeverity.Success,
+                        isUnread = true,
+                    ),
+                    ParentAlert(
+                        id = "$studentId-alert-teacher-note",
+                        type = ParentAlertType.TeacherNote,
+                        time = ParentAlertTime.Yesterday,
+                        severity = ParentAlertSeverity.Info,
+                        isUnread = true,
+                    ),
+                ),
+                preferences = listOf(
+                    ParentAlertPreference(
+                        category = ParentAlertPreferenceCategory.Performance,
+                        enabled = true,
+                    ),
+                    ParentAlertPreference(
+                        category = ParentAlertPreferenceCategory.LessonProgress,
+                        enabled = true,
+                    ),
+                    ParentAlertPreference(
+                        category = ParentAlertPreferenceCategory.TeacherNotes,
+                        enabled = true,
+                    ),
+                ),
             )
         )
     }
