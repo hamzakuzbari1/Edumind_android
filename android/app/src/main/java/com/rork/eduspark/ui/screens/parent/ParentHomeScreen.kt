@@ -67,6 +67,7 @@ fun ParentHomeScreen(
     onOpenLinkStudent: () -> Unit,
     onOpenPlanner: () -> Unit,
     onOpenAlerts: () -> Unit,
+    onOpenAiInsights: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentHomeViewModel = koinViewModel(),
 ) {
@@ -85,6 +86,7 @@ fun ParentHomeScreen(
             onOpenLinkStudent = onOpenLinkStudent,
             onOpenPlanner = onOpenPlanner,
             onOpenAlerts = onOpenAlerts,
+            onOpenAiInsights = onOpenAiInsights,
         )
     }
 }
@@ -96,6 +98,7 @@ private fun ParentHomeContent(
     onOpenLinkStudent: () -> Unit,
     onOpenPlanner: () -> Unit,
     onOpenAlerts: () -> Unit,
+    onOpenAiInsights: () -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentHomeEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -125,7 +128,7 @@ private fun ParentHomeContent(
             item { SkeletonListItem() }
         } else {
             item { ParentTodaySummaryCard(student = selectedStudent, dashboard = dashboard) }
-            item { ParentAiInsightCard() }
+            item { ParentAiInsightCard(onOpenAiInsights = onOpenAiInsights) }
             item { ParentQuickSummaryGrid(dashboard = dashboard) }
             item { ParentPlannerPreviewCard(dashboard = dashboard, onOpenPlanner = onOpenPlanner) }
             item { ParentAttentionCard(dashboard = dashboard, onOpenAlerts = onOpenAlerts) }
@@ -332,9 +335,13 @@ private fun ParentHeroStat(
 }
 
 @Composable
-private fun ParentAiInsightCard() {
+private fun ParentAiInsightCard(onOpenAiInsights: () -> Unit) {
     val colors = EduTheme.colors
-    EduCard(borderColor = colors.aiAccent.copy(alpha = 0.34f)) {
+    EduCard(
+        onClick = onOpenAiInsights,
+        onClickLabel = stringResource(R.string.pr08_open_ai_insights),
+        borderColor = colors.aiAccent.copy(alpha = 0.34f),
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
@@ -356,6 +363,12 @@ private fun ParentAiInsightCard() {
                     color = colors.textSecondary,
                 )
             }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+                tint = colors.textSecondary,
+                modifier = Modifier.size(Sizing.icon),
+            )
         }
     }
 }

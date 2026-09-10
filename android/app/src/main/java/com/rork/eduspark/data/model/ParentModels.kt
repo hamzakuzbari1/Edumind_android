@@ -313,3 +313,50 @@ enum class ParentAlertPreferenceCategory {
     LessonProgress,
     TeacherNotes,
 }
+
+data class ParentAiInsightsSnapshot(
+    val summary: ParentAiSummary,
+    val subjectInsights: List<ParentSubjectInsight>,
+    val behavior: ParentStudyBehaviorInsight,
+)
+
+data class ParentAiSummary(
+    val type: ParentAiSummaryType,
+)
+
+enum class ParentAiSummaryType {
+    StableWithAlgebraSupport,
+}
+
+data class ParentSubjectInsight(
+    val id: String,
+    val subject: ParentSubjectKind,
+    val status: ParentSubjectInsightStatus,
+    val observation: ParentSubjectInsightObservation,
+)
+
+enum class ParentSubjectInsightStatus {
+    Strength,
+    FollowUp,
+}
+
+enum class ParentSubjectInsightObservation {
+    PositiveStableTrend,
+    RepeatedAlgebraMistakes,
+}
+
+data class ParentStudyBehaviorInsight(
+    val bestTime: ParentStudyBehaviorBestTime,
+    val averageSessionMinutes: Int,
+    val consistencyDays: Int,
+    val consistencyTotalDays: Int,
+    val interruptions: ParentStudyBehaviorInterruptions,
+)
+
+enum class ParentStudyBehaviorBestTime {
+    Afternoon,
+}
+
+enum class ParentStudyBehaviorInterruptions {
+    Low,
+}

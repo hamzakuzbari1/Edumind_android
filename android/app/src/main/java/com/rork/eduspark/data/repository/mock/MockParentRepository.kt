@@ -9,6 +9,9 @@ import com.rork.eduspark.data.model.ParentAlertSeverity
 import com.rork.eduspark.data.model.ParentAlertTime
 import com.rork.eduspark.data.model.ParentAlertType
 import com.rork.eduspark.data.model.ParentAlertsSnapshot
+import com.rork.eduspark.data.model.ParentAiInsightsSnapshot
+import com.rork.eduspark.data.model.ParentAiSummary
+import com.rork.eduspark.data.model.ParentAiSummaryType
 import com.rork.eduspark.data.model.ParentAttendancePeriod
 import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentDashboardSnapshot
@@ -43,11 +46,17 @@ import com.rork.eduspark.data.model.ParentSubjectTeacher
 import com.rork.eduspark.data.model.ParentSubjectTeacherStatus
 import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.model.ParentStudyDay
+import com.rork.eduspark.data.model.ParentStudyBehaviorBestTime
+import com.rork.eduspark.data.model.ParentStudyBehaviorInsight
+import com.rork.eduspark.data.model.ParentStudyBehaviorInterruptions
 import com.rork.eduspark.data.model.ParentTeacherAvailability
 import com.rork.eduspark.data.model.ParentTeacherName
 import com.rork.eduspark.data.model.ParentTeacherProfile
 import com.rork.eduspark.data.model.ParentTeacherResponseTime
 import com.rork.eduspark.data.model.ParentTeacherRole
+import com.rork.eduspark.data.model.ParentSubjectInsight
+import com.rork.eduspark.data.model.ParentSubjectInsightObservation
+import com.rork.eduspark.data.model.ParentSubjectInsightStatus
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -352,6 +361,36 @@ class MockParentRepository(
                         category = ParentAlertPreferenceCategory.TeacherNotes,
                         enabled = true,
                     ),
+                ),
+            )
+        )
+    }
+
+    override suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        return AppResult.Success(
+            ParentAiInsightsSnapshot(
+                summary = ParentAiSummary(type = ParentAiSummaryType.StableWithAlgebraSupport),
+                subjectInsights = listOf(
+                    ParentSubjectInsight(
+                        id = "$studentId-ai-science",
+                        subject = ParentSubjectKind.Science,
+                        status = ParentSubjectInsightStatus.Strength,
+                        observation = ParentSubjectInsightObservation.PositiveStableTrend,
+                    ),
+                    ParentSubjectInsight(
+                        id = "$studentId-ai-math",
+                        subject = ParentSubjectKind.Mathematics,
+                        status = ParentSubjectInsightStatus.FollowUp,
+                        observation = ParentSubjectInsightObservation.RepeatedAlgebraMistakes,
+                    ),
+                ),
+                behavior = ParentStudyBehaviorInsight(
+                    bestTime = ParentStudyBehaviorBestTime.Afternoon,
+                    averageSessionMinutes = 48,
+                    consistencyDays = 5,
+                    consistencyTotalDays = 7,
+                    interruptions = ParentStudyBehaviorInterruptions.Low,
                 ),
             )
         )
