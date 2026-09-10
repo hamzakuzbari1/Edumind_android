@@ -32,6 +32,7 @@ import com.rork.eduspark.data.model.ParentLessonDetails
 import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentPerformanceSnapshot
+import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.model.PeerReview
 import com.rork.eduspark.data.model.PeerReviewDraft
 import com.rork.eduspark.data.model.PeerSubmissionPreview
@@ -530,6 +531,7 @@ interface ParentRepository {
     ): AppResult<ParentAttendanceStudyTimeSnapshot>
     suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot>
     suspend fun getLessonDetails(lessonId: String): AppResult<ParentLessonDetails>
+    suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
 }
 
 /**

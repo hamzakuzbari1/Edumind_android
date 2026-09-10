@@ -189,3 +189,53 @@ enum class ParentLessonActivityTime {
     Today1615,
     Today1600,
 }
+
+data class ParentSubjectsTeachersSnapshot(
+    val items: List<ParentSubjectTeacher>,
+)
+
+data class ParentSubjectTeacher(
+    val id: String,
+    val subject: ParentSubjectKind,
+    val teacher: ParentTeacherProfile,
+    val progressPercent: Int,
+    val status: ParentSubjectTeacherStatus,
+    val weeklySessions: Int,
+)
+
+data class ParentTeacherProfile(
+    val id: String,
+    val name: ParentTeacherName,
+    val role: ParentTeacherRole,
+    val avatarInitial: String,
+    val availability: ParentTeacherAvailability,
+    val responseTime: ParentTeacherResponseTime,
+)
+
+enum class ParentSubjectTeacherStatus {
+    OnTrack,
+    NeedsFollowUp,
+}
+
+enum class ParentTeacherName {
+    RamiAlHassan,
+    SaraAlKhatib,
+    MonaNassar,
+}
+
+enum class ParentTeacherRole {
+    MathematicsTeacher,
+    ScienceTeacher,
+    ArabicTeacher,
+}
+
+enum class ParentTeacherAvailability {
+    SundayTuesday,
+    MondayWednesday,
+    SaturdayMonday,
+}
+
+enum class ParentTeacherResponseTime {
+    SameDay,
+    OneSchoolDay,
+}

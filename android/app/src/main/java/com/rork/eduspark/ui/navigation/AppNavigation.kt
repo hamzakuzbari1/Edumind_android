@@ -67,6 +67,7 @@ import com.rork.eduspark.ui.screens.parent.ParentLessonProgressScreen
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
 import com.rork.eduspark.ui.screens.parent.ParentProgressScreen
+import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
 import com.rork.eduspark.ui.screens.student.CoursePaywallScreen
@@ -1868,6 +1869,9 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                             onOpenLessonProgress = {
                                 navController.navigate(Routes.PARENT_LESSON_PROGRESS)
                             },
+                            onOpenSubjectsTeachers = {
+                                navController.navigate(Routes.PARENT_SUBJECTS_TEACHERS)
+                            },
                         )
                     },
                     Routes.PARENT_ME to {
@@ -1907,6 +1911,13 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
             val lessonId = backStackEntry.arguments?.getString(LESSON_ID_ARG).orEmpty()
             ParentLessonDetailsScreen(
                 lessonId = lessonId,
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+
+        composable(Routes.PARENT_SUBJECTS_TEACHERS) {
+            ParentSubjectsTeachersScreen(
                 onBack = { navController.popBackStack() },
                 onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
             )
