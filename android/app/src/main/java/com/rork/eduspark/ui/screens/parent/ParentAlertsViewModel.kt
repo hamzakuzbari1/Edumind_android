@@ -170,3 +170,19 @@ class ParentAlertsViewModel(
         }
     }
 }
+
+class ParentAlertsBadgeViewModel(
+    parentRepository: ParentRepository,
+) : ViewModel() {
+
+    private val _unreadCount = MutableStateFlow(0)
+    val unreadCount: StateFlow<Int> = _unreadCount.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            parentRepository.unreadAlertCount.collect { count ->
+                _unreadCount.value = count
+            }
+        }
+    }
+}

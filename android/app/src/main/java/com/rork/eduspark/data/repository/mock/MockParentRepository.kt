@@ -67,6 +67,7 @@ import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlin.math.absoluteValue
 
@@ -80,6 +81,11 @@ class MockParentRepository(
 
     override val linkedStudents: Flow<List<ParentLinkedStudent>> = linkStore.linkedStudents
     private val alertSnapshots = MutableStateFlow<Map<String, ParentAlertsSnapshot>>(emptyMap())
+    override val unreadAlertCount: Flow<Int> = combine(linkStore.linkedStudents, alertSnapshots) { students, snapshots ->
+        students.sumOf { student ->
+            (snapshots[student.id] ?: seededAlertSnapshot(student.id)).alerts.count { it.isUnread }
+        }
+    }
 
     override suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>> {
         delay(MOCK_DELAY_MS)
@@ -100,7 +106,7 @@ class MockParentRepository(
                 studyHoursThisWeek = 6.4f,
                 attendancePercent = 96,
                 plannerItemsDue = 2,
-                alertCount = 1,
+                alertCount = alertSnapshotFor(studentId).alerts.count { it.isUnread },
                 recentActivities = listOf(
                     ParentRecentActivity(
                         id = "$studentId-quiz-completed",

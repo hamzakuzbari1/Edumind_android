@@ -528,6 +528,7 @@ interface SecurityRepository {
  */
 interface ParentRepository {
     val linkedStudents: Flow<List<ParentLinkedStudent>>
+    val unreadAlertCount: Flow<Int>
     suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
     suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
     suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot>

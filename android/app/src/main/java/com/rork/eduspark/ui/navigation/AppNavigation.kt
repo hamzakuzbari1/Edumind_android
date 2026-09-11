@@ -62,6 +62,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAiInsightsScreen
 import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeScreen
+import com.rork.eduspark.ui.screens.parent.ParentAlertsBadgeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAlertsScreen
 import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
 import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsScreen
@@ -1849,12 +1850,15 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
         composable(Routes.PARENT_HOME) {
             val parentTabNavController = rememberNavController()
             val messagesBadgeViewModel = koinViewModel<MessagesBadgeViewModel>()
+            val alertsBadgeViewModel = koinViewModel<ParentAlertsBadgeViewModel>()
             val unreadMessages by messagesBadgeViewModel.unreadCount.collectAsStateWithLifecycle()
+            val unreadAlerts by alertsBadgeViewModel.unreadCount.collectAsStateWithLifecycle()
 
             RoleShell(
                 tabs = ParentTabs,
                 tabNavController = parentTabNavController,
                 unreadMessages = unreadMessages,
+                unreadNotifications = unreadAlerts,
                 onOpenMessages = {
                     parentTabNavController.navigate(Routes.PARENT_MESSAGES) {
                         popUpTo(ParentTabs.first().route) { saveState = true }

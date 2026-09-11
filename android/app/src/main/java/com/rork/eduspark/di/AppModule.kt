@@ -65,6 +65,7 @@ import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAiInsightsViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAlertsBadgeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAlertsViewModel
 import com.rork.eduspark.ui.screens.parent.ParentHomeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsViewModel
@@ -784,6 +785,7 @@ val appModule = module {
             threadId = threadId,
             authRepository = get(),
             messagingRepository = get(),
+            parentRepository = get(),
             connectivity = get(),
         )
     }
@@ -799,4 +801,5 @@ val appModule = module {
             connectivity = get(),
         )
     }
+    viewModel { ParentAlertsBadgeViewModel(parentRepository = get()) }
 }

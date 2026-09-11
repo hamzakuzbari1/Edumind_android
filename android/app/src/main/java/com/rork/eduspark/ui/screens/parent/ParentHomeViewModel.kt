@@ -45,6 +45,11 @@ class ParentHomeViewModel(
                 applyStudents(students)
             }
         }
+        viewModelScope.launch {
+            parentRepository.unreadAlertCount.collect {
+                refreshCurrentDashboard()
+            }
+        }
         load()
     }
 
@@ -130,5 +135,10 @@ class ParentHomeViewModel(
                 is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
             }
         }
+    }
+
+    private fun refreshCurrentDashboard() {
+        val selectedStudentId = (state.value.result as? UiState.Content)?.data?.selectedStudentId ?: return
+        loadDashboard(selectedStudentId)
     }
 }

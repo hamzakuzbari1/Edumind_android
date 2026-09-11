@@ -11,12 +11,14 @@ import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.MessagingRepository
+import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -68,6 +70,7 @@ class ConversationThreadViewModel(
     private val threadId: String,
     private val authRepository: AuthRepository,
     private val messagingRepository: MessagingRepository,
+    private val parentRepository: ParentRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -94,20 +97,38 @@ class ConversationThreadViewModel(
         loadJob = viewModelScope.launch {
             val session = authRepository.session.first()
             val viewerId = session?.messagingParticipantIdOrNull()
-            if (viewerId == null) {
+            val viewerRole = session?.messagingRoleOrNull()
+            if (viewerId == null || viewerRole == null) {
                 _state.update { it.copy(result = UiState.Failure(AppError.NotFound)) }
                 return@launch
             }
             _state.update {
                 it.copy(
                     viewerId = viewerId,
-                    viewerRole = session.messagingRoleOrNull(),
-                    viewerIsTeacher = session.messagingRoleOrNull() == MessageParticipantRole.Teacher,
+                    viewerRole = viewerRole,
+                    viewerIsTeacher = viewerRole == MessageParticipantRole.Teacher,
                 )
             }
-            messagingRepository.markThreadRead(threadId, viewerId)
-            messagingRepository.threads.collect { all ->
-                val thread = all.firstOrNull { it.id == threadId }
+
+            var hasMarkedThreadRead = false
+            val guardedThreadFlow = if (viewerRole == MessageParticipantRole.Parent) {
+                combine(messagingRepository.threads, parentRepository.linkedStudents) { all, linkedStudents ->
+                    val linkedStudentIds = linkedStudents.map { it.id }.toSet()
+                    all.firstOrNull { it.id == threadId }
+                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, linkedStudentIds) }
+                }
+            } else {
+                messagingRepository.threads.combine(parentRepository.linkedStudents) { all, _ ->
+                    all.firstOrNull { it.id == threadId }
+                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, emptySet()) }
+                }
+            }
+
+            guardedThreadFlow.collect { thread ->
+                if (thread != null && !hasMarkedThreadRead) {
+                    hasMarkedThreadRead = true
+                    messagingRepository.markThreadRead(threadId, viewerId)
+                }
                 _state.update {
                     it.copy(result = if (thread != null) UiState.Content(thread) else UiState.Failure(AppError.NotFound))
                 }
@@ -216,4 +237,17 @@ class ConversationThreadViewModel(
     }
 
     fun updatePlaybackPosition(positionMs: Int) = _state.update { it.copy(playbackPositionMs = positionMs) }
+}
+
+private fun MessageThread.canOpenFor(
+    viewerId: String,
+    viewerRole: MessageParticipantRole,
+    linkedStudentIds: Set<String>,
+): Boolean {
+    if (!involves(viewerId)) return false
+    if (viewerRole != MessageParticipantRole.Parent) return true
+
+    return studentParticipant.role == MessageParticipantRole.Parent &&
+        studentParticipant.id == viewerId &&
+        studentParticipant.relatedStudentId in linkedStudentIds
 }
