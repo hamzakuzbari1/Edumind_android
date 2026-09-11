@@ -66,6 +66,8 @@ import com.rork.eduspark.data.model.ParentSubjectInsightStatus
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlin.math.absoluteValue
 
 /**
@@ -77,6 +79,7 @@ class MockParentRepository(
 ) : ParentRepository {
 
     override val linkedStudents: Flow<List<ParentLinkedStudent>> = linkStore.linkedStudents
+    private val alertSnapshots = MutableStateFlow<Map<String, ParentAlertsSnapshot>>(emptyMap())
 
     override suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>> {
         delay(MOCK_DELAY_MS)
@@ -330,48 +333,104 @@ class MockParentRepository(
 
     override suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot> {
         delay(MOCK_DELAY_MS)
-        return AppResult.Success(
-            ParentAlertsSnapshot(
-                alerts = listOf(
-                    ParentAlert(
-                        id = "$studentId-alert-math-performance",
-                        type = ParentAlertType.MathPerformanceDrop,
-                        time = ParentAlertTime.Minutes35Ago,
-                        severity = ParentAlertSeverity.Important,
-                        isUnread = true,
-                    ),
-                    ParentAlert(
-                        id = "$studentId-alert-science-lesson",
-                        type = ParentAlertType.ScienceLessonCompleted,
-                        time = ParentAlertTime.TwoHoursAgo,
-                        severity = ParentAlertSeverity.Success,
-                        isUnread = true,
-                    ),
-                    ParentAlert(
-                        id = "$studentId-alert-teacher-note",
-                        type = ParentAlertType.TeacherNote,
-                        time = ParentAlertTime.Yesterday,
-                        severity = ParentAlertSeverity.Info,
-                        isUnread = true,
-                    ),
-                ),
-                preferences = listOf(
-                    ParentAlertPreference(
-                        category = ParentAlertPreferenceCategory.Performance,
-                        enabled = true,
-                    ),
-                    ParentAlertPreference(
-                        category = ParentAlertPreferenceCategory.LessonProgress,
-                        enabled = true,
-                    ),
-                    ParentAlertPreference(
-                        category = ParentAlertPreferenceCategory.TeacherNotes,
-                        enabled = true,
-                    ),
-                ),
-            )
-        )
+        return AppResult.Success(alertSnapshotFor(studentId))
     }
+
+    override suspend fun markParentAlertRead(studentId: String, alertId: String): AppResult<ParentAlertsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        val snapshot = alertSnapshotFor(studentId)
+        if (snapshot.alerts.none { it.id == alertId }) {
+            return AppResult.Failure(AppError.NotFound)
+        }
+        val updated = snapshot.copy(
+            alerts = snapshot.alerts.map { alert ->
+                if (alert.id == alertId) alert.copy(isUnread = false) else alert
+            },
+        )
+        alertSnapshots.update { it + (studentId to updated) }
+        return AppResult.Success(updated)
+    }
+
+    override suspend fun markAllParentAlertsRead(studentId: String): AppResult<ParentAlertsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        val snapshot = alertSnapshotFor(studentId)
+        val updated = snapshot.copy(alerts = snapshot.alerts.map { it.copy(isUnread = false) })
+        alertSnapshots.update { it + (studentId to updated) }
+        return AppResult.Success(updated)
+    }
+
+    override suspend fun setParentAlertPreferenceEnabled(
+        studentId: String,
+        category: ParentAlertPreferenceCategory,
+        enabled: Boolean,
+    ): AppResult<ParentAlertsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        val snapshot = alertSnapshotFor(studentId)
+        if (snapshot.preferences.none { it.category == category }) {
+            return AppResult.Failure(AppError.NotFound)
+        }
+        val updated = snapshot.copy(
+            preferences = snapshot.preferences.map { preference ->
+                if (preference.category == category) {
+                    preference.copy(enabled = enabled)
+                } else {
+                    preference
+                }
+            },
+        )
+        alertSnapshots.update { it + (studentId to updated) }
+        return AppResult.Success(updated)
+    }
+
+    private fun alertSnapshotFor(studentId: String): ParentAlertsSnapshot {
+        val existing = alertSnapshots.value[studentId]
+        if (existing != null) return existing
+
+        val seeded = seededAlertSnapshot(studentId)
+        alertSnapshots.update { it + (studentId to seeded) }
+        return seeded
+    }
+
+    private fun seededAlertSnapshot(studentId: String): ParentAlertsSnapshot =
+        ParentAlertsSnapshot(
+            alerts = listOf(
+                ParentAlert(
+                    id = "$studentId-alert-math-performance",
+                    type = ParentAlertType.MathPerformanceDrop,
+                    time = ParentAlertTime.Minutes35Ago,
+                    severity = ParentAlertSeverity.Important,
+                    isUnread = true,
+                ),
+                ParentAlert(
+                    id = "$studentId-alert-science-lesson",
+                    type = ParentAlertType.ScienceLessonCompleted,
+                    time = ParentAlertTime.TwoHoursAgo,
+                    severity = ParentAlertSeverity.Success,
+                    isUnread = true,
+                ),
+                ParentAlert(
+                    id = "$studentId-alert-teacher-note",
+                    type = ParentAlertType.TeacherNote,
+                    time = ParentAlertTime.Yesterday,
+                    severity = ParentAlertSeverity.Info,
+                    isUnread = true,
+                ),
+            ),
+            preferences = listOf(
+                ParentAlertPreference(
+                    category = ParentAlertPreferenceCategory.Performance,
+                    enabled = true,
+                ),
+                ParentAlertPreference(
+                    category = ParentAlertPreferenceCategory.LessonProgress,
+                    enabled = true,
+                ),
+                ParentAlertPreference(
+                    category = ParentAlertPreferenceCategory.TeacherNotes,
+                    enabled = true,
+                ),
+            ),
+        )
 
     override suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot> {
         delay(MOCK_DELAY_MS)

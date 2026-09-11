@@ -71,6 +71,7 @@ import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLessonProgressViewModel
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
 import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentMessagesViewModel
 import com.rork.eduspark.ui.screens.parent.ParentPlannerViewModel
 import com.rork.eduspark.ui.screens.parent.ParentProgressViewModel
 import com.rork.eduspark.ui.screens.parent.ParentReportsViewModel
@@ -768,9 +769,9 @@ val appModule = module {
     }
 
     // ── Phase 6 · X-01 Messages List / X-02 Conversation Thread / X-03 New Conversation ──────
-    // Badge — no parameters; one instance per root-shell call site (Student Home, Teacher
-    // Dashboard), each collecting the same MessagingRepository singleton's hot flow.
-    viewModel { MessagesBadgeViewModel(authRepository = get(), messagingRepository = get()) }
+    // Badge — no parameters; one instance per root-shell call site, each collecting the same
+    // MessagingRepository singleton's hot flow.
+    viewModel { MessagesBadgeViewModel(authRepository = get(), messagingRepository = get(), parentRepository = get()) }
     viewModel { NotificationsPanelViewModel(notificationRepository = get()) }
     viewModel { TeacherContactViewModel(authRepository = get(), messagingRepository = get()) }
 
@@ -789,4 +790,13 @@ val appModule = module {
 
     // X-03 — no parameters; the screen's own permission-filtered contact list is resolved from the session.
     viewModel { NewConversationViewModel(authRepository = get(), messagingRepository = get(), connectivity = get()) }
+
+    viewModel {
+        ParentMessagesViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            messagingRepository = get(),
+            connectivity = get(),
+        )
+    }
 }

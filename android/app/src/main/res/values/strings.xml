@@ -3188,4 +3188,14 @@
     <string name="pr04_average_session">متوسط الجلسة</string>
     <string name="pr04_average_session_body">مدة الدراسة في الجلسة الواحدة</string>
     <string name="pr04_minutes_value">%1$s د</string>
+    <string name="pr12_search_hint">بحث في المدرسين...</string>
+    <string name="pr12_conversations_section">محادثات المدرسين</string>
+    <string name="pr12_for_student">مرتبطة بـ %1$s</string>
+    <string name="pr12_empty_title">اربط طالباً لعرض الرسائل</string>
+    <string name="pr12_empty_body">تظهر رسائل ولي الأمر فقط بعد ربط طالب، وبحسب المدرسين المرتبطين به.</string>
+    <string name="pr12_no_threads_title">لا توجد محادثات متاحة</string>
+    <string name="pr12_no_threads_body">لا توجد محادثة مدرس مرتبطة بهذا الطالب في بيانات العرض الحالية.</string>
+    <string name="pr12_search_empty_title">لا توجد نتائج</string>
+    <string name="pr12_search_empty_body">جرّب البحث باسم مدرس أو مادة أخرى.</string>
+    <string name="pr12_thread_row_a11y">%1$s، %2$s، آخر رسالة %3$s</string>
 </resources>

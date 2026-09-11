@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
-import com.rork.eduspark.data.model.ParentAlertPreference
 import com.rork.eduspark.data.model.ParentAlertPreferenceCategory
 import com.rork.eduspark.data.model.ParentAlertsSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
@@ -64,58 +63,32 @@ class ParentAlertsViewModel(
     }
 
     fun markAlertRead(alertId: String) {
-        _state.update { current ->
-            val content = current.result as? UiState.Content ?: return@update current
-            val snapshot = content.data.snapshot ?: return@update current
-            current.copy(
-                result = UiState.Content(
-                    content.data.copy(
-                        snapshot = snapshot.copy(
-                            alerts = snapshot.alerts.map { alert ->
-                                if (alert.id == alertId) alert.copy(isUnread = false) else alert
-                            },
-                        ),
-                    ),
-                ),
-            )
+        val studentId = currentSelectedStudentId() ?: return
+        viewModelScope.launch {
+            when (val result = parentRepository.markParentAlertRead(studentId, alertId)) {
+                is AppResult.Success -> applyAlertsSnapshot(studentId, result.data)
+                is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
+            }
         }
     }
 
     fun markAllRead() {
-        _state.update { current ->
-            val content = current.result as? UiState.Content ?: return@update current
-            val snapshot = content.data.snapshot ?: return@update current
-            current.copy(
-                result = UiState.Content(
-                    content.data.copy(
-                        snapshot = snapshot.copy(
-                            alerts = snapshot.alerts.map { it.copy(isUnread = false) },
-                        ),
-                    ),
-                ),
-            )
+        val studentId = currentSelectedStudentId() ?: return
+        viewModelScope.launch {
+            when (val result = parentRepository.markAllParentAlertsRead(studentId)) {
+                is AppResult.Success -> applyAlertsSnapshot(studentId, result.data)
+                is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
+            }
         }
     }
 
     fun setPreferenceEnabled(category: ParentAlertPreferenceCategory, enabled: Boolean) {
-        _state.update { current ->
-            val content = current.result as? UiState.Content ?: return@update current
-            val snapshot = content.data.snapshot ?: return@update current
-            current.copy(
-                result = UiState.Content(
-                    content.data.copy(
-                        snapshot = snapshot.copy(
-                            preferences = snapshot.preferences.map { preference ->
-                                if (preference.category == category) {
-                                    preference.copy(enabled = enabled)
-                                } else {
-                                    preference
-                                }
-                            },
-                        ),
-                    ),
-                ),
-            )
+        val studentId = currentSelectedStudentId() ?: return
+        viewModelScope.launch {
+            when (val result = parentRepository.setParentAlertPreferenceEnabled(studentId, category, enabled)) {
+                is AppResult.Success -> applyAlertsSnapshot(studentId, result.data)
+                is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
+            }
         }
     }
 
@@ -176,16 +149,23 @@ class ParentAlertsViewModel(
         alertsJob?.cancel()
         alertsJob = viewModelScope.launch {
             when (val result = parentRepository.getAlertsSnapshot(studentId)) {
-                is AppResult.Success -> _state.update { current ->
-                    val content = current.result as? UiState.Content ?: return@update current
-                    if (content.data.selectedStudentId != studentId) {
-                        current
-                    } else {
-                        current.copy(result = UiState.Content(content.data.copy(snapshot = result.data)))
-                    }
-                }
+                is AppResult.Success -> applyAlertsSnapshot(studentId, result.data)
 
                 is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
+            }
+        }
+    }
+
+    private fun currentSelectedStudentId(): String? =
+        (state.value.result as? UiState.Content)?.data?.selectedStudentId
+
+    private fun applyAlertsSnapshot(studentId: String, snapshot: ParentAlertsSnapshot) {
+        _state.update { current ->
+            val content = current.result as? UiState.Content ?: return@update current
+            if (content.data.selectedStudentId != studentId) {
+                current
+            } else {
+                current.copy(result = UiState.Content(content.data.copy(snapshot = snapshot)))
             }
         }
     }

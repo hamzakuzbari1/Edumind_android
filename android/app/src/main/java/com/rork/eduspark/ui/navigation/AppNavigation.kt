@@ -68,6 +68,7 @@ import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsScreen
 import com.rork.eduspark.ui.screens.parent.ParentLessonProgressScreen
 import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
+import com.rork.eduspark.ui.screens.parent.ParentMessagesScreen
 import com.rork.eduspark.ui.screens.parent.ParentPlannerScreen
 import com.rork.eduspark.ui.screens.parent.ParentProgressScreen
 import com.rork.eduspark.ui.screens.parent.ParentReportsScreen
@@ -1846,14 +1847,32 @@ private fun NavGraphBuilder.teacherGraph(navController: NavHostController) {
 private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
     navigation(startDestination = Routes.PARENT_HOME, route = Routes.PARENT_GRAPH) {
         composable(Routes.PARENT_HOME) {
+            val parentTabNavController = rememberNavController()
+            val messagesBadgeViewModel = koinViewModel<MessagesBadgeViewModel>()
+            val unreadMessages by messagesBadgeViewModel.unreadCount.collectAsStateWithLifecycle()
+
             RoleShell(
                 tabs = ParentTabs,
+                tabNavController = parentTabNavController,
+                unreadMessages = unreadMessages,
+                onOpenMessages = {
+                    parentTabNavController.navigate(Routes.PARENT_MESSAGES) {
+                        popUpTo(ParentTabs.first().route) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                onOpenNotifications = {
+                    navController.navigate(Routes.PARENT_ALERTS) {
+                        launchSingleTop = true
+                    }
+                },
                 screenIdFor = { route ->
                     when (route) {
                         Routes.PARENT_HOME -> "PR-02 · Parent Home"
                         Routes.PARENT_PROGRESS -> "PR-03 · Academic Performance"
                         Routes.PARENT_REPORTS -> "PR-10 · Reports"
-                        Routes.PARENT_MESSAGES -> "X-02 · Conversation Thread"
+                        Routes.PARENT_MESSAGES -> "PR-12 · Parent Messages"
                         else -> "PR-13 · Parent Notifications"
                     }
                 },
@@ -1884,6 +1903,12 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                     Routes.PARENT_REPORTS to {
                         ParentReportsScreen(
                             onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
+                    Routes.PARENT_MESSAGES to {
+                        ParentMessagesScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                            onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
                         )
                     },
                     Routes.PARENT_ME to {

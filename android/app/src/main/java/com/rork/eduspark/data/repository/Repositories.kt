@@ -25,6 +25,7 @@ import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
+import com.rork.eduspark.data.model.ParentAlertPreferenceCategory
 import com.rork.eduspark.data.model.ParentAlertsSnapshot
 import com.rork.eduspark.data.model.ParentAiInsightsSnapshot
 import com.rork.eduspark.data.model.ParentAttendancePeriod
@@ -540,6 +541,13 @@ interface ParentRepository {
     suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
     suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot>
     suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot>
+    suspend fun markParentAlertRead(studentId: String, alertId: String): AppResult<ParentAlertsSnapshot>
+    suspend fun markAllParentAlertsRead(studentId: String): AppResult<ParentAlertsSnapshot>
+    suspend fun setParentAlertPreferenceEnabled(
+        studentId: String,
+        category: ParentAlertPreferenceCategory,
+        enabled: Boolean,
+    ): AppResult<ParentAlertsSnapshot>
     suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot>
     suspend fun getReportsSnapshot(
         studentId: String,

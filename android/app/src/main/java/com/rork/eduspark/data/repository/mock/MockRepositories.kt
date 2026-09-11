@@ -14,6 +14,7 @@ import com.rork.eduspark.data.model.AtRiskStudent
 import com.rork.eduspark.data.model.AttendanceRecord
 import com.rork.eduspark.data.model.AttendanceStatus
 import com.rork.eduspark.data.model.MessagingChatMessage
+import com.rork.eduspark.data.model.CURRENT_PARENT_MESSAGING_ID
 import com.rork.eduspark.data.model.CURRENT_STUDENT_MESSAGING_ID
 import com.rork.eduspark.data.model.MessageAttachment
 import com.rork.eduspark.data.model.MessageAttachmentType
@@ -5192,7 +5193,7 @@ class MockMessagingRepository : MessagingRepository {
 
         val PARENT_DIRECTORY: Map<String, MessageParticipant> = listOf(
             MessageParticipant(
-                id = "parent-s1",
+                id = CURRENT_PARENT_MESSAGING_ID,
                 displayName = "محمد الحلبي",
                 role = MessageParticipantRole.Parent,
                 avatarInitial = "م",
@@ -5210,7 +5211,7 @@ class MockMessagingRepository : MessagingRepository {
             val s1 = STUDENT_DIRECTORY.getValue("s1")
             val s2 = STUDENT_DIRECTORY.getValue("s2")
             val s3 = STUDENT_DIRECTORY.getValue("s3")
-            val parentS1 = PARENT_DIRECTORY.getValue("parent-s1")
+            val parentS1 = PARENT_DIRECTORY.getValue(CURRENT_PARENT_MESSAGING_ID)
 
             val thread1 = MessageThread(
                 id = threadIdFor(TEACHER.id, s1.id),
@@ -5272,7 +5273,7 @@ class MockMessagingRepository : MessagingRepository {
                     ),
                     MessagingChatMessage(
                         "tp-m2", TEACHER.id, "نعم، مطلوب قبل الجمعة. ريم ما قدّمته بعد.",
-                        "١٢:06", now - 10 * minute, isRead = true,
+                        "١٢:06", now - 10 * minute, isRead = false,
                     ),
                     MessagingChatMessage(
                         "tp-m3", parentS1.id, "تمام أستاذ، رح نراجع معها الليلة.",

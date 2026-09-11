@@ -84,3 +84,10 @@ data class MessageThread(
  * evidence-based identity match rather than inventing a new one or leaving them unlinked.
  */
 const val CURRENT_STUDENT_MESSAGING_ID = "s1"
+
+/**
+ * Parent auth/profile/linking ids intentionally remain separate in the current mock app.
+ * Messaging normalizes the signed-in Parent onto the existing seeded Parent participant at
+ * the boundary only, so Student/Teacher account identities do not need to change.
+ */
+const val CURRENT_PARENT_MESSAGING_ID = "parent-s1"
