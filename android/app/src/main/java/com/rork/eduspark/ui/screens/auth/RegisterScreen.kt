@@ -233,10 +233,12 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(Spacing.md))
 
             TermsRow(
-                // Student and Parent affirm the 13+ age line the PDF specifies; Teacher's
-                // checkbox stays the plain terms sentence — nothing to affirm about a minor.
                 label = stringResource(
-                    if (role == UserRole.Teacher) R.string.reg_terms else R.string.reg_terms_with_age
+                    when (role) {
+                        UserRole.Student -> R.string.reg_terms_with_age
+                        UserRole.Parent -> R.string.reg_terms_parent_guardian
+                        UserRole.Teacher -> R.string.reg_terms
+                    }
                 ),
                 accepted = state.acceptedTerms,
                 onAcceptedChange = viewModel::onAcceptTermsChange,

@@ -329,8 +329,9 @@
     <string name="a07_grade_11">Grade 11</string>
     <string name="a07_grade_12">Baccalaureate</string>
 
-    <!-- Student/Parent only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
+    <!-- Student only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
     <string name="reg_terms_with_age">I agree to the Terms of Use and Privacy Policy. I am 13 or older.</string>
+    <string name="reg_terms_parent_guardian">I agree to the Terms of Use and Privacy Policy, and confirm that I am an adult parent or legal guardian.</string>
 
     <!-- ── password strength — actionable guidance, not just a score ─ -->
     <string name="reg_strength_hint_add_number">Add a number to make it stronger</string>

@@ -355,8 +355,9 @@
     <string name="a07_grade_11">الصف الحادي عشر</string>
     <string name="a07_grade_12">البكالوريا</string>
 
-    <!-- Student/Parent only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
+    <!-- Student only — A-07 Teacher keeps the plain reg_terms above, no age clause. -->
     <string name="reg_terms_with_age">أوافق على شروط الاستخدام وسياسة الخصوصية. عمري 13 عاماً أو أكثر.</string>
+    <string name="reg_terms_parent_guardian">أوافق على شروط الاستخدام وسياسة الخصوصية، وأؤكد أنني ولي أمر أو وصي قانوني بالغ.</string>
 
     <!-- ── password strength — actionable guidance, not just a score ─ -->
     <string name="reg_strength_hint_add_number">أضف رقماً لتصبح أقوى</string>
