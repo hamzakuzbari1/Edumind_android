@@ -39,6 +39,12 @@ import com.rork.eduspark.data.model.ParentPlannerSessionTime
 import com.rork.eduspark.data.model.ParentPlannerSnapshot
 import com.rork.eduspark.data.model.ParentRecentActivity
 import com.rork.eduspark.data.model.ParentRecentActivityType
+import com.rork.eduspark.data.model.ParentReportDateRange
+import com.rork.eduspark.data.model.ParentReportPeriod
+import com.rork.eduspark.data.model.ParentReportStatus
+import com.rork.eduspark.data.model.ParentReportSummary
+import com.rork.eduspark.data.model.ParentReportSummaryType
+import com.rork.eduspark.data.model.ParentReportsSnapshot
 import com.rork.eduspark.data.model.ParentSubjectKind
 import com.rork.eduspark.data.model.ParentSubjectPerformance
 import com.rork.eduspark.data.model.ParentSubjectPerformanceStatus
@@ -60,6 +66,7 @@ import com.rork.eduspark.data.model.ParentSubjectInsightStatus
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlin.math.absoluteValue
 
 /**
  * PR-01/PR-13 mock parent linking. Relationship state lives in [MockParentStudentLinkStore]
@@ -396,6 +403,86 @@ class MockParentRepository(
         )
     }
 
+    override suspend fun getReportsSnapshot(
+        studentId: String,
+        period: ParentReportPeriod,
+        dateRange: ParentReportDateRange?,
+    ): AppResult<ParentReportsSnapshot> {
+        delay(MOCK_DELAY_MS)
+        val metrics = when (period) {
+            ParentReportPeriod.Last7Days -> ParentReportMockMetrics(
+                average = 89,
+                completedLessons = 18,
+                studyHours = 6.4f,
+                trend = listOf(62, 68, 66, 76, 78, 82, 89),
+            )
+            ParentReportPeriod.Last30Days -> ParentReportMockMetrics(
+                average = 91,
+                completedLessons = 24,
+                studyHours = 24.8f,
+                trend = listOf(70, 72, 75, 78, 82, 84, 91),
+            )
+            ParentReportPeriod.Term -> ParentReportMockMetrics(
+                average = 88,
+                completedLessons = 64,
+                studyHours = 72.5f,
+                trend = listOf(64, 68, 73, 76, 81, 84, 88),
+            )
+            ParentReportPeriod.Custom -> ParentReportMockMetrics(
+                average = 90,
+                completedLessons = 12,
+                studyHours = 8.6f,
+                trend = listOf(74, 76, 78, 77, 82, 86, 90),
+            )
+        }.let { canned ->
+            if (period == ParentReportPeriod.Custom && dateRange != null) {
+                customReportMetrics(studentId = studentId, dateRange = dateRange)
+            } else {
+                canned
+            }
+        }
+        return AppResult.Success(
+            ParentReportsSnapshot(
+                period = period,
+                academicAveragePercent = metrics.average,
+                completedLessons = metrics.completedLessons,
+                studyHours = metrics.studyHours,
+                trendScores = metrics.trend,
+                summary = ParentReportSummary(
+                    status = ParentReportStatus.Ready,
+                    type = ParentReportSummaryType.ImprovedAverageAndLessons,
+                ),
+                dateRange = dateRange.takeIf { period == ParentReportPeriod.Custom },
+            )
+        )
+    }
+
+    private fun customReportMetrics(
+        studentId: String,
+        dateRange: ParentReportDateRange,
+    ): ParentReportMockMetrics {
+        val startDay = dateRange.startDateMillis / MILLIS_PER_DAY
+        val endDay = dateRange.endDateMillis / MILLIS_PER_DAY
+        val days = (endDay - startDay + 1).coerceAtLeast(1)
+        val seed = (studentId.hashCode() + startDay + endDay).toInt().absoluteValue
+        val average = 82 + seed % 12
+        val completedLessons = (days / 2 + seed % 4).toInt().coerceAtLeast(1)
+        val studyHours = (days * 70 + seed % 50) / 60f
+        val trend = List(REPORT_TREND_POINT_COUNT) { index ->
+            (
+                average -
+                    (REPORT_TREND_POINT_COUNT - index - 1) * (1 + seed % 2) +
+                    (seed + index) % 3
+                ).coerceIn(45, 99)
+        }
+        return ParentReportMockMetrics(
+            average = average,
+            completedLessons = completedLessons,
+            studyHours = studyHours,
+            trend = trend,
+        )
+    }
+
     private fun lessonProgressItems(studentId: String): List<ParentLessonProgressItem> = listOf(
         ParentLessonProgressItem(
             id = "$studentId-decimal-fractions",
@@ -468,7 +555,16 @@ class MockParentRepository(
         ),
     )
 
+    private data class ParentReportMockMetrics(
+        val average: Int,
+        val completedLessons: Int,
+        val studyHours: Float,
+        val trend: List<Int>,
+    )
+
     private companion object {
         const val MOCK_DELAY_MS = 400L
+        const val MILLIS_PER_DAY = 86_400_000L
+        const val REPORT_TREND_POINT_COUNT = 7
     }
 }

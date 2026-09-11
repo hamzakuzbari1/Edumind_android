@@ -73,6 +73,7 @@ import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
 import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
 import com.rork.eduspark.ui.screens.parent.ParentPlannerViewModel
 import com.rork.eduspark.ui.screens.parent.ParentProgressViewModel
+import com.rork.eduspark.ui.screens.parent.ParentReportsViewModel
 import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersViewModel
 import com.rork.eduspark.ui.screens.student.CourseDetailViewModel
 import com.rork.eduspark.ui.screens.student.ExamCaptureViewModel
@@ -582,11 +583,14 @@ val appModule = module {
     // NotificationSettingsViewModel's own doc comment).
     viewModel { NotificationSettingsViewModel(preferences = get()) }
 
-    // PR-01/PR-02/PR-03/PR-07/PR-08/PR-10/PR-11/PR-13 — Parent account, dashboard, performance, planner, AI insights, alerts, subjects and student linking. Frontend-only mock state; no backend/API work.
+    // PR-01/PR-02/PR-03/PR-07/PR-08/PR-09/PR-10/PR-11/PR-13 — Parent account, dashboard,
+    // performance, planner, AI insights, reports, alerts, subjects and student linking.
+    // Frontend-only mock state; no backend/API work.
     viewModel { ParentHomeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentPlannerViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAiInsightsViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAlertsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentReportsViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentLessonProgressViewModel(parentRepository = get(), connectivity = get()) }

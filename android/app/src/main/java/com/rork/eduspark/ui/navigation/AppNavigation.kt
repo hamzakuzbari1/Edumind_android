@@ -70,6 +70,7 @@ import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
 import com.rork.eduspark.ui.screens.parent.ParentMeScreen
 import com.rork.eduspark.ui.screens.parent.ParentPlannerScreen
 import com.rork.eduspark.ui.screens.parent.ParentProgressScreen
+import com.rork.eduspark.ui.screens.parent.ParentReportsScreen
 import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
@@ -1878,6 +1879,11 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                             onOpenSubjectsTeachers = {
                                 navController.navigate(Routes.PARENT_SUBJECTS_TEACHERS)
                             },
+                        )
+                    },
+                    Routes.PARENT_REPORTS to {
+                        ParentReportsScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
                         )
                     },
                     Routes.PARENT_ME to {

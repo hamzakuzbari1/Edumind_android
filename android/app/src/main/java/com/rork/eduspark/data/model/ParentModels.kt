@@ -360,3 +360,38 @@ enum class ParentStudyBehaviorBestTime {
 enum class ParentStudyBehaviorInterruptions {
     Low,
 }
+
+data class ParentReportsSnapshot(
+    val period: ParentReportPeriod,
+    val academicAveragePercent: Int,
+    val completedLessons: Int,
+    val studyHours: Float,
+    val trendScores: List<Int>,
+    val summary: ParentReportSummary,
+    val dateRange: ParentReportDateRange? = null,
+)
+
+data class ParentReportDateRange(
+    val startDateMillis: Long,
+    val endDateMillis: Long,
+)
+
+enum class ParentReportPeriod {
+    Last7Days,
+    Last30Days,
+    Term,
+    Custom,
+}
+
+data class ParentReportSummary(
+    val status: ParentReportStatus,
+    val type: ParentReportSummaryType,
+)
+
+enum class ParentReportStatus {
+    Ready,
+}
+
+enum class ParentReportSummaryType {
+    ImprovedAverageAndLessons,
+}
