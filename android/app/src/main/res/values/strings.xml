@@ -152,6 +152,8 @@
     <string name="x02_attach_image">صورة</string>
     <string name="x02_attach_file">ملف</string>
     <string name="x02_attach_link">رابط</string>
+    <string name="x02_pending_attachment">مرفق جاهز للإرسال</string>
+    <string name="x02_remove_attachment">إزالة المرفق</string>
     <string name="x02_role_teacher">معلّم</string>
     <string name="x02_role_student">طالب</string>
     <string name="x02_role_parent">ولي أمر</string>
@@ -3198,4 +3200,7 @@
     <string name="pr12_search_empty_title">لا توجد نتائج</string>
     <string name="pr12_search_empty_body">جرّب البحث باسم مدرس أو مادة أخرى.</string>
     <string name="pr12_thread_row_a11y">%1$s، %2$s، آخر رسالة %3$s</string>
+    <string name="pr12_time_now">الآن</string>
+    <string name="pr12_time_minutes_ago">منذ %1$s د</string>
+    <string name="pr12_time_hours_ago">منذ %1$s س</string>
 </resources>

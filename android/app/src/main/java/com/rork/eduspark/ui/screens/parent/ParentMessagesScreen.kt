@@ -28,9 +28,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
@@ -39,7 +39,6 @@ import com.rork.eduspark.data.model.MessageAttachmentType
 import com.rork.eduspark.data.model.MessagingChatMessage
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.model.ParentLinkedStudent
-import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.input.SearchField
 import com.rork.eduspark.ui.components.state.MessageState
 import com.rork.eduspark.ui.components.state.ScreenStateHost
@@ -48,6 +47,8 @@ import com.rork.eduspark.ui.components.surface.SectionHeader
 import com.rork.eduspark.ui.components.surface.SkeletonCard
 import com.rork.eduspark.ui.components.surface.SkeletonListItem
 import com.rork.eduspark.ui.components.surface.StatusPill
+import com.rork.eduspark.ui.screens.messaging.parentRelativeMessageTimeLabel
+import com.rork.eduspark.ui.screens.messaging.rememberMessageRelativeNowMillis
 import com.rork.eduspark.ui.theme.EduTheme
 import com.rork.eduspark.ui.theme.Radius
 import com.rork.eduspark.ui.theme.Sizing
@@ -62,6 +63,7 @@ fun ParentMessagesScreen(
     viewModel: ParentMessagesViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val nowMillis = rememberMessageRelativeNowMillis()
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -84,6 +86,7 @@ fun ParentMessagesScreen(
             onSearchChange = viewModel::updateSearchQuery,
             onOpenLinkStudent = onOpenLinkStudent,
             onThreadTap = viewModel::onThreadTapped,
+            nowMillis = nowMillis,
         )
     }
 }
@@ -95,6 +98,7 @@ private fun ParentMessagesContent(
     onSearchChange: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
     onThreadTap: (String) -> Unit,
+    nowMillis: Long,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentMessagesEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -144,6 +148,7 @@ private fun ParentMessagesContent(
                     thread = thread,
                     viewerId = data.viewerId,
                     student = selectedStudent,
+                    nowMillis = nowMillis,
                     onClick = { onThreadTap(thread.id) },
                 )
             }
@@ -189,6 +194,7 @@ private fun ParentConversationRow(
     thread: MessageThread,
     viewerId: String,
     student: ParentLinkedStudent,
+    nowMillis: Long,
     onClick: () -> Unit,
 ) {
     val colors = EduTheme.colors
@@ -197,11 +203,12 @@ private fun ParentConversationRow(
     val last = thread.lastMessage
     val voiceLabel = stringResource(R.string.x01_voice_message_preview)
     val preview = last?.let { parentMessagePreview(it, voiceLabel) }.orEmpty()
+    val timeLabel = last?.let { parentRelativeMessageTimeLabel(it, nowMillis) }.orEmpty()
     val rowLabel = stringResource(
         R.string.pr12_thread_row_a11y,
         teacher.displayName,
         teacher.contextLabel,
-        last?.sentAtLabel.orEmpty(),
+        timeLabel,
     )
 
     EduCard(onClick = onClick, onClickLabel = rowLabel) {
@@ -239,7 +246,7 @@ private fun ParentConversationRow(
                     )
                     if (last != null) {
                         Text(
-                            text = last.sentAtLabel,
+                            text = timeLabel,
                             style = EduTheme.typography.caption,
                             color = if (unread > 0) colors.primary else colors.textSecondary,
                         )

@@ -122,6 +122,7 @@ fun ConversationThreadScreen(
     val context = LocalContext.current
     val recorder = remember { VoiceRecorderController(context) }
     val voicePlayer = remember { VoicePlayerController() }
+    val nowMillis = rememberMessageRelativeNowMillis(enabled = state.viewerRole == MessageParticipantRole.Parent)
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -225,16 +226,19 @@ fun ConversationThreadScreen(
             ConversationThreadContent(
                 thread = loadedThread,
                 viewerId = state.viewerId,
+                viewerRole = state.viewerRole,
                 isTeacherViewer = isTeacherViewer,
                 isSearchActive = state.isSearchActive,
                 searchQuery = state.searchQuery,
                 composerText = state.composerText,
                 isRecording = state.isRecording,
                 recordingDurationSeconds = state.recordingDurationSeconds,
+                pendingAttachment = state.pendingAttachment,
                 pendingVoiceNote = state.pendingVoiceNote,
                 activeVoiceMessageId = state.activeVoiceMessageId,
                 isVoicePlaying = state.isVoicePlaying,
                 playbackPositionMs = state.playbackPositionMs,
+                nowMillis = nowMillis,
                 onSearchQueryChange = viewModel::updateSearchQuery,
                 onComposerTextChange = viewModel::updateComposerText,
                 onSend = viewModel::sendMessage,
@@ -244,6 +248,7 @@ fun ConversationThreadScreen(
                     recorder.cancel()
                     viewModel.cancelRecording()
                 },
+                onDiscardPendingAttachment = viewModel::discardPendingAttachment,
                 onFinishRecording = {
                     val duration = state.recordingDurationSeconds
                     val path = recorder.stop()
@@ -282,22 +287,26 @@ fun ConversationThreadScreen(
 private fun ConversationThreadContent(
     thread: MessageThread,
     viewerId: String,
+    viewerRole: MessageParticipantRole?,
     isTeacherViewer: Boolean,
     isSearchActive: Boolean,
     searchQuery: String,
     composerText: String,
     isRecording: Boolean,
     recordingDurationSeconds: Int,
+    pendingAttachment: MessageAttachment?,
     pendingVoiceNote: PendingVoiceNote?,
     activeVoiceMessageId: String?,
     isVoicePlaying: Boolean,
     playbackPositionMs: Int,
+    nowMillis: Long,
     onSearchQueryChange: (String) -> Unit,
     onComposerTextChange: (String) -> Unit,
     onSend: () -> Unit,
     onAttachmentTap: () -> Unit,
     onMicTap: () -> Unit,
     onCancelRecording: () -> Unit,
+    onDiscardPendingAttachment: () -> Unit,
     onFinishRecording: () -> Unit,
     onDiscardPendingVoiceNote: () -> Unit,
     onSendVoiceNote: () -> Unit,
@@ -343,6 +352,8 @@ private fun ConversationThreadContent(
                     message = message,
                     isOutgoing = message.senderId == viewerId,
                     compact = isTeacherViewer,
+                    viewerRole = viewerRole,
+                    nowMillis = nowMillis,
                     isPlaying = activeVoiceMessageId == message.id && isVoicePlaying,
                     playbackPositionMs = if (activeVoiceMessageId == message.id) playbackPositionMs else 0,
                     onTogglePlayback = { onTogglePlayback(message.id) },
@@ -361,6 +372,7 @@ private fun ConversationThreadContent(
                 text = composerText,
                 isRecording = isRecording,
                 recordingDurationSeconds = recordingDurationSeconds,
+                pendingAttachment = pendingAttachment,
                 pendingVoiceNote = pendingVoiceNote,
                 isPendingPreviewPlaying = activeVoiceMessageId == PENDING_VOICE_PREVIEW_ID && isVoicePlaying,
                 pendingPreviewPositionMs = if (activeVoiceMessageId == PENDING_VOICE_PREVIEW_ID) playbackPositionMs else 0,
@@ -370,6 +382,7 @@ private fun ConversationThreadContent(
                 onSend = onSend,
                 onMicTap = onMicTap,
                 onCancelRecording = onCancelRecording,
+                onDiscardPendingAttachment = onDiscardPendingAttachment,
                 onFinishRecording = onFinishRecording,
                 onDiscardPendingVoiceNote = onDiscardPendingVoiceNote,
                 onSendVoiceNote = onSendVoiceNote,
@@ -416,6 +429,8 @@ private fun MessageBubble(
     message: MessagingChatMessage,
     isOutgoing: Boolean,
     compact: Boolean,
+    viewerRole: MessageParticipantRole?,
+    nowMillis: Long,
     isPlaying: Boolean,
     playbackPositionMs: Int,
     onTogglePlayback: () -> Unit,
@@ -426,6 +441,11 @@ private fun MessageBubble(
         PaddingValues(horizontal = Spacing.sm, vertical = Spacing.xs)
     } else {
         PaddingValues(Spacing.card)
+    }
+    val timeLabel = if (viewerRole == MessageParticipantRole.Parent) {
+        parentRelativeMessageTimeLabel(message, nowMillis)
+    } else {
+        message.sentAtLabel
     }
 
     Row(
@@ -460,7 +480,7 @@ private fun MessageBubble(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.xxs),
                 modifier = Modifier.padding(top = Spacing.xxs),
             ) {
-                Text(message.sentAtLabel, style = EduTheme.typography.caption, color = colors.textSecondary)
+                Text(timeLabel, style = EduTheme.typography.caption, color = colors.textSecondary)
                 if (isOutgoing && !compact) {
                     val receiptTint = if (message.isRead) colors.primary else colors.textSecondary
                     Icon(
@@ -593,6 +613,7 @@ private fun ComposerArea(
     text: String,
     isRecording: Boolean,
     recordingDurationSeconds: Int,
+    pendingAttachment: MessageAttachment?,
     pendingVoiceNote: PendingVoiceNote?,
     isPendingPreviewPlaying: Boolean,
     pendingPreviewPositionMs: Int,
@@ -602,109 +623,163 @@ private fun ComposerArea(
     onSend: () -> Unit,
     onMicTap: () -> Unit,
     onCancelRecording: () -> Unit,
+    onDiscardPendingAttachment: () -> Unit,
     onFinishRecording: () -> Unit,
     onDiscardPendingVoiceNote: () -> Unit,
     onSendVoiceNote: () -> Unit,
     onTogglePendingPreview: () -> Unit,
 ) {
     val colors = EduTheme.colors
+    val canSend = text.isNotBlank() || pendingAttachment != null
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = Spacing.gutter, vertical = if (compact) Spacing.xs else Spacing.sm),
     ) {
-        when {
-            isRecording -> {
-                Box(
-                    modifier = Modifier
-                        .size(Sizing.iconSm)
-                        .background(colors.danger, CircleShape),
-                )
-                Text(
-                    text = formatDurationLabel(recordingDurationSeconds),
-                    style = EduTheme.typography.body,
-                    color = colors.textPrimary,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = Spacing.xs),
-                )
-                EduIconButton(
-                    icon = Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.x02_recording_cancel),
-                    onClick = onCancelRecording,
-                )
-                EduIconButton(
-                    icon = Icons.Filled.Check,
-                    contentDescription = stringResource(R.string.x02_recording_finish),
-                    tint = colors.primary,
-                    onClick = onFinishRecording,
-                )
-            }
+        if (pendingAttachment != null && !isRecording && pendingVoiceNote == null) {
+            PendingAttachmentPreview(
+                attachment = pendingAttachment,
+                onDiscard = onDiscardPendingAttachment,
+                modifier = Modifier.padding(bottom = Spacing.xs),
+            )
+        }
 
-            pendingVoiceNote != null -> {
-                EduIconButton(
-                    icon = if (isPendingPreviewPlaying) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                    contentDescription = stringResource(if (isPendingPreviewPlaying) R.string.x02_pause else R.string.x02_play),
-                    tint = colors.primary,
-                    onClick = onTogglePendingPreview,
-                )
-                Column(modifier = Modifier.weight(1f)) {
-                    val progress = if (pendingVoiceNote.durationSeconds > 0) {
-                        (pendingPreviewPositionMs / 1000f / pendingVoiceNote.durationSeconds).coerceIn(0f, 1f)
-                    } else {
-                        0f
-                    }
-                    EduLinearProgress(progress = progress)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            when {
+                isRecording -> {
+                    Box(
+                        modifier = Modifier
+                            .size(Sizing.iconSm)
+                            .background(colors.danger, CircleShape),
+                    )
                     Text(
-                        text = formatDurationLabel(pendingVoiceNote.durationSeconds),
-                        style = EduTheme.typography.caption,
-                        color = colors.textSecondary,
-                        modifier = Modifier.padding(top = Spacing.xxs),
+                        text = formatDurationLabel(recordingDurationSeconds),
+                        style = EduTheme.typography.body,
+                        color = colors.textPrimary,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = Spacing.xs),
+                    )
+                    EduIconButton(
+                        icon = Icons.Filled.Close,
+                        contentDescription = stringResource(R.string.x02_recording_cancel),
+                        onClick = onCancelRecording,
+                    )
+                    EduIconButton(
+                        icon = Icons.Filled.Check,
+                        contentDescription = stringResource(R.string.x02_recording_finish),
+                        tint = colors.primary,
+                        onClick = onFinishRecording,
                     )
                 }
-                EduIconButton(
-                    icon = Icons.Filled.Delete,
-                    contentDescription = stringResource(R.string.x02_voice_preview_delete),
-                    onClick = onDiscardPendingVoiceNote,
-                )
-                EduIconButton(
-                    icon = Icons.AutoMirrored.Filled.Send,
-                    contentDescription = stringResource(R.string.x02_send),
-                    tint = colors.primary,
-                    onClick = onSendVoiceNote,
-                )
-            }
 
-            else -> {
-                EduIconButton(
-                    icon = Icons.Filled.AttachFile,
-                    contentDescription = stringResource(R.string.x02_attach),
-                    onClick = onAttachmentTap,
+                pendingVoiceNote != null -> {
+                    EduIconButton(
+                        icon = if (isPendingPreviewPlaying) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                        contentDescription = stringResource(if (isPendingPreviewPlaying) R.string.x02_pause else R.string.x02_play),
+                        tint = colors.primary,
+                        onClick = onTogglePendingPreview,
+                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        val progress = if (pendingVoiceNote.durationSeconds > 0) {
+                            (pendingPreviewPositionMs / 1000f / pendingVoiceNote.durationSeconds).coerceIn(0f, 1f)
+                        } else {
+                            0f
+                        }
+                        EduLinearProgress(progress = progress)
+                        Text(
+                            text = formatDurationLabel(pendingVoiceNote.durationSeconds),
+                            style = EduTheme.typography.caption,
+                            color = colors.textSecondary,
+                            modifier = Modifier.padding(top = Spacing.xxs),
+                        )
+                    }
+                    EduIconButton(
+                        icon = Icons.Filled.Delete,
+                        contentDescription = stringResource(R.string.x02_voice_preview_delete),
+                        onClick = onDiscardPendingVoiceNote,
+                    )
+                    EduIconButton(
+                        icon = Icons.AutoMirrored.Filled.Send,
+                        contentDescription = stringResource(R.string.x02_send),
+                        tint = colors.primary,
+                        onClick = onSendVoiceNote,
+                    )
+                }
+
+                else -> {
+                    EduIconButton(
+                        icon = Icons.Filled.AttachFile,
+                        contentDescription = stringResource(R.string.x02_attach),
+                        onClick = onAttachmentTap,
+                    )
+                    EduTextField(
+                        value = text,
+                        onValueChange = onTextChange,
+                        label = if (compact) "" else stringResource(R.string.x02_composer_label),
+                        placeholder = stringResource(R.string.x02_composer_placeholder),
+                        labelPlacement = if (compact) FieldLabelPlacement.Above else FieldLabelPlacement.Floating,
+                        modifier = Modifier.weight(1f),
+                    )
+                    EduIconButton(
+                        icon = Icons.Filled.Mic,
+                        contentDescription = stringResource(R.string.x02_mic),
+                        onClick = onMicTap,
+                    )
+                    EduIconButton(
+                        icon = Icons.AutoMirrored.Filled.Send,
+                        contentDescription = stringResource(R.string.x02_send),
+                        enabled = canSend,
+                        tint = if (canSend) colors.primary else colors.textSecondary,
+                        onClick = onSend,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PendingAttachmentPreview(
+    attachment: MessageAttachment,
+    onDiscard: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    EduGroupedSurface(modifier = modifier) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        ) {
+            Icon(
+                imageVector = attachmentIcon(attachment.type),
+                contentDescription = null,
+                tint = EduTheme.colors.primary,
+                modifier = Modifier.size(Sizing.iconLg),
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.x02_pending_attachment),
+                    style = EduTheme.typography.caption,
+                    color = EduTheme.colors.textSecondary,
                 )
-                EduTextField(
-                    value = text,
-                    onValueChange = onTextChange,
-                    label = if (compact) "" else stringResource(R.string.x02_composer_label),
-                    placeholder = stringResource(R.string.x02_composer_placeholder),
-                    labelPlacement = if (compact) FieldLabelPlacement.Above else FieldLabelPlacement.Floating,
-                    modifier = Modifier.weight(1f),
-                )
-                EduIconButton(
-                    icon = Icons.Filled.Mic,
-                    contentDescription = stringResource(R.string.x02_mic),
-                    onClick = onMicTap,
-                )
-                EduIconButton(
-                    icon = Icons.AutoMirrored.Filled.Send,
-                    contentDescription = stringResource(R.string.x02_send),
-                    enabled = text.isNotBlank(),
-                    tint = if (text.isNotBlank()) colors.primary else colors.textSecondary,
-                    onClick = onSend,
+                Text(
+                    text = attachment.label,
+                    style = EduTheme.typography.body,
+                    color = EduTheme.colors.textPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
+            EduIconButton(
+                icon = Icons.Filled.Close,
+                contentDescription = stringResource(R.string.x02_remove_attachment),
+                onClick = onDiscard,
+            )
         }
     }
 }

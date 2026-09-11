@@ -43,6 +43,7 @@ data class ConversationThreadUiState(
     val composerText: String = "",
     val isAttachmentPickerVisible: Boolean = false,
     val isParticipantSheetVisible: Boolean = false,
+    val pendingAttachment: MessageAttachment? = null,
     val isRecording: Boolean = false,
     val recordingDurationSeconds: Int = 0,
     val pendingVoiceNote: PendingVoiceNote? = null,
@@ -50,6 +51,7 @@ data class ConversationThreadUiState(
     val activeVoiceMessageId: String? = null,
     val isVoicePlaying: Boolean = false,
     val playbackPositionMs: Int = 0,
+    val viewerRole: MessageParticipantRole? = null,
 )
 
 /** A stopped-but-not-yet-sent local recording — never written to the canonical repository until [ConversationThreadViewModel.sendVoiceNote]. */
@@ -99,7 +101,8 @@ class ConversationThreadViewModel(
             _state.update {
                 it.copy(
                     viewerId = viewerId,
-                    viewerIsTeacher = session?.messagingRoleOrNull() == MessageParticipantRole.Teacher,
+                    viewerRole = session.messagingRoleOrNull(),
+                    viewerIsTeacher = session.messagingRoleOrNull() == MessageParticipantRole.Teacher,
                 )
             }
             messagingRepository.markThreadRead(threadId, viewerId)
@@ -115,19 +118,28 @@ class ConversationThreadViewModel(
     fun updateComposerText(text: String) = _state.update { it.copy(composerText = text) }
 
     fun sendMessage() {
-        val body = _state.value.composerText
-        val viewerId = _state.value.viewerId
-        if (body.isBlank() || viewerId.isEmpty()) return
-        _state.update { it.copy(composerText = "") }
-        viewModelScope.launch { messagingRepository.sendMessage(threadId, viewerId, body) }
+        val current = _state.value
+        val body = current.composerText
+        val attachment = current.pendingAttachment
+        val viewerId = current.viewerId
+        if ((body.isBlank() && attachment == null) || viewerId.isEmpty()) return
+        _state.update { it.copy(composerText = "", pendingAttachment = null) }
+        viewModelScope.launch { messagingRepository.sendMessage(threadId, viewerId, body, attachment) }
     }
 
     fun sendAttachment(attachment: MessageAttachment) {
-        val viewerId = _state.value.viewerId
+        val current = _state.value
+        val viewerId = current.viewerId
         if (viewerId.isEmpty()) return
+        if (current.viewerRole == MessageParticipantRole.Parent) {
+            _state.update { it.copy(isAttachmentPickerVisible = false, pendingAttachment = attachment) }
+            return
+        }
         _state.update { it.copy(isAttachmentPickerVisible = false) }
         viewModelScope.launch { messagingRepository.sendMessage(threadId, viewerId, "", attachment) }
     }
+
+    fun discardPendingAttachment() = _state.update { it.copy(pendingAttachment = null) }
 
     fun toggleSearch() = _state.update {
         it.copy(isSearchActive = !it.isSearchActive, searchQuery = if (it.isSearchActive) "" else it.searchQuery)

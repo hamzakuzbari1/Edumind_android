@@ -136,6 +136,8 @@
     <string name="x02_attach_image">Image</string>
     <string name="x02_attach_file">File</string>
     <string name="x02_attach_link">Link</string>
+    <string name="x02_pending_attachment">Attachment ready to send</string>
+    <string name="x02_remove_attachment">Remove attachment</string>
     <string name="x02_role_teacher">Teacher</string>
     <string name="x02_role_student">Student</string>
     <string name="x02_role_parent">Parent</string>
@@ -3104,4 +3106,7 @@
     <string name="pr12_search_empty_title">No results</string>
     <string name="pr12_search_empty_body">Try searching for another teacher or subject.</string>
     <string name="pr12_thread_row_a11y">%1$s, %2$s, last message %3$s</string>
+    <string name="pr12_time_now">Now</string>
+    <string name="pr12_time_minutes_ago">%1$s min ago</string>
+    <string name="pr12_time_hours_ago">%1$s h ago</string>
 </resources>
