@@ -1982,6 +1982,7 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
             ParentSubjectsTeachersScreen(
                 onBack = { navController.popBackStack() },
                 onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
             )
         }
     }

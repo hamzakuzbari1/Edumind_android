@@ -596,7 +596,14 @@ val appModule = module {
     viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentLessonProgressViewModel(parentRepository = get(), connectivity = get()) }
-    viewModel { ParentSubjectsTeachersViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel {
+        ParentSubjectsTeachersViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            messagingRepository = get(),
+            connectivity = get(),
+        )
+    }
     viewModel { (lessonId: String) ->
         ParentLessonDetailsViewModel(
             lessonId = lessonId,

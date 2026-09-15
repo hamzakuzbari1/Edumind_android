@@ -34,6 +34,8 @@ data class ParentMeData(
 data class ParentMeUiState(
     val result: UiState<ParentMeData> = UiState.Loading,
     val isOnline: Boolean = true,
+    val selectedSession: ActiveSession? = null,
+    val pendingEndSession: ActiveSession? = null,
 )
 
 class ParentMeViewModel(
@@ -45,6 +47,7 @@ class ParentMeViewModel(
 
     private val _state = MutableStateFlow(ParentMeUiState())
     val state: StateFlow<ParentMeUiState> = _state.asStateFlow()
+    private val locallyEndedSessionIds = mutableSetOf<String>()
 
     init {
         viewModelScope.launch {
@@ -70,7 +73,7 @@ class ParentMeViewModel(
             securityRepository.activeSessions.collect { sessions ->
                 _state.update { current ->
                     val data = (current.result as? UiState.Content)?.data ?: return@update current
-                    current.copy(result = UiState.Content(data.copy(sessions = sessions)))
+                    current.copy(result = UiState.Content(data.copy(sessions = visibleSessions(sessions))))
                 }
             }
         }
@@ -78,6 +81,38 @@ class ParentMeViewModel(
     }
 
     fun retry() = load()
+
+    fun openSessionDetails(sessionId: String) {
+        val data = (_state.value.result as? UiState.Content)?.data ?: return
+        val session = data.sessions.firstOrNull { it.id == sessionId } ?: return
+        _state.update { it.copy(selectedSession = session, pendingEndSession = null) }
+    }
+
+    fun dismissSessionDetails() = _state.update { it.copy(selectedSession = null, pendingEndSession = null) }
+
+    fun requestEndDemoSession() {
+        val session = _state.value.selectedSession ?: return
+        if (session.isCurrentDevice) return
+        _state.update { it.copy(pendingEndSession = session) }
+    }
+
+    fun cancelEndDemoSession() = _state.update { it.copy(pendingEndSession = null) }
+
+    fun confirmEndDemoSession() {
+        val session = _state.value.pendingEndSession ?: return
+        if (session.isCurrentDevice) return
+        locallyEndedSessionIds += session.id
+        _state.update { current ->
+            val data = (current.result as? UiState.Content)?.data
+            current.copy(
+                result = data?.let {
+                    UiState.Content(it.copy(sessions = it.sessions.filterNot { row -> row.id == session.id && !row.isCurrentDevice }))
+                } ?: current.result,
+                selectedSession = null,
+                pendingEndSession = null,
+            )
+        }
+    }
 
     private fun load() {
         _state.update { it.copy(result = UiState.Loading) }
@@ -104,7 +139,7 @@ class ParentMeViewModel(
                                 ),
                                 linkedStudents = studentsResult.data,
                                 twoFactorEnabled = settingsResult.data.twoFactorEnabled,
-                                sessions = sessionsResult.data,
+                                sessions = visibleSessions(sessionsResult.data),
                             )
                         )
                     )
@@ -118,5 +153,7 @@ class ParentMeViewModel(
             }
         }
     }
-}
 
+    private fun visibleSessions(sessions: List<ActiveSession>): List<ActiveSession> =
+        sessions.filterNot { it.id in locallyEndedSessionIds && !it.isCurrentDevice }
+}

@@ -12,6 +12,7 @@ import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.ParentRepository
+import com.rork.eduspark.data.repository.parentMessagingTeacherIdsByStudent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -113,14 +114,15 @@ class ConversationThreadViewModel(
             var hasMarkedThreadRead = false
             val guardedThreadFlow = if (viewerRole == MessageParticipantRole.Parent) {
                 combine(messagingRepository.threads, parentRepository.linkedStudents) { all, linkedStudents ->
-                    val linkedStudentIds = linkedStudents.map { it.id }.toSet()
+                    val allowedTeacherIdsByStudent =
+                        parentRepository.parentMessagingTeacherIdsByStudent(linkedStudents)
                     all.firstOrNull { it.id == threadId }
-                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, linkedStudentIds) }
+                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, allowedTeacherIdsByStudent) }
                 }
             } else {
                 messagingRepository.threads.combine(parentRepository.linkedStudents) { all, _ ->
                     all.firstOrNull { it.id == threadId }
-                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, emptySet()) }
+                        ?.takeIf { it.canOpenFor(viewerId, viewerRole, emptyMap()) }
                 }
             }
 
@@ -242,12 +244,14 @@ class ConversationThreadViewModel(
 private fun MessageThread.canOpenFor(
     viewerId: String,
     viewerRole: MessageParticipantRole,
-    linkedStudentIds: Set<String>,
+    allowedTeacherIdsByStudent: Map<String, Set<String>>,
 ): Boolean {
     if (!involves(viewerId)) return false
     if (viewerRole != MessageParticipantRole.Parent) return true
 
+    val relatedStudentId = studentParticipant.relatedStudentId
     return studentParticipant.role == MessageParticipantRole.Parent &&
         studentParticipant.id == viewerId &&
-        studentParticipant.relatedStudentId in linkedStudentIds
+        relatedStudentId != null &&
+        teacherParticipant.id in allowedTeacherIdsByStudent[relatedStudentId].orEmpty()
 }

@@ -11,6 +11,7 @@ import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.ParentRepository
+import com.rork.eduspark.data.repository.parentMessagingTeacherIdsByStudent
 import com.rork.eduspark.ui.screens.messaging.messagingParticipantIdOrNull
 import com.rork.eduspark.ui.screens.messaging.messagingRoleOrNull
 import kotlinx.coroutines.Job
@@ -77,20 +78,24 @@ class ParentMessagesViewModel(
             combine(authRepository.session, parentRepository.linkedStudents, messagingRepository.threads) { session, linkedStudents, threads ->
                 val viewerId = session?.messagingParticipantIdOrNull()
                 val viewerRole = session?.messagingRoleOrNull()
-                if (viewerId == null || viewerRole != MessageParticipantRole.Parent) {
+                ParentMessagesBoundary(viewerId, viewerRole, linkedStudents, threads)
+            }.collect { boundary ->
+                val viewerId = boundary.viewerId
+                val data = if (viewerId == null || boundary.viewerRole != MessageParticipantRole.Parent) {
                     null
                 } else {
+                    val allowedTeacherIdsByStudent =
+                        parentRepository.parentMessagingTeacherIdsByStudent(boundary.linkedStudents)
                     ParentMessagesData(
-                        linkedStudents = linkedStudents,
+                        linkedStudents = boundary.linkedStudents,
                         threads = allowedParentThreads(
                             viewerId = viewerId,
-                            linkedStudents = linkedStudents,
-                            threads = threads,
+                            allowedTeacherIdsByStudent = allowedTeacherIdsByStudent,
+                            threads = boundary.threads,
                         ),
                         viewerId = viewerId,
                     )
                 }
-            }.collect { data ->
                 _state.update {
                     it.copy(result = data?.let { messagesData -> UiState.Content(messagesData) } ?: UiState.Failure(AppError.NotFound))
                 }
@@ -100,19 +105,27 @@ class ParentMessagesViewModel(
 
     private fun allowedParentThreads(
         viewerId: String,
-        linkedStudents: List<ParentLinkedStudent>,
+        allowedTeacherIdsByStudent: Map<String, Set<String>>,
         threads: List<MessageThread>,
     ): List<MessageThread> {
-        val linkedStudentIds = linkedStudents.map { it.id }.toSet()
-        if (linkedStudentIds.isEmpty()) return emptyList()
+        if (allowedTeacherIdsByStudent.isEmpty()) return emptyList()
 
         return threads
             .filter { thread ->
+                val relatedStudentId = thread.studentParticipant.relatedStudentId
                 thread.involves(viewerId) &&
                     thread.studentParticipant.id == viewerId &&
                     thread.studentParticipant.role == MessageParticipantRole.Parent &&
-                    thread.studentParticipant.relatedStudentId in linkedStudentIds
+                    relatedStudentId != null &&
+                    thread.teacherParticipant.id in allowedTeacherIdsByStudent[relatedStudentId].orEmpty()
             }
             .sortedByDescending { it.lastMessage?.sentAtMillis ?: 0L }
     }
 }
+
+private data class ParentMessagesBoundary(
+    val viewerId: String?,
+    val viewerRole: MessageParticipantRole?,
+    val linkedStudents: List<ParentLinkedStudent>,
+    val threads: List<MessageThread>,
+)

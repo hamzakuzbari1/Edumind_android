@@ -76,10 +76,19 @@ import org.koin.androidx.compose.koinViewModel
 fun ParentSubjectsTeachersScreen(
     onBack: () -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenThread: (threadId: String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ParentSubjectsTeachersViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    androidx.compose.runtime.LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is ParentSubjectsTeachersEvent.OpenThread -> onOpenThread(event.threadId)
+            }
+        }
+    }
 
     EduScaffold(
         title = stringResource(R.string.pr10_title),
@@ -98,6 +107,7 @@ fun ParentSubjectsTeachersScreen(
                 onSelectStudent = viewModel::selectStudent,
                 onQueryChange = viewModel::updateQuery,
                 onOpenLinkStudent = onOpenLinkStudent,
+                onOpenTeacherMessage = viewModel::openTeacherMessage,
             )
         }
     }
@@ -110,6 +120,7 @@ private fun ParentSubjectsTeachersContent(
     onSelectStudent: (String) -> Unit,
     onQueryChange: (String) -> Unit,
     onOpenLinkStudent: () -> Unit,
+    onOpenTeacherMessage: (ParentSubjectTeacher) -> Unit,
 ) {
     if (data.linkedStudents.isEmpty()) {
         ParentSubjectsTeachersEmptyState(onOpenLinkStudent = onOpenLinkStudent)
@@ -162,6 +173,7 @@ private fun ParentSubjectsTeachersContent(
                     ParentSubjectTeacherCard(
                         item = item,
                         onOpenProfile = { selectedTeacherId = item.id },
+                        onOpenMessage = { onOpenTeacherMessage(item) },
                     )
                 }
             }
@@ -278,6 +290,7 @@ private fun ParentSubjectsTeachersStudentCard(
 private fun ParentSubjectTeacherCard(
     item: ParentSubjectTeacher,
     onOpenProfile: () -> Unit,
+    onOpenMessage: () -> Unit,
 ) {
     val colors = EduTheme.colors
     val subject = parentSubjectTeacherSubjectLabel(item.subject)
@@ -329,8 +342,7 @@ private fun ParentSubjectTeacherCard(
             )
             PrimaryButton(
                 text = stringResource(R.string.pr10_message_action),
-                onClick = {},
-                enabled = false,
+                onClick = onOpenMessage,
                 modifier = Modifier.weight(1f),
             )
         }

@@ -6,6 +6,7 @@ import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.ParentRepository
+import com.rork.eduspark.data.repository.parentMessagingTeacherIdsByStudent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,12 +33,15 @@ class MessagesBadgeViewModel(
                 val viewerId = session?.messagingParticipantIdOrNull() ?: return@combine 0
                 val viewerRole = session.messagingRoleOrNull()
                 val visibleThreads = if (viewerRole == MessageParticipantRole.Parent) {
-                    val linkedStudentIds = linkedStudents.map { it.id }.toSet()
+                    val allowedTeacherIdsByStudent =
+                        parentRepository.parentMessagingTeacherIdsByStudent(linkedStudents)
                     threads.filter { thread ->
+                        val relatedStudentId = thread.studentParticipant.relatedStudentId
                         thread.involves(viewerId) &&
                             thread.studentParticipant.role == MessageParticipantRole.Parent &&
                             thread.studentParticipant.id == viewerId &&
-                            thread.studentParticipant.relatedStudentId in linkedStudentIds
+                            relatedStudentId != null &&
+                            thread.teacherParticipant.id in allowedTeacherIdsByStudent[relatedStudentId].orEmpty()
                     }
                 } else {
                     threads.filter { it.involves(viewerId) }

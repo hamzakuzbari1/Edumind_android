@@ -302,6 +302,7 @@
 
     <string name="reg_name_label">الاسم الكامل</string>
     <string name="reg_name_placeholder">كما تريده أن يظهر لمعلّميك</string>
+    <string name="reg_parent_name_placeholder">أدخل اسمك الكامل</string>
     <string name="reg_password_placeholder">اختر كلمة مرور</string>
     <string name="reg_password_hint">8 أحرف على الأقل</string>
     <string name="reg_confirm_label">تأكيد كلمة المرور</string>
@@ -322,6 +323,7 @@
     <string name="reg_error_confirm_required">أعد كتابة كلمة المرور للتأكيد.</string>
     <string name="reg_error_confirm_mismatch">كلمتا المرور غير متطابقتين. تحقّق منهما ثم تابع.</string>
     <string name="reg_error_terms_required">وافق على الشروط وسياسة الخصوصية للمتابعة.</string>
+    <string name="reg_error_parent_email_invalid">يرجى إدخال بريد إلكتروني صالح</string>
     <string name="reg_error_email_taken">هذا البريد مسجّل من قبل. سجّل الدخول به، أو أنشئ الحساب ببريد آخر.</string>
     <string name="reg_error_offline">لا يوجد اتصال بالإنترنت. ما كتبته محفوظ في هذه الشاشة، أعد المحاولة عند عودة الشبكة.</string>
     <string name="reg_offline_back_online">عاد الاتصال. اضغط «أعد المحاولة» لإنشاء حسابك.</string>
@@ -2983,9 +2985,29 @@
     <string name="pr13_account_security_section">أمان الحساب</string>
     <string name="pr13_password_title">كلمة المرور</string>
     <string name="pr13_password_supporting">آخر تغيير منذ 3 أشهر</string>
+    <string name="pr13_password_sheet_title">تغيير كلمة المرور</string>
+    <string name="pr13_password_sheet_body">تجربة محلية فقط: لن يتم تغيير بيانات الدخول الفعلية في هذا الإصدار.</string>
+    <string name="pr13_password_mock_submit">تحديث تجريبي</string>
+    <string name="pr13_password_done_title">تم تحديث كلمة المرور تجريبياً</string>
+    <string name="pr13_password_done_body">تم قبول النموذج محلياً فقط. لم يتم تغيير أي بيانات دخول فعلية.</string>
     <string name="pr13_verification_title">التحقق والأمان</string>
     <string name="pr13_verification_supporting">إدارة إعدادات الأمان</string>
+    <string name="pr13_security_sheet_title">التحقق والأمان</string>
+    <string name="pr13_security_sheet_body">ملخص محلي لحالة أمان الحساب والجلسات النشطة في هذا الإصدار التجريبي.</string>
+    <string name="pr13_security_email_title">البريد الإلكتروني للحساب</string>
+    <string name="pr13_security_two_factor_title">التحقق بخطوتين</string>
+    <string name="pr13_security_two_factor_body">يعرض الحالة الحالية فقط.</string>
+    <string name="pr13_security_sessions_title">الجلسات الأخرى</string>
+    <string name="pr13_security_sessions_body">%1$d جلسات أخرى مسجلة.</string>
     <string name="pr13_devices_section">الأجهزة والجلسات</string>
+    <string name="pr13_session_details_title">تفاصيل الجلسة</string>
+    <string name="pr13_session_details_body">معلومات محلية من بيانات الجلسة التجريبية الحالية.</string>
+    <string name="pr13_session_device_title">الجهاز والمنصة</string>
+    <string name="pr13_session_status_title">حالة الجلسة</string>
+    <string name="pr13_session_status_current">هذا الجهاز · نشط الآن</string>
+    <string name="pr13_session_end_action">إنهاء الجلسة تجريبياً</string>
+    <string name="pr13_session_end_confirm_title">إنهاء الجلسة التجريبية؟</string>
+    <string name="pr13_session_end_confirm_body">سيتم إخفاء %1$s من قائمة ولي الأمر محلياً فقط.</string>
     <string name="pr13_linked_students_section">الأبناء المرتبطون</string>
     <string name="pr13_no_students_title">لم يتم ربط طالب بعد</string>
     <string name="pr13_no_students_body">اربط حساب طالب للبدء بمتابعة تقدمه الدراسي.</string>
@@ -3144,7 +3166,7 @@
     <string name="pr10_sheet_subject">المادة</string>
     <string name="pr10_sheet_availability">أوقات المتابعة</string>
     <string name="pr10_sheet_response">زمن الرد المتوقع</string>
-    <string name="pr10_sheet_read_only_note">بيانات المدرس والمادة تظهر هنا للمتابعة فقط، ولا تفتح مراسلة في هذه المرحلة.</string>
+    <string name="pr10_sheet_read_only_note">بيانات المدرس والمادة تظهر هنا للمتابعة فقط.</string>
     <string name="pr10_status_on_track">منتظم</string>
     <string name="pr10_status_needs_follow_up">تحتاج متابعة</string>
     <string name="pr10_teacher_rami_al_hassan">رامي الحسن</string>

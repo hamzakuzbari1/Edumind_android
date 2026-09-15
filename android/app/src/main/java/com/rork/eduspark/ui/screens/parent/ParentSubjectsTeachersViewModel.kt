@@ -5,13 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
+import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentSubjectTeacher
 import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
+import com.rork.eduspark.data.repository.AuthRepository
+import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.ParentRepository
+import com.rork.eduspark.ui.screens.messaging.messagingParticipantIdOrNull
+import com.rork.eduspark.ui.screens.messaging.messagingRoleOrNull
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -27,13 +37,22 @@ data class ParentSubjectsTeachersUiState(
     val isOnline: Boolean = true,
 )
 
+sealed interface ParentSubjectsTeachersEvent {
+    data class OpenThread(val threadId: String) : ParentSubjectsTeachersEvent
+}
+
 class ParentSubjectsTeachersViewModel(
+    private val authRepository: AuthRepository,
     private val parentRepository: ParentRepository,
+    private val messagingRepository: MessagingRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ParentSubjectsTeachersUiState())
     val state: StateFlow<ParentSubjectsTeachersUiState> = _state.asStateFlow()
+
+    private val _events = Channel<ParentSubjectsTeachersEvent>(Channel.BUFFERED)
+    val events: Flow<ParentSubjectsTeachersEvent> = _events.receiveAsFlow()
 
     private var subjectsJob: Job? = null
 
@@ -66,6 +85,31 @@ class ParentSubjectsTeachersViewModel(
         val content = state.value.result as? UiState.Content ?: return
         _state.update {
             it.copy(result = UiState.Content(content.data.copy(query = query)))
+        }
+    }
+
+    fun openTeacherMessage(item: ParentSubjectTeacher) {
+        val content = state.value.result as? UiState.Content ?: return
+        val selectedStudentId = content.data.selectedStudentId ?: return
+        val isAllowedTeacher = content.data.snapshot?.items.orEmpty().any { subjectTeacher ->
+            subjectTeacher.id == item.id &&
+                subjectTeacher.teacher.id == item.teacher.id &&
+                subjectTeacher.id.startsWith("$selectedStudentId-")
+        }
+        if (!isAllowedTeacher) return
+
+        viewModelScope.launch {
+            val session = authRepository.session.first()
+            val viewerId = session?.messagingParticipantIdOrNull() ?: return@launch
+            if (session.messagingRoleOrNull() != MessageParticipantRole.Parent) return@launch
+            when (val result = messagingRepository.openOrCreateThread(
+                viewerId = viewerId,
+                viewerRole = MessageParticipantRole.Parent,
+                contactId = item.teacher.id,
+            )) {
+                is AppResult.Success -> _events.send(ParentSubjectsTeachersEvent.OpenThread(result.data.id))
+                is AppResult.Failure -> Unit
+            }
         }
     }
 

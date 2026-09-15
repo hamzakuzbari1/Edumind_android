@@ -27,6 +27,10 @@ import com.rork.eduspark.ui.components.input.PASSWORD_MIN_LENGTH
  * Stricter regexes reject real addresses far more often than they catch bad ones.
  */
 private val EmailPattern = Regex("^[^@\\s]+@[^@\\s.]+\\.[^@\\s]+$")
+private val ParentRegistrationEmailPattern = Regex(
+    pattern = "^[A-Z0-9._%+-]+@[A-Z0-9-]+(\\.[A-Z0-9-]+)+$",
+    option = RegexOption.IGNORE_CASE,
+)
 
 @StringRes
 fun emailErrorOf(email: String): Int? {
@@ -34,6 +38,20 @@ fun emailErrorOf(email: String): Int? {
     return when {
         trimmed.isEmpty() -> R.string.a04_error_email_required
         !EmailPattern.matches(trimmed) -> R.string.a04_error_email_invalid
+        else -> null
+    }
+}
+
+@StringRes
+fun parentRegistrationEmailErrorOf(email: String): Int? {
+    val trimmed = email.trim()
+    return when {
+        trimmed.isEmpty() -> R.string.a04_error_email_required
+        !ParentRegistrationEmailPattern.matches(trimmed) ||
+            trimmed.contains("..") ||
+            trimmed.substringAfterLast('.').length < 2 ->
+            R.string.reg_error_parent_email_invalid
+
         else -> null
     }
 }

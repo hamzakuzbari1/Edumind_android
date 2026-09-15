@@ -27,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -142,7 +143,13 @@ fun RegisterScreen(
                 value = state.name,
                 onValueChange = viewModel::onNameChange,
                 label = stringResource(R.string.reg_name_label),
-                placeholder = stringResource(R.string.reg_name_placeholder),
+                placeholder = stringResource(
+                    if (role == UserRole.Parent) {
+                        R.string.reg_parent_name_placeholder
+                    } else {
+                        R.string.reg_name_placeholder
+                    },
+                ),
                 errorText = state.nameError?.let { stringResource(it) },
                 // The sentence belongs to the single region below, not under each field.
                 showErrorText = false,
@@ -159,11 +166,15 @@ fun RegisterScreen(
                 label = stringResource(R.string.a04_email_label),
                 placeholder = stringResource(R.string.a04_email_placeholder),
                 errorText = state.emailError?.let { stringResource(it) },
-                showErrorText = false,
+                showErrorText = role == UserRole.Parent &&
+                    state.emailError == R.string.reg_error_parent_email_invalid,
                 labelPlacement = FieldLabelPlacement.Above,
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next,
                 enabled = !state.isSubmitting,
+                modifier = Modifier.onFocusChanged { focusState ->
+                    if (!focusState.isFocused) viewModel.onEmailFocusLost()
+                },
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))

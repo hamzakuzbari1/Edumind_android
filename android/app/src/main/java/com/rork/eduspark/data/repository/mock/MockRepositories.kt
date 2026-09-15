@@ -5071,7 +5071,10 @@ class MockMessagingRepository : MessagingRepository {
         val contacts = when (viewerRole) {
             MessageParticipantRole.Teacher -> STUDENT_DIRECTORY.values.toList() + PARENT_DIRECTORY.values
             MessageParticipantRole.Student -> listOf(TEACHER)
-            MessageParticipantRole.Parent -> emptyList()
+            MessageParticipantRole.Parent -> PARENT_DIRECTORY[viewerId]
+                ?.relatedStudentId
+                ?.let { studentId -> MockParentTeacherContactFixtures.messagingTeacherContactsFor(studentId) }
+                .orEmpty()
         }
         return AppResult.Success(contacts)
     }
@@ -5082,7 +5085,20 @@ class MockMessagingRepository : MessagingRepository {
         contactId: String,
     ): AppResult<MessageThread> {
         delay(MockLatency.FAST_MS)
-        if (viewerRole == MessageParticipantRole.Parent) return AppResult.Failure(AppError.NotFound)
+        if (viewerRole == MessageParticipantRole.Parent) {
+            val parent = PARENT_DIRECTORY[viewerId] ?: return AppResult.Failure(AppError.NotFound)
+            val studentId = parent.relatedStudentId ?: return AppResult.Failure(AppError.NotFound)
+            val teacher = MockParentTeacherContactFixtures.messagingTeacherContact(
+                teacherId = contactId,
+                studentId = studentId,
+            ) ?: return AppResult.Failure(AppError.NotFound)
+            val threadId = parentThreadIdFor(teacher.id, studentId)
+            val existing = _threads.value[threadId]
+            if (existing != null) return AppResult.Success(existing)
+            val created = MessageThread(id = threadId, teacherParticipant = teacher, studentParticipant = parent)
+            _threads.value = _threads.value + (threadId to created)
+            return AppResult.Success(created)
+        }
         if (viewerRole == MessageParticipantRole.Teacher) {
             val parent = PARENT_DIRECTORY[contactId]
             if (parent != null) {
@@ -5212,6 +5228,10 @@ class MockMessagingRepository : MessagingRepository {
             val s2 = STUDENT_DIRECTORY.getValue("s2")
             val s3 = STUDENT_DIRECTORY.getValue("s3")
             val parentS1 = PARENT_DIRECTORY.getValue(CURRENT_PARENT_MESSAGING_ID)
+            val parentTeacherContacts = MockParentTeacherContactFixtures.messagingTeacherContactsFor("s1")
+            val parentMathTeacher = parentTeacherContacts.first { it.id == "teacher-rami-al-hassan" }
+            val parentScienceTeacher = parentTeacherContacts.first { it.id == "teacher-sara-al-khatib" }
+            val parentArabicTeacher = parentTeacherContacts.first { it.id == "teacher-mona-nassar" }
 
             val thread1 = MessageThread(
                 id = threadIdFor(TEACHER.id, s1.id),
@@ -5282,7 +5302,47 @@ class MockMessagingRepository : MessagingRepository {
                 ),
             )
 
-            return listOf(parentThread, thread1, thread2, thread3).associateBy { it.id }
+            val parentMathThread = MessageThread(
+                id = parentThreadIdFor(parentMathTeacher.id, "s1"),
+                teacherParticipant = parentMathTeacher,
+                studentParticipant = parentS1,
+                messages = listOf(
+                    MessagingChatMessage(
+                        "tpr-m1", parentS1.id, "هل اختبار الكسور العشرية مطلوب هذا الأسبوع؟",
+                        "١٢د", now - 12 * minute, isRead = false,
+                    ),
+                    MessagingChatMessage(
+                        "tpr-m2", parentMathTeacher.id, "نعم، مطلوب قبل الجمعة. ريم لم تكمل نشاط التحقق بعد.",
+                        "١٢:06", now - 10 * minute, isRead = false,
+                    ),
+                    MessagingChatMessage(
+                        "tpr-m3", parentS1.id, "تمام أستاذ، سنراجع معها الليلة.",
+                        "١٢د", now - 8 * minute, isRead = false,
+                    ),
+                ),
+            )
+
+            val parentScienceThread = MessageThread(
+                id = parentThreadIdFor(parentScienceTeacher.id, "s1"),
+                teacherParticipant = parentScienceTeacher,
+                studentParticipant = parentS1,
+            )
+
+            val parentArabicThread = MessageThread(
+                id = parentThreadIdFor(parentArabicTeacher.id, "s1"),
+                teacherParticipant = parentArabicTeacher,
+                studentParticipant = parentS1,
+            )
+
+            return listOf(
+                parentThread,
+                parentMathThread,
+                parentScienceThread,
+                parentArabicThread,
+                thread1,
+                thread2,
+                thread3,
+            ).associateBy { it.id }
         }
     }
 }

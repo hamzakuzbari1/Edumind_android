@@ -253,53 +253,7 @@ class MockParentRepository(
         delay(MOCK_DELAY_MS)
         return AppResult.Success(
             ParentSubjectsTeachersSnapshot(
-                items = listOf(
-                    ParentSubjectTeacher(
-                        id = "$studentId-math-teacher",
-                        subject = ParentSubjectKind.Mathematics,
-                        teacher = ParentTeacherProfile(
-                            id = "teacher-rami-al-hassan",
-                            name = ParentTeacherName.RamiAlHassan,
-                            role = ParentTeacherRole.MathematicsTeacher,
-                            avatarInitial = "ر",
-                            availability = ParentTeacherAvailability.SundayTuesday,
-                            responseTime = ParentTeacherResponseTime.SameDay,
-                        ),
-                        progressPercent = 76,
-                        status = ParentSubjectTeacherStatus.NeedsFollowUp,
-                        weeklySessions = 3,
-                    ),
-                    ParentSubjectTeacher(
-                        id = "$studentId-science-teacher",
-                        subject = ParentSubjectKind.Science,
-                        teacher = ParentTeacherProfile(
-                            id = "teacher-sara-al-khatib",
-                            name = ParentTeacherName.SaraAlKhatib,
-                            role = ParentTeacherRole.ScienceTeacher,
-                            avatarInitial = "س",
-                            availability = ParentTeacherAvailability.MondayWednesday,
-                            responseTime = ParentTeacherResponseTime.OneSchoolDay,
-                        ),
-                        progressPercent = 92,
-                        status = ParentSubjectTeacherStatus.OnTrack,
-                        weeklySessions = 2,
-                    ),
-                    ParentSubjectTeacher(
-                        id = "$studentId-arabic-teacher",
-                        subject = ParentSubjectKind.Arabic,
-                        teacher = ParentTeacherProfile(
-                            id = "teacher-mona-nassar",
-                            name = ParentTeacherName.MonaNassar,
-                            role = ParentTeacherRole.ArabicTeacher,
-                            avatarInitial = "م",
-                            availability = ParentTeacherAvailability.SaturdayMonday,
-                            responseTime = ParentTeacherResponseTime.SameDay,
-                        ),
-                        progressPercent = 88,
-                        status = ParentSubjectTeacherStatus.OnTrack,
-                        weeklySessions = 3,
-                    ),
-                ),
+                items = MockParentTeacherContactFixtures.subjectsTeachersFor(studentId),
             )
         )
     }

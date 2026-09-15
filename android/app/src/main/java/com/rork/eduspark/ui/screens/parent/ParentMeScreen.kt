@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.Key
@@ -21,14 +24,24 @@ import androidx.compose.material.icons.filled.VerifiedUser
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.data.model.ActiveSession
+import com.rork.eduspark.ui.components.action.DestructiveButton
+import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.action.SecondaryButton
+import com.rork.eduspark.ui.components.feedback.ConfirmDialog
+import com.rork.eduspark.ui.components.input.PASSWORD_MIN_LENGTH
+import com.rork.eduspark.ui.components.input.PasswordField
+import com.rork.eduspark.ui.components.input.PasswordStrengthMeter
 import com.rork.eduspark.ui.components.state.ScreenStateHost
 import com.rork.eduspark.ui.components.surface.EduCard
 import com.rork.eduspark.ui.components.surface.EduDivider
@@ -38,9 +51,12 @@ import com.rork.eduspark.ui.components.surface.SkeletonCard
 import com.rork.eduspark.ui.components.surface.SkeletonListItem
 import com.rork.eduspark.ui.components.surface.StatusPill
 import com.rork.eduspark.ui.theme.EduTheme
+import com.rork.eduspark.ui.theme.Radius
 import com.rork.eduspark.ui.theme.Sizing
 import com.rork.eduspark.ui.theme.Spacing
 import org.koin.androidx.compose.koinViewModel
+
+private enum class ParentAccountSheet { Password, Security }
 
 @Composable
 fun ParentMeScreen(
@@ -49,6 +65,7 @@ fun ParentMeScreen(
     viewModel: ParentMeViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    var activeSheet by rememberSaveable { mutableStateOf<ParentAccountSheet?>(null) }
 
     ScreenStateHost(
         state = state.result,
@@ -57,7 +74,41 @@ fun ParentMeScreen(
         loading = { ParentMeSkeleton() },
         modifier = modifier.fillMaxSize(),
     ) { data ->
-        ParentMeContent(data = data, onOpenLinkStudent = onOpenLinkStudent)
+        ParentMeContent(
+            data = data,
+            onOpenLinkStudent = onOpenLinkStudent,
+            onOpenPassword = { activeSheet = ParentAccountSheet.Password },
+            onOpenSecurity = { activeSheet = ParentAccountSheet.Security },
+            onOpenSession = viewModel::openSessionDetails,
+        )
+
+        when (activeSheet) {
+            ParentAccountSheet.Password -> ParentPasswordDialog(onDismiss = { activeSheet = null })
+            ParentAccountSheet.Security -> ParentSecurityDialog(
+                data = data,
+                onDismiss = { activeSheet = null },
+            )
+            null -> Unit
+        }
+
+        state.selectedSession?.let { session ->
+            ParentSessionDetailsDialog(
+                session = session,
+                onDismiss = viewModel::dismissSessionDetails,
+                onEndDemoSession = viewModel::requestEndDemoSession,
+            )
+        }
+
+        state.pendingEndSession?.let { session ->
+            ConfirmDialog(
+                title = stringResource(R.string.pr13_session_end_confirm_title),
+                body = stringResource(R.string.pr13_session_end_confirm_body, session.deviceLabel),
+                confirmLabel = stringResource(R.string.pr13_session_end_action),
+                onConfirm = viewModel::confirmEndDemoSession,
+                onDismiss = viewModel::cancelEndDemoSession,
+                isDestructive = true,
+            )
+        }
     }
 }
 
@@ -65,6 +116,9 @@ fun ParentMeScreen(
 private fun ParentMeContent(
     data: ParentMeData,
     onOpenLinkStudent: () -> Unit,
+    onOpenPassword: () -> Unit,
+    onOpenSecurity: () -> Unit,
+    onOpenSession: (String) -> Unit,
 ) {
     val colors = EduTheme.colors
     LazyColumn(
@@ -109,6 +163,7 @@ private fun ParentMeContent(
                     leading = Icons.Filled.Key,
                     leadingTint = colors.primary,
                     showChevron = true,
+                    onClick = onOpenPassword,
                 )
                 EduDivider()
                 ListRow(
@@ -124,6 +179,7 @@ private fun ParentMeContent(
                         )
                     },
                     showChevron = true,
+                    onClick = onOpenSecurity,
                 )
             }
         }
@@ -132,7 +188,10 @@ private fun ParentMeContent(
             SectionHeader(title = stringResource(R.string.pr13_devices_section))
             EduCard {
                 data.sessions.forEachIndexed { index, session ->
-                    ParentSessionRow(session = session)
+                    ParentSessionRow(
+                        session = session,
+                        onClick = { onOpenSession(session.id) },
+                    )
                     if (index != data.sessions.lastIndex) EduDivider()
                 }
             }
@@ -176,7 +235,277 @@ private fun ParentMeContent(
 }
 
 @Composable
-private fun ParentSessionRow(session: ActiveSession) {
+private fun ParentSessionDetailsDialog(
+    session: ActiveSession,
+    onDismiss: () -> Unit,
+    onEndDemoSession: () -> Unit,
+) {
+    val colors = EduTheme.colors
+    Dialog(onDismissRequest = onDismiss) {
+        ParentAccountDialogContainer {
+            Text(
+                text = stringResource(R.string.pr13_session_details_title),
+                style = EduTheme.typography.titleLg,
+                color = colors.textPrimary,
+            )
+            Text(
+                text = stringResource(R.string.pr13_session_details_body),
+                style = EduTheme.typography.caption,
+                color = colors.textSecondary,
+                modifier = Modifier.padding(top = Spacing.xxs),
+            )
+            EduCard(
+                containerColor = colors.neutralAlpha100,
+                borderColor = colors.neutralAlpha100,
+                modifier = Modifier.padding(top = Spacing.md),
+            ) {
+                ListRow(
+                    title = stringResource(R.string.pr13_session_device_title),
+                    supporting = session.deviceLabel,
+                    leading = if (session.isCurrentDevice) Icons.Filled.PhoneAndroid else Icons.Filled.Computer,
+                    leadingTint = if (session.isCurrentDevice) colors.success else colors.primary,
+                )
+                EduDivider()
+                ListRow(
+                    title = stringResource(R.string.pr13_session_status_title),
+                    supporting = if (session.isCurrentDevice) {
+                        stringResource(R.string.pr13_session_status_current)
+                    } else {
+                        session.lastSeenLabel
+                    },
+                    leading = Icons.Filled.VerifiedUser,
+                    leadingTint = colors.accent,
+                    trailingContent = {
+                        if (session.isCurrentDevice) {
+                            StatusPill(
+                                label = stringResource(R.string.st24_current_device),
+                                contentColor = colors.success,
+                                containerColor = colors.success.copy(alpha = 0.14f),
+                            )
+                        }
+                    },
+                )
+            }
+            if (session.isCurrentDevice) {
+                PrimaryButton(
+                    text = stringResource(R.string.common_close),
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.md),
+                )
+            } else {
+                DestructiveButton(
+                    text = stringResource(R.string.pr13_session_end_action),
+                    onClick = onEndDemoSession,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.md),
+                )
+                SecondaryButton(
+                    text = stringResource(R.string.common_cancel),
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.xs),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ParentPasswordDialog(onDismiss: () -> Unit) {
+    val colors = EduTheme.colors
+    var currentPassword by rememberSaveable { mutableStateOf("") }
+    var newPassword by rememberSaveable { mutableStateOf("") }
+    var confirmPassword by rememberSaveable { mutableStateOf("") }
+    var validationFailed by rememberSaveable { mutableStateOf(false) }
+    var isComplete by rememberSaveable { mutableStateOf(false) }
+
+    Dialog(onDismissRequest = onDismiss) {
+        ParentAccountDialogContainer {
+            if (isComplete) {
+                Text(
+                    text = stringResource(R.string.pr13_password_done_title),
+                    style = EduTheme.typography.titleLg,
+                    color = colors.textPrimary,
+                )
+                Text(
+                    text = stringResource(R.string.pr13_password_done_body),
+                    style = EduTheme.typography.body,
+                    color = colors.textSecondary,
+                    modifier = Modifier.padding(top = Spacing.xxs),
+                )
+                PrimaryButton(
+                    text = stringResource(R.string.common_close),
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.md),
+                )
+            } else {
+                Text(
+                    text = stringResource(R.string.pr13_password_sheet_title),
+                    style = EduTheme.typography.titleLg,
+                    color = colors.textPrimary,
+                )
+                Text(
+                    text = stringResource(R.string.pr13_password_sheet_body),
+                    style = EduTheme.typography.caption,
+                    color = colors.textSecondary,
+                    modifier = Modifier.padding(top = Spacing.xxs),
+                )
+                PasswordField(
+                    value = currentPassword,
+                    onValueChange = {
+                        currentPassword = it
+                        validationFailed = false
+                    },
+                    label = stringResource(R.string.st23_password_current_label),
+                    modifier = Modifier.padding(top = Spacing.md),
+                )
+                PasswordField(
+                    value = newPassword,
+                    onValueChange = {
+                        newPassword = it
+                        validationFailed = false
+                    },
+                    label = stringResource(R.string.st23_password_new_label),
+                    modifier = Modifier.padding(top = Spacing.sm),
+                )
+                PasswordStrengthMeter(
+                    password = newPassword,
+                    modifier = Modifier.padding(top = Spacing.xs),
+                )
+                PasswordField(
+                    value = confirmPassword,
+                    onValueChange = {
+                        confirmPassword = it
+                        validationFailed = false
+                    },
+                    label = stringResource(R.string.st23_password_confirm_label),
+                    modifier = Modifier.padding(top = Spacing.sm),
+                )
+                if (validationFailed) {
+                    Text(
+                        text = stringResource(R.string.st23_password_validation_error),
+                        style = EduTheme.typography.caption,
+                        color = colors.danger,
+                        modifier = Modifier.padding(top = Spacing.xs),
+                    )
+                }
+                PrimaryButton(
+                    text = stringResource(R.string.pr13_password_mock_submit),
+                    onClick = {
+                        val isValid = currentPassword.isNotBlank() &&
+                            newPassword.length >= PASSWORD_MIN_LENGTH &&
+                            newPassword == confirmPassword
+                        if (isValid) {
+                            isComplete = true
+                        } else {
+                            validationFailed = true
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.md),
+                )
+                SecondaryButton(
+                    text = stringResource(R.string.common_cancel),
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Spacing.xs),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ParentSecurityDialog(
+    data: ParentMeData,
+    onDismiss: () -> Unit,
+) {
+    val colors = EduTheme.colors
+    val otherSessions = data.sessions.count { !it.isCurrentDevice }
+
+    Dialog(onDismissRequest = onDismiss) {
+        ParentAccountDialogContainer {
+            Text(
+                text = stringResource(R.string.pr13_security_sheet_title),
+                style = EduTheme.typography.titleLg,
+                color = colors.textPrimary,
+            )
+            Text(
+                text = stringResource(R.string.pr13_security_sheet_body),
+                style = EduTheme.typography.caption,
+                color = colors.textSecondary,
+                modifier = Modifier.padding(top = Spacing.xxs),
+            )
+            EduCard(
+                containerColor = colors.neutralAlpha100,
+                borderColor = colors.neutralAlpha100,
+                modifier = Modifier.padding(top = Spacing.md),
+            ) {
+                ListRow(
+                    title = stringResource(R.string.pr13_security_email_title),
+                    supporting = data.account.email,
+                    leading = Icons.Filled.VerifiedUser,
+                    leadingTint = colors.primary,
+                )
+                EduDivider()
+                ListRow(
+                    title = stringResource(R.string.pr13_security_two_factor_title),
+                    supporting = stringResource(R.string.pr13_security_two_factor_body),
+                    leading = Icons.Filled.Key,
+                    leadingTint = colors.accent,
+                    trailingContent = {
+                        StatusPill(
+                            label = stringResource(if (data.twoFactorEnabled) R.string.st24_status_enabled else R.string.st24_status_disabled),
+                            contentColor = if (data.twoFactorEnabled) colors.success else colors.textSecondary,
+                            containerColor = if (data.twoFactorEnabled) colors.success.copy(alpha = 0.14f) else colors.neutralAlpha100,
+                        )
+                    },
+                )
+                EduDivider()
+                ListRow(
+                    title = stringResource(R.string.pr13_security_sessions_title),
+                    supporting = stringResource(R.string.pr13_security_sessions_body, otherSessions),
+                    leading = Icons.Filled.Computer,
+                    leadingTint = colors.success,
+                )
+            }
+            PrimaryButton(
+                text = stringResource(R.string.common_close),
+                onClick = onDismiss,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.md),
+            )
+        }
+    }
+}
+
+@Composable
+private fun ParentAccountDialogContainer(content: @Composable () -> Unit) {
+    val colors = EduTheme.colors
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colors.surface, RoundedCornerShape(Radius.lg))
+            .border(Sizing.hairline, colors.border, RoundedCornerShape(Radius.lg))
+            .padding(Spacing.card),
+        content = { content() },
+    )
+}
+
+@Composable
+private fun ParentSessionRow(
+    session: ActiveSession,
+    onClick: () -> Unit,
+) {
     val colors = EduTheme.colors
     ListRow(
         title = session.deviceLabel,
@@ -193,6 +522,7 @@ private fun ParentSessionRow(session: ActiveSession) {
             }
         },
         showChevron = !session.isCurrentDevice,
+        onClick = onClick,
     )
 }
 

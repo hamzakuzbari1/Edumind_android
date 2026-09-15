@@ -117,7 +117,33 @@ class RegisterViewModel(
     }
 
     fun onEmailChange(value: String) {
-        _state.update { it.copy(email = value, emailError = null, message = null) }
+        _state.update {
+            val nextEmailError = if (role == UserRole.Parent) {
+                val currentErrorWasFormat = it.emailError == R.string.reg_error_parent_email_invalid
+                val nextError = parentRegistrationEmailErrorOf(value)
+                when {
+                    !currentErrorWasFormat -> null
+                    nextError == R.string.reg_error_parent_email_invalid -> nextError
+                    else -> null
+                }
+            } else {
+                null
+            }
+
+            it.copy(email = value, emailError = nextEmailError, message = null)
+        }
+    }
+
+    fun onEmailFocusLost() {
+        if (role != UserRole.Parent) return
+
+        _state.update {
+            val error = parentRegistrationEmailErrorOf(it.email)
+            it.copy(
+                emailError = if (error == R.string.reg_error_parent_email_invalid) error else null,
+                message = null,
+            )
+        }
     }
 
     fun onPasswordChange(value: String) {
@@ -155,7 +181,11 @@ class RegisterViewModel(
         if (current.isSubmitting) return
 
         val nameError = fullNameErrorOf(current.name)
-        val emailError = emailErrorOf(current.email)
+        val emailError = if (role == UserRole.Parent) {
+            parentRegistrationEmailErrorOf(current.email)
+        } else {
+            emailErrorOf(current.email)
+        }
         val passwordError = newPasswordErrorOf(current.password)
         val confirmationError = passwordConfirmationErrorOf(
             password = current.password,

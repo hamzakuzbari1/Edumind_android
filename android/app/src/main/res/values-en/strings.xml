@@ -277,6 +277,7 @@
 
     <string name="reg_name_label">Full name</string>
     <string name="reg_name_placeholder">As your teachers should see it</string>
+    <string name="reg_parent_name_placeholder">Enter your full name</string>
     <string name="reg_password_placeholder">Choose a password</string>
     <string name="reg_password_hint">At least 8 characters</string>
     <string name="reg_confirm_label">Confirm password</string>
@@ -296,6 +297,7 @@
     <string name="reg_error_confirm_required">Type your password again to confirm it.</string>
     <string name="reg_error_confirm_mismatch">The two passwords don\'t match. Check them and continue.</string>
     <string name="reg_error_terms_required">Agree to the Terms and Privacy Policy to continue.</string>
+    <string name="reg_error_parent_email_invalid">Please enter a valid email address</string>
     <string name="reg_error_email_taken">This email already has an account. Log in with it, or sign up with another address.</string>
     <string name="reg_error_offline">No internet connection. What you typed is kept on this screen — try again when the network is back.</string>
     <string name="reg_offline_back_online">You\'re back online. Press “Try again” to create your account.</string>
@@ -2889,9 +2891,29 @@
     <string name="pr13_account_security_section">Account security</string>
     <string name="pr13_password_title">Password</string>
     <string name="pr13_password_supporting">Last changed 3 months ago</string>
+    <string name="pr13_password_sheet_title">Change password</string>
+    <string name="pr13_password_sheet_body">Local demo only: your real sign-in credentials will not change in this build.</string>
+    <string name="pr13_password_mock_submit">Mock update</string>
+    <string name="pr13_password_done_title">Password updated in demo</string>
+    <string name="pr13_password_done_body">The form was accepted locally only. No real sign-in credentials were changed.</string>
     <string name="pr13_verification_title">Verification and security</string>
     <string name="pr13_verification_supporting">Manage security settings</string>
+    <string name="pr13_security_sheet_title">Verification and security</string>
+    <string name="pr13_security_sheet_body">Local summary of account security and active sessions in this demo build.</string>
+    <string name="pr13_security_email_title">Account email</string>
+    <string name="pr13_security_two_factor_title">Two-step verification</string>
+    <string name="pr13_security_two_factor_body">Shows the current status only.</string>
+    <string name="pr13_security_sessions_title">Other sessions</string>
+    <string name="pr13_security_sessions_body">%1$d other sessions recorded.</string>
     <string name="pr13_devices_section">Devices and sessions</string>
+    <string name="pr13_session_details_title">Session details</string>
+    <string name="pr13_session_details_body">Local information from the current demo session data.</string>
+    <string name="pr13_session_device_title">Device and platform</string>
+    <string name="pr13_session_status_title">Session status</string>
+    <string name="pr13_session_status_current">This device · active now</string>
+    <string name="pr13_session_end_action">End demo session</string>
+    <string name="pr13_session_end_confirm_title">End demo session?</string>
+    <string name="pr13_session_end_confirm_body">%1$s will be hidden from the Parent list locally only.</string>
     <string name="pr13_linked_students_section">Linked children</string>
     <string name="pr13_no_students_title">No student linked yet</string>
     <string name="pr13_no_students_body">Link a student account to start following academic progress.</string>
@@ -3050,7 +3072,7 @@
     <string name="pr10_sheet_subject">Subject</string>
     <string name="pr10_sheet_availability">Follow-up times</string>
     <string name="pr10_sheet_response">Expected response time</string>
-    <string name="pr10_sheet_read_only_note">Teacher and subject details are shown here for follow-up only, and do not open messaging in this phase.</string>
+    <string name="pr10_sheet_read_only_note">Teacher and subject details are shown here for follow-up only.</string>
     <string name="pr10_status_on_track">On track</string>
     <string name="pr10_status_needs_follow_up">Needs follow-up</string>
     <string name="pr10_teacher_rami_al_hassan">Rami Al Hassan</string>
