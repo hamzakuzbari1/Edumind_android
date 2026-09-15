@@ -56,6 +56,7 @@ import com.rork.eduspark.core.format.numeral
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LearningPath
 import com.rork.eduspark.data.model.LearningStep
+import com.rork.eduspark.data.model.LearningUnit
 import com.rork.eduspark.data.model.LessonMediaType
 import com.rork.eduspark.data.model.LessonStatus
 import com.rork.eduspark.data.model.LockedReason
@@ -431,44 +432,25 @@ private fun CourseUnitAccordion(
     }
 }
 
-private data class CourseUnitGroup(
-    val index: Int,
-    val title: String,
-    val absoluteStartIndex: Int,
-    val steps: List<LearningStep>,
-)
+private typealias CourseUnitGroup = LearningUnit
 
-@Composable
-private fun LearningPath.toCourseUnits(): List<CourseUnitGroup> {
-    val unitNames = when (id) {
-        "physics" -> listOf(
-            R.string.st02_unit_physics_motion,
-            R.string.st02_unit_physics_forces,
-            R.string.st02_unit_physics_energy,
-            R.string.st02_unit_review,
-        )
-        "math" -> listOf(
-            R.string.st02_unit_math_limits,
-            R.string.st02_unit_math_derivatives,
-            R.string.st02_unit_math_applications,
-            R.string.st02_unit_review,
-        )
-        else -> listOf(
-            R.string.st02_unit_default_1,
-            R.string.st02_unit_default_2,
-            R.string.st02_unit_default_3,
-            R.string.st02_unit_review,
-        )
+private fun LearningPath.toCourseUnits(): List<CourseUnitGroup> =
+    units.ifEmpty {
+        if (steps.isEmpty()) {
+            emptyList()
+        } else {
+            listOf(
+                LearningUnit(
+                    id = null,
+                    title = "عام",
+                    progress = progress,
+                    completedLessonCount = completedLessonCount,
+                    totalLessonCount = totalLessonCount,
+                    steps = steps,
+                )
+            )
+        }
     }
-    return steps.chunked(4).mapIndexed { index, chunk ->
-        CourseUnitGroup(
-            index = index,
-            title = stringResource(unitNames.getOrElse(index) { R.string.st02_unit_review }),
-            absoluteStartIndex = index * 4,
-            steps = chunk,
-        )
-    }
-}
 
 @Composable
 private fun CourseCurrentLessonCard(

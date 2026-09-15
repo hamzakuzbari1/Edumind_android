@@ -176,7 +176,7 @@ class LoginViewModel(
                 _events.send(LoginEvent.Authenticated(outcome.user))
 
             is SignInOutcome.TwoFactorRequired ->
-                _events.send(LoginEvent.TwoFactorRequired(outcome.email))
+                _events.send(LoginEvent.TwoFactorRequired(outcome.challenge.email))
 
             is SignInOutcome.EmailVerificationRequired ->
                 // Shown in place rather than pushed, because the platform lets an unverified

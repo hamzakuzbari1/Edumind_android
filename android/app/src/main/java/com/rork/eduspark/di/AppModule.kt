@@ -3,7 +3,9 @@ package com.rork.eduspark.di
 import com.rork.eduspark.BuildConfig
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.locale.LocaleController
+import com.rork.eduspark.core.network.createEduMindHttpClient
 import com.rork.eduspark.core.preferences.AppPreferences
+import com.rork.eduspark.core.session.EncryptedTokenStore
 import com.rork.eduspark.core.session.InMemoryTokenStore
 import com.rork.eduspark.core.session.SecureTokenStore
 import com.rork.eduspark.data.model.UserRole
@@ -25,6 +27,7 @@ import com.rork.eduspark.data.repository.RoutineRepository
 import com.rork.eduspark.data.repository.SecurityRepository
 import com.rork.eduspark.data.repository.SubscriptionRepository
 import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherSetupRepository
 import com.rork.eduspark.data.repository.TutorRepository
 import com.rork.eduspark.data.repository.VoucherRepository
 import com.rork.eduspark.data.repository.mock.MockAchievementRepository
@@ -48,6 +51,19 @@ import com.rork.eduspark.data.repository.mock.MockSubscriptionRepository
 import com.rork.eduspark.data.repository.mock.MockTeacherRepository
 import com.rork.eduspark.data.repository.mock.MockTutorRepository
 import com.rork.eduspark.data.repository.mock.MockVoucherRepository
+import com.rork.eduspark.data.remote.auth.AuthApi
+import com.rork.eduspark.data.remote.auth.KtorAuthApi
+import com.rork.eduspark.data.remote.onboarding.KtorStudentOnboardingApi
+import com.rork.eduspark.data.remote.onboarding.StudentOnboardingApi
+import com.rork.eduspark.data.remote.learning.KtorStudentLearningApi
+import com.rork.eduspark.data.remote.learning.StudentLearningApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherSetupApi
+import com.rork.eduspark.data.remote.teacher.TeacherSetupApi
+import com.rork.eduspark.data.repository.remote.AuthRefreshCoordinator
+import com.rork.eduspark.data.repository.remote.RemoteAuthRepository
+import com.rork.eduspark.data.repository.remote.RemoteLearningRepository
+import com.rork.eduspark.data.repository.remote.RemoteStudentOnboardingRepository
+import com.rork.eduspark.data.repository.remote.RemoteTeacherSetupRepository
 import com.rork.eduspark.ui.AppShellViewModel
 import com.rork.eduspark.ui.navigation.StudentNavigationDrawerViewModel
 import com.rork.eduspark.ui.screens.auth.CertificateVerifyViewModel
@@ -144,8 +160,16 @@ import org.koin.dsl.module
 enum class DataSourceMode { MOCK, REMOTE }
 
 val dataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.DATA_SOURCE_MODE) }
+    runCatching { DataSourceMode.valueOf(BuildConfig.DATA_SOURCE_MODE.uppercase()) }
         .getOrDefault(DataSourceMode.MOCK)
+
+val authDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.AUTH_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val learningDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.LEARNING_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
 
 /**
  * ST-17/ST-18/ST-19 — the only mode this build supports. No Stripe/PayPal/Apple Pay/Google Pay
@@ -162,24 +186,45 @@ val appModule = module {
     single { LocaleController(androidApplication()) }
     single { MockStudentEntitlements() }
 
-    // Replaced by a Keystore-backed store when the real API layer lands.
-    single<SecureTokenStore> { InMemoryTokenStore() }
+    single<SecureTokenStore> {
+        when (authDataSourceMode) {
+            DataSourceMode.MOCK -> InMemoryTokenStore()
+            DataSourceMode.REMOTE -> EncryptedTokenStore(androidApplication())
+        }
+    }
+    single { createEduMindHttpClient() }
+    single<AuthApi> { KtorAuthApi(client = get(), baseUrl = BuildConfig.API_BASE_URL) }
+    single<StudentOnboardingApi> {
+        KtorStudentOnboardingApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentLearningApi> {
+        KtorStudentLearningApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherSetupApi> {
+        KtorTeacherSetupApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single { AuthRefreshCoordinator(api = get(), tokenStore = get()) }
 
     single<AuthRepository> {
-        when (dataSourceMode) {
+        when (authDataSourceMode) {
             DataSourceMode.MOCK -> MockAuthRepository(tokenStore = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — the FastAPI client has " +
-                    "not been generated. Keep DATA_SOURCE_MODE=MOCK until it exists."
+            DataSourceMode.REMOTE -> RemoteAuthRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                deviceName = android.os.Build.MODEL,
             )
         }
     }
 
     single<LearningRepository> {
-        when (dataSourceMode) {
+        when (learningDataSourceMode) {
             DataSourceMode.MOCK -> MockLearningRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteLearningRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -203,10 +248,13 @@ val appModule = module {
     }
 
     single<OnboardingRepository> {
-        when (dataSourceMode) {
+        when (authDataSourceMode) {
             DataSourceMode.MOCK -> MockOnboardingRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteStudentOnboardingRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -327,6 +375,17 @@ val appModule = module {
             )
         }
     }
+    single<TeacherSetupRepository> {
+        when (authDataSourceMode) {
+            DataSourceMode.MOCK -> get<TeacherRepository>()
+            DataSourceMode.REMOTE -> RemoteTeacherSetupRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+    }
 
     // Phase 6 · X-01/X-02/X-03 — one canonical thread store shared by Student and Teacher.
     single<MessagingRepository> {
@@ -411,6 +470,7 @@ val appModule = module {
             achievementRepository = get(),
             plannerRepository = get(),
             routineRepository = get(),
+            authRepository = get(),
             connectivity = get(),
         )
     }
@@ -620,7 +680,7 @@ val appModule = module {
     }
 
     // ── Phase 3 · TC-01 Teacher Setup Wizard / TC-02 Dashboard / TC-03 Courses ──────────
-    viewModel { TeacherSetupViewModel(authRepository = get(), teacherRepository = get(), preferences = get(), connectivity = get()) }
+    viewModel { TeacherSetupViewModel(authRepository = get(), teacherSetupRepository = get(), preferences = get(), connectivity = get()) }
     viewModel { TeacherDashboardViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
     viewModel { TeacherCoursesViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
 
@@ -698,8 +758,8 @@ val appModule = module {
 
     // TC-16 — no parameters; the session already tells the repository which teacher's profile. The
     // live-preview screen reuses this exact same ViewModel class (a second Koin-created instance).
-    viewModel { TeacherAccountViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
-    viewModel { TeacherProfileViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
+    viewModel { TeacherAccountViewModel(authRepository = get(), teacherSetupRepository = get(), connectivity = get()) }
+    viewModel { TeacherProfileViewModel(authRepository = get(), teacherSetupRepository = get(), connectivity = get()) }
 
     // TC-17 — no parameters for the project list root; the editor is parameterised by which project.
     viewModel { TeacherProjectsViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }

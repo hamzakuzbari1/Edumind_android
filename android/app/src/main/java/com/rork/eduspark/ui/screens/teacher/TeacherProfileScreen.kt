@@ -176,6 +176,13 @@ private fun TeacherProfileEditor(
                             photoAdded = !photoAdded
                         },
                 )
+                Text(
+                    text = state.email,
+                    style = EduTheme.typography.caption,
+                    color = colors.textSecondary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = Spacing.xxs),
+                )
             }
         }
 

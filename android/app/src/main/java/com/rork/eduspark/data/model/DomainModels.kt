@@ -21,8 +21,7 @@ enum class UserRole { Student, Teacher, Parent }
 /**
  * The signed-in user.
  *
- * Note what is absent: no refresh token is modelled, because the backend has no refresh
- * endpoint. A 401 ends the session — that is a product fact, not an oversight.
+ * Tokens stay in the secure session store and never enter the UI-facing user model.
  */
 data class SessionUser(
     val id: String,
@@ -32,6 +31,21 @@ data class SessionUser(
     val isEmailVerified: Boolean,
     val requiresTwoFactor: Boolean,
     val hasCompletedOnboarding: Boolean,
+    val onboardingStep: StudentOnboardingStep? = null,
+    val grade: Int? = null,
+)
+
+/**
+ * Non-secret presentation metadata for a pending email-OTP login challenge.
+ *
+ * The challenge token itself remains inside the repository and is never placed in Compose
+ * state, navigation arguments, logs, or saved instance state.
+ */
+data class TwoFactorChallengeInfo(
+    val email: String,
+    val maskedEmail: String?,
+    val expiresInSeconds: Int?,
+    val resendAvailableInSeconds: Int?,
 )
 
 /** Lesson lifecycle — Source Audit §6: `draft → processing → processed | error`. */
@@ -88,6 +102,17 @@ data class LearningStep(
     val isMilestone: Boolean = false,
 )
 
+/** Canonical backend course unit/chapter. "Chapter" is only a display synonym. */
+data class LearningUnit(
+    val id: String?,
+    val title: String,
+    val subtitle: String? = null,
+    val progress: Float = 0f,
+    val completedLessonCount: Int = 0,
+    val totalLessonCount: Int = 0,
+    val steps: List<LearningStep> = emptyList(),
+)
+
 /** A learning path — a course, a language unit, or a project milestone board. */
 data class LearningPath(
     val id: String,
@@ -111,6 +136,7 @@ data class LearningPath(
      *  than are useful to hand-write for every locked/completed/current state combination. */
     val completedLessonCount: Int = 0,
     val totalLessonCount: Int = 0,
+    val units: List<LearningUnit> = emptyList(),
 )
 
 /**
@@ -185,6 +211,9 @@ data class LessonDetail(
     val lessonIndex: Int = 0,
     val lessonTotal: Int = 0,
     val isCompleted: Boolean = false,
+    val videoProgress: Float = 0f,
+    val pdfProgress: Float = 0f,
+    val pdfOpened: Boolean = false,
     /** Null when this lesson has no AI-generated comprehension quiz — ST-03's Take Quiz stays hidden. */
     val quizId: String? = null,
     /** Approved design's "الأفكار الأساسية" card (LessonPlayer.dc.html) — a short numbered

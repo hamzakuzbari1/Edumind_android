@@ -6,6 +6,7 @@ import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LessonDetail
+import com.rork.eduspark.data.model.LessonMediaType
 import com.rork.eduspark.data.model.Quiz
 import com.rork.eduspark.data.model.QuizResult
 import com.rork.eduspark.data.repository.LearningRepository
@@ -104,7 +105,15 @@ class LessonPlayerViewModel(
         viewModelScope.launch {
             when (val result = learningRepository.getLesson(lessonId)) {
                 is AppResult.Success -> {
-                    _state.update { it.copy(result = UiState.Content(result.data)) }
+                    val lesson = result.data
+                    _state.update {
+                        it.copy(
+                            result = UiState.Content(lesson),
+                            currentPage = lesson.initialPage(),
+                            positionFraction = lesson.videoProgress.coerceIn(0f, 1f),
+                        )
+                    }
+                    learningRepository.recordLessonStarted(lessonId, lesson.mediaTypes)
                     refreshQuizSession(result.data)
                 }
                 is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
@@ -165,11 +174,15 @@ class LessonPlayerViewModel(
         }
     }
 
-    fun previousPage() = _state.update { it.copy(currentPage = (it.currentPage - 1).coerceAtLeast(1)) }
+    fun previousPage() {
+        _state.update { it.copy(currentPage = (it.currentPage - 1).coerceAtLeast(1)) }
+        persistCurrentProgress(pdfOpened = true)
+    }
 
     fun nextPage() {
         val pageCount = (_state.value.result as? UiState.Content)?.data?.pageCount ?: return
         _state.update { it.copy(currentPage = (it.currentPage + 1).coerceAtMost(pageCount.coerceAtLeast(1))) }
+        persistCurrentProgress(pdfOpened = true)
     }
 
     fun toggleZoom() = _state.update { it.copy(isZoomed = !it.isZoomed) }
@@ -182,17 +195,25 @@ class LessonPlayerViewModel(
             if (_state.value.positionFraction >= 1f) _state.update { it.copy(positionFraction = 0f) }
             _state.update { it.copy(isPlaying = true) }
             playbackJob = viewModelScope.launch {
+                var tick = 0
                 while (isActive && _state.value.positionFraction < 1f) {
                     kotlinx.coroutines.delay(400L)
                     val speed = _state.value.playbackSpeed
                     _state.update { it.copy(positionFraction = (it.positionFraction + 0.02f * speed).coerceAtMost(1f)) }
+                    tick += 1
+                    if (tick % 5 == 0 || _state.value.positionFraction >= 1f) {
+                        persistCurrentProgress()
+                    }
                 }
                 _state.update { it.copy(isPlaying = false) }
             }
         }
     }
 
-    fun seekTo(fraction: Float) = _state.update { it.copy(positionFraction = fraction.coerceIn(0f, 1f)) }
+    fun seekTo(fraction: Float) {
+        _state.update { it.copy(positionFraction = fraction.coerceIn(0f, 1f)) }
+        persistCurrentProgress()
+    }
 
     fun cyclePlaybackSpeed() {
         val speeds = listOf(1f, 1.25f, 1.5f, 2f)
@@ -212,6 +233,25 @@ class LessonPlayerViewModel(
         val content = _state.value.result as? UiState.Content ?: return
         _state.update { it.copy(result = content.copy(data = content.data.copy(isCompleted = true))) }
         viewModelScope.launch { learningRepository.markLessonCompleted(lessonId) }
+    }
+
+    private fun persistCurrentProgress(pdfOpened: Boolean? = null) {
+        val s = _state.value
+        val lesson = (s.result as? UiState.Content)?.data ?: return
+        val video = if (LessonMediaType.Video in lesson.mediaTypes) s.positionFraction else null
+        val pdf = if (LessonMediaType.Pdf in lesson.mediaTypes && lesson.pageCount > 0) {
+            (s.currentPage.toFloat() / lesson.pageCount.toFloat()).coerceIn(0f, 1f)
+        } else {
+            null
+        }
+        viewModelScope.launch {
+            learningRepository.updateLessonProgress(
+                lessonId = lessonId,
+                videoProgress = video,
+                pdfProgress = pdf,
+                pdfOpened = pdfOpened,
+            )
+        }
     }
 
     /** Computed fresh on demand (not cached in [state]) — the quiz may have been completed on
@@ -234,4 +274,10 @@ class LessonPlayerViewModel(
         playbackJob?.cancel()
         downloadJob?.cancel()
     }
+}
+
+private fun LessonDetail.initialPage(): Int {
+    if (pageCount <= 1) return 1
+    val fromProgress = (pdfProgress.coerceIn(0f, 1f) * pageCount).toInt().coerceAtLeast(1)
+    return fromProgress.coerceAtMost(pageCount)
 }

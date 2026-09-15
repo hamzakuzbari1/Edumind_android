@@ -526,3 +526,12 @@ val ParentTabs: List<TabDestination> = listOf(
     TabDestination(Routes.PARENT_MESSAGES, R.string.tab_parent_messages, Icons.Outlined.Forum, Icons.Filled.Forum),
     TabDestination(Routes.PARENT_ME, R.string.tab_parent_me, Icons.Outlined.Person, Icons.Filled.Person),
 )
+
+/** Parent drawer mirrors the existing five-tab shell and adds the shared sign-out action. */
+val ParentDrawerSections: List<RoleDrawerSection> = listOf(
+    RoleDrawerSection(
+        destinations = ParentTabs.map { tab ->
+            RoleDrawerDestination(tab.route, tab.labelRes, tab.icon)
+        },
+    ),
+)

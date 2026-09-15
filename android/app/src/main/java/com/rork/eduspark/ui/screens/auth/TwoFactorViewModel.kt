@@ -28,11 +28,8 @@ import kotlinx.coroutines.launch
  * PDF's visual language (masked destination, distinct security band) is kept, its channel is
  * not.
  *
- * There is no dedicated "resend the 2FA code" endpoint in the verified audit, and this
- * screen does not invent one: it calls the same [AuthRepository.resendEmailCode] seam A-08
- * uses, because both are "re-send the pending email-delivered code" from the client's point
- * of view. `trustDevice` is threaded straight into [AuthRepository.verifyTwoFactor], which
- * already accepts it — nothing new was added to the interface for this screen.
+ * Challenge secrets remain inside the repository. The screen only observes masked delivery
+ * metadata and uses the backend's dedicated resend endpoint through [AuthRepository].
  */
 sealed interface TwoFactorPhase {
     data object Idle : TwoFactorPhase
@@ -96,7 +93,18 @@ class TwoFactorViewModel(
                 _state.update { it.copy(isOnline = online) }
             }
         }
-        startCooldown()
+        viewModelScope.launch {
+            authRepository.pendingTwoFactorChallenge.collect { challenge ->
+                challenge ?: return@collect
+                _state.update {
+                    it.copy(
+                        email = challenge.maskedEmail ?: challenge.email,
+                        resendCooldownSeconds = challenge.resendAvailableInSeconds ?: 0,
+                    )
+                }
+                startCooldown(challenge.resendAvailableInSeconds ?: 0)
+            }
+        }
     }
 
     fun onCodeChange(value: String) {
@@ -137,19 +145,27 @@ class TwoFactorViewModel(
         if (!_state.value.canResend) return
 
         viewModelScope.launch {
-            authRepository.resendEmailCode()
-            attemptsRemaining = MAX_ATTEMPTS
-            _state.update {
-                it.copy(code = "", phase = TwoFactorPhase.Idle, resendCount = it.resendCount + 1)
+            when (authRepository.resendTwoFactor()) {
+                is AppResult.Success -> {
+                    attemptsRemaining = MAX_ATTEMPTS
+                    _state.update {
+                        it.copy(
+                            code = "",
+                            phase = TwoFactorPhase.Idle,
+                            resendCount = it.resendCount + 1,
+                        )
+                    }
+                }
+                is AppResult.Failure -> Unit
             }
-            startCooldown()
         }
     }
 
-    private fun startCooldown() {
+    private fun startCooldown(seconds: Int) {
         cooldownJob?.cancel()
+        if (seconds <= 0) return
         cooldownJob = viewModelScope.launch {
-            _state.update { it.copy(resendCooldownSeconds = RESEND_COOLDOWN_SECONDS) }
+            _state.update { it.copy(resendCooldownSeconds = seconds) }
             while (_state.value.resendCooldownSeconds > 0) {
                 delay(1_000)
                 _state.update {
@@ -161,7 +177,6 @@ class TwoFactorViewModel(
 
     private companion object {
         const val MAX_ATTEMPTS = 3
-        const val RESEND_COOLDOWN_SECONDS = 30
         const val SUCCESS_HOLD_MS = 900L
     }
 }

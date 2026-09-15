@@ -78,13 +78,25 @@ fun OnboardingTeachersScreen(
 
     BackHandler { onBack() }
 
-    LaunchedEffect(Unit) { viewModel.loadTeachersIfNeeded() }
+    LaunchedEffect(state.subjectIds, state.grade) { viewModel.loadTeachersIfNeeded() }
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            if (event == OnboardingEvent.TeachersSaved) onContinue()
+        }
+    }
 
     OnboardingStepScaffold(
         step = 3,
         onBack = onBack,
         bottomBar = {
-            if (showValidation && !state.canContinueFromTeachers) {
+            if (state.teachersSaveFailed) {
+                Text(
+                    text = stringResource(R.string.state_error_unknown_body),
+                    style = EduTheme.typography.caption,
+                    color = EduTheme.colors.danger,
+                    modifier = Modifier.padding(bottom = Spacing.xs),
+                )
+            } else if (showValidation && !state.canContinueFromTeachers) {
                 Text(
                     text = stringResource(R.string.so03_error_teachers),
                     style = EduTheme.typography.caption,
@@ -94,7 +106,8 @@ fun OnboardingTeachersScreen(
             }
             PrimaryButton(
                 text = stringResource(R.string.so03_continue),
-                onClick = { if (state.canContinueFromTeachers) onContinue() else showValidation = true },
+                onClick = { if (state.canContinueFromTeachers) viewModel.saveTeachers() else showValidation = true },
+                isLoading = state.isSavingTeachers,
                 modifier = Modifier.fillMaxWidth(),
             )
         },
@@ -112,7 +125,11 @@ fun OnboardingTeachersScreen(
         )
 
         state.subjectIds.forEach { subjectId ->
-            val subjectLabel = OnboardingCatalog.byId(subjectId)?.labelRes?.let { stringResource(it) } ?: subjectId
+            val subjectLabel = (state.availableSubjects as? UiState.Content)
+                ?.data
+                ?.firstOrNull { it.id == subjectId }
+                ?.name
+                ?: subjectId
 
             Text(
                 text = subjectLabel,
@@ -251,11 +268,13 @@ private fun TeacherCard(
             color = colors.textPrimary,
             modifier = Modifier.padding(top = Spacing.xs),
         )
-        Text(
-            text = pluralStringResource(R.plurals.so03_years_teaching, teacher.yearsTeaching, teacher.yearsTeaching),
-            style = EduTheme.typography.caption,
-            color = colors.textMuted,
-        )
+        teacher.yearsTeaching?.let { years ->
+            Text(
+                text = pluralStringResource(R.plurals.so03_years_teaching, years, years),
+                style = EduTheme.typography.caption,
+                color = colors.textMuted,
+            )
+        }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -276,33 +295,43 @@ private fun TeacherCard(
             )
         }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Spacing.sm),
-        ) {
-            EduIconButton(
-                icon = if (isPlayingIntro) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                contentDescription = stringResource(
-                    if (isPlayingIntro) R.string.a11y_so03_pause_intro else R.string.a11y_so03_play_intro
-                ),
-                tint = colors.zaytoun,
-                onClick = { isPlayingIntro = !isPlayingIntro },
-            )
-            Text(
-                text = numeral("0:%02d".format(teacher.introClipSeconds)),
-                style = EduTheme.typography.mono,
-                color = colors.textMuted,
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Column(horizontalAlignment = Alignment.End) {
-                Text(text = stringResource(R.string.so03_per_session), style = EduTheme.typography.caption, color = colors.textMuted)
-                Text(
-                    text = teacher.priceLabel,
-                    style = EduTheme.typography.bodyLg.copy(fontWeight = FontWeight.SemiBold),
-                    color = colors.zaytoun,
-                )
+        if (teacher.introClipSeconds != null || teacher.priceLabel != null) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.sm),
+            ) {
+                teacher.introClipSeconds?.let { seconds ->
+                    EduIconButton(
+                        icon = if (isPlayingIntro) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                        contentDescription = stringResource(
+                            if (isPlayingIntro) R.string.a11y_so03_pause_intro else R.string.a11y_so03_play_intro
+                        ),
+                        tint = colors.zaytoun,
+                        onClick = { isPlayingIntro = !isPlayingIntro },
+                    )
+                    Text(
+                        text = numeral("0:%02d".format(seconds)),
+                        style = EduTheme.typography.mono,
+                        color = colors.textMuted,
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                teacher.priceLabel?.let { price ->
+                    Column(horizontalAlignment = Alignment.End) {
+                        Text(
+                            text = stringResource(R.string.so03_per_session),
+                            style = EduTheme.typography.caption,
+                            color = colors.textMuted,
+                        )
+                        Text(
+                            text = price,
+                            style = EduTheme.typography.bodyLg.copy(fontWeight = FontWeight.SemiBold),
+                            color = colors.zaytoun,
+                        )
+                    }
+                }
             }
         }
     }

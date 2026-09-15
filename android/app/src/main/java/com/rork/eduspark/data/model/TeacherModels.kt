@@ -5,19 +5,13 @@ package com.rork.eduspark.data.model
  * TC-01 · Teacher Setup Wizard / TC-02 · Teacher Dashboard / TC-03 · Courses List.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Phase 3's first slice — MOCK UI/domain state only. The real FastAPI teacher backend
- * (course/lesson management, PDF/video/homework upload, AI lesson processing, voice profile,
- * quiz builder, students/analytics) already exists server-side and is deliberately NOT
- * integrated here; every field below is what
- * [com.rork.eduspark.data.repository.mock.MockTeacherRepository] can honestly construct from
- * deterministic fixtures.
+ * Teacher setup identity, teaching selections, qualifications, and supported experience fields
+ * can be backed by FastAPI. Documents, pricing, voice, and the broader teacher workspace remain
+ * explicitly local/mock until their dedicated integration batches.
  *
- * [TeacherSetupState.completedStepIds] is the single source of truth for wizard progress —
- * "saved" and "completed" are the same event for this MOCK wizard (see
- * [com.rork.eduspark.data.repository.TeacherRepository]'s own doc comment).
- * [SessionUser.hasCompletedOnboarding] is reused verbatim for "has this teacher finished
- * setup" — the exact same field SO-01…SO-05 already uses for student onboarding, never a
- * second parallel flag.
+ * [TeacherSetupState.completedStepIds] drives only the current visual wizard. Server data is
+ * used to reconstruct a safe resume point, while [SessionUser.hasCompletedOnboarding] remains
+ * authoritative for incomplete versus complete setup.
  */
 enum class TeacherSetupStepId { Identity, SubjectsGrades, Qualifications, Experience, Documents, Pricing, VoiceSample }
 

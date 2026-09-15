@@ -11,6 +11,7 @@ import com.rork.eduspark.data.model.Grade
 import com.rork.eduspark.data.model.LearningPreferences
 import com.rork.eduspark.data.model.LinkedParent
 import com.rork.eduspark.data.model.StudentProfile
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.model.SubjectProgress
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.LearningRepository
@@ -60,16 +61,30 @@ class StudentProfileViewModel(
 
     private val _state = MutableStateFlow(StudentProfileUiState())
     val state: StateFlow<StudentProfileUiState> = _state.asStateFlow()
+    private var sessionUser: SessionUser? = null
 
     init {
         viewModelScope.launch {
             connectivity.isOnline.collect { online -> _state.update { it.copy(isOnline = online) } }
         }
         viewModelScope.launch {
+            authRepository.session.collect { user ->
+                sessionUser = user
+                _state.update { current ->
+                    val data = (current.result as? UiState.Content)?.data ?: return@update current
+                    current.copy(result = UiState.Content(data.withSessionIdentity(user)))
+                }
+            }
+        }
+        viewModelScope.launch {
             profileRepository.profile.collect { profile ->
                 _state.update { current ->
                     val data = (current.result as? UiState.Content)?.data ?: return@update current
-                    current.copy(result = UiState.Content(data.copy(profile = profile)))
+                    current.copy(
+                        result = UiState.Content(
+                            data.copy(profile = profile).withSessionIdentity(sessionUser)
+                        )
+                    )
                 }
             }
         }
@@ -100,7 +115,7 @@ class StudentProfileViewModel(
             val profileResult = profileRepository.getProfile()
             val homeResult = learningRepository.getStudentHome()
             val preferencesResult = profileRepository.getLearningPreferences()
-            val email = authRepository.session.first()?.email.orEmpty()
+            val user = authRepository.session.first()
             if (profileResult is AppResult.Success && homeResult is AppResult.Success && preferencesResult is AppResult.Success) {
                 val parents = (profileRepository.getLinkedParents() as? AppResult.Success)?.data ?: emptyList()
                 _state.update {
@@ -108,12 +123,12 @@ class StudentProfileViewModel(
                         result = UiState.Content(
                             ProfileScreenData(
                                 profile = profileResult.data,
-                                email = email,
+                                email = user?.email.orEmpty(),
                                 gamification = homeResult.data.gamification,
                                 subjects = homeResult.data.subjects,
                                 linkedParents = parents,
                                 learningPreferences = preferencesResult.data,
-                            )
+                            ).withSessionIdentity(user)
                         )
                     )
                 }
@@ -157,4 +172,30 @@ class StudentProfileViewModel(
             _state.update { it.copy(isRevoking = false, pendingRevokeParentId = null) }
         }
     }
+}
+
+internal fun ProfileScreenData.withSessionIdentity(user: SessionUser?): ProfileScreenData {
+    if (user == null) {
+        return copy(
+            profile = profile.copy(displayName = "", avatarInitial = ""),
+            email = "",
+        )
+    }
+    val displayName = user.displayName
+    return copy(
+        profile = profile.copy(
+            displayName = displayName,
+            grade = user.grade?.toStudentGrade() ?: profile.grade,
+            school = "",
+            avatarInitial = displayName.take(1),
+        ),
+        email = user.email,
+    )
+}
+
+private fun Int.toStudentGrade(): Grade? = when (this) {
+    10 -> Grade.Grade10
+    11 -> Grade.Grade11
+    12 -> Grade.Baccalaureate
+    else -> null
 }

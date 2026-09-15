@@ -35,9 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
+import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.SimpleDate
 import com.rork.eduspark.data.model.StudyHoursPerDay
 import com.rork.eduspark.data.model.StudyTimeOfDay
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.ui.components.action.EduIconButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.foundation.eduClickable
@@ -71,6 +73,10 @@ fun OnboardingPersonalizeScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var questionIndex by remember { mutableIntStateOf(0) }
+    val selectedSubjects = (state.availableSubjects as? UiState.Content)
+        ?.data
+        ?.filter { it.id in state.subjectIds }
+        .orEmpty()
 
     val goBack: () -> Unit = { if (questionIndex > 0) questionIndex-- else onBack() }
     BackHandler { goBack() }
@@ -94,7 +100,7 @@ fun OnboardingPersonalizeScreen(
             1 -> SubjectPickQuestion(
                 titleRes = R.string.so04_q2_title,
                 bodyRes = R.string.so04_q2_body,
-                subjectIds = state.subjectIds,
+                subjects = selectedSubjects,
                 selectedId = state.answers.strongestSubjectId,
                 notSure = state.answers.strongestNotSure,
                 onSelectSubject = { viewModel.selectStrongestSubject(it); questionIndex++ },
@@ -104,7 +110,7 @@ fun OnboardingPersonalizeScreen(
             2 -> SubjectPickQuestion(
                 titleRes = R.string.so04_q3_title,
                 bodyRes = R.string.so04_q3_body,
-                subjectIds = state.subjectIds,
+                subjects = selectedSubjects,
                 selectedId = state.answers.weakestSubjectId,
                 notSure = state.answers.weakestNotSure,
                 onSelectSubject = { viewModel.selectWeakestSubject(it); questionIndex++ },
@@ -175,7 +181,7 @@ private fun StudyHoursQuestion(
 private fun SubjectPickQuestion(
     titleRes: Int,
     bodyRes: Int,
-    subjectIds: Set<String>,
+    subjects: List<SubjectOption>,
     selectedId: String?,
     notSure: Boolean,
     onSelectSubject: (String) -> Unit,
@@ -183,12 +189,11 @@ private fun SubjectPickQuestion(
 ) {
     QuestionHeader(titleRes, bodyRes)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(Spacing.xs), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
-        subjectIds.forEach { id ->
-            val display = OnboardingCatalog.byId(id)
+        subjects.forEach { subject ->
             EduChip(
-                label = display?.labelRes?.let { stringResource(it) } ?: id,
-                selected = selectedId == id,
-                onClick = { onSelectSubject(id) },
+                label = subject.name,
+                selected = selectedId == subject.id,
+                onClick = { onSelectSubject(subject.id) },
             )
         }
         EduChip(

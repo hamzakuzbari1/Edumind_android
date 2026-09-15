@@ -132,6 +132,13 @@ private fun TeacherAccountContent(
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(top = Spacing.xs),
                     )
+                    Text(
+                        text = data.email,
+                        style = EduTheme.typography.caption,
+                        color = colors.textSecondary,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = Spacing.xxs),
+                    )
                     if (subjectsLine.isNotBlank()) {
                         Text(
                             text = subjectsLine,

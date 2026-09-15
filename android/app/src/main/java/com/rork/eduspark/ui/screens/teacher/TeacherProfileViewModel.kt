@@ -10,7 +10,7 @@ import com.rork.eduspark.data.model.Grade
 import com.rork.eduspark.data.model.TeacherQualification
 import com.rork.eduspark.data.model.TeacherSubjectsGrades
 import com.rork.eduspark.data.repository.AuthRepository
-import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherSetupRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
  */
 data class TeacherProfileScreenData(
     val displayName: String,
+    val email: String,
     val headline: String,
     val subjectsGrades: TeacherSubjectsGrades,
     val qualifications: List<TeacherQualification>,
@@ -36,6 +37,7 @@ data class TeacherProfileUiState(
     val result: UiState<TeacherProfileScreenData> = UiState.Loading,
     val isOnline: Boolean = true,
     val nameDraft: String = "",
+    val email: String = "",
     val bioDraft: String = "",
     val gradesDraft: Set<Grade> = emptySet(),
     val subjectIdsDraft: Set<String> = emptySet(),
@@ -48,7 +50,7 @@ sealed interface TeacherProfileEvent {
 
 class TeacherProfileViewModel(
     private val authRepository: AuthRepository,
-    private val teacherRepository: TeacherRepository,
+    private val teacherSetupRepository: TeacherSetupRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -73,13 +75,14 @@ class TeacherProfileViewModel(
     private fun load() {
         _state.update { it.copy(result = UiState.Loading) }
         viewModelScope.launch {
-            val resolvedId = authRepository.session.first()?.id
+            val session = authRepository.session.first()
+            val resolvedId = session?.id
             if (resolvedId == null) {
                 _state.update { it.copy(result = UiState.Failure(AppError.NotFound)) }
                 return@launch
             }
             teacherId = resolvedId
-            when (val setupResult = teacherRepository.getSetupState(teacherId)) {
+            when (val setupResult = teacherSetupRepository.getSetupState(teacherId)) {
                 is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(setupResult.error)) }
                 is AppResult.Success -> {
                     val setup = setupResult.data
@@ -87,7 +90,8 @@ class TeacherProfileViewModel(
                         val withDrafts = if (!draftsSeeded) {
                             draftsSeeded = true
                             current.copy(
-                                nameDraft = setup.identity.displayName,
+                                nameDraft = session.displayName,
+                                email = session.email,
                                 bioDraft = setup.identity.headline,
                                 gradesDraft = setup.subjectsGrades.grades,
                                 subjectIdsDraft = setup.subjectsGrades.subjectIds,
@@ -98,7 +102,8 @@ class TeacherProfileViewModel(
                         withDrafts.copy(
                             result = UiState.Content(
                                 TeacherProfileScreenData(
-                                    displayName = setup.identity.displayName,
+                                    displayName = session.displayName,
+                                    email = session.email,
                                     headline = setup.identity.headline,
                                     subjectsGrades = setup.subjectsGrades,
                                     qualifications = setup.qualifications,
@@ -130,19 +135,19 @@ class TeacherProfileViewModel(
         if (draft.nameDraft.isBlank() || draft.isSaving) return
         _state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
-            val currentIdentity = (teacherRepository.getSetupState(teacherId) as? AppResult.Success)?.data?.identity
+            val currentIdentity = (teacherSetupRepository.getSetupState(teacherId) as? AppResult.Success)?.data?.identity
             if (currentIdentity == null) {
                 _state.update { it.copy(isSaving = false) }
                 return@launch
             }
-            val identityResult = teacherRepository.saveIdentity(
+            val identityResult = teacherSetupRepository.saveIdentity(
                 teacherId,
                 currentIdentity.copy(
                     displayName = draft.nameDraft.trim(),
                     headline = draft.bioDraft.trim(),
                 ),
             )
-            val subjectsResult = teacherRepository.saveSubjectsGrades(
+            val subjectsResult = teacherSetupRepository.saveSubjectsGrades(
                 teacherId,
                 TeacherSubjectsGrades(
                     subjectIds = draft.subjectIdsDraft,

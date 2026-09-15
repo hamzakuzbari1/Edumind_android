@@ -27,6 +27,7 @@ import com.rork.eduspark.core.preferences.NumeralSystem
 import com.rork.eduspark.core.preferences.TextSizePreference
 import com.rork.eduspark.core.preferences.ThemeMode
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.StudentOnboardingStep
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.FeatureAvailability
 import com.rork.eduspark.ui.screens.PlaceholderScreen
@@ -199,7 +200,7 @@ fun AppNavigation(
             onSelectLocale = onSelectLocale,
         )
         teacherGraph(navController)
-        parentGraph()
+        parentGraph(navController)
 
         // ── Phase 6 · X-01/X-02/X-03 — outside every role graph, same shape as
         // TEACHER_SETUP/CERTIFICATE_VERIFY below: reached via the SAME shared [navController]
@@ -534,7 +535,8 @@ private fun NavGraphBuilder.registerDestination(
             role = role,
             locale = locale,
             onSelectLocale = onSelectLocale,
-            onRegistered = { email ->
+            onAuthenticated = navController::routeAfterAuthentication,
+            onEmailVerificationRequired = { email ->
                 navController.navigate(Routes.verifyEmailRoute(email)) { launchSingleTop = true }
             },
             onLogin = {
@@ -564,8 +566,21 @@ private fun NavHostController.replaceWith(route: String) {
  * layer up. Parent always goes straight to its shell; neither onboarding nor setup applies to it.
  */
 private fun NavHostController.routeAfterAuthentication(user: SessionUser) {
-    val destination = when {
-        user.role == UserRole.Student && !user.hasCompletedOnboarding -> Routes.ONBOARDING_GRAPH
+    val destination = destinationAfterAuthentication(user)
+    navigate(destination) {
+        popUpTo(Routes.AUTH_GRAPH) { inclusive = true }
+        launchSingleTop = true
+    }
+}
+
+internal fun destinationAfterAuthentication(user: SessionUser): String =
+    when {
+        user.role == UserRole.Student && !user.hasCompletedOnboarding -> when (user.onboardingStep) {
+            StudentOnboardingStep.Subjects -> Routes.SO_SUBJECTS
+            StudentOnboardingStep.Teachers -> Routes.SO_TEACHERS
+            StudentOnboardingStep.Complete -> Routes.STUDENT_GRAPH
+            else -> Routes.ONBOARDING_GRAPH
+        }
         user.role == UserRole.Teacher && !user.hasCompletedOnboarding -> Routes.TEACHER_SETUP
         else -> when (user.role) {
             UserRole.Student -> Routes.STUDENT_GRAPH
@@ -573,11 +588,6 @@ private fun NavHostController.routeAfterAuthentication(user: SessionUser) {
             UserRole.Parent -> Routes.PARENT_GRAPH
         }
     }
-    navigate(destination) {
-        popUpTo(Routes.AUTH_GRAPH) { inclusive = true }
-        launchSingleTop = true
-    }
-}
 
 /**
  * SO-01…SO-05 · Student Onboarding — isolated from Student Core, its own top-level graph.
@@ -1831,11 +1841,28 @@ private fun NavGraphBuilder.teacherGraph(navController: NavHostController) {
 }
 
 /** Phase 4 — Parent (14 screens). */
-private fun NavGraphBuilder.parentGraph() {
+private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
     navigation(startDestination = Routes.PARENT_HOME, route = Routes.PARENT_GRAPH) {
         composable(Routes.PARENT_HOME) {
+            val drawerViewModel = koinViewModel<StudentNavigationDrawerViewModel>()
+            val drawerState by drawerViewModel.state.collectAsStateWithLifecycle()
             RoleShell(
                 tabs = ParentTabs,
+                homeRoute = Routes.PARENT_HOME,
+                homeLabelRes = R.string.tab_parent_home,
+                drawerUser = drawerState.user?.let { user ->
+                    RoleDrawerUser(displayName = user.displayName, email = user.email)
+                },
+                drawerSections = ParentDrawerSections,
+                onConfirmSignOut = {
+                    drawerViewModel.signOut {
+                        navController.navigate(Routes.ROLE_SELECT) {
+                            popUpTo(Routes.PARENT_GRAPH) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                isSigningOut = drawerState.isSigningOut,
                 screenIdFor = { route ->
                     when (route) {
                         Routes.PARENT_HOME -> "PR-02 · Parent Home"

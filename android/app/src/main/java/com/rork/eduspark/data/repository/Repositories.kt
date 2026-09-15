@@ -22,6 +22,8 @@ import com.rork.eduspark.data.model.MessageParticipant
 import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.model.OnboardingTeacher
+import com.rork.eduspark.data.model.StudentOnboardingStatus
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
@@ -45,6 +47,7 @@ import com.rork.eduspark.data.model.QuizResult
 import com.rork.eduspark.data.model.RedeemedVoucher
 import com.rork.eduspark.data.model.SecuritySettings
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.TwoFactorChallengeInfo
 import com.rork.eduspark.data.model.RoutineBuilderAnswers
 import com.rork.eduspark.data.model.RoutineDraft
 import com.rork.eduspark.data.model.RoutineProfile
@@ -129,13 +132,16 @@ import kotlinx.coroutines.flow.Flow
  * Capabilities that exist: register (student|teacher|parent), login, logout (revokes the
  * server session), `/auth/me`, password reset, email verification, email-OTP 2FA.
  *
- * Capability that does NOT exist: **token refresh**. There is no `refresh()` on this
- * interface on purpose. Every consumer must treat expiry as "sign in again".
+ * Refresh is an internal repository responsibility. Callers receive a restored user or a
+ * signed-out state and never handle transport tokens directly.
  */
 interface AuthRepository {
 
     /** Emits the current session, or null when signed out. */
     val session: Flow<SessionUser?>
+
+    /** Resolves an encrypted stored session through /me and one refresh attempt when needed. */
+    suspend fun restoreSession(): AppResult<SessionUser?>
 
     suspend fun signIn(email: String, password: String): AppResult<SignInOutcome>
 
@@ -144,15 +150,20 @@ interface AuthRepository {
         email: String,
         password: String,
         role: UserRole,
-    ): AppResult<SessionUser>
+    ): AppResult<RegistrationOutcome>
 
     /** Email verification exists on the backend but is NOT enforced at login. */
     suspend fun verifyEmail(code: String): AppResult<Unit>
 
     suspend fun resendEmailCode(): AppResult<Unit>
 
-    /** Email OTP only — the platform returns 501 for TOTP. */
+    /** Public, non-secret metadata for the current login challenge. */
+    val pendingTwoFactorChallenge: Flow<TwoFactorChallengeInfo?>
+
+    /** Email OTP only. trustDevice remains a non-authoritative UI preference. */
     suspend fun verifyTwoFactor(code: String, trustDevice: Boolean): AppResult<SessionUser>
+
+    suspend fun resendTwoFactor(): AppResult<TwoFactorChallengeInfo>
 
     suspend fun requestPasswordReset(email: String): AppResult<Unit>
 
@@ -182,7 +193,13 @@ sealed interface SignInOutcome {
     data class EmailVerificationRequired(val email: String) : SignInOutcome
 
     /** Backend requires the email OTP second factor → route to A-09. */
-    data class TwoFactorRequired(val email: String) : SignInOutcome
+    data class TwoFactorRequired(val challenge: TwoFactorChallengeInfo) : SignInOutcome
+}
+
+/** Registration differs intentionally between the legacy mock and the real backend. */
+sealed interface RegistrationOutcome {
+    data class Authenticated(val user: SessionUser) : RegistrationOutcome
+    data class EmailVerificationRequired(val email: String) : RegistrationOutcome
 }
 
 /**
@@ -214,6 +231,17 @@ interface LearningRepository {
      *  so completing a lesson in ST-03 shows up on Course Detail and Home without a restart,
      *  the same hot-flow shape [PlannerRepository.weekPlan] already establishes. */
     val completedLessonIds: Flow<Set<String>>
+
+    /** ST-03/A3.3. Opens or resumes a real backend progress row for the lesson. */
+    suspend fun recordLessonStarted(lessonId: String, mediaTypes: Set<com.rork.eduspark.data.model.LessonMediaType>)
+
+    /** ST-03/A3.3. Persists playback/page progress as backend percentages (0f..1f). */
+    suspend fun updateLessonProgress(
+        lessonId: String,
+        videoProgress: Float? = null,
+        pdfProgress: Float? = null,
+        pdfOpened: Boolean? = null,
+    )
 
     /** ST-03's Mark Complete, after the completion-verification sheet confirms. */
     suspend fun markLessonCompleted(lessonId: String)
@@ -369,7 +397,15 @@ interface CertificateRepository {
  * profiles (bio, rating, pricing) are genuinely server-driven, so that part gets a contract.
  */
 interface OnboardingRepository {
-    suspend fun getTeachers(subjectId: String): AppResult<List<OnboardingTeacher>>
+    suspend fun getStatus(): AppResult<StudentOnboardingStatus>
+    suspend fun getSubjects(grade: Grade): AppResult<List<SubjectOption>>
+    suspend fun saveGrade(grade: Grade): AppResult<StudentOnboardingStatus>
+    suspend fun saveSubjects(subjectIds: Set<String>): AppResult<StudentOnboardingStatus>
+    suspend fun getTeachers(subjectId: String, grade: Grade): AppResult<List<OnboardingTeacher>>
+    suspend fun saveTeachers(
+        teacherIdBySubject: Map<String, String>,
+    ): AppResult<StudentOnboardingStatus>
+    suspend fun complete(): AppResult<StudentOnboardingStatus>
 }
 
 /**
@@ -642,7 +678,7 @@ interface ProjectRepository {
  * [com.rork.eduspark.data.model.TeacherSetupState.completedStepIds], independent of the other
  * steps, so TC-01 is resumable from whichever step was last saved with its values intact.
  */
-interface TeacherRepository {
+interface TeacherSetupRepository {
     suspend fun getSetupState(teacherId: String): AppResult<TeacherSetupState>
 
     suspend fun saveIdentity(teacherId: String, identity: TeacherIdentityInfo): AppResult<TeacherSetupState>
@@ -660,6 +696,9 @@ interface TeacherRepository {
      * skipped. Every other step may stay empty and setup still finishes.
      */
     suspend fun finishSetup(teacherId: String): AppResult<TeacherSetupState>
+}
+
+interface TeacherRepository : TeacherSetupRepository {
 
     /** TC-02. Only ever called once setup is complete. */
     suspend fun getDashboard(teacherId: String): AppResult<TeacherDashboardSummary>
@@ -994,6 +1033,6 @@ object FeatureAvailability {
     /** Offline bootstrap/push sync endpoints — planned, not built. */
     const val SYNC_ENDPOINTS_READY = false
 
-    /** Token refresh — no endpoint exists; 401 always means re-login. */
-    const val TOKEN_REFRESH_READY = false
+    /** Auth refresh is available through the canonical FastAPI session endpoint. */
+    const val TOKEN_REFRESH_READY = true
 }

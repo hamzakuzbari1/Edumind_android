@@ -179,7 +179,11 @@ import com.rork.eduspark.data.model.SecuritySettings
 import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.data.model.StudentHomeSnapshot
+import com.rork.eduspark.data.model.StudentOnboardingStatus
+import com.rork.eduspark.data.model.StudentOnboardingStep
 import com.rork.eduspark.data.model.StudentProfile
+import com.rork.eduspark.data.model.SubjectGroup
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.SubjectProgress
 import com.rork.eduspark.data.model.CommitmentSchedule
 import com.rork.eduspark.data.model.RoutineBuilderAnswers
@@ -190,6 +194,7 @@ import com.rork.eduspark.data.model.RoutineSlotType
 import com.rork.eduspark.data.model.SimpleDate
 import com.rork.eduspark.data.model.SubscriptionStatus
 import com.rork.eduspark.data.model.TutorReply
+import com.rork.eduspark.data.model.TwoFactorChallengeInfo
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.model.VoucherStatus
 import com.rork.eduspark.data.model.VoucherValidationResult
@@ -210,6 +215,7 @@ import com.rork.eduspark.data.repository.PlannerRepository
 import com.rork.eduspark.data.repository.ProfileRepository
 import com.rork.eduspark.data.repository.ProjectRepository
 import com.rork.eduspark.data.repository.QuizRepository
+import com.rork.eduspark.data.repository.RegistrationOutcome
 import com.rork.eduspark.data.repository.RoutineRepository
 import com.rork.eduspark.data.repository.SecurityRepository
 import com.rork.eduspark.data.repository.SignInOutcome
@@ -277,6 +283,12 @@ class MockAuthRepository(
 
     private val _session = MutableStateFlow<SessionUser?>(null)
     override val session: Flow<SessionUser?> = _session.asStateFlow()
+    private val _pendingChallenge = MutableStateFlow<TwoFactorChallengeInfo?>(null)
+    override val pendingTwoFactorChallenge: Flow<TwoFactorChallengeInfo?> =
+        _pendingChallenge.asStateFlow()
+
+    override suspend fun restoreSession(): AppResult<SessionUser?> =
+        AppResult.Success(_session.value)
 
     /**
      * Fixture accounts. The local part of the address selects the outcome, so every
@@ -306,8 +318,16 @@ class MockAuthRepository(
             local.startsWith("unverified") ->
                 AppResult.Success(SignInOutcome.EmailVerificationRequired(email))
 
-            local.startsWith("twofactor") ->
-                AppResult.Success(SignInOutcome.TwoFactorRequired(email))
+            local.startsWith("twofactor") -> {
+                val challenge = TwoFactorChallengeInfo(
+                    email = email,
+                    maskedEmail = email.replaceBefore("@", "••••"),
+                    expiresInSeconds = 600,
+                    resendAvailableInSeconds = 30,
+                )
+                _pendingChallenge.value = challenge
+                AppResult.Success(SignInOutcome.TwoFactorRequired(challenge))
+            }
 
             password.length < 6 ->
                 AppResult.Failure(AppError.Domain("invalid_credentials"))
@@ -332,7 +352,7 @@ class MockAuthRepository(
         email: String,
         password: String,
         role: UserRole,
-    ): AppResult<SessionUser> {
+    ): AppResult<RegistrationOutcome> {
         delay(MockLatency.FAST_MS)
         if (email.contains("taken")) {
             return AppResult.Failure(AppError.Validation(mapOf("email" to "already_registered")))
@@ -345,7 +365,7 @@ class MockAuthRepository(
             hasCompletedOnboarding = false,
         )
         persist(user)
-        return AppResult.Success(user)
+        return AppResult.Success(RegistrationOutcome.EmailVerificationRequired(user.email))
     }
 
     override suspend fun verifyEmail(code: String): AppResult<Unit> {
@@ -365,7 +385,17 @@ class MockAuthRepository(
         if (code != VALID_CODE) return AppResult.Failure(AppError.Domain("invalid_code"))
         val user = fixtureUser("student@edumind.sy", UserRole.Student)
         persist(user)
+        _pendingChallenge.value = null
         return AppResult.Success(user)
+    }
+
+    override suspend fun resendTwoFactor(): AppResult<TwoFactorChallengeInfo> {
+        delay(MockLatency.FAST_MS)
+        val challenge = _pendingChallenge.value
+            ?: return AppResult.Failure(AppError.Domain("two_factor_challenge_missing"))
+        val updated = challenge.copy(expiresInSeconds = 600, resendAvailableInSeconds = 30)
+        _pendingChallenge.value = updated
+        return AppResult.Success(updated)
     }
 
     /**
@@ -403,13 +433,15 @@ class MockAuthRepository(
     override suspend fun signOut() {
         tokenStore.clear()
         _session.value = null
+        _pendingChallenge.value = null
     }
 
     private suspend fun persist(user: SessionUser) {
         tokenStore.write(
             StoredSession(
                 accessToken = "mock-access-token",
-                sessionId = "mock-session",
+                refreshToken = "mock-refresh-token",
+                sessionId = 1,
                 userId = user.id,
             )
         )
@@ -2200,6 +2232,15 @@ class MockLearningRepository(
         completedLessonIdsFlow.update { it + lessonId }
     }
 
+    override suspend fun recordLessonStarted(lessonId: String, mediaTypes: Set<LessonMediaType>) = Unit
+
+    override suspend fun updateLessonProgress(
+        lessonId: String,
+        videoProgress: Float?,
+        pdfProgress: Float?,
+        pdfOpened: Boolean?,
+    ) = Unit
+
     private fun isMathLesson3Completed(): Boolean = "math-3" in completedLessonIdsFlow.value
     private fun mathCompletedLessonCount(): Int = MATH_BASE_COMPLETED_COUNT + if (isMathLesson3Completed()) 1 else 0
     private fun mathProgress(): Float = mathCompletedLessonCount().toFloat() / MATH_TOTAL_LESSON_COUNT
@@ -2736,9 +2777,67 @@ class MockLearningRepository(
  */
 class MockOnboardingRepository : OnboardingRepository {
 
-    override suspend fun getTeachers(subjectId: String): AppResult<List<OnboardingTeacher>> {
+    private var status = StudentOnboardingStatus(
+        step = StudentOnboardingStep.Grade,
+        grade = null,
+        onboardingComplete = false,
+        selectedSubjectIds = emptySet(),
+        selectedTeacherIdBySubject = emptyMap(),
+    )
+
+    override suspend fun getStatus(): AppResult<StudentOnboardingStatus> =
+        AppResult.Success(status)
+
+    override suspend fun getSubjects(grade: Grade): AppResult<List<SubjectOption>> =
+        AppResult.Success(
+            listOf(
+                SubjectOption("math", "الرياضيات", "math", SubjectGroup.Core),
+                SubjectOption("physics", "الفيزياء", "physics", SubjectGroup.Core),
+                SubjectOption("chemistry", "الكيمياء", "chemistry", SubjectGroup.Core),
+                SubjectOption("biology", "الأحياء", "biology", SubjectGroup.Core),
+                SubjectOption("arabic", "العربية", "arabic", SubjectGroup.LanguagesAndGeneral),
+                SubjectOption("english", "الإنكليزية", "english", SubjectGroup.LanguagesAndGeneral),
+            )
+        )
+
+    override suspend fun saveGrade(grade: Grade): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Subjects,
+            grade = grade,
+            onboardingComplete = false,
+            selectedSubjectIds = emptySet(),
+            selectedTeacherIdBySubject = emptyMap(),
+        )
+        return AppResult.Success(status)
+    }
+
+    override suspend fun saveSubjects(subjectIds: Set<String>): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Teachers,
+            selectedSubjectIds = subjectIds,
+            selectedTeacherIdBySubject = emptyMap(),
+        )
+        return AppResult.Success(status)
+    }
+
+    override suspend fun getTeachers(subjectId: String, grade: Grade): AppResult<List<OnboardingTeacher>> {
         delay(MockLatency.LIST_MS)
         return AppResult.Success(TeacherFixtures[subjectId].orEmpty())
+    }
+
+    override suspend fun saveTeachers(
+        teacherIdBySubject: Map<String, String>,
+    ): AppResult<StudentOnboardingStatus> {
+        status = status.copy(selectedTeacherIdBySubject = teacherIdBySubject)
+        return AppResult.Success(status)
+    }
+
+    override suspend fun complete(): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Complete,
+            onboardingComplete = true,
+        )
+        return AppResult.Success(status)
     }
 
     private object TeacherFixtures {
