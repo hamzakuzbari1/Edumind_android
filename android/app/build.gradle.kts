@@ -64,6 +64,31 @@ android {
         )
         buildConfigField(
             "String",
+            "PROFILE_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PROFILE_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "PLANNER_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PLANNER_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "ROUTINE_DATA_SOURCE_MODE",
+            buildConfigString(envValue("ROUTINE_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "ACHIEVEMENT_DATA_SOURCE_MODE",
+            buildConfigString(envValue("ACHIEVEMENT_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "TEACHER_NOTES_DATA_SOURCE_MODE",
+            buildConfigString(envValue("TEACHER_NOTES_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
             "API_BASE_URL",
             buildConfigString(envValue("API_BASE_URL", "http://10.0.2.2:8000"))
         )

@@ -22,6 +22,12 @@ import com.rork.eduspark.data.model.MessageParticipant
 import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.model.OnboardingTeacher
+import com.rork.eduspark.data.model.ParentActivity
+import com.rork.eduspark.data.model.ParentCourseProgress
+import com.rork.eduspark.data.model.ParentDashboard
+import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentNote
+import com.rork.eduspark.data.model.ParentNotesFeed
 import com.rork.eduspark.data.model.StudentOnboardingStatus
 import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.PaymentMethod
@@ -512,6 +518,42 @@ interface ProfileRepository {
     suspend fun updateLearningPreferences(preferences: LearningPreferences): AppResult<LearningPreferences>
 }
 
+interface ParentRepository {
+    val linkedStudents: Flow<List<ParentLinkedStudent>>
+    val selectedStudentId: Flow<String?>
+
+    suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
+
+    suspend fun selectStudent(studentId: String): AppResult<ParentLinkedStudent>
+
+    /** Child overview metrics from `/api/parent/dashboard` (insights deferred). */
+    suspend fun getDashboard(studentId: String): AppResult<ParentDashboard>
+
+    /** Course/progress rows from `/api/parent/course-progress`. */
+    suspend fun getCourseProgress(studentId: String): AppResult<List<ParentCourseProgress>>
+
+    /** Recent activity from `/api/parent/activity`. */
+    suspend fun getRecentActivity(studentId: String, limit: Int = 30): AppResult<List<ParentActivity>>
+
+    /**
+     * Selected-child home payload: dashboard overview + dedicated course-progress and activity
+     * feeds. Soft-fails courses/activity to empty lists so overview still renders.
+     */
+    suspend fun getChildOverview(studentId: String): AppResult<ParentDashboard>
+
+    /** Teacher notes for the selected child from `/api/parent/notes`. */
+    suspend fun getParentNotes(studentId: String, limit: Int = 30): AppResult<ParentNotesFeed>
+
+    /** Marks a note read via `/api/parent/notes/{id}/read`. */
+    suspend fun markParentNoteRead(noteId: String): AppResult<ParentNote>
+
+    /** Acknowledges a note via `/api/parent/notes/{id}/acknowledge`. */
+    suspend fun acknowledgeParentNote(noteId: String): AppResult<ParentNote>
+
+    /** Replies to a note via `/api/parent/notes/{id}/reply`. */
+    suspend fun replyToParentNote(noteId: String, body: String): AppResult<ParentNote>
+}
+
 /**
  * ST-24 · Settings — Security. Source Audit: email OTP is the only second factor the backend
  * supports — see [SecuritySettings]'s own doc comment for why there is no TOTP path here.
@@ -873,6 +915,9 @@ interface TeacherRepository : TeacherSetupRepository {
 
     /** Reads the mock parent-note list [sendParentNote] already appends — no second store. */
     suspend fun getParentNotes(studentId: String): AppResult<List<TeacherParentNote>>
+
+    /** Closes an open parent note thread when the backend supports it. */
+    suspend fun closeParentNote(studentId: String, noteId: String): AppResult<TeacherParentNote>
 
     /** TC-13 teacher→student message action — an honest mock composer/send, never a real chat thread or push notification. */
     suspend fun sendStudentMessage(studentId: String, message: String): AppResult<Unit>

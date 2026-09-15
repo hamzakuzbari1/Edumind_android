@@ -2896,6 +2896,34 @@
     <string name="st12_priority_low">منخفض</string>
     <string name="st13_status_upcoming">قادم</string>
 
+    <!-- ── Parent foundation ───────────────────────────────────────────── -->
+    <string name="parent_default_name">ولي الأمر</string>
+    <string name="parent_home_greeting">مرحباً %1$s</string>
+    <string name="parent_child_selector">اختر الطالب</string>
+    <string name="parent_metric_sessions">جلسات هذا الأسبوع</string>
+    <string name="parent_metric_quizzes">اختبارات هذا الأسبوع</string>
+    <string name="parent_metric_score">متوسط النتائج</string>
+    <string name="parent_metric_attendance">الالتزام</string>
+    <string name="parent_courses_title">تقدم المواد</string>
+    <string name="parent_courses_empty">لا توجد مواد متاحة لهذا الطالب بعد.</string>
+    <string name="parent_course_progress">%1$s%% مكتمل</string>
+    <string name="parent_insights_title">ملاحظات مهمة</string>
+    <string name="parent_insights_empty">لا توجد ملاحظات جديدة الآن.</string>
+    <string name="parent_activity_title">النشاط الأخير</string>
+    <string name="parent_activity_empty">لا يوجد نشاط حديث بعد.</string>
+    <string name="parent_notes_title">ملاحظات المعلم</string>
+    <string name="parent_notes_empty">لا توجد ملاحظات من المعلم لهذا الطالب بعد.</string>
+    <string name="parent_notes_unread">%1$s غير مقروء</string>
+    <string name="parent_notes_new_badge">جديد</string>
+    <string name="parent_notes_acknowledge">تم الاطلاع</string>
+    <string name="parent_notes_reply_hint">اكتب رداً للمعلم…</string>
+    <string name="parent_notes_reply_send">إرسال الرد</string>
+    <string name="parent_notes_closed">هذه الملاحظة مغلقة</string>
+    <string name="parent_notes_from_teacher">%1$s · %2$s</string>
+    <string name="parent_notes_reply_by">%1$s · %2$s</string>
+    <string name="parent_empty_title">لا يوجد طالب مرتبط</string>
+    <string name="parent_empty_body">%1$s، اربط حساب الطالب أولاً حتى تظهر لوحة المتابعة هنا.</string>
+
     <!-- ── placeholders for not-yet-built screens ──────────────────── -->
     <string name="placeholder_title">لم تُبنَ هذه الشاشة بعد</string>
     <string name="placeholder_body">%1$s — مجدولة ضمن %2$s.</string>

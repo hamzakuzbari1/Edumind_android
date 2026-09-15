@@ -189,6 +189,8 @@ data class GamificationSnapshot(
     val xpForNextLevel: Int = 0,
     /** Most recent day last — true means the student studied that day. Empty where unused (ST-01 doesn't read it). */
     val streakHistory: List<Boolean> = emptyList(),
+    /** Backend longest streak when available; ST-15 falls back to [streakHistory] / [streakDays]. */
+    val longestStreakDays: Int = 0,
 )
 
 /**

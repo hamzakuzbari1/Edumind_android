@@ -1141,6 +1141,13 @@ class MockTeacherRepository : TeacherRepository {
         return AppResult.Success(parentNotes.value.filter { it.studentId == studentId })
     }
 
+    override suspend fun closeParentNote(studentId: String, noteId: String): AppResult<TeacherParentNote> {
+        delay(MockLatency.FAST_MS)
+        val note = parentNotes.value.firstOrNull { it.studentId == studentId && it.id == noteId }
+            ?: return AppResult.Failure(AppError.NotFound)
+        return AppResult.Success(note)
+    }
+
     override suspend fun sendStudentMessage(studentId: String, message: String): AppResult<Unit> {
         delay(MockLatency.FAST_MS)
         return AppResult.Success(Unit)

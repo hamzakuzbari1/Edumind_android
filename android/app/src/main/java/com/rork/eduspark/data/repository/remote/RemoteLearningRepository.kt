@@ -17,6 +17,8 @@ import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.data.model.StudentHomeSnapshot
 import com.rork.eduspark.data.model.SubjectProgress
 import com.rork.eduspark.data.remote.auth.ApiCallResult
+import com.rork.eduspark.data.remote.gamification.StudentGamificationApi
+import com.rork.eduspark.data.remote.gamification.toSnapshot
 import com.rork.eduspark.data.remote.learning.CourseLessonDto
 import com.rork.eduspark.data.remote.learning.GamificationProfileDto
 import com.rork.eduspark.data.remote.learning.LessonProgressDto
@@ -36,6 +38,7 @@ import kotlinx.coroutines.flow.update
 
 class RemoteLearningRepository internal constructor(
     private val api: StudentLearningApi,
+    private val gamificationApi: StudentGamificationApi,
     private val tokenStore: SecureTokenStore,
     private val refreshCoordinator: AuthRefreshCoordinator,
     private val authRepository: AuthRepository,
@@ -99,10 +102,7 @@ class RemoteLearningRepository internal constructor(
         }
 
     override suspend fun getGamification(): AppResult<GamificationSnapshot> =
-        requestAndMap(api::dashboard) { dashboard ->
-            latestDashboard = dashboard
-            dashboard.gamification.toDomain()
-        }
+        requestAndMap(gamificationApi::profile) { profile -> profile.toSnapshot() }
 
     override suspend fun getLesson(lessonId: String): AppResult<LessonDetail> {
         val numericLessonId = lessonId.toPositiveIntOrNull()

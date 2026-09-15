@@ -61,6 +61,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingPersonalizeScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingSubjectsScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentDashboardScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
 import com.rork.eduspark.ui.screens.student.CoursePaywallScreen
@@ -1873,6 +1874,9 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                     }
                 },
                 phaseFor = { "Phase 4" },
+                overrides = mapOf(
+                    Routes.PARENT_HOME to { ParentDashboardScreen() },
+                ),
             )
         }
     }

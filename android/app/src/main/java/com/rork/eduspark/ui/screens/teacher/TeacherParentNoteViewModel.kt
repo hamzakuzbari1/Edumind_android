@@ -90,20 +90,9 @@ class TeacherParentNoteViewModel(
         viewModelScope.launch {
             when (val result = teacherRepository.sendParentNote(studentId, message)) {
                 is AppResult.Success -> {
-                    val current = _state.value.result
-                    val notes = if (current is UiState.Content) current.data.notes + result.data else listOf(result.data)
-                    if (current is UiState.Content) {
-                        _state.update {
-                            it.copy(
-                                result = UiState.Content(current.data.copy(notes = notes)),
-                                draft = "",
-                                isSending = false,
-                            )
-                        }
-                    } else {
-                        _state.update { it.copy(isSending = false, draft = "") }
-                        load()
-                    }
+                    _state.update { it.copy(draft = "", isSending = false) }
+                    // Reload from repository so create/reply persistence is server-backed.
+                    load()
                 }
                 is AppResult.Failure -> _state.update { it.copy(isSending = false) }
             }
