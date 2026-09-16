@@ -74,6 +74,8 @@ import com.rork.eduspark.data.model.ProjectMedium
 import com.rork.eduspark.data.model.QuizQuestion
 import com.rork.eduspark.data.model.TeacherActivityItem
 import com.rork.eduspark.data.model.TeacherAnalyticsSnapshot
+import com.rork.eduspark.data.model.TeacherCourseCreateRequest
+import com.rork.eduspark.data.model.TeacherCourseFormSubject
 import com.rork.eduspark.data.model.TeacherCourseSummary
 import com.rork.eduspark.data.model.TeacherCriterionReview
 import com.rork.eduspark.data.model.TeacherProject
@@ -473,19 +475,18 @@ interface PaymentRepository {
     suspend fun submitPayment(request: PaymentRequest): AppResult<PendingPayment>
 
     /**
-     * ST-20's entry point from ST-16 — the one pre-seeded [com.rork.eduspark.data.model.PaymentStatus.Verified]
-     * payment that hasn't been activated yet, or null once activated. Never derived from
-     * [pendingPayment]/[submitPayment] — nothing in this build promotes Pending into Verified.
+     * Mock-only ST-16 banner for a pre-seeded verified payment. Remote payment never emits
+     * this — backend `unlocked=true` navigates ST-19 → ST-20 directly, and reload state comes
+     * from GET /subscriptions rather than this in-memory flag.
      */
     val verifiedUnactivatedPayment: Flow<PendingPayment?>
 
-    /** ST-20. Looks up whatever payment exists for [courseId] — Pending, Verified, or none — plus whether access was already activated. */
+    /** ST-20. Looks up whatever payment exists for [courseId] — Pending, Verified, or none — plus whether access is already active on the backend. */
     suspend fun getPurchaseAccess(courseId: String): AppResult<PurchaseAccess?>
 
     /**
-     * ST-20. Idempotent — a no-op success once [courseId] is already activated, never a second
-     * grant. The caller must have already confirmed the underlying payment is
-     * [com.rork.eduspark.data.model.PaymentStatus.Verified]; this call only records the fact.
+     * Mock-only local entitlement record. Remote implementations must not subscribe again —
+     * backend access from POST /subscribe and GET /subscriptions is authoritative.
      */
     suspend fun activateAccess(courseId: String): AppResult<Unit>
 }
@@ -496,6 +497,9 @@ interface PaymentRepository {
  * idempotent per code, tracked entirely within this repository.
  */
 interface VoucherRepository {
+    /** False when remote payment/subscription is active and no backend voucher contract exists. */
+    val isAvailable: Boolean get() = true
+
     /** Read-only check — never marks a code used. */
     suspend fun validateVoucher(code: String): AppResult<VoucherValidationResult>
 
@@ -771,6 +775,14 @@ interface TeacherRepository : TeacherSetupRepository {
     /** TC-03. */
     suspend fun getCourses(teacherId: String): AppResult<List<TeacherCourseSummary>>
 
+    /** Subjects available for [grade] on the existing teacher course create form. */
+    suspend fun getCourseFormSubjects(grade: Grade): AppResult<List<TeacherCourseFormSubject>>
+
+    /** Creates one real Course row through the existing teacher course API. */
+    suspend fun createCourse(request: TeacherCourseCreateRequest): AppResult<TeacherCourseSummary>
+
+    suspend fun setCoursePublished(courseId: String, published: Boolean): AppResult<TeacherCourseSummary>
+
     /** TC-04. Same [com.rork.eduspark.data.model.TeacherCourseSummary] rows [getCourses] returns, looked up by id. */
     suspend fun getCourse(courseId: String): AppResult<TeacherCourseSummary>
 
@@ -778,6 +790,8 @@ interface TeacherRepository : TeacherSetupRepository {
     suspend fun getLessons(courseId: String): AppResult<List<TeacherLesson>>
 
     suspend fun getLesson(courseId: String, lessonId: String): AppResult<TeacherLesson>
+
+    suspend fun setLessonVisible(courseId: String, lessonId: String, visible: Boolean): AppResult<TeacherLesson>
 
     /** TC-04 drag reorder. [orderedLessonIds] is the new top-to-bottom order for every lesson currently in [courseId] — reassigns [com.rork.eduspark.data.model.TeacherLesson.order] and persists it. */
     suspend fun reorderLessons(courseId: String, orderedLessonIds: List<String>): AppResult<List<TeacherLesson>>
@@ -1056,6 +1070,9 @@ interface MessagingRepository {
         viewerRole: MessageParticipantRole,
         contactId: String,
     ): AppResult<MessageThread>
+
+    /** Student course-detail entrypoint: opens the canonical backend thread for this course's teacher. */
+    suspend fun openCourseTeacherThread(courseId: String, includeParent: Boolean = false): AppResult<MessageThread>
 
     /**
      * The Teacher↔Parent thread linked to [studentId], if one exists in the mock store.

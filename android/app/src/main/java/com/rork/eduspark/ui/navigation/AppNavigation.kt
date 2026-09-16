@@ -918,7 +918,7 @@ private fun NavGraphBuilder.studentGraph(
                 // Whole-course-locked state's Subscribe CTA — the existing ST-17 paywall
                 // sheet, never a second payment entry point.
                 onSubscribe = { navController.navigate(Routes.STUDENT_SUBSCRIPTIONS) },
-                onMessageTeacher = teacherContactViewModel::openCourseTeacherThread,
+                onMessageTeacher = { teacherContactViewModel.openCourseTeacherThread(courseId) },
             )
         }
 
@@ -1140,12 +1140,18 @@ private fun NavGraphBuilder.studentGraph(
                 courseId = courseId,
                 methodId = methodId,
                 onDone = { navController.popBackStack() },
+                onVerified = {
+                    navController.navigate(Routes.studentPurchaseSuccessRoute(courseId)) {
+                        popUpTo(Routes.STUDENT_PAYMENT_PENDING) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
             )
         }
 
         // ── ST-20 · Purchase Success ──────────────────────────────────────────
-        // Only reached via ST-16's "confirmed access" banner (a pre-verified mock fixture) —
-        // never pushed automatically from ST-19; see PurchaseSuccessViewModel's own doc comment.
+        // Reached from ST-19 when the backend returns unlocked/Verified, or from ST-16's
+        // mock-only confirmed-access banner.
         composable(
             route = Routes.STUDENT_PURCHASE_SUCCESS,
             arguments = listOf(navArgument(COURSE_ID_ARG) { type = NavType.StringType }),
@@ -1154,7 +1160,11 @@ private fun NavGraphBuilder.studentGraph(
             PurchaseSuccessScreen(
                 courseId = courseId,
                 onOpenCourse = { navController.navigate(Routes.studentCourseDetailRoute(courseId)) },
-                onBackToSubscriptions = { navController.popBackStack() },
+                onBackToSubscriptions = {
+                    if (!navController.popBackStack(Routes.STUDENT_SUBSCRIPTIONS, false)) {
+                        navController.popBackStack()
+                    }
+                },
             )
         }
 
@@ -1874,6 +1884,13 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                 phaseFor = { "Phase 4" },
                 overrides = mapOf(
                     Routes.PARENT_HOME to { ParentDashboardScreen() },
+                    Routes.PARENT_MESSAGES to {
+                        MessagesListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
+                            onOpenNewConversation = { navController.navigate(Routes.NEW_CONVERSATION) },
+                        )
+                    },
                 ),
             )
         }

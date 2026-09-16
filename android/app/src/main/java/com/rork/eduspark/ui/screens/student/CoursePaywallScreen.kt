@@ -90,6 +90,7 @@ fun CoursePaywallScreen(
                 )
                 is PaywallContent.Offer -> OfferContent(
                     offer = content.offer,
+                    showVoucherEntry = state.voucherEntryEnabled,
                     onContinue = { onContinueToPayment(courseId) },
                     onDismiss = onDismiss,
                     onRedeemVoucher = onRedeemVoucher,
@@ -136,7 +137,13 @@ private fun PaywallSheetHeader(onDismiss: () -> Unit) {
 }
 
 @Composable
-private fun OfferContent(offer: CourseOffer, onContinue: () -> Unit, onDismiss: () -> Unit, onRedeemVoucher: () -> Unit) {
+private fun OfferContent(
+    offer: CourseOffer,
+    showVoucherEntry: Boolean,
+    onContinue: () -> Unit,
+    onDismiss: () -> Unit,
+    onRedeemVoucher: () -> Unit,
+) {
     val colors = EduTheme.colors
     Column(
         modifier = Modifier
@@ -215,13 +222,15 @@ private fun OfferContent(offer: CourseOffer, onContinue: () -> Unit, onDismiss: 
                 .fillMaxWidth()
                 .padding(top = Spacing.xs),
         )
-        GhostButton(
-            text = stringResource(R.string.st17_have_voucher),
-            onClick = onRedeemVoucher,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Spacing.xxs),
-        )
+        if (showVoucherEntry) {
+            GhostButton(
+                text = stringResource(R.string.st17_have_voucher),
+                onClick = onRedeemVoucher,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.xxs),
+            )
+        }
     }
 }
 

@@ -34,6 +34,7 @@ import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.action.SecondaryButton
 import com.rork.eduspark.ui.components.input.EduTextField
 import com.rork.eduspark.ui.components.scaffold.EduScaffold
+import com.rork.eduspark.ui.components.state.MessageState
 import com.rork.eduspark.ui.components.state.OfflineBanner
 import com.rork.eduspark.ui.components.surface.EduCard
 import com.rork.eduspark.ui.components.surface.StatusPill
@@ -64,6 +65,12 @@ fun VoucherRedeemScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             OfflineBanner(visible = !state.isOnline)
             when (val phase = state.phase) {
+                is VoucherPhase.Unavailable -> MessageState(
+                    icon = Icons.Filled.ConfirmationNumber,
+                    title = stringResource(R.string.st21_unavailable_title),
+                    body = stringResource(R.string.st21_unavailable_body),
+                    modifier = Modifier.fillMaxSize(),
+                )
                 is VoucherPhase.Redeemed -> RedeemedContent(
                     redeemed = phase.redeemed,
                     onOpenCourse = { onOpenCourse(phase.redeemed.courseId) },

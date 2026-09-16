@@ -9,6 +9,7 @@ import com.rork.eduspark.data.model.CourseOffer
 import com.rork.eduspark.data.model.SubscriptionStatus
 import com.rork.eduspark.data.repository.PaymentRepository
 import com.rork.eduspark.data.repository.SubscriptionRepository
+import com.rork.eduspark.data.repository.VoucherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,6 +34,7 @@ sealed interface PaywallContent {
 
 data class PaywallUiState(
     val result: UiState<PaywallContent> = UiState.Loading,
+    val voucherEntryEnabled: Boolean = false,
     val isOnline: Boolean = true,
 )
 
@@ -40,10 +42,13 @@ class PaywallViewModel(
     private val courseId: String,
     private val subscriptionRepository: SubscriptionRepository,
     private val paymentRepository: PaymentRepository,
+    voucherRepository: VoucherRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(PaywallUiState())
+    private val _state = MutableStateFlow(
+        PaywallUiState(voucherEntryEnabled = voucherRepository.isAvailable),
+    )
     val state: StateFlow<PaywallUiState> = _state.asStateFlow()
 
     init {

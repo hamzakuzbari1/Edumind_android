@@ -28,6 +28,7 @@ import com.rork.eduspark.data.repository.RoutineRepository
 import com.rork.eduspark.data.repository.SecurityRepository
 import com.rork.eduspark.data.repository.SubscriptionRepository
 import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherLessonUploadRepository
 import com.rork.eduspark.data.repository.TeacherSetupRepository
 import com.rork.eduspark.data.repository.TutorRepository
 import com.rork.eduspark.data.repository.VoucherRepository
@@ -50,6 +51,7 @@ import com.rork.eduspark.data.repository.mock.MockSecurityRepository
 import com.rork.eduspark.data.repository.mock.MockStudentEntitlements
 import com.rork.eduspark.data.repository.mock.MockSubscriptionRepository
 import com.rork.eduspark.data.repository.mock.MockTeacherRepository
+import com.rork.eduspark.data.repository.mock.MockTeacherLessonUploadRepository
 import com.rork.eduspark.data.repository.mock.MockTutorRepository
 import com.rork.eduspark.data.repository.mock.MockVoucherRepository
 import com.rork.eduspark.data.remote.auth.AuthApi
@@ -69,12 +71,18 @@ import com.rork.eduspark.data.remote.profile.StudentProfileApi
 import com.rork.eduspark.data.remote.routine.KtorStudentRoutineApi
 import com.rork.eduspark.data.remote.routine.StudentRoutineApi
 import com.rork.eduspark.data.remote.teacher.KtorTeacherParentNotesApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherCoursesApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherLessonUploadApi
 import com.rork.eduspark.data.remote.teacher.KtorTeacherSetupApi
 import com.rork.eduspark.data.remote.teacher.TeacherParentNotesApi
+import com.rork.eduspark.data.remote.teacher.TeacherCoursesApi
+import com.rork.eduspark.data.remote.teacher.TeacherLessonUploadApi
 import com.rork.eduspark.data.remote.teacher.TeacherSetupApi
 import com.rork.eduspark.data.remote.media.KtorMediaApi
 import com.rork.eduspark.data.remote.media.MediaApi
 import com.rork.eduspark.data.remote.media.MediaUrlResolver
+import com.rork.eduspark.data.remote.messaging.KtorMessagingApi
+import com.rork.eduspark.data.remote.messaging.MessagingApi
 import com.rork.eduspark.data.remote.quiz.CourseQuizApi
 import com.rork.eduspark.data.remote.quiz.KtorCourseQuizApi
 import com.rork.eduspark.data.remote.quiz.KtorLessonQuizApi
@@ -83,13 +91,19 @@ import com.rork.eduspark.data.repository.remote.AuthRefreshCoordinator
 import com.rork.eduspark.data.repository.remote.RemoteAchievementRepository
 import com.rork.eduspark.data.repository.remote.RemoteAuthRepository
 import com.rork.eduspark.data.repository.remote.RemoteLearningRepository
+import com.rork.eduspark.data.repository.remote.RemoteMessagingRepository
 import com.rork.eduspark.data.repository.remote.RemoteParentRepository
 import com.rork.eduspark.data.repository.remote.RemotePlannerRepository
+import com.rork.eduspark.data.repository.remote.RemotePaymentRepository
 import com.rork.eduspark.data.repository.remote.RemoteProfileRepository
 import com.rork.eduspark.data.repository.remote.RemoteQuizRepository
 import com.rork.eduspark.data.repository.remote.RemoteRoutineRepository
 import com.rork.eduspark.data.repository.remote.RemoteStudentOnboardingRepository
+import com.rork.eduspark.data.repository.remote.RemoteSubscriptionRepository
+import com.rork.eduspark.data.repository.remote.UnavailableVoucherRepository
 import com.rork.eduspark.data.repository.remote.RemoteTeacherSetupRepository
+import com.rork.eduspark.data.repository.remote.RemoteTeacherLessonUploadRepository
+import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteCourses
 import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteParentNotes
 import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteQuizzes
 import com.rork.eduspark.ui.AppShellViewModel
@@ -224,6 +238,22 @@ val quizDataSourceMode: DataSourceMode =
     runCatching { DataSourceMode.valueOf(BuildConfig.QUIZ_DATA_SOURCE_MODE.uppercase()) }
         .getOrDefault(DataSourceMode.REMOTE)
 
+val teacherUploadDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.TEACHER_UPLOAD_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val messagingDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.MESSAGING_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val subscriptionDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.SUBSCRIPTION_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val paymentDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.PAYMENT_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
 /**
  * ST-17/ST-18/ST-19 — the only mode this build supports. No Stripe/PayPal/Apple Pay/Google Pay
  * case exists on purpose; adding one is a product decision, not a matter of extending this enum.
@@ -274,6 +304,12 @@ val appModule = module {
     single<TeacherParentNotesApi> {
         KtorTeacherParentNotesApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
     }
+    single<TeacherLessonUploadApi> {
+        KtorTeacherLessonUploadApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherCoursesApi> {
+        KtorTeacherCoursesApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
     single<CourseQuizApi> {
         KtorCourseQuizApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
     }
@@ -283,6 +319,9 @@ val appModule = module {
     }
     single<MediaApi> {
         KtorMediaApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<MessagingApi> {
+        KtorMessagingApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
     }
     single { AuthRefreshCoordinator(api = get(), tokenStore = get()) }
     single {
@@ -425,29 +464,36 @@ val appModule = module {
     }
 
     single<SubscriptionRepository> {
-        when (dataSourceMode) {
+        when (subscriptionDataSourceMode) {
             DataSourceMode.MOCK -> MockSubscriptionRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteSubscriptionRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<PaymentRepository> {
-        when (dataSourceMode) {
+        when (paymentDataSourceMode) {
             DataSourceMode.MOCK -> MockPaymentRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemotePaymentRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<VoucherRepository> {
-        when (dataSourceMode) {
-            DataSourceMode.MOCK -> MockVoucherRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
-            )
+        val remoteCommerce = paymentDataSourceMode == DataSourceMode.REMOTE ||
+            subscriptionDataSourceMode == DataSourceMode.REMOTE
+        if (remoteCommerce) {
+            UnavailableVoucherRepository()
+        } else {
+            MockVoucherRepository()
         }
     }
 
@@ -488,10 +534,20 @@ val appModule = module {
                 "Remote repositories are not implemented yet — see data/repository/remote."
             )
         }
-        val withNotes = when (teacherNotesDataSourceMode) {
+        val withCourses = when (teacherUploadDataSourceMode) {
             DataSourceMode.MOCK -> mockTeacher
-            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteParentNotes(
+            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteCourses(
                 delegate = mockTeacher,
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+        val withNotes = when (teacherNotesDataSourceMode) {
+            DataSourceMode.MOCK -> withCourses
+            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteParentNotes(
+                delegate = withCourses,
                 api = get(),
                 tokenStore = get(),
                 refreshCoordinator = get(),
@@ -502,6 +558,17 @@ val appModule = module {
             DataSourceMode.MOCK -> withNotes
             DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteQuizzes(
                 delegate = withNotes,
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+    }
+    single<TeacherLessonUploadRepository> {
+        when (teacherUploadDataSourceMode) {
+            DataSourceMode.MOCK -> MockTeacherLessonUploadRepository(teacherRepository = get())
+            DataSourceMode.REMOTE -> RemoteTeacherLessonUploadRepository(
                 api = get(),
                 tokenStore = get(),
                 refreshCoordinator = get(),
@@ -524,10 +591,13 @@ val appModule = module {
 
     // Phase 6 · X-01/X-02/X-03 — one canonical thread store shared by Student and Teacher.
     single<MessagingRepository> {
-        when (dataSourceMode) {
+        when (messagingDataSourceMode) {
             DataSourceMode.MOCK -> MockMessagingRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteMessagingRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -613,7 +683,7 @@ val appModule = module {
 
     // STUDENT_COURSES tab — course discovery; no parameters, same "session tells the
     // repository who's asking" shape as ST-01.
-    viewModel { StudentCoursesViewModel(learningRepository = get(), connectivity = get()) }
+    viewModel { StudentCoursesViewModel(learningRepository = get(), onboardingRepository = get(), connectivity = get()) }
 
     // LN-01/LN-04 — one Language module foundation: access gate, placement gate, home,
     // placement exam and the eight peer area hooks all read from the same module repository.
@@ -696,11 +766,24 @@ val appModule = module {
     // ST-16 — no parameters; read-only, so no hot flow of its own is needed (see
     // SubscriptionRepository's own doc comment for why nothing here can mutate a subscription).
     // PaymentRepository is only for ST-20's "confirmed access" banner — see SubscriptionViewModel's own doc comment.
-    viewModel { SubscriptionViewModel(subscriptionRepository = get(), paymentRepository = get(), connectivity = get()) }
+    viewModel {
+        SubscriptionViewModel(
+            subscriptionRepository = get(),
+            paymentRepository = get(),
+            voucherRepository = get(),
+            connectivity = get(),
+        )
+    }
 
     // ST-17 — parameterised by the course the paywall was opened for.
     viewModel { (courseId: String) ->
-        PaywallViewModel(courseId = courseId, subscriptionRepository = get(), paymentRepository = get(), connectivity = get())
+        PaywallViewModel(
+            courseId = courseId,
+            subscriptionRepository = get(),
+            paymentRepository = get(),
+            voucherRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-18 — same courseId ST-17 already resolved an offer for.
@@ -717,7 +800,13 @@ val appModule = module {
 
     // ST-20 — parameterised by the course the confirmed payment is for.
     viewModel { (courseId: String) ->
-        PurchaseSuccessViewModel(courseId = courseId, paymentRepository = get(), connectivity = get())
+        PurchaseSuccessViewModel(
+            courseId = courseId,
+            paymentRepository = get(),
+            subscriptionRepository = get(),
+            learningRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-21 — no parameters; a fresh instance per visit, same as ST-12's builder.
@@ -839,7 +928,12 @@ val appModule = module {
 
     // TC-05 — parameterised by the course a lesson is being added to.
     viewModel { (courseId: String) ->
-        TeacherLessonUploadViewModel(courseId = courseId, teacherRepository = get(), connectivity = get())
+        TeacherLessonUploadViewModel(
+            courseId = courseId,
+            teacherRepository = get(),
+            uploadRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // TC-06 — parameterised by which lesson (and its course) is being watched.
@@ -944,6 +1038,7 @@ val appModule = module {
             threadId = threadId,
             authRepository = get(),
             messagingRepository = get(),
+            mediaUrlResolver = get(),
             connectivity = get(),
         )
     }

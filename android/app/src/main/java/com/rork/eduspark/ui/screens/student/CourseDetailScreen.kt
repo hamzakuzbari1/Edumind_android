@@ -50,6 +50,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
@@ -96,6 +98,10 @@ fun CourseDetailScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val course = (state.result as? UiState.Content)?.data
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.refresh()
+    }
 
     EduScaffold(
         title = course?.title.orEmpty(),

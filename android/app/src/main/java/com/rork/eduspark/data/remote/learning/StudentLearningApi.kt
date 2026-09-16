@@ -31,6 +31,11 @@ internal interface StudentLearningApi {
         body: LessonProgressUpdateDto,
     ): ApiCallResult<LessonProgressDto>
     suspend fun verifyCompletion(accessToken: String, lessonId: Int): ApiCallResult<VerifyCompletionDto>
+    suspend fun subscriptionsCatalog(accessToken: String): ApiCallResult<SubscriptionsCatalogDto>
+    suspend fun subscribeCourse(
+        accessToken: String,
+        body: SubscribeCourseRequestDto,
+    ): ApiCallResult<SubscribeCourseOutDto>
 }
 
 internal class KtorStudentLearningApi(
@@ -76,6 +81,20 @@ internal class KtorStudentLearningApi(
                 bearerAuth(accessToken)
             }
         }
+
+    override suspend fun subscriptionsCatalog(accessToken: String) =
+        authenticatedGet<SubscriptionsCatalogDto>("/api/student/subscriptions", accessToken)
+
+    override suspend fun subscribeCourse(
+        accessToken: String,
+        body: SubscribeCourseRequestDto,
+    ) = execute<SubscribeCourseOutDto> {
+        client.post(url("/api/student/subscriptions/subscribe")) {
+            contentType(ContentType.Application.Json)
+            bearerAuth(accessToken)
+            setBody(body)
+        }
+    }
 
     private suspend inline fun <reified T> authenticatedGet(
         path: String,

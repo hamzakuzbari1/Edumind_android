@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
@@ -81,6 +83,10 @@ fun SubscriptionScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.refresh()
+    }
+
     EduScaffold(title = stringResource(R.string.st16_title), onBack = onBack, modifier = modifier) { _ ->
         ScreenStateHost(
             state = state.result,
@@ -93,6 +99,7 @@ fun SubscriptionScreen(
                 subscriptions = subscriptions,
                 availableCourses = state.availableCourses,
                 verifiedPurchase = state.verifiedPurchase,
+                voucherEntryEnabled = state.voucherEntryEnabled,
                 onRenew = onRenew,
                 onOpenCourse = onOpenCourse,
                 onSubscribe = onSubscribe,
@@ -108,6 +115,7 @@ private fun SubscriptionContent(
     subscriptions: List<CourseSubscription>,
     availableCourses: List<AvailableCourse>,
     verifiedPurchase: PendingPayment?,
+    voucherEntryEnabled: Boolean,
     onRenew: (String) -> Unit,
     onOpenCourse: (String) -> Unit,
     onSubscribe: (String) -> Unit,
@@ -164,15 +172,17 @@ private fun SubscriptionContent(
             }
         }
 
-        item {
-            SectionHeader(title = stringResource(R.string.st16_voucher_section))
-            ListRow(
-                title = stringResource(R.string.st16_voucher_row_title),
-                supporting = stringResource(R.string.st16_voucher_row_supporting),
-                leading = Icons.Filled.ConfirmationNumber,
-                showChevron = true,
-                onClick = onRedeemVoucher,
-            )
+        if (voucherEntryEnabled) {
+            item {
+                SectionHeader(title = stringResource(R.string.st16_voucher_section))
+                ListRow(
+                    title = stringResource(R.string.st16_voucher_row_title),
+                    supporting = stringResource(R.string.st16_voucher_row_supporting),
+                    leading = Icons.Filled.ConfirmationNumber,
+                    showChevron = true,
+                    onClick = onRedeemVoucher,
+                )
+            }
         }
     }
 }

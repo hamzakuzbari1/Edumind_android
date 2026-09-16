@@ -99,6 +99,8 @@ import com.rork.eduspark.data.model.SubmissionDraft
 import com.rork.eduspark.data.model.SubmissionType
 import com.rork.eduspark.data.model.TaskHint
 import com.rork.eduspark.data.model.TaskWorkflowStatus
+import com.rork.eduspark.data.model.TeacherCourseCreateRequest
+import com.rork.eduspark.data.model.TeacherCourseFormSubject
 import com.rork.eduspark.data.model.TeacherCourseStatus
 import com.rork.eduspark.data.model.TeacherCourseSummary
 import com.rork.eduspark.data.model.TeacherDashboardSummary
@@ -511,6 +513,7 @@ class MockTeacherRepository : TeacherRepository {
     // course, one processing record per lesson. All three screens read/write these same maps;
     // none of them keeps a private copy.
     private val lessons = MutableStateFlow(seedLessons())
+    private val courses = MutableStateFlow(COURSES)
     private val uploadDrafts = MutableStateFlow<Map<String, TeacherLessonUploadDraft>>(emptyMap())
     private val processingStates = MutableStateFlow(seedProcessingStates())
 
@@ -611,12 +614,51 @@ class MockTeacherRepository : TeacherRepository {
 
     override suspend fun getCourses(teacherId: String): AppResult<List<TeacherCourseSummary>> {
         delay(MockLatency.LIST_MS)
-        return AppResult.Success(COURSES)
+        return AppResult.Success(courses.value)
+    }
+
+    override suspend fun getCourseFormSubjects(grade: Grade): AppResult<List<TeacherCourseFormSubject>> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Success(
+            listOf(
+                TeacherCourseFormSubject(id = "math", name = "الرياضيات", grade = grade),
+                TeacherCourseFormSubject(id = "physics", name = "الفيزياء", grade = grade),
+                TeacherCourseFormSubject(id = "chemistry", name = "الكيمياء", grade = grade),
+            ),
+        )
+    }
+
+    override suspend fun createCourse(request: TeacherCourseCreateRequest): AppResult<TeacherCourseSummary> {
+        delay(MockLatency.FAST_MS)
+        val created = TeacherCourseSummary(
+            id = "c${courses.value.size + 1}",
+            title = request.title.trim(),
+            subjectId = request.subjectId,
+            subjectTitle = request.subjectTitle,
+            grade = request.grade,
+            studentCount = 0,
+            lessonCount = 0,
+            status = if (request.published) TeacherCourseStatus.Published else TeacherCourseStatus.Draft,
+        )
+        courses.value = courses.value + created
+        lessons.value = lessons.value + (created.id to emptyList())
+        return AppResult.Success(created)
+    }
+
+    override suspend fun setCoursePublished(courseId: String, published: Boolean): AppResult<TeacherCourseSummary> {
+        delay(MockLatency.FAST_MS)
+        val status = if (published) TeacherCourseStatus.Published else TeacherCourseStatus.Draft
+        val updated = courses.value.map { course ->
+            if (course.id == courseId) course.copy(status = status) else course
+        }
+        if (updated.none { it.id == courseId }) return AppResult.Failure(AppError.NotFound)
+        courses.value = updated
+        return AppResult.Success(updated.first { it.id == courseId })
     }
 
     override suspend fun getCourse(courseId: String): AppResult<TeacherCourseSummary> {
         delay(MockLatency.FAST_MS)
-        val course = COURSES.firstOrNull { it.id == courseId } ?: return AppResult.Failure(AppError.NotFound)
+        val course = courses.value.firstOrNull { it.id == courseId } ?: return AppResult.Failure(AppError.NotFound)
         return AppResult.Success(course)
     }
 
@@ -629,6 +671,18 @@ class MockTeacherRepository : TeacherRepository {
         delay(MockLatency.FAST_MS)
         val lesson = lessons.value[courseId]?.firstOrNull { it.id == lessonId } ?: return AppResult.Failure(AppError.NotFound)
         return AppResult.Success(lesson)
+    }
+
+    override suspend fun setLessonVisible(courseId: String, lessonId: String, visible: Boolean): AppResult<TeacherLesson> {
+        delay(MockLatency.FAST_MS)
+        val current = lessons.value[courseId] ?: return AppResult.Failure(AppError.NotFound)
+        val updated = current.map { lesson ->
+            if (lesson.id != lessonId) lesson
+            else lesson.copy(status = if (visible) TeacherLessonStatus.Published else TeacherLessonStatus.Draft)
+        }
+        if (updated.none { it.id == lessonId }) return AppResult.Failure(AppError.NotFound)
+        lessons.value = lessons.value + (courseId to updated)
+        return AppResult.Success(updated.first { it.id == lessonId })
     }
 
     override suspend fun reorderLessons(courseId: String, orderedLessonIds: List<String>): AppResult<List<TeacherLesson>> {
@@ -5321,6 +5375,9 @@ class MockMessagingRepository : MessagingRepository {
         _threads.value = _threads.value + (threadId to created)
         return AppResult.Success(created)
     }
+
+    override suspend fun openCourseTeacherThread(courseId: String, includeParent: Boolean): AppResult<MessageThread> =
+        openOrCreateThread(CURRENT_STUDENT_MESSAGING_ID, MessageParticipantRole.Student, TEACHER.id)
 
     override suspend fun getParentThreadForStudent(teacherId: String, studentId: String): AppResult<MessageThread> {
         delay(MockLatency.FAST_MS)

@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.ui.components.state.ScreenStateHost
@@ -25,15 +27,20 @@ fun StudentCoursesScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.retry()
+    }
+
     ScreenStateHost(
         state = state.result,
         onRetry = viewModel::retry,
         isOffline = !state.isOnline,
         loading = { CoursesSkeleton() },
         modifier = modifier.fillMaxSize(),
-    ) { courses ->
+    ) { catalog ->
         CoursesContent(
-            courses = courses,
+            teachers = catalog.teachers,
+            courses = catalog.courses,
             onOpenCourse = onOpenCourse,
             onOpenSubscriptions = onOpenSubscriptions,
         )
@@ -42,6 +49,7 @@ fun StudentCoursesScreen(
 
 @Composable
 private fun CoursesContent(
+    teachers: List<DiscoverableTeacher>,
     courses: List<StudentCourseSummary>,
     onOpenCourse: (String) -> Unit,
     onOpenSubscriptions: () -> Unit,
@@ -50,13 +58,20 @@ private fun CoursesContent(
         contentPadding = PaddingValues(horizontal = Spacing.gutter, vertical = Spacing.md),
         modifier = Modifier.fillMaxSize(),
     ) {
-        item {
-            StudentCourseCatalogSection(
-                courses = courses,
-                gradeLabel = null,
-                onOpenCourse = onOpenCourse,
-                onOpenSubscriptions = onOpenSubscriptions,
-            )
+        if (teachers.isNotEmpty()) {
+            item {
+                TeacherDiscoverySection(teachers = teachers)
+            }
+        }
+        if (courses.isNotEmpty() || teachers.isEmpty()) {
+            item {
+                StudentCourseCatalogSection(
+                    courses = courses,
+                    gradeLabel = null,
+                    onOpenCourse = onOpenCourse,
+                    onOpenSubscriptions = onOpenSubscriptions,
+                )
+            }
         }
     }
 }

@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppError
+import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.MessageAttachment
 import com.rork.eduspark.data.model.MessageAttachmentType
 import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
+import com.rork.eduspark.data.remote.media.MediaUrlResolver
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.MessagingRepository
 import kotlinx.coroutines.Job
@@ -50,6 +52,7 @@ data class ConversationThreadUiState(
     val activeVoiceMessageId: String? = null,
     val isVoicePlaying: Boolean = false,
     val playbackPositionMs: Int = 0,
+    val resolvedVoiceRefs: Map<String, String> = emptyMap(),
 )
 
 /** A stopped-but-not-yet-sent local recording — never written to the canonical repository until [ConversationThreadViewModel.sendVoiceNote]. */
@@ -60,12 +63,14 @@ const val PENDING_VOICE_PREVIEW_ID = "pending-voice-preview"
 
 sealed interface ConversationThreadEvent {
     data class OpenParticipantProfile(val studentId: String) : ConversationThreadEvent
+    data class OpenAttachment(val url: String) : ConversationThreadEvent
 }
 
 class ConversationThreadViewModel(
     private val threadId: String,
     private val authRepository: AuthRepository,
     private val messagingRepository: MessagingRepository,
+    private val mediaUrlResolver: MediaUrlResolver,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -102,6 +107,7 @@ class ConversationThreadViewModel(
                     viewerIsTeacher = session?.messagingRoleOrNull() == MessageParticipantRole.Teacher,
                 )
             }
+            messagingRepository.getThread(threadId)
             messagingRepository.markThreadRead(threadId, viewerId)
             messagingRepository.threads.collect { all ->
                 val thread = all.firstOrNull { it.id == threadId }
@@ -190,9 +196,36 @@ class ConversationThreadViewModel(
         }
     }
 
+    fun openAttachment(attachment: MessageAttachment) {
+        val ref = attachment.mediaRef ?: attachment.label
+        viewModelScope.launch {
+            when (val resolved = mediaUrlResolver.resolve(ref)) {
+                is AppResult.Success -> _events.send(ConversationThreadEvent.OpenAttachment(resolved.data.url))
+                is AppResult.Failure -> Unit
+            }
+        }
+    }
+
     /** Starts (or restarts) playback for [id] — a real message id, or [PENDING_VOICE_PREVIEW_ID]. */
-    fun playVoiceMessage(id: String) = _state.update {
-        it.copy(activeVoiceMessageId = id, isVoicePlaying = true, playbackPositionMs = 0)
+    fun playVoiceMessage(id: String, mediaRef: String? = null) {
+        val ref = mediaRef?.takeIf { it.isNotBlank() }
+        if (ref == null || id == PENDING_VOICE_PREVIEW_ID) {
+            _state.update { it.copy(activeVoiceMessageId = id, isVoicePlaying = true, playbackPositionMs = 0) }
+            return
+        }
+        viewModelScope.launch {
+            when (val resolved = mediaUrlResolver.resolve(ref)) {
+                is AppResult.Success -> _state.update {
+                    it.copy(
+                        activeVoiceMessageId = id,
+                        isVoicePlaying = true,
+                        playbackPositionMs = 0,
+                        resolvedVoiceRefs = it.resolvedVoiceRefs + (id to resolved.data.url),
+                    )
+                }
+                is AppResult.Failure -> Unit
+            }
+        }
     }
 
     fun pauseVoiceMessage() = _state.update { it.copy(isVoicePlaying = false) }

@@ -31,16 +31,18 @@ data class MessageParticipant(
 enum class MessageAttachmentType { Image, File, Link, Voice }
 
 /**
- * [label] holds a filename/URL for Image/File/Link, and the local recording's file path/URI
- * for [MessageAttachmentType.Voice] — same field, no second "voice URI" property, since only
- * one of the two meanings is ever relevant for a given [type]. [durationSeconds] is Voice-only
- * and stays null for every other type — purely additive, so no existing Image/File/Link call
- * site needs to change.
+ * [label] is the display filename for remote attachments and the local recording path while a
+ * voice note is pending. [mediaRef] is the durable backend reference (`/api/media/...` or legacy
+ * `/uploads/...`) resolved only when opened; [uploadBytes] is short-lived picker data used for
+ * the outbound multipart call and is never persisted.
  */
 data class MessageAttachment(
     val type: MessageAttachmentType,
     val label: String,
     val durationSeconds: Int? = null,
+    val mediaRef: String? = null,
+    val mimeType: String? = null,
+    val uploadBytes: ByteArray? = null,
 )
 
 data class MessagingChatMessage(

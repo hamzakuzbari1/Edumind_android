@@ -155,6 +155,21 @@ data class TeacherCourseSummary(
     val status: TeacherCourseStatus,
 )
 
+data class TeacherCourseFormSubject(
+    val id: String,
+    val name: String,
+    val grade: Grade,
+)
+
+data class TeacherCourseCreateRequest(
+    val title: String,
+    val subjectId: String,
+    val subjectTitle: String,
+    val grade: Grade,
+    val description: String? = null,
+    val published: Boolean = true,
+)
+
 /**
  * ══════════════════════════════════════════════════════════════════════════
  * TC-04 · Course Detail / TC-05 · Lesson Upload / TC-06 · Lesson Processing Status.

@@ -1,10 +1,15 @@
 package com.rork.eduspark.ui.screens.messaging
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +53,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -120,13 +126,31 @@ fun ConversationThreadScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val recorder = remember { VoiceRecorderController(context) }
     val voicePlayer = remember { VoicePlayerController() }
+    val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) {
+            viewModel.setAttachmentPickerVisible(false)
+        } else {
+            readSelectedMessageAttachment(context, uri, MessageAttachmentType.Image)?.let(viewModel::sendAttachment)
+                ?: viewModel.setAttachmentPickerVisible(false)
+        }
+    }
+    val filePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) {
+            viewModel.setAttachmentPickerVisible(false)
+        } else {
+            readSelectedMessageAttachment(context, uri, MessageAttachmentType.File)?.let(viewModel::sendAttachment)
+                ?: viewModel.setAttachmentPickerVisible(false)
+        }
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
             when (event) {
                 is ConversationThreadEvent.OpenParticipantProfile -> onOpenParticipantProfile(event.studentId)
+                is ConversationThreadEvent.OpenAttachment -> uriHandler.openUri(event.url)
             }
         }
     }
@@ -143,7 +167,8 @@ fun ConversationThreadScreen(
         val localPath = if (activeId == PENDING_VOICE_PREVIEW_ID) {
             state.pendingVoiceNote?.localPath
         } else {
-            (state.result as? UiState.Content)?.data?.messages?.firstOrNull { it.id == activeId }?.attachment?.label
+            state.resolvedVoiceRefs[activeId]
+                ?: (state.result as? UiState.Content)?.data?.messages?.firstOrNull { it.id == activeId }?.attachment?.label
         }
         if (localPath == null) {
             viewModel.stopVoiceMessage()
@@ -255,16 +280,21 @@ fun ConversationThreadScreen(
                     if (state.activeVoiceMessageId == id) {
                         if (state.isVoicePlaying) viewModel.pauseVoiceMessage() else viewModel.resumeVoiceMessage()
                     } else {
-                        viewModel.playVoiceMessage(id)
+                        val ref = loadedThread.messages.firstOrNull { it.id == id }?.attachment?.let {
+                            it.mediaRef ?: it.label
+                        }
+                        viewModel.playVoiceMessage(id, ref)
                     }
                 },
+                onOpenAttachment = viewModel::openAttachment,
             )
         }
     }
 
     if (state.isAttachmentPickerVisible) {
         AttachmentPickerDialog(
-            onPick = viewModel::sendAttachment,
+            onPickImage = { imagePickerLauncher.launch(arrayOf("image/*")) },
+            onPickFile = { filePickerLauncher.launch(arrayOf("*/*")) },
             onDismiss = { viewModel.setAttachmentPickerVisible(false) },
         )
     }
@@ -302,6 +332,7 @@ private fun ConversationThreadContent(
     onDiscardPendingVoiceNote: () -> Unit,
     onSendVoiceNote: () -> Unit,
     onTogglePlayback: (String) -> Unit,
+    onOpenAttachment: (MessageAttachment) -> Unit,
 ) {
     val other = thread.otherParticipant(viewerId)
     val messages = thread.messages
@@ -346,6 +377,7 @@ private fun ConversationThreadContent(
                     isPlaying = activeVoiceMessageId == message.id && isVoicePlaying,
                     playbackPositionMs = if (activeVoiceMessageId == message.id) playbackPositionMs else 0,
                     onTogglePlayback = { onTogglePlayback(message.id) },
+                    onOpenAttachment = onOpenAttachment,
                     modifier = Modifier.padding(vertical = Spacing.xxs),
                 )
             }
@@ -419,6 +451,7 @@ private fun MessageBubble(
     isPlaying: Boolean,
     playbackPositionMs: Int,
     onTogglePlayback: () -> Unit,
+    onOpenAttachment: (MessageAttachment) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = EduTheme.colors
@@ -448,11 +481,11 @@ private fun MessageBubble(
                     borderColor = bubbleColor,
                     contentPadding = bubblePadding,
                 ) {
-                    MessageBubbleBody(message, isOutgoing = true, isPlaying, playbackPositionMs, onTogglePlayback)
+                    MessageBubbleBody(message, isOutgoing = true, isPlaying, playbackPositionMs, onTogglePlayback, onOpenAttachment)
                 }
             } else {
                 EduGroupedSurface(contentPadding = bubblePadding) {
-                    MessageBubbleBody(message, isOutgoing = false, isPlaying, playbackPositionMs, onTogglePlayback)
+                    MessageBubbleBody(message, isOutgoing = false, isPlaying, playbackPositionMs, onTogglePlayback, onOpenAttachment)
                 }
             }
             Row(
@@ -487,6 +520,7 @@ private fun MessageBubbleBody(
     isPlaying: Boolean,
     playbackPositionMs: Int,
     onTogglePlayback: () -> Unit,
+    onOpenAttachment: (MessageAttachment) -> Unit,
 ) {
     val attachment = message.attachment
     if (attachment != null && attachment.type == MessageAttachmentType.Voice) {
@@ -513,7 +547,9 @@ private fun MessageBubbleBody(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
-                modifier = Modifier.padding(top = if (message.body.isNotBlank()) Spacing.xs else 0.dp),
+                modifier = Modifier
+                    .padding(top = if (message.body.isNotBlank()) Spacing.xs else 0.dp)
+                    .clickable { onOpenAttachment(it) },
             ) {
                 Icon(
                     imageVector = attachmentIcon(it.type),
@@ -580,6 +616,48 @@ private fun formatDurationLabel(totalSeconds: Int): String {
     val minutes = totalSeconds / 60
     val seconds = totalSeconds % 60
     return "%02d:%02d".format(minutes, seconds)
+}
+
+private fun readSelectedMessageAttachment(
+    context: Context,
+    uri: Uri,
+    type: MessageAttachmentType,
+): MessageAttachment? {
+    runCatching { context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) }
+    val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() } ?: return null
+    if (bytes.isEmpty()) return null
+    val meta = queryOpenableMessageFile(context, uri)
+    val mimeType = context.contentResolver.getType(uri) ?: when (type) {
+        MessageAttachmentType.Image -> "image/jpeg"
+        MessageAttachmentType.File -> "application/octet-stream"
+        MessageAttachmentType.Link -> "text/plain"
+        MessageAttachmentType.Voice -> "audio/mp4"
+    }
+    val filename = meta.first ?: when (type) {
+        MessageAttachmentType.Image -> "message-image.jpg"
+        MessageAttachmentType.File -> "message-file.bin"
+        MessageAttachmentType.Link -> "message-link.txt"
+        MessageAttachmentType.Voice -> "voice-note.m4a"
+    }
+    return MessageAttachment(
+        type = type,
+        label = filename,
+        mimeType = mimeType,
+        uploadBytes = bytes,
+    )
+}
+
+private fun queryOpenableMessageFile(context: Context, uri: Uri): Pair<String?, Long?> {
+    context.contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null)?.use { cursor ->
+        if (cursor.moveToFirst()) {
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+            val name = if (nameIndex >= 0) cursor.getString(nameIndex) else null
+            val size = if (sizeIndex >= 0 && !cursor.isNull(sizeIndex)) cursor.getLong(sizeIndex) else null
+            return name to size
+        }
+    }
+    return null to null
 }
 
 /**
@@ -710,7 +788,11 @@ private fun ComposerArea(
 }
 
 @Composable
-private fun AttachmentPickerDialog(onPick: (MessageAttachment) -> Unit, onDismiss: () -> Unit) {
+private fun AttachmentPickerDialog(
+    onPickImage: () -> Unit,
+    onPickFile: () -> Unit,
+    onDismiss: () -> Unit,
+) {
     Dialog(onDismissRequest = onDismiss) {
         EduCard {
             Text(
@@ -721,21 +803,15 @@ private fun AttachmentPickerDialog(onPick: (MessageAttachment) -> Unit, onDismis
             )
             ListRow(
                 title = stringResource(R.string.x02_attach_image),
-                supporting = SAMPLE_IMAGE,
+                supporting = "image/*",
                 leading = Icons.Filled.Image,
-                onClick = { onPick(MessageAttachment(MessageAttachmentType.Image, SAMPLE_IMAGE)) },
+                onClick = onPickImage,
             )
             ListRow(
                 title = stringResource(R.string.x02_attach_file),
-                supporting = SAMPLE_FILE,
+                supporting = "*/*",
                 leading = Icons.Filled.InsertDriveFile,
-                onClick = { onPick(MessageAttachment(MessageAttachmentType.File, SAMPLE_FILE)) },
-            )
-            ListRow(
-                title = stringResource(R.string.x02_attach_link),
-                supporting = SAMPLE_LINK,
-                leading = Icons.Filled.Link,
-                onClick = { onPick(MessageAttachment(MessageAttachmentType.Link, SAMPLE_LINK)) },
+                onClick = onPickFile,
             )
         }
     }
@@ -807,8 +883,5 @@ private fun ParticipantSheet(
 
 private const val BubbleWidthFraction = 0.82f
 private const val TeacherBubbleWidthFraction = 0.78f
-private const val SAMPLE_IMAGE = "project_photo.jpg"
-private const val SAMPLE_FILE = "lesson_notes.pdf"
-private const val SAMPLE_LINK = "https://example.edu/resource"
 private const val PlaybackPollMs = 200L
 private const val RecordingTickMs = 1000L

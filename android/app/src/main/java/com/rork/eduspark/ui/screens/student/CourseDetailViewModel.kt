@@ -62,6 +62,10 @@ class CourseDetailViewModel(
 
     fun retry() = load()
 
+    fun refresh() {
+        viewModelScope.launch { fetch() }
+    }
+
     private fun load() {
         _state.update { it.copy(result = UiState.Loading, offer = null, manualQuizzes = emptyList()) }
         viewModelScope.launch { fetch() }

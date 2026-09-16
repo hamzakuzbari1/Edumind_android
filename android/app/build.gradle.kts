@@ -94,6 +94,26 @@ android {
         )
         buildConfigField(
             "String",
+            "TEACHER_UPLOAD_DATA_SOURCE_MODE",
+            buildConfigString(envValue("TEACHER_UPLOAD_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "MESSAGING_DATA_SOURCE_MODE",
+            buildConfigString(envValue("MESSAGING_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "SUBSCRIPTION_DATA_SOURCE_MODE",
+            buildConfigString(envValue("SUBSCRIPTION_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "PAYMENT_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PAYMENT_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
             "API_BASE_URL",
             buildConfigString(envValue("API_BASE_URL", "http://10.0.2.2:8000"))
         )

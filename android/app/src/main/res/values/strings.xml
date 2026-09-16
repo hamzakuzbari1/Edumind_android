@@ -1703,7 +1703,8 @@
     <string name="st18_title">اختيار طريقة الدفع</string>
     <string name="st18_order_summary_label">ملخص الطلب</string>
     <string name="st18_amount_label">المبلغ</string>
-    <string name="st18_methods_section">طرق الدفع المباشر المتاحة</string>
+    <string name="st18_methods_section">طرق الدفع المتاحة (تجريبي)</string>
+    <string name="st18_methods_dev_note">هذه معرّفات يقبلها الخادم في وضع التطوير. لا تتم معالجة بطاقة أو محفظة خارجية.</string>
     <string name="st18_continue">متابعة</string>
 
     <!-- ST-19 · Payment Pending -->
@@ -1753,6 +1754,8 @@
     <string name="st21_error_invalid">هذا الرمز غير صحيح. تحقق منه وحاول مرة أخرى.</string>
     <string name="st21_error_expired">انتهت صلاحية هذه القسيمة.</string>
     <string name="st21_error_used">تم استخدام هذه القسيمة مسبقاً.</string>
+    <string name="st21_unavailable_title">القسائم غير متاحة حالياً</string>
+    <string name="st21_unavailable_body">استخدام القسائم غير مربوط بالخادم بعد. اشترك عبر طرق الدفع المتاحة.</string>
 
     <!-- ST-22 · Student Profile -->
     <string name="st22_grade_school_format">%1$s · %2$s</string>
@@ -2227,6 +2230,15 @@
     <string name="tc03_filter_draft">مسودة</string>
     <string name="tc03_empty_title">ما في صفوف</string>
     <string name="tc03_empty_body">ما في صفوف تطابق هذا التصفية.</string>
+    <string name="tc03_empty_create_body">أنشئ صفك الأول ليظهر هنا.</string>
+    <string name="tc03_course_title_label">اسم الصف</string>
+    <string name="tc03_course_title_placeholder">مثال: رياضيات البكالوريا</string>
+    <string name="tc03_course_title_required">أدخل اسم الصف</string>
+    <string name="tc03_course_description_label">الوصف (اختياري)</string>
+    <string name="tc03_publish_now">انشر الصف للطلاب</string>
+    <string name="tc03_create_error">تعذر إنشاء الصف. حاول مرة أخرى.</string>
+    <string name="tc03_subjects_loading">جارٍ تحميل المواد…</string>
+    <string name="tc03_subjects_empty">لا توجد مواد لهذا الصف.</string>
     <string name="tc03_student_count">%1$s طالبًا</string>
     <string name="tc03_lesson_count">%1$s دروس</string>
     <string name="tc03_class_title">%1$s · %2$s</string>
@@ -2272,6 +2284,8 @@
     <string name="tc05_source_video">فيديو</string>
     <string name="tc05_source_link">رابط فيديو</string>
     <string name="tc05_source_pdf">ملف PDF</string>
+    <string name="tc05_source_homework">واجب</string>
+    <string name="tc05_source_audio">صوت</string>
     <string name="tc05_link_label">رابط الفيديو</string>
     <string name="tc05_link_required">أدخل رابط الفيديو للمتابعة</string>
     <string name="tc05_uploaded">تم الرفع</string>
@@ -2279,6 +2293,8 @@
     <string name="tc05_delete_file">حذف</string>
     <string name="tc05_teacher_video">فيديو الأستاذ</string>
     <string name="tc05_teacher_pdf">ملف الأستاذ</string>
+    <string name="tc05_teacher_homework">ملف الواجب</string>
+    <string name="tc05_teacher_audio">صوت الأستاذ</string>
     <string name="tc05_teacher_link">رابط الفيديو</string>
     <string name="tc05_one_source">مصدر واحد لكل درس: فيديو أو رابط أو PDF</string>
     <string name="tc05_after_save_label">بعد الحفظ</string>

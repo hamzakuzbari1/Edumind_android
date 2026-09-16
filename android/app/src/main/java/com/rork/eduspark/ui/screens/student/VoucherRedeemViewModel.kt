@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
  * an already-redeemed code never duplicates access.
  */
 sealed interface VoucherPhase {
+    data object Unavailable : VoucherPhase
     data object Input : VoucherPhase
     data class Validated(val result: VoucherValidationResult) : VoucherPhase
     data class Redeemed(val redeemed: RedeemedVoucher) : VoucherPhase
@@ -48,7 +49,12 @@ class VoucherRedeemViewModel(
     private val _state = MutableStateFlow(VoucherUiState())
     val state: StateFlow<VoucherUiState> = _state.asStateFlow()
 
+    private val voucherAvailable = voucherRepository.isAvailable
+
     init {
+        if (!voucherAvailable) {
+            _state.update { it.copy(phase = VoucherPhase.Unavailable) }
+        }
         viewModelScope.launch {
             connectivity.isOnline.collect { online -> _state.update { it.copy(isOnline = online) } }
         }
@@ -56,10 +62,12 @@ class VoucherRedeemViewModel(
 
     /** Editing the code after a validation result invalidates that result — it was for the old text. */
     fun updateCode(value: String) {
+        if (!voucherAvailable) return
         _state.update { it.copy(code = value, phase = VoucherPhase.Input, error = null) }
     }
 
     fun validate() {
+        if (!voucherAvailable) return
         val code = _state.value.code.trim()
         if (code.isEmpty() || _state.value.isValidating) return
         _state.update { it.copy(isValidating = true, error = null) }
@@ -74,6 +82,7 @@ class VoucherRedeemViewModel(
     }
 
     fun redeem() {
+        if (!voucherAvailable) return
         val validated = _state.value.phase as? VoucherPhase.Validated ?: return
         if (validated.result.status != VoucherStatus.Valid || _state.value.isRedeeming) return
         _state.update { it.copy(isRedeeming = true, error = null) }
@@ -87,6 +96,11 @@ class VoucherRedeemViewModel(
 
     /** Redeemed → start over for a second code, e.g. redeeming for a sibling. */
     fun startOver() {
-        _state.update { VoucherUiState(isOnline = it.isOnline) }
+        _state.update {
+            VoucherUiState(
+                isOnline = it.isOnline,
+                phase = if (voucherAvailable) VoucherPhase.Input else VoucherPhase.Unavailable,
+            )
+        }
     }
 }

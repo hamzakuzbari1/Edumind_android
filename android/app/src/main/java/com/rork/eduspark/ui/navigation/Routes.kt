@@ -202,9 +202,8 @@ object Routes {
     fun studentPaymentPendingRoute(courseId: String, methodId: String) =
         "student/payment/pending/${Uri.encode(courseId)}/${Uri.encode(methodId)}"
 
-    // ST-20 · Purchase Success — courseId-scoped; reached only for a course whose payment is
-    // already Verified (see PaymentRepository.getPurchaseAccess's own doc comment), never
-    // pushed automatically from ST-19 on a timer.
+    // ST-20 · Purchase Success — courseId-scoped; reached from ST-19 when backend
+    // subscribe returns unlocked/Verified, or from ST-16's mock-only banner.
     const val STUDENT_PURCHASE_SUCCESS = "student/purchase-success/{$COURSE_ID_ARG}" // ST-20 — route pattern
     fun studentPurchaseSuccessRoute(courseId: String) = "student/purchase-success/${Uri.encode(courseId)}"
 

@@ -55,6 +55,7 @@ data class PaymentRequest(
     val amount: Money,
     val methodId: String,
     val methodName: String,
+    val teacherName: String? = null,
 )
 
 /** The one mock reference record ST-19 shows — pending until a future backend/admin flow verifies it. */
@@ -73,11 +74,12 @@ data class PendingPayment(
 /**
  * ST-20. [payment] is only ever meaningful here when its status is [PaymentStatus.Verified] —
  * callers must check that themselves; this record does not re-assert it. [isActivated]
- * distinguishes "just confirmed" from "already processed" re-entry, and is what makes
- * [com.rork.eduspark.data.repository.PaymentRepository.activateAccess] idempotent: calling it
- * again for an already-activated course is a no-op success, never a duplicate grant.
+ * is backend/catalog access, not a local grant. [confirmedThisSession] is true when this
+ * process already received a verified/unlocked subscribe response — ST-20 then shows success
+ * without calling subscribe again.
  */
 data class PurchaseAccess(
     val payment: PendingPayment,
     val isActivated: Boolean,
+    val confirmedThisSession: Boolean = false,
 )

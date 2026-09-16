@@ -19,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,26 +46,31 @@ import org.koin.core.parameter.parametersOf
  * ST-19 · Payment Pending.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Deliberately not a success screen — the [StatusPill] uses [EduTheme.colors.accent], not
- * [EduTheme.colors.success], and there is no confetti/checkmark-hero moment anywhere here.
- * [PendingPayment.status] never becomes anything but [com.rork.eduspark.data.model.PaymentStatus.Pending]
- * in this build; verification is a future backend/admin flow, not something this screen polls for.
+ * Deliberately not a success screen. Backend `unlocked=true` navigates to ST-20 instead of
+ * staying on this Pending review UI. Genuine pending is the only case that remains here.
  */
 @Composable
 fun PaymentPendingScreen(
     courseId: String,
     methodId: String,
     onDone: () -> Unit,
+    onVerified: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PaymentPendingViewModel = koinViewModel(parameters = { parametersOf(courseId, methodId) }),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    LaunchedEffect(state.phase) {
+        if (state.phase == PaymentPendingPhase.Succeeded) onVerified()
+    }
+
     EduScaffold(title = stringResource(R.string.st19_title), onBack = onDone, modifier = modifier) { _ ->
         Column(modifier = Modifier.fillMaxSize()) {
             OfflineBanner(visible = !state.isOnline)
             when (state.phase) {
-                PaymentPendingPhase.Submitting -> SubmittingContent()
+                PaymentPendingPhase.Submitting,
+                PaymentPendingPhase.Succeeded,
+                -> SubmittingContent()
                 PaymentPendingPhase.Pending -> state.pending?.let { PendingContent(it, onDone) } ?: SubmittingContent()
                 PaymentPendingPhase.Failed -> FailedContent(onRetry = viewModel::retry)
             }

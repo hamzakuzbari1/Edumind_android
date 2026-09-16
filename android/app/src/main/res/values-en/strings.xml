@@ -1609,7 +1609,8 @@
     <string name="st18_title">Choose a payment method</string>
     <string name="st18_order_summary_label">Order summary</string>
     <string name="st18_amount_label">Amount</string>
-    <string name="st18_methods_section">Available direct-payment methods</string>
+    <string name="st18_methods_section">Available payment methods (development)</string>
+    <string name="st18_methods_dev_note">These are method identifiers the backend accepts in development. No external card or wallet processing is performed.</string>
     <string name="st18_continue">Continue</string>
 
     <!-- ST-19 · Payment Pending -->
@@ -1659,6 +1660,8 @@
     <string name="st21_error_invalid">This code isn\'t valid. Check it and try again.</string>
     <string name="st21_error_expired">This voucher has expired.</string>
     <string name="st21_error_used">This voucher has already been used.</string>
+    <string name="st21_unavailable_title">Vouchers aren\'t available yet</string>
+    <string name="st21_unavailable_body">Voucher redemption isn\'t connected to the backend yet. Subscribe using an available payment method.</string>
 
     <!-- ST-22 · Student Profile -->
     <string name="st22_grade_school_format">%1$s · %2$s</string>
@@ -2130,6 +2133,15 @@
     <string name="tc03_filter_draft">Draft</string>
     <string name="tc03_empty_title">No classes</string>
     <string name="tc03_empty_body">No classes match this filter.</string>
+    <string name="tc03_empty_create_body">Create your first class to see it here.</string>
+    <string name="tc03_course_title_label">Class name</string>
+    <string name="tc03_course_title_placeholder">Example: Mathematics Baccalaureate</string>
+    <string name="tc03_course_title_required">Enter a class name</string>
+    <string name="tc03_course_description_label">Description (optional)</string>
+    <string name="tc03_publish_now">Publish class to students</string>
+    <string name="tc03_create_error">Could not create the class. Try again.</string>
+    <string name="tc03_subjects_loading">Loading subjects…</string>
+    <string name="tc03_subjects_empty">No subjects for this grade.</string>
     <string name="tc03_student_count">%1$s students</string>
     <string name="tc03_lesson_count">%1$s lessons</string>
     <string name="tc03_class_title">%1$s · %2$s</string>

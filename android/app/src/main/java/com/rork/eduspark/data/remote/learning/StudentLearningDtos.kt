@@ -27,6 +27,9 @@ internal data class StudentCourseCardDto(
     @SerialName("access_source") val accessSource: String? = null,
     @SerialName("enrollment_status") val enrollmentStatus: String? = null,
     @SerialName("lock_reason") val lockReason: String? = null,
+    @SerialName("activated_at") val activatedAt: String? = null,
+    @SerialName("expires_at") val expiresAt: String? = null,
+    @SerialName("days_until_expiry") val daysUntilExpiry: Int? = null,
     @SerialName("progress_percent") val progressPercent: Int = 0,
     @SerialName("lesson_count") val lessonCount: Int = 0,
     @SerialName("completed_lesson_count") val completedLessonCount: Int = 0,
@@ -47,6 +50,9 @@ internal data class StudentCourseDetailDto(
     @SerialName("access_source") val accessSource: String? = null,
     @SerialName("enrollment_status") val enrollmentStatus: String? = null,
     @SerialName("lock_reason") val lockReason: String? = null,
+    @SerialName("activated_at") val activatedAt: String? = null,
+    @SerialName("expires_at") val expiresAt: String? = null,
+    @SerialName("days_until_expiry") val daysUntilExpiry: Int? = null,
     @SerialName("progress_percent") val progressPercent: Int = 0,
     @SerialName("lesson_count") val lessonCount: Int = 0,
     @SerialName("completed_lesson_count") val completedLessonCount: Int = 0,
@@ -134,3 +140,52 @@ internal data class LessonProgressDto(
     @SerialName("completion_percent") val completionPercent: Int = 0,
     @SerialName("newly_completed") val newlyCompleted: Boolean = false,
 )
+
+@Serializable
+internal data class SubscriptionsCatalogDto(
+    val grade: Int? = null,
+    val courses: List<SubscriptionCourseDto> = emptyList(),
+    @SerialName("unlocked_count") val unlockedCount: Int = 0,
+    @SerialName("available_count") val availableCount: Int = 0,
+)
+
+@Serializable
+internal data class SubscriptionCourseDto(
+    val id: Int,
+    val title: String,
+    @SerialName("subject_name") val subjectName: String,
+    @SerialName("teacher_name") val teacherName: String,
+    val grade: Int,
+    val price: Float = 0f,
+    val currency: String = "SYP",
+    val unlocked: Boolean,
+    @SerialName("subscription_status") val subscriptionStatus: String = "pending",
+    @SerialName("access_status") val accessStatus: String? = null,
+    @SerialName("activated_at") val activatedAt: String? = null,
+    @SerialName("expires_at") val expiresAt: String? = null,
+    @SerialName("days_until_expiry") val daysUntilExpiry: Int? = null,
+    @SerialName("lock_reason") val lockReason: String? = null,
+    @SerialName("progress_percent") val progressPercent: Int = 0,
+    @SerialName("lesson_count") val lessonCount: Int = 0,
+    @SerialName("completed_lesson_count") val completedLessonCount: Int = 0,
+    @SerialName("subscription_benefits") val subscriptionBenefits: String = "",
+    @SerialName("video_count") val videoCount: Int = 0,
+    @SerialName("pdf_count") val pdfCount: Int = 0,
+    @SerialName("homework_count") val homeworkCount: Int = 0,
+    @SerialName("ai_lesson_count") val aiLessonCount: Int = 0,
+)
+
+@Serializable
+internal data class SubscribeCourseRequestDto(
+    @SerialName("course_id") val courseId: Int,
+    val method: String = "card",
+)
+
+@Serializable
+internal data class SubscribeCourseOutDto(
+    val ok: Boolean = true,
+    @SerialName("course_id") val courseId: Int,
+    val reference: String,
+    val unlocked: Boolean = true,
+)
+
