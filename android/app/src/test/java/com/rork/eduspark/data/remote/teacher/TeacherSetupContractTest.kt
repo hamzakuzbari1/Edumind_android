@@ -100,6 +100,30 @@ class TeacherSetupContractTest {
     }
 
     @Test
+    fun uploadAvatarPostsMultipartToCanonicalPath() = runBlocking {
+        val requests = mutableListOf<String>()
+        var sawMultipart = false
+        val engine = MockEngine { request ->
+            requests += "${request.method.value} ${request.url.encodedPath}"
+            val contentType = request.body.contentType?.toString().orEmpty()
+            if (contentType.contains("multipart", ignoreCase = true)) {
+                sawMultipart = true
+            }
+            respond(statusJson, HttpStatusCode.OK, jsonHeaders)
+        }
+        val api = KtorTeacherSetupApi(testClient(engine), "https://example.test")
+        val result = api.uploadAvatar(
+            accessToken = "token",
+            bytes = ByteArray(64) { 1 },
+            filename = "avatar.png",
+            mimeType = "image/png",
+        )
+        assertIs<ApiCallResult.Success<*>>(result)
+        assertEquals(listOf("POST /api/teacher/setup/avatar"), requests)
+        assertTrue(sawMultipart)
+    }
+
+    @Test
     fun transportDtosKeepNumericIdsAndSnakeCase() {
         val teaching = json.encodeToString(TeacherTeachingUpdateDto(listOf(4), listOf(12)))
         val experience = json.encodeToString(

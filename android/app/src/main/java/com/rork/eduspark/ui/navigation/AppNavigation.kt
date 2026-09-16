@@ -913,10 +913,8 @@ private fun NavGraphBuilder.studentGraph(
                 courseId = courseId,
                 onBack = { navController.popBackStack() },
                 onContinueLesson = { lessonId -> navController.navigate(Routes.studentLessonRoute(lessonId)) },
-                // ST-09 — the course's manual quiz has a deterministic id derived from the
-                // course it belongs to, and there is no quiz-list screen to build this
-                // slice, so tapping the quiz count opens it directly.
-                onOpenManualQuiz = { navController.navigate(Routes.studentQuizRoute("manual-$courseId")) },
+                onOpenManualQuiz = { quizId -> navController.navigate(Routes.studentQuizRoute(quizId)) },
+                onOpenManualQuizResults = { quizId -> navController.navigate(Routes.studentQuizResultsRoute(quizId)) },
                 // Whole-course-locked state's Subscribe CTA — the existing ST-17 paywall
                 // sheet, never a second payment entry point.
                 onSubscribe = { navController.navigate(Routes.STUDENT_SUBSCRIPTIONS) },

@@ -100,14 +100,31 @@ class TeacherQuizResultsViewModel(
                 _state.update { it.copy(result = UiState.Failure(error)) }
                 return@launch
             }
-            _state.update { it.copy(result = UiState.Content(buildScreenData(quizResult.data, attemptsResult.data))) }
+            val analytics = (teacherRepository.getQuizAnalytics(quizId) as? AppResult.Success)?.data
+            _state.update {
+                it.copy(
+                    result = UiState.Content(
+                        buildScreenData(
+                            quiz = quizResult.data,
+                            attempts = attemptsResult.data,
+                            serverAverage = analytics?.averageScore,
+                            serverHighest = analytics?.highestScore,
+                        ),
+                    ),
+                )
+            }
         }
     }
 
     fun selectAttempt(studentId: String) = _state.update { it.copy(selectedAttemptId = studentId) }
     fun dismissAttemptDetail() = _state.update { it.copy(selectedAttemptId = null) }
 
-    private fun buildScreenData(quiz: TeacherQuiz, attempts: List<TeacherQuizAttempt>): TeacherQuizResultsScreenData {
+    private fun buildScreenData(
+        quiz: TeacherQuiz,
+        attempts: List<TeacherQuizAttempt>,
+        serverAverage: Float? = null,
+        serverHighest: Float? = null,
+    ): TeacherQuizResultsScreenData {
         val submitted = attempts.filter { it.status == TeacherQuizAttemptStatus.Completed }
         val scored = submitted.filter { !it.hasPendingEssay }
 
@@ -134,8 +151,10 @@ class TeacherQuizResultsViewModel(
         }
 
         val submittedPercentages = results.mapNotNull { it.scorePercent }
-        val classAverage = if (submittedPercentages.isEmpty()) 0 else submittedPercentages.sum() / submittedPercentages.size
-        val highest = submittedPercentages.maxOrNull() ?: 0
+        val localAverage = if (submittedPercentages.isEmpty()) 0 else submittedPercentages.sum() / submittedPercentages.size
+        val localHighest = submittedPercentages.maxOrNull() ?: 0
+        val classAverage = serverAverage?.toInt() ?: localAverage
+        val highest = serverHighest?.toInt() ?: localHighest
 
         val buckets = listOf(0..49, 50..69, 70..84, 85..100).map { range ->
             range to submittedPercentages.count { it in range }

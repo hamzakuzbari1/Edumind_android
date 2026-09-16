@@ -50,6 +50,9 @@ import com.rork.eduspark.data.model.Quiz
 import com.rork.eduspark.data.model.QuizAnswer
 import com.rork.eduspark.data.model.QuizAttempt
 import com.rork.eduspark.data.model.QuizResult
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
+import com.rork.eduspark.data.model.TeacherCourseQuizAnalytics
+import com.rork.eduspark.data.model.TeacherQuizAnalytics
 import com.rork.eduspark.data.model.RedeemedVoucher
 import com.rork.eduspark.data.model.SecuritySettings
 import com.rork.eduspark.data.model.SessionUser
@@ -295,6 +298,15 @@ interface QuizRepository {
 
     /** ST-07's "Practice these again" — a new [Quiz] made only of [sourceQuizId]'s wrong questions. */
     suspend fun buildRemedialQuiz(sourceQuizId: String): AppResult<Quiz>
+
+    /**
+     * Regenerates an AI lesson quiz question set via the backend.
+     * Unsupported for teacher manual quizzes.
+     */
+    suspend fun regenerateQuiz(quizId: String): AppResult<Quiz>
+
+    /** Published manual quizzes for a course (student list). Empty list is a valid no-quizzes state. */
+    suspend fun listCourseQuizzes(courseId: String): AppResult<List<StudentCourseQuizSummary>>
 }
 
 /**
@@ -732,6 +744,17 @@ interface TeacherSetupRepository {
     suspend fun saveVoiceSample(teacherId: String, voiceSample: TeacherVoiceSample): AppResult<TeacherSetupState>
 
     /**
+     * Uploads a teacher profile photo via `POST /api/teacher/setup/avatar`.
+     * Returns the refreshed setup state (including [TeacherIdentityInfo.photoUrl]).
+     */
+    suspend fun uploadAvatar(
+        teacherId: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): AppResult<TeacherSetupState>
+
+    /**
      * Fails with [com.rork.eduspark.core.result.AppError.Validation] if Identity or Subjects &
      * Grades were never saved with real content (a non-blank display name; at least one
      * subject and one grade) — this never silently completes a required step the teacher
@@ -888,6 +911,10 @@ interface TeacherRepository : TeacherSetupRepository {
         assignedMark: Int,
         feedback: String,
     ): AppResult<TeacherQuizAttempt>
+
+    suspend fun getQuizAnalytics(quizId: String): AppResult<TeacherQuizAnalytics>
+
+    suspend fun getCourseQuizAnalytics(courseId: String): AppResult<TeacherCourseQuizAnalytics>
 
     /** TC-12. [com.rork.eduspark.data.model.TeacherStudentSummary.studentId] values match [TeacherQuizAttempt.studentId] wherever the same fixture persona appears in both, so TC-11 and TC-12 never disagree about who a student is. */
     suspend fun getStudents(teacherId: String): AppResult<List<TeacherStudentSummary>>

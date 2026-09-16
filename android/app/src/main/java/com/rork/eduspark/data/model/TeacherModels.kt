@@ -28,6 +28,20 @@ data class TeacherIdentityInfo(
     val headline: String = "",
     val bio: String = "",
     val whyStudyWithMe: String = "",
+    /** Absolute or relative avatar URL from setup status (`image_url` / `avatar_url`). */
+    val photoUrl: String? = null,
+)
+
+/** Remote professional document from teacher portfolio (file_url may be private download path). */
+data class TeacherProfessionalDocument(
+    val id: String,
+    val title: String,
+    val documentType: String,
+    /** Backend media reference — resolve via MediaUrlResolver at open time. */
+    val fileUrl: String,
+    val originalFilename: String? = null,
+    val mimeType: String? = null,
+    val sortOrder: Int = 0,
 )
 
 /** [grades] reuses [Grade] verbatim — the same Syrian-secondary taxonomy SO-01 already models — rather than a second grade concept for "which grades this teacher teaches". */
@@ -88,6 +102,8 @@ data class TeacherSetupState(
     val qualifications: List<TeacherQualification> = emptyList(),
     val experience: TeacherExperienceInfo = TeacherExperienceInfo(),
     val documents: List<TeacherSetupDocument> = emptyList(),
+    /** Remote professional documents from portfolio (authenticated open via MediaUrlResolver). */
+    val professionalDocuments: List<TeacherProfessionalDocument> = emptyList(),
     val pricing: TeacherPricingInfo = TeacherPricingInfo(),
     val voiceSample: TeacherVoiceSample = TeacherVoiceSample(),
     val completedStepIds: Set<TeacherSetupStepId> = emptySet(),
@@ -422,6 +438,8 @@ data class TeacherQuizAttempt(
     val answers: Map<String, Boolean> = emptyMap(),
     /** questionId → student essay text + teacher grade. Empty when the attempt has no essay items. */
     val essayResponses: Map<String, TeacherEssayResponse> = emptyMap(),
+    /** Backend attempt id for essay grading API; null in pure mock fixtures. */
+    val attemptId: String? = null,
 ) {
     val pendingEssayCount: Int get() = essayResponses.values.count { it.pending }
     val hasPendingEssay: Boolean get() = pendingEssayCount > 0

@@ -193,6 +193,32 @@ class RemoteTeacherSetupRepositoryTest {
         assertNull(fixture.store.read())
     }
 
+    @Test
+    fun uploadAvatarStoresAbsolutePhotoUrlAndReloads() = runBlocking {
+        val fixture = fixture()
+        val bytes = ByteArray(64) { 7 }
+
+        val uploaded = success(
+            fixture.repository.uploadAvatar(
+                teacherId = "42",
+                bytes = bytes,
+                filename = "avatar.png",
+                mimeType = "image/png",
+            ),
+        )
+        val reloaded = success(fixture.repository.getSetupState("42"))
+
+        assertEquals(1, fixture.teacher.avatarUploadCalls)
+        assertEquals("avatar.png", fixture.teacher.lastAvatarFilename)
+        assertEquals("image/png", fixture.teacher.lastAvatarMime)
+        assertEquals(64, fixture.teacher.lastAvatarBytes)
+        assertEquals(
+            "https://example.test/uploads/teachers/42/avatar.png",
+            uploaded.identity.photoUrl,
+        )
+        assertEquals(uploaded.identity.photoUrl, reloaded.identity.photoUrl)
+    }
+
     private suspend fun fixture(): Fixture {
         val teacher = FakeTeacherSetupApi()
         val auth = FakeTeacherAuthApi(teacher)
@@ -206,7 +232,13 @@ class RemoteTeacherSetupRepositoryTest {
             auth,
             store,
             authRepository,
-            RemoteTeacherSetupRepository(teacher, store, refresh, authRepository),
+            RemoteTeacherSetupRepository(
+                teacher,
+                store,
+                refresh,
+                authRepository,
+                apiBaseUrl = "https://example.test",
+            ),
         )
     }
 
@@ -225,12 +257,14 @@ class RemoteTeacherSetupRepositoryTest {
 private class FakeTeacherSetupApi : TeacherSetupApi {
     var currentName = "Remote Teacher"
     var currentBio: String? = "Server bio"
+    var currentImageUrl: String? = null
     var setupComplete = false
     var profileFailure: ApiCallResult<TeacherSetupStatusDto>? = null
     var rejectOldTokenOnce = false
     var alwaysUnauthorized = false
     var statusCalls = 0
     var completeCalls = 0
+    var avatarUploadCalls = 0
     var documentCalls = 0
     var voiceCalls = 0
     var lastProfile: TeacherProfileUpdateDto? = null
@@ -239,6 +273,9 @@ private class FakeTeacherSetupApi : TeacherSetupApi {
     val deletedQualificationIds = mutableSetOf<Int>()
     var lastImpact: TeachingImpactUpdateDto? = null
     var lastExperience: TeacherTeachingExperienceWriteDto? = null
+    var lastAvatarFilename: String? = null
+    var lastAvatarMime: String? = null
+    var lastAvatarBytes: Int = 0
 
     override suspend fun status(accessToken: String): ApiCallResult<TeacherSetupStatusDto> {
         statusCalls++
@@ -254,6 +291,20 @@ private class FakeTeacherSetupApi : TeacherSetupApi {
         lastProfile = body
         currentName = body.fullName
         currentBio = body.bio
+        return ApiCallResult.Success(statusValue())
+    }
+
+    override suspend fun uploadAvatar(
+        accessToken: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): ApiCallResult<TeacherSetupStatusDto> {
+        avatarUploadCalls++
+        lastAvatarFilename = filename
+        lastAvatarMime = mimeType
+        lastAvatarBytes = bytes.size
+        currentImageUrl = "/uploads/teachers/42/$filename"
         return ApiCallResult.Success(statusValue())
     }
 
@@ -336,6 +387,8 @@ private class FakeTeacherSetupApi : TeacherSetupApi {
         setupComplete = setupComplete,
         fullName = currentName,
         displayName = currentName,
+        imageUrl = currentImageUrl,
+        avatarUrl = currentImageUrl,
         bio = currentBio,
         subjectIds = listOf(4),
         grades = listOf(12),

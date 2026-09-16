@@ -128,6 +128,18 @@ internal data class TeacherPortfolioDto(
     @SerialName("teaching_impact") val teachingImpact: TeachingImpactDto,
     @SerialName("teaching_philosophy") val teachingPhilosophy: TeachingPhilosophyDto,
     @SerialName("why_study_points") val whyStudyPoints: List<TeacherWhyStudyPointDto> = emptyList(),
+    @SerialName("professional_documents") val professionalDocuments: List<TeacherProfessionalDocumentDto> = emptyList(),
+)
+
+@Serializable
+internal data class TeacherProfessionalDocumentDto(
+    val id: Int,
+    val title: String,
+    @SerialName("document_type") val documentType: String = "certificate",
+    @SerialName("file_url") val fileUrl: String,
+    @SerialName("original_filename") val originalFilename: String? = null,
+    @SerialName("mime_type") val mimeType: String? = null,
+    @SerialName("sort_order") val sortOrder: Int = 0,
 )
 
 @Serializable

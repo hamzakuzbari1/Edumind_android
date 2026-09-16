@@ -340,13 +340,20 @@ private fun CourseLessonDto.toLessonDetail(
     videoProgress = (progress?.videoProgressPercent ?: videoProgressPercent).toProgress(),
     pdfProgress = (progress?.pdfProgressPercent ?: pdfProgressPercent).toProgress(),
     pdfOpened = progress?.pdfOpened ?: false,
-    quizId = null,
+    quizId = when {
+        quizReady || hasGeneratedQuiz -> "lesson-$id"
+        else -> null
+    },
     keyIdeas = description
         ?.lines()
         ?.map(String::trim)
         ?.filter(String::isNotBlank)
         ?.take(3)
         .orEmpty(),
+    videoUrl = videoUrl,
+    pdfUrl = pdfUrl,
+    homeworkUrl = homeworkUrl,
+    audioUrl = audioUrl,
 )
 
 private fun LearningPath.toContinueItem(): ContinueLearningItem? {
@@ -386,6 +393,7 @@ private fun CourseLessonDto.mediaTypes(): Set<LessonMediaType> = buildSet {
     if (hasPdf || pdfUrl != null || homeworkUrl != null || "pdf" in type || "homework" in type) {
         add(LessonMediaType.Pdf)
     }
+    if (audioUrl != null || "audio" in type) add(LessonMediaType.Audio)
     if (isEmpty()) add(LessonMediaType.Video)
 }
 

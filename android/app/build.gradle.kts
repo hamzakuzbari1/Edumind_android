@@ -89,6 +89,11 @@ android {
         )
         buildConfigField(
             "String",
+            "QUIZ_DATA_SOURCE_MODE",
+            buildConfigString(envValue("QUIZ_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
             "API_BASE_URL",
             buildConfigString(envValue("API_BASE_URL", "http://10.0.2.2:8000"))
         )

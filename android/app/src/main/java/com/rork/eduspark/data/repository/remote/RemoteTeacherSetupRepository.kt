@@ -7,6 +7,7 @@ import com.rork.eduspark.data.model.Grade
 import com.rork.eduspark.data.model.TeacherExperienceInfo
 import com.rork.eduspark.data.model.TeacherIdentityInfo
 import com.rork.eduspark.data.model.TeacherPricingInfo
+import com.rork.eduspark.data.model.TeacherProfessionalDocument
 import com.rork.eduspark.data.model.TeacherQualification
 import com.rork.eduspark.data.model.TeacherSetupDocument
 import com.rork.eduspark.data.model.TeacherSetupState
@@ -14,6 +15,7 @@ import com.rork.eduspark.data.model.TeacherSetupStepId
 import com.rork.eduspark.data.model.TeacherSubjectsGrades
 import com.rork.eduspark.data.model.TeacherVoiceSample
 import com.rork.eduspark.data.remote.auth.ApiCallResult
+import com.rork.eduspark.data.remote.media.absoluteMediaUrl
 import com.rork.eduspark.data.remote.teacher.TeacherPortfolioDto
 import com.rork.eduspark.data.remote.teacher.TeacherProfileCvDto
 import com.rork.eduspark.data.remote.teacher.TeacherProfileUpdateDto
@@ -33,6 +35,7 @@ internal class RemoteTeacherSetupRepository(
     private val tokenStore: SecureTokenStore,
     private val refreshCoordinator: AuthRefreshCoordinator,
     private val authRepository: AuthRepository,
+    private val apiBaseUrl: String,
 ) : TeacherSetupRepository {
 
     private val localDrafts = mutableMapOf<String, LocalOnlyTeacherSetup>()
@@ -196,6 +199,26 @@ internal class RemoteTeacherSetupRepository(
         it.voiceSample = voiceSample
     }
 
+    override suspend fun uploadAvatar(
+        teacherId: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): AppResult<TeacherSetupState> {
+        if (bytes.isEmpty()) {
+            return AppResult.Failure(AppError.Domain("empty_avatar_file"))
+        }
+        request {
+            api.uploadAvatar(
+                accessToken = it,
+                bytes = bytes,
+                filename = filename,
+                mimeType = mimeType,
+            )
+        }.valueOrReturn { return it }
+        return getSetupState(teacherId)
+    }
+
     override suspend fun finishSetup(teacherId: String): AppResult<TeacherSetupState> {
         request(api::complete).valueOrReturn { return it }
         when (val refreshed = authRepository.restoreSession()) {
@@ -255,6 +278,10 @@ internal class RemoteTeacherSetupRepository(
                 whyStudyWithMe = portfolio.whyStudyPoints
                     .sortedBy { it.sortOrder }
                     .joinToString("\n") { it.description ?: it.title },
+                photoUrl = absoluteMediaUrl(
+                    status.imageUrl?.takeIf { it.isNotBlank() } ?: status.avatarUrl,
+                    apiBaseUrl,
+                ),
             ),
             subjectsGrades = TeacherSubjectsGrades(subjectIds = subjectIds, grades = grades),
             qualifications = cv.qualifications.sortedBy { it.sortOrder }.map {
@@ -271,6 +298,19 @@ internal class RemoteTeacherSetupRepository(
                 teachingModes = local.teachingModes,
             ),
             documents = local.documents,
+            professionalDocuments = portfolio.professionalDocuments
+                .sortedBy { it.sortOrder }
+                .map {
+                    TeacherProfessionalDocument(
+                        id = it.id.toString(),
+                        title = it.title,
+                        documentType = it.documentType,
+                        fileUrl = it.fileUrl,
+                        originalFilename = it.originalFilename,
+                        mimeType = it.mimeType,
+                        sortOrder = it.sortOrder,
+                    )
+                },
             pricing = local.pricing,
             voiceSample = local.voiceSample,
             completedStepIds = completed,

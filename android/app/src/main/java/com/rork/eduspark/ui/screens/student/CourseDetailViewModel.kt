@@ -7,8 +7,10 @@ import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.CourseOffer
 import com.rork.eduspark.data.model.LearningPath
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
 import com.rork.eduspark.data.repository.LearningRepository
 import com.rork.eduspark.data.repository.PaymentRepository
+import com.rork.eduspark.data.repository.QuizRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,6 +31,8 @@ data class CourseDetailUiState(
     /** Fetched only when the loaded course is published but [LearningPath.isEntitled] is
      *  false — the whole-course-locked state's price/benefits card. Null otherwise. */
     val offer: CourseOffer? = null,
+    /** Published manual quizzes for this course (may be empty). */
+    val manualQuizzes: List<StudentCourseQuizSummary> = emptyList(),
     val isOnline: Boolean = true,
 )
 
@@ -36,6 +40,7 @@ class CourseDetailViewModel(
     private val courseId: String,
     private val learningRepository: LearningRepository,
     private val paymentRepository: PaymentRepository,
+    private val quizRepository: QuizRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -58,7 +63,7 @@ class CourseDetailViewModel(
     fun retry() = load()
 
     private fun load() {
-        _state.update { it.copy(result = UiState.Loading, offer = null) }
+        _state.update { it.copy(result = UiState.Loading, offer = null, manualQuizzes = emptyList()) }
         viewModelScope.launch { fetch() }
     }
 
@@ -71,9 +76,22 @@ class CourseDetailViewModel(
                 } else {
                     null
                 }
-                _state.update { it.copy(result = UiState.Content(course), offer = offer) }
+                val quizzes = if (course.isPublished && course.isEntitled) {
+                    (quizRepository.listCourseQuizzes(courseId) as? AppResult.Success)?.data.orEmpty()
+                } else {
+                    emptyList()
+                }
+                _state.update {
+                    it.copy(
+                        result = UiState.Content(course),
+                        offer = offer,
+                        manualQuizzes = quizzes,
+                    )
+                }
             }
-            is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
+            is AppResult.Failure -> _state.update {
+                it.copy(result = UiState.Failure(result.error), manualQuizzes = emptyList())
+            }
         }
     }
 }

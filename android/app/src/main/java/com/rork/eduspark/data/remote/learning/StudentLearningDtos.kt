@@ -90,6 +90,7 @@ internal data class CourseLessonDto(
     @SerialName("video_url") val videoUrl: String? = null,
     @SerialName("pdf_url") val pdfUrl: String? = null,
     @SerialName("homework_url") val homeworkUrl: String? = null,
+    @SerialName("audio_url") val audioUrl: String? = null,
     @SerialName("sort_order") val sortOrder: Int = 0,
     @SerialName("lesson_type") val lessonType: String = "video",
     @SerialName("lesson_type_label") val lessonTypeLabel: String = "فيديو",

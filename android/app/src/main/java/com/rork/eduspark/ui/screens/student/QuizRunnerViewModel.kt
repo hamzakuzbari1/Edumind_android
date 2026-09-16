@@ -81,6 +81,10 @@ class QuizRunnerViewModel(
                     val attempt = quizRepository.getAttempt(quizId)
                     val answers = attempt.answers.mapValues { (_, answer) -> answer.response }
                     val currentQuestion = quiz.questions.getOrNull(attempt.currentQuestionIndex)
+                    var submittedResult: QuizResult? = null
+                    if (attempt.isCompleted) {
+                        submittedResult = (quizRepository.getResult(quizId) as? AppResult.Success)?.data
+                    }
                     _state.update {
                         it.copy(
                             result = UiState.Content(quiz),
@@ -88,9 +92,10 @@ class QuizRunnerViewModel(
                             answers = answers,
                             draftResponse = currentQuestion?.let { q -> answers[q.id] }.orEmpty(),
                             timeRemainingSeconds = quiz.timerSeconds,
+                            submittedResult = submittedResult,
                         )
                     }
-                    if (quiz.timerSeconds != null) startTimer()
+                    if (quiz.timerSeconds != null && !attempt.isCompleted) startTimer()
                 }
                 is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
             }

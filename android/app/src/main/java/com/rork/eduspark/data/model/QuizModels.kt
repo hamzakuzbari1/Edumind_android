@@ -75,9 +75,11 @@ data class QuizAttempt(
     val currentQuestionIndex: Int = 0,
     val answers: Map<String, QuizAnswer> = emptyMap(),
     val isCompleted: Boolean = false,
+    /** Backend manual-quiz attempt id when remote; null for local/mock attempts. */
+    val attemptId: String? = null,
 )
 
-/** ST-07 — scored client-side from [Quiz] + [QuizAttempt]; there is no scoring endpoint to invent. */
+/** ST-07 — scored client-side from [Quiz] + [QuizAttempt] for AI/mock; manual remote uses server percent/score. */
 data class QuizResult(
     val quiz: Quiz,
     val attempt: QuizAttempt,
@@ -86,6 +88,48 @@ data class QuizResult(
     val xpEarned: Int,
     /** Approved design's third result stat (QuizResults.dc.html) — mock-estimated, not a real stopwatch. */
     val timeTakenSeconds: Int = 0,
+    /** Server-authoritative percent for manual quizzes; null when client-scored. */
+    val scorePercent: Int? = null,
+    val passed: Boolean? = null,
+    val hasPendingEssay: Boolean = false,
+    val earnedScore: Float? = null,
+    val maxScore: Float? = null,
+)
+
+/** Teacher TC-11 analytics for one manual quiz (remote). */
+data class TeacherQuizAnalytics(
+    val quizId: String,
+    val quizTitle: String = "",
+    val enrolledStudents: Int = 0,
+    val attemptedCount: Int = 0,
+    val completionRate: Float = 0f,
+    val averageScore: Float? = null,
+    val highestScore: Float? = null,
+    val lowestScore: Float? = null,
+)
+
+/** Course-level rollup of manual quiz analytics (remote). */
+data class TeacherCourseQuizAnalytics(
+    val courseId: String,
+    val courseTitle: String = "",
+    val quizCount: Int = 0,
+    val enrolledStudents: Int = 0,
+    val totalAttempts: Int = 0,
+    val averageScore: Float? = null,
+    val completionRate: Float = 0f,
+    val quizzes: List<TeacherQuizAnalytics> = emptyList(),
+)
+
+/** One published student-facing manual quiz row on ST-02 (list/detail contracts). */
+data class StudentCourseQuizSummary(
+    val id: String,
+    val courseId: String,
+    val title: String,
+    val questionCount: Int = 0,
+    val durationMinutes: Int? = null,
+    val attemptStatus: String? = null,
+    val scorePercent: Int? = null,
+    val isCompleted: Boolean = false,
 )
 
 /** True when [response] matches [correctAnswer] — trimmed, case-insensitive for the free-text types. */

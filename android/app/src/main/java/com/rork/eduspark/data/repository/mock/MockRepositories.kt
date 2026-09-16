@@ -138,6 +138,8 @@ import com.rork.eduspark.data.model.ProjectReviewStatus
 import com.rork.eduspark.data.model.TeacherQualification
 import com.rork.eduspark.data.model.TeacherEssayResponse
 import com.rork.eduspark.data.model.TeacherQuiz
+import com.rork.eduspark.data.model.TeacherQuizAnalytics
+import com.rork.eduspark.data.model.TeacherCourseQuizAnalytics
 import com.rork.eduspark.data.model.TeacherQuizAttempt
 import com.rork.eduspark.data.model.TeacherQuizAttemptStatus
 import com.rork.eduspark.data.model.TeacherQuizQuestion
@@ -172,6 +174,7 @@ import com.rork.eduspark.data.model.QuizOption
 import com.rork.eduspark.data.model.QuizOrigin
 import com.rork.eduspark.data.model.QuizQuestion
 import com.rork.eduspark.data.model.QuizResult
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
 import com.rork.eduspark.data.model.RedeemedVoucher
 import com.rork.eduspark.data.model.FeedbackMode
 import com.rork.eduspark.data.model.QuestionType
@@ -570,6 +573,23 @@ class MockTeacherRepository : TeacherRepository {
         val result = updateState(teacherId) { it.copy(voiceSample = voiceSample, completedStepIds = it.completedStepIds + TeacherSetupStepId.VoiceSample) }
         syncVoiceProfileFromSetup(teacherId, voiceSample)
         return result
+    }
+
+    override suspend fun uploadAvatar(
+        teacherId: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): AppResult<TeacherSetupState> {
+        delay(MockLatency.FAST_MS)
+        if (bytes.isEmpty()) return AppResult.Failure(AppError.Domain("empty_avatar_file"))
+        val photoUrl = "https://example.test/uploads/teachers/$teacherId/$filename"
+        return updateState(teacherId) { state ->
+            state.copy(
+                identity = state.identity.copy(photoUrl = photoUrl),
+                completedStepIds = state.completedStepIds + TeacherSetupStepId.Identity,
+            )
+        }
     }
 
     /** Never silently completes a skipped required step — see [TeacherRepository.finishSetup]'s own doc comment. */
@@ -983,6 +1003,16 @@ class MockTeacherRepository : TeacherRepository {
         val updated = quiz.copy(status = TeacherQuizStatus.Published)
         quizzes.value = quizzes.value + (quizId to updated)
         return AppResult.Success(updated)
+    }
+
+    override suspend fun getQuizAnalytics(quizId: String): AppResult<TeacherQuizAnalytics> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Failure(AppError.Domain("quiz_analytics_not_available"))
+    }
+
+    override suspend fun getCourseQuizAnalytics(courseId: String): AppResult<TeacherCourseQuizAnalytics> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Failure(AppError.Domain("course_quiz_analytics_not_available"))
     }
 
     override suspend fun generateAiQuizQuestionCandidates(quizId: String): AppResult<List<TeacherQuizQuestion>> {
@@ -3005,6 +3035,7 @@ class MockQuizRepository : QuizRepository {
     private val quizzes: MutableMap<String, Quiz> = mutableMapOf(
         QUIZ_MATH_3.id to QUIZ_MATH_3,
         QUIZ_MANUAL_MATH.id to QUIZ_MANUAL_MATH,
+        QUIZ_MANUAL_MATH_REVIEW.id to QUIZ_MANUAL_MATH_REVIEW,
         QUIZ_MANUAL_PHYSICS.id to QUIZ_MANUAL_PHYSICS,
     )
     private val attempts = mutableMapOf<String, QuizAttempt>()
@@ -3073,6 +3104,45 @@ class MockQuizRepository : QuizRepository {
         attempts.remove(remedialId)
         results.remove(remedialId)
         return AppResult.Success(remedial)
+    }
+
+    override suspend fun regenerateQuiz(quizId: String): AppResult<Quiz> {
+        delay(MockLatency.FAST_MS)
+        val quiz = quizzes[quizId] ?: return AppResult.Failure(AppError.NotFound)
+        if (quiz.origin != QuizOrigin.AiLesson || quiz.isRemedial) {
+            return AppResult.Failure(AppError.Domain("regenerate_not_supported_for_manual"))
+        }
+        attempts.remove(quizId)
+        results.remove(quizId)
+        return AppResult.Success(quiz)
+    }
+
+    override suspend fun listCourseQuizzes(courseId: String): AppResult<List<StudentCourseQuizSummary>> {
+        delay(MockLatency.FAST_MS)
+        val items = quizzes.values
+            .filter { it.origin == QuizOrigin.TeacherManual }
+            .filter { quiz ->
+                quiz.id == "manual-$courseId" ||
+                    quiz.id.startsWith("manual-$courseId-") ||
+                    (courseId == "math" && quiz.id.contains("math")) ||
+                    (courseId == "physics" && quiz.id.contains("physics"))
+            }
+            .map { quiz ->
+                val attempt = attempts[quiz.id]
+                StudentCourseQuizSummary(
+                    id = quiz.id,
+                    courseId = courseId,
+                    title = quiz.title,
+                    questionCount = quiz.questions.size,
+                    durationMinutes = quiz.timerSeconds?.div(60),
+                    attemptStatus = if (attempt?.isCompleted == true) "graded" else null,
+                    scorePercent = results[quiz.id]?.let { r ->
+                        if (r.totalCount == 0) 0 else (r.correctCount * 100 / r.totalCount)
+                    },
+                    isCompleted = attempt?.isCompleted == true,
+                )
+            }
+        return AppResult.Success(items)
     }
 
     private fun score(quiz: Quiz, attempt: QuizAttempt): QuizResult {
@@ -3178,6 +3248,29 @@ class MockQuizRepository : QuizRepository {
                     prompt = "اذكر خطوة واحدة تُستخدم لإيجاد نقاط الانعطاف لدالة.",
                     correctAnswer = "نساوي المشتقة الثانية بالصفر",
                     explanation = "نساوي المشتقة الثانية بالصفر ونحل المعادلة لإيجاد نقاط الانعطاف المحتملة.",
+                ),
+            ),
+        )
+
+        val QUIZ_MANUAL_MATH_REVIEW = Quiz(
+            id = "manual-math-review",
+            origin = QuizOrigin.TeacherManual,
+            lessonId = "math-3",
+            lessonTitle = "المشتقة الثانية",
+            title = "مراجعة سريعة — المشتقات",
+            teacherName = "الأستاذ سامر الخطيب",
+            feedbackMode = FeedbackMode.Deferred,
+            timerSeconds = null,
+            questions = listOf(
+                QuizQuestion(
+                    id = "mr1", type = QuestionType.MultipleChoice,
+                    prompt = "مشتقة x³ هي؟",
+                    options = listOf(
+                        QuizOption("a", "3x²"), QuizOption("b", "x²"),
+                        QuizOption("c", "3x"), QuizOption("d", "x³"),
+                    ),
+                    correctAnswer = "a",
+                    explanation = "مشتقة xⁿ هي n·x^(n−1).",
                 ),
             ),
         )

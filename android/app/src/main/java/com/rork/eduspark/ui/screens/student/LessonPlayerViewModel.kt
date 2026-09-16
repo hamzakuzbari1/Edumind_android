@@ -3,18 +3,23 @@ package com.rork.eduspark.ui.screens.student
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
+import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LessonDetail
 import com.rork.eduspark.data.model.LessonMediaType
 import com.rork.eduspark.data.model.Quiz
 import com.rork.eduspark.data.model.QuizResult
+import com.rork.eduspark.data.remote.media.MediaUrlResolver
 import com.rork.eduspark.data.repository.LearningRepository
 import com.rork.eduspark.data.repository.QuizRepository
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -28,10 +33,8 @@ import kotlinx.coroutines.launch
  * [LessonDetail.mediaTypes] (video first, then PDF, then audio-only), but every surface
  * shares this same playback/position state rather than each owning its own.
  *
- * "Remember position within the current mock session" (ST-03's PDF requirement) is exactly
- * what living in the ViewModel rather than the composable gives for free — the state
- * survives a configuration change and returning from ST-04/ST-05, and resets only when this
- * ViewModel is actually cleared (leaving the lesson for good).
+ * Backend media refs on [LessonDetail] are resolved through [MediaUrlResolver] at open /
+ * download time. Signed URLs are never stored on the lesson model.
  */
 data class LessonPlayerUiState(
     val result: UiState<LessonDetail> = UiState.Loading,
@@ -40,6 +43,7 @@ data class LessonPlayerUiState(
     val isRefreshingSession: Boolean = false,
     val downloadState: DownloadState = DownloadState.NotDownloaded,
     val downloadProgress: Float = 0f,
+    val isResolvingMedia: Boolean = false,
     // PDF
     val currentPage: Int = 1,
     val isZoomed: Boolean = false,
@@ -63,13 +67,6 @@ data class LessonQuizSession(
     val wrongCount: Int? get() = correctCount?.let { (totalCount - it).coerceAtLeast(0) }
 }
 
-/**
- * ST-03's completion-verification sheet — only checks Android can actually verify frontend-only.
- * [contentEngaged] reads the exact same page/position state the player surfaces already tracks;
- * [quizCompleted] is meaningless (and ignored via [allMet]) when the lesson has no [quizRequired].
- * Test-2SY's real backend checks more than this (time-on-page thresholds, AI chat interaction
- * counts) — this mock deliberately doesn't fabricate signals Android has no data for.
- */
 data class LessonCompletionChecklist(
     val contentEngaged: Boolean,
     val quizRequired: Boolean,
@@ -78,18 +75,28 @@ data class LessonCompletionChecklist(
     val allMet: Boolean get() = contentEngaged && (!quizRequired || quizCompleted)
 }
 
+sealed interface LessonPlayerEvent {
+    data class OpenExternalMedia(val url: String) : LessonPlayerEvent
+    data class MediaResolveFailed(val error: AppError) : LessonPlayerEvent
+}
+
 class LessonPlayerViewModel(
     private val lessonId: String,
     private val learningRepository: LearningRepository,
     private val quizRepository: QuizRepository,
+    private val mediaUrlResolver: MediaUrlResolver,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LessonPlayerUiState())
     val state: StateFlow<LessonPlayerUiState> = _state.asStateFlow()
 
+    private val _events = Channel<LessonPlayerEvent>(Channel.BUFFERED)
+    val events: Flow<LessonPlayerEvent> = _events.receiveAsFlow()
+
     private var playbackJob: Job? = null
     private var downloadJob: Job? = null
+    private var resolveJob: Job? = null
 
     init {
         viewModelScope.launch {
@@ -161,16 +168,78 @@ class LessonPlayerViewModel(
         }
     }
 
+    /** Opens PDF/homework via resolved public, legacy, or freshly signed private URL. */
+    fun openPdfFile() {
+        val lesson = (_state.value.result as? UiState.Content)?.data ?: return
+        val ref = lesson.pdfUrl ?: lesson.homeworkUrl
+        resolveAndOpen(ref) {
+            persistCurrentProgress(pdfOpened = true)
+        }
+    }
+
+    fun openVideoFile() {
+        val lesson = (_state.value.result as? UiState.Content)?.data ?: return
+        resolveAndOpen(lesson.videoUrl)
+    }
+
+    fun openAudioFile() {
+        val lesson = (_state.value.result as? UiState.Content)?.data ?: return
+        resolveAndOpen(lesson.audioUrl)
+    }
+
+    fun openHomeworkFile() {
+        val lesson = (_state.value.result as? UiState.Content)?.data ?: return
+        resolveAndOpen(lesson.homeworkUrl)
+    }
+
     fun startDownload() {
         if (_state.value.downloadState != DownloadState.NotDownloaded) return
+        val lesson = (_state.value.result as? UiState.Content)?.data ?: return
+        val ref = lesson.pdfUrl ?: lesson.videoUrl ?: lesson.homeworkUrl ?: lesson.audioUrl
+        downloadJob?.cancel()
         downloadJob = viewModelScope.launch {
-            _state.update { it.copy(downloadState = DownloadState.Downloading, downloadProgress = 0f) }
-            val steps = 10
-            repeat(steps) { index ->
-                kotlinx.coroutines.delay(180L)
-                _state.update { it.copy(downloadProgress = (index + 1) / steps.toFloat()) }
+            _state.update { it.copy(downloadState = DownloadState.Downloading, downloadProgress = 0f, isResolvingMedia = true) }
+            when (val resolved = mediaUrlResolver.resolve(ref)) {
+                is AppResult.Success -> {
+                    _state.update { it.copy(isResolvingMedia = false, downloadProgress = 0.5f) }
+                    _events.send(LessonPlayerEvent.OpenExternalMedia(resolved.data.url))
+                    _state.update { it.copy(downloadState = DownloadState.Downloaded, downloadProgress = 1f) }
+                }
+                is AppResult.Failure -> {
+                    _state.update {
+                        it.copy(
+                            isResolvingMedia = false,
+                            downloadState = DownloadState.NotDownloaded,
+                            downloadProgress = 0f,
+                        )
+                    }
+                    _events.send(LessonPlayerEvent.MediaResolveFailed(resolved.error))
+                }
             }
-            _state.update { it.copy(downloadState = DownloadState.Downloaded) }
+        }
+    }
+
+    private fun resolveAndOpen(ref: String?, onSuccess: (() -> Unit)? = null) {
+        if (ref.isNullOrBlank()) {
+            viewModelScope.launch {
+                _events.send(LessonPlayerEvent.MediaResolveFailed(AppError.NotFound))
+            }
+            return
+        }
+        resolveJob?.cancel()
+        resolveJob = viewModelScope.launch {
+            _state.update { it.copy(isResolvingMedia = true) }
+            when (val resolved = mediaUrlResolver.resolve(ref)) {
+                is AppResult.Success -> {
+                    _state.update { it.copy(isResolvingMedia = false) }
+                    onSuccess?.invoke()
+                    _events.send(LessonPlayerEvent.OpenExternalMedia(resolved.data.url))
+                }
+                is AppResult.Failure -> {
+                    _state.update { it.copy(isResolvingMedia = false) }
+                    _events.send(LessonPlayerEvent.MediaResolveFailed(resolved.error))
+                }
+            }
         }
     }
 
@@ -273,6 +342,7 @@ class LessonPlayerViewModel(
     override fun onCleared() {
         playbackJob?.cancel()
         downloadJob?.cancel()
+        resolveJob?.cancel()
     }
 }
 

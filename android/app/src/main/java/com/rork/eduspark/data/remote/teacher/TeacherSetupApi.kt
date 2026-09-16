@@ -5,6 +5,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.delete
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -12,6 +14,8 @@ import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import java.io.IOException
 import kotlinx.serialization.SerializationException
@@ -24,6 +28,12 @@ import kotlinx.serialization.json.jsonPrimitive
 internal interface TeacherSetupApi {
     suspend fun status(accessToken: String): ApiCallResult<TeacherSetupStatusDto>
     suspend fun updateProfile(accessToken: String, body: TeacherProfileUpdateDto): ApiCallResult<TeacherSetupStatusDto>
+    suspend fun uploadAvatar(
+        accessToken: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): ApiCallResult<TeacherSetupStatusDto>
     suspend fun subjects(accessToken: String, grade: Int): ApiCallResult<List<TeacherSubjectDto>>
     suspend fun updateTeaching(accessToken: String, body: TeacherTeachingUpdateDto): ApiCallResult<TeacherSetupStatusDto>
     suspend fun cv(accessToken: String): ApiCallResult<TeacherProfileCvDto>
@@ -50,6 +60,36 @@ internal class KtorTeacherSetupApi(
 
     override suspend fun updateProfile(accessToken: String, body: TeacherProfileUpdateDto) =
         put<TeacherSetupStatusDto, TeacherProfileUpdateDto>("/api/teacher/setup/profile", accessToken, body)
+
+    override suspend fun uploadAvatar(
+        accessToken: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): ApiCallResult<TeacherSetupStatusDto> = execute {
+        val safeName = filename.ifBlank { "avatar.jpg" }
+        val contentType = runCatching { ContentType.parse(mimeType) }.getOrElse { ContentType.Image.JPEG }
+        client.post(url("/api/teacher/setup/avatar")) {
+            bearerAuth(accessToken)
+            setBody(
+                MultiPartFormDataContent(
+                    formData {
+                        append(
+                            "file",
+                            bytes,
+                            Headers.build {
+                                append(HttpHeaders.ContentType, contentType.toString())
+                                append(
+                                    HttpHeaders.ContentDisposition,
+                                    "filename=\"$safeName\"",
+                                )
+                            },
+                        )
+                    },
+                ),
+            )
+        }
+    }
 
     override suspend fun subjects(accessToken: String, grade: Int) = execute<List<TeacherSubjectDto>> {
         client.get(url("/api/teacher/setup/subjects")) {

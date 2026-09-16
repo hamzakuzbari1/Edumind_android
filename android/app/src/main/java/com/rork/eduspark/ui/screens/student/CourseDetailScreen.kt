@@ -60,6 +60,7 @@ import com.rork.eduspark.data.model.LearningUnit
 import com.rork.eduspark.data.model.LessonMediaType
 import com.rork.eduspark.data.model.LessonStatus
 import com.rork.eduspark.data.model.LockedReason
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
 import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.foundation.eduClickable
@@ -86,7 +87,8 @@ fun CourseDetailScreen(
     courseId: String,
     onBack: () -> Unit,
     onContinueLesson: (lessonId: String) -> Unit,
-    onOpenManualQuiz: () -> Unit,
+    onOpenManualQuiz: (quizId: String) -> Unit,
+    onOpenManualQuizResults: (quizId: String) -> Unit,
     onSubscribe: () -> Unit,
     onMessageTeacher: () -> Unit,
     modifier: Modifier = Modifier,
@@ -121,8 +123,10 @@ fun CourseDetailScreen(
                 )
                 else -> CourseContent(
                     course = loadedCourse,
+                    manualQuizzes = state.manualQuizzes,
                     onOpenLesson = onContinueLesson,
                     onOpenManualQuiz = onOpenManualQuiz,
+                    onOpenManualQuizResults = onOpenManualQuizResults,
                     onMessageTeacher = onMessageTeacher,
                 )
             }
@@ -224,14 +228,17 @@ private enum class CourseDetailTab { Lessons, Quizzes }
 @Composable
 private fun CourseContent(
     course: LearningPath,
+    manualQuizzes: List<StudentCourseQuizSummary>,
     onOpenLesson: (lessonId: String) -> Unit,
-    onOpenManualQuiz: () -> Unit,
+    onOpenManualQuiz: (quizId: String) -> Unit,
+    onOpenManualQuizResults: (quizId: String) -> Unit,
     onMessageTeacher: () -> Unit,
 ) {
     var showTeacherProfile by rememberSaveable { mutableStateOf(false) }
     val units = course.toCourseUnits()
     val currentUnitIndex = units.indexOfFirst { unit -> unit.steps.any { it.isCurrent } }.takeIf { it >= 0 } ?: 0
     var expandedUnit by rememberSaveable(course.id) { mutableStateOf(currentUnitIndex) }
+    val quizCount = manualQuizzes.size.coerceAtLeast(course.quizCount)
 
     if (showTeacherProfile) {
         TeacherProfileDialog(course = course, onDismiss = { showTeacherProfile = false })
@@ -287,15 +294,14 @@ private fun CourseContent(
             }
         }
 
-        if (course.quizCount > 0) {
-            item {
-                GhostButton(
-                    text = stringResource(R.string.st02_tab_quizzes_count, course.quizCount),
-                    onClick = onOpenManualQuiz,
-                    leadingIcon = Icons.Filled.Quiz,
-                    modifier = Modifier.padding(top = Spacing.sm),
-                )
-            }
+        item {
+            Spacer(modifier = Modifier.height(Spacing.section))
+            CourseQuizzesPanel(
+                quizzes = manualQuizzes,
+                quizCountHint = quizCount,
+                onOpenManualQuiz = onOpenManualQuiz,
+                onOpenManualQuizResults = onOpenManualQuizResults,
+            )
         }
     }
 }
@@ -648,7 +654,12 @@ private fun LessonStatusGlyph(step: LearningStep) {
 }
 
 @Composable
-private fun CourseQuizzesPanel(course: LearningPath, onOpenManualQuiz: () -> Unit) {
+private fun CourseQuizzesPanel(
+    quizzes: List<StudentCourseQuizSummary>,
+    quizCountHint: Int,
+    onOpenManualQuiz: (quizId: String) -> Unit,
+    onOpenManualQuizResults: (quizId: String) -> Unit,
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         StudentWebSectionIntro(
             title = stringResource(R.string.st02_quizzes_title),
@@ -656,55 +667,7 @@ private fun CourseQuizzesPanel(course: LearningPath, onOpenManualQuiz: () -> Uni
         )
         Spacer(modifier = Modifier.height(Spacing.sm))
 
-        if (course.quizCount > 0) {
-            EduCard {
-                Row(
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
-                ) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .size(44.dp)
-                            .background(EduTheme.colors.primaryContainer, CircleShape),
-                    ) {
-                        Icon(Icons.Filled.Quiz, contentDescription = null, tint = EduTheme.colors.primary, modifier = Modifier.size(Sizing.icon))
-                    }
-                    Column(modifier = Modifier.weight(1f)) {
-                        Row(
-                            verticalAlignment = Alignment.Top,
-                            horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Text(
-                                text = stringResource(R.string.st02_manual_quiz_row),
-                                style = EduTheme.typography.bodyLg.copy(fontWeight = FontWeight.Bold),
-                                color = EduTheme.colors.textPrimary,
-                                modifier = Modifier.weight(1f),
-                            )
-                            StatusPill(
-                                label = stringResource(R.string.st02_quizzes_status_available),
-                                contentColor = EduTheme.colors.primary,
-                                containerColor = EduTheme.colors.primaryContainer,
-                            )
-                        }
-                        Text(
-                            text = pluralStringResource(R.plurals.st02_quizzes_meta, course.quizCount, course.quizCount),
-                            style = EduTheme.typography.caption,
-                            color = EduTheme.colors.textSecondary,
-                            modifier = Modifier.padding(top = Spacing.xs),
-                        )
-                    }
-                }
-                PrimaryButton(
-                    text = stringResource(R.string.st02_quizzes_cta_start),
-                    onClick = onOpenManualQuiz,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = Spacing.md),
-                )
-            }
-        } else {
+        if (quizzes.isEmpty()) {
             EduCard {
                 Icon(
                     imageVector = Icons.Filled.Quiz,
@@ -731,7 +694,103 @@ private fun CourseQuizzesPanel(course: LearningPath, onOpenManualQuiz: () -> Uni
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
+        } else {
+            Text(
+                text = pluralStringResource(
+                    R.plurals.st02_quizzes_meta,
+                    quizzes.size.coerceAtLeast(quizCountHint),
+                    quizzes.size.coerceAtLeast(quizCountHint),
+                ),
+                style = EduTheme.typography.caption,
+                color = EduTheme.colors.textSecondary,
+                modifier = Modifier.padding(bottom = Spacing.sm),
+            )
+            quizzes.forEachIndexed { index, quiz ->
+                if (index > 0) Spacer(modifier = Modifier.height(Spacing.sm))
+                CourseManualQuizRow(
+                    quiz = quiz,
+                    onOpen = {
+                        if (quiz.isCompleted) onOpenManualQuizResults(quiz.id)
+                        else onOpenManualQuiz(quiz.id)
+                    },
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun CourseManualQuizRow(
+    quiz: StudentCourseQuizSummary,
+    onOpen: () -> Unit,
+) {
+    EduCard {
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(44.dp)
+                    .background(EduTheme.colors.primaryContainer, CircleShape),
+            ) {
+                Icon(Icons.Filled.Quiz, contentDescription = null, tint = EduTheme.colors.primary, modifier = Modifier.size(Sizing.icon))
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                Row(
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(
+                        text = quiz.title.ifBlank { stringResource(R.string.st02_manual_quiz_row) },
+                        style = EduTheme.typography.bodyLg.copy(fontWeight = FontWeight.Bold),
+                        color = EduTheme.colors.textPrimary,
+                        modifier = Modifier.weight(1f),
+                    )
+                    StatusPill(
+                        label = stringResource(
+                            if (quiz.isCompleted) R.string.st02_quizzes_status_completed
+                            else R.string.st02_quizzes_status_available,
+                        ),
+                        contentColor = if (quiz.isCompleted) EduTheme.colors.success else EduTheme.colors.primary,
+                        containerColor = if (quiz.isCompleted) {
+                            EduTheme.colors.success.copy(alpha = 0.12f)
+                        } else {
+                            EduTheme.colors.primaryContainer
+                        },
+                    )
+                }
+                val questionsMeta = if (quiz.questionCount > 0) {
+                    stringResource(R.string.st02_quizzes_questions_meta, quiz.questionCount)
+                } else {
+                    ""
+                }
+                val scoreMeta = quiz.scorePercent?.takeIf { quiz.isCompleted }?.let { percent ->
+                    stringResource(R.string.st07_score_percent, numeral(percent))
+                }.orEmpty()
+                Text(
+                    text = listOf(questionsMeta, scoreMeta)
+                        .filter { it.isNotBlank() }
+                        .joinToString(" · ")
+                        .ifBlank { stringResource(R.string.st02_manual_quiz_row) },
+                    style = EduTheme.typography.caption,
+                    color = EduTheme.colors.textSecondary,
+                    modifier = Modifier.padding(top = Spacing.xs),
+                )
+            }
+        }
+        PrimaryButton(
+            text = stringResource(
+                if (quiz.isCompleted) R.string.st02_quizzes_cta_results
+                else R.string.st02_quizzes_cta_start,
+            ),
+            onClick = onOpen,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Spacing.md),
+        )
     }
 }
 

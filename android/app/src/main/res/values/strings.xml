@@ -1308,8 +1308,11 @@
         <item quantity="other">%1$d اختبار متاح.</item>
     </plurals>
     <string name="st02_quizzes_status_available">متاح</string>
+    <string name="st02_quizzes_status_completed">مكتمل</string>
     <string name="st02_quizzes_cta_start">ابدأ الاختبار</string>
+    <string name="st02_quizzes_cta_results">عرض النتائج</string>
     <string name="st02_quizzes_empty_body">عندما ينشر المعلّم اختباراً سيظهر هنا.</string>
+    <string name="st02_quizzes_questions_meta">%1$d أسئلة</string>
     <string name="st02_teacher_profile_title">ملف %1$s</string>
     <string name="st02_teacher_profile_body">%1$s · %2$s</string>
     <string name="st02_course_progress_label">تقدّمك</string>
@@ -1345,6 +1348,8 @@
          ═══════════════════════════════════════════════════════════════ -->
     <string name="st07_title">نتيجة الاختبار</string>
     <string name="st07_correct_count">%1$s من %2$s إجابات صحيحة</string>
+    <string name="st07_score_percent">%1$s٪</string>
+    <string name="st07_pending_essay">بانتظار تصحيح المعلم للأسئلة المقالية</string>
     <string name="st07_review_wrong">مراجعة الإجابات الخاطئة</string>
     <string name="st07_show_all">عرض جميع الأسئلة</string>
     <string name="st07_practice_again">تدرّب على هذه الأسئلة مرة أخرى</string>
@@ -2654,6 +2659,8 @@
     <string name="tc16_row_teaching">صفحة التدريس</string>
     <string name="tc16_row_settings">الإعدادات</string>
     <string name="tc16_change_photo">غيّر الصورة</string>
+    <string name="tc16_photo_upload_failed">تعذّر رفع الصورة. أعد المحاولة.</string>
+    <string name="tc16_photo_read_failed">تعذّر قراءة الصورة المحددة. اختر صورة أخرى.</string>
     <string name="tc16_bio_field">نبذة</string>
     <string name="tc16_teaching_title">صفحة التدريس</string>
     <string name="tc16_teaching_heading">المؤهلات والسيرة</string>

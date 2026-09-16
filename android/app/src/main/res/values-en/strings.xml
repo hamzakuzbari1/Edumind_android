@@ -1228,7 +1228,10 @@
         <item quantity="other">%1$d quizzes available</item>
     </plurals>
     <string name="st02_quizzes_status_available">Available</string>
+    <string name="st02_quizzes_status_completed">Completed</string>
     <string name="st02_quizzes_cta_start">Start quiz</string>
+    <string name="st02_quizzes_cta_results">View results</string>
+    <string name="st02_quizzes_questions_meta">%1$d questions</string>
     <string name="st02_quizzes_empty_body">Manual quizzes will appear here when your teacher adds them.</string>
     <string name="st02_teacher_profile_title">%1$s profile</string>
     <string name="st02_teacher_profile_body">%1$s · %2$s</string>
@@ -2559,6 +2562,8 @@
     <string name="tc16_row_teaching">Teaching page</string>
     <string name="tc16_row_settings">Settings</string>
     <string name="tc16_change_photo">Change photo</string>
+    <string name="tc16_photo_upload_failed">Couldn’t upload the photo. Try again.</string>
+    <string name="tc16_photo_read_failed">Couldn’t read the selected photo. Choose another image.</string>
     <string name="tc16_bio_field">Bio</string>
     <string name="tc16_teaching_title">Teaching page</string>
     <string name="tc16_teaching_heading">Qualifications and background</string>

@@ -221,6 +221,15 @@ data class LessonDetail(
     /** Approved design's "الأفكار الأساسية" card (LessonPlayer.dc.html) — a short numbered
      *  summary of the lesson's core points. Empty hides the card entirely. */
     val keyIdeas: List<String> = emptyList(),
+    /**
+     * Backend media references (public https, `/uploads/...`, or `/api/media/{id}/download-url`).
+     * Never store resolved signed URLs here — resolve through [com.rork.eduspark.data.remote.media.MediaUrlResolver]
+     * at open/play time.
+     */
+    val videoUrl: String? = null,
+    val pdfUrl: String? = null,
+    val homeworkUrl: String? = null,
+    val audioUrl: String? = null,
 )
 
 /**
