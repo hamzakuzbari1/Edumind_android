@@ -103,3 +103,14 @@ internal data class ParentViewerNoteReplyDto(
 internal data class ParentViewerNoteReplyCreateDto(
     val body: String,
 )
+
+@Serializable
+internal data class ParentLinkStudentRequestDto(
+    @SerialName("link_code") val linkCode: String,
+)
+
+@Serializable
+internal data class ParentLinkStudentResponseDto(
+    val ok: Boolean = true,
+    @SerialName("student_id") val studentId: Int,
+)

@@ -25,9 +25,14 @@ import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.ParentActivity
 import com.rork.eduspark.data.model.ParentCourseProgress
 import com.rork.eduspark.data.model.ParentDashboard
+import com.rork.eduspark.data.model.ParentFeatureSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentLessonDetails
+import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentNote
 import com.rork.eduspark.data.model.ParentNotesFeed
+import com.rork.eduspark.data.model.ParentNotificationSnapshot
+import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.model.StudentOnboardingStatus
 import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.PaymentMethod
@@ -568,6 +573,19 @@ interface ParentRepository {
 
     /** Replies to a note via `/api/parent/notes/{id}/reply`. */
     suspend fun replyToParentNote(noteId: String, body: String): AppResult<ParentNote>
+
+    /** Links a child with the backend parent invitation code. */
+    suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
+
+    suspend fun getPerformanceSummary(studentId: String): AppResult<ParentFeatureSnapshot>
+    suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentFeatureSnapshot>
+    suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot>
+    suspend fun getLessonDetails(studentId: String, lessonId: String): AppResult<ParentLessonDetails>
+    suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
+    suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
+    suspend fun getInsightsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
+    suspend fun getReportsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
+    suspend fun getNotificationsSnapshot(studentId: String): AppResult<ParentNotificationSnapshot>
 }
 
 /**

@@ -1,12 +1,17 @@
 package com.rork.eduspark.data.repository.remote
 
+import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.session.InMemoryTokenStore
 import com.rork.eduspark.core.session.StoredSession
 import com.rork.eduspark.data.model.ParentActivity
 import com.rork.eduspark.data.model.ParentCourseProgress
 import com.rork.eduspark.data.model.ParentDashboard
+import com.rork.eduspark.data.model.ParentFeatureSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
+import com.rork.eduspark.data.model.ParentNotificationSnapshot
+import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.remote.auth.ApiCallResult
 import com.rork.eduspark.data.remote.auth.AuthApi
 import com.rork.eduspark.data.remote.auth.ForgotPasswordRequestDto
@@ -28,6 +33,8 @@ import com.rork.eduspark.data.remote.parent.ParentApi
 import com.rork.eduspark.data.remote.parent.ParentCourseProgressDto
 import com.rork.eduspark.data.remote.parent.ParentDashboardDto
 import com.rork.eduspark.data.remote.parent.ParentInsightDto
+import com.rork.eduspark.data.remote.parent.ParentLinkStudentRequestDto
+import com.rork.eduspark.data.remote.parent.ParentLinkStudentResponseDto
 import com.rork.eduspark.data.remote.parent.ParentLinkedStudentDto
 import com.rork.eduspark.data.remote.parent.ParentNotesListDto
 import com.rork.eduspark.data.remote.parent.ParentViewerNoteDto
@@ -36,8 +43,10 @@ import com.rork.eduspark.data.remote.parent.ParentViewerNoteReplyDto
 import com.rork.eduspark.data.remote.parent.toDomain
 import com.rork.eduspark.data.model.ParentNotesFeed
 import com.rork.eduspark.data.model.ParentNote
+import kotlinx.serialization.json.JsonElement
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlin.test.Test
@@ -329,6 +338,161 @@ class RemoteParentRepositoryTest {
         assertEquals(0, feed.unreadCount)
     }
 
+    @Test
+    fun insightsArrayAndAcademicIntelligenceMerge() = runBlocking {
+        val api = FakeParentApi(
+            students = listOf(studentDto(4, "Omar")),
+            insightsByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """[{"id":"i1","text":"تحسّن في الرياضيات","severity":"info"}]""",
+                ),
+            ),
+            academicIntelligenceByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """{"overall_average":82.5,"performance_label":"جيد","summary":"أداء مستقر","subjects":[{"subject_name":"رياضيات","course_id":9,"composite_score":88}]}""",
+                ),
+            ),
+        )
+        val snapshot = assertIs<AppResult.Success<ParentFeatureSnapshot>>(
+            fixture(api).repository.getInsightsSnapshot("4"),
+        ).data
+        assertEquals("82.5", snapshot.metrics.first { it.label == "المعدل" }.value)
+        assertEquals("تحسّن في الرياضيات", snapshot.items.first().title)
+        assertEquals("رياضيات", snapshot.items.last().title)
+    }
+
+    @Test
+    fun lessonProgressFlattensNestedCoursesAndUsesSummary() = runBlocking {
+        val api = FakeParentApi(
+            students = listOf(studentDto(4, "Omar")),
+            lessonProgressByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """{"student_id":4,"courses":[{"course_id":1,"course_title":"Math","lessons":[{"lesson_id":55,"lesson_title":"Algebra","course_title":"Math","status":"completed","status_label":"مكتمل","completion_percent":100}]}],"summary":{"completed_lessons":1,"total_lessons":3}}""",
+                ),
+            ),
+        )
+        val snapshot = assertIs<AppResult.Success<ParentLessonProgressSnapshot>>(
+            fixture(api).repository.getLessonProgress("4"),
+        ).data
+        assertEquals("55", snapshot.lessons.single().id)
+        assertEquals("Algebra", snapshot.lessons.single().title)
+        assertEquals(1, snapshot.completedLessons)
+        assertEquals(3, snapshot.totalLessons)
+    }
+
+    @Test
+    fun subjectsTeachersCombinesEnrolledAndAvailable() = runBlocking {
+        val api = FakeParentApi(
+            students = listOf(studentDto(4, "Omar")),
+            subjectsTeachersByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """{"student_id":4,"enrolled":[{"course_id":1,"subject_name":"رياضيات","teacher_name":"معلم 1","enrolled":true,"subscription_status":"active"}],"available":[{"course_id":2,"subject_name":"علوم","teacher_name":"معلم 2","enrolled":false,"subscription_status":"pending"}]}""",
+                ),
+            ),
+        )
+        val snapshot = assertIs<AppResult.Success<ParentSubjectsTeachersSnapshot>>(
+            fixture(api).repository.getSubjectsTeachers("4"),
+        ).data
+        assertEquals(listOf("رياضيات", "علوم"), snapshot.items.map { it.title })
+    }
+
+    @Test
+    fun notificationSettingsPassStudentIdAndMapBooleanFlags() = runBlocking {
+        val api = FakeParentApi(
+            students = listOf(studentDto(4, "Omar")),
+            notificationsByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """{"items":[{"id":9,"title":"دخول","body":"سجل الطالب","is_read":false}],"unread_count":1}""",
+                ),
+            ),
+            notificationSettingsByStudent = mapOf(
+                4 to Json.parseToJsonElement(
+                    """{"student_id":4,"login_alerts":true,"logout_alerts":false,"lesson_alerts":true}""",
+                ),
+            ),
+        )
+        val snapshot = assertIs<AppResult.Success<ParentNotificationSnapshot>>(
+            fixture(api).repository.getNotificationsSnapshot("4"),
+        ).data
+        assertEquals(4, api.lastNotificationSettingsStudentId)
+        assertEquals(1, snapshot.unreadCount)
+        assertEquals("دخول", snapshot.notifications.single().title)
+        assertEquals("مفعل", snapshot.preferences.first { it.id == "login_alerts" }.status)
+        assertEquals("متوقف", snapshot.preferences.first { it.id == "logout_alerts" }.status)
+    }
+
+    @Test
+    fun parentHttpDetailIsNotHidden() = runBlocking {
+        val api = FakeParentApi(students = listOf(studentDto(4, "Omar")))
+        api.lessonProgressFailure = ApiCallResult.HttpFailure(404, detail = "الطالب غير مرتبط")
+        val result = fixture(api).repository.getLessonProgress("4")
+        assertEquals(AppError.Domain("الطالب غير مرتبط"), assertIs<AppResult.Failure>(result).error)
+    }
+
+    @Test
+    fun linkStudentSendsTrimmedUppercaseLinkCodeAndSelectsNewChild() = runBlocking {
+        val api = FakeParentApi(students = mutableListOf(studentDto(1, "Ali")))
+        api.linkResult = ApiCallResult.Success(ParentLinkStudentResponseDto(ok = true, studentId = 12))
+        api.onLinked = { api.studentList += studentDto(12, "Lina") }
+        val fixture = fixture(api)
+
+        fixture.repository.getLinkedStudents()
+        val linked = assertIs<AppResult.Success<ParentLinkedStudent>>(
+            fixture.repository.linkStudent("  ab12cd34  "),
+        ).data
+
+        assertEquals("AB12CD34", api.lastLinkRequest?.linkCode)
+        assertEquals("12", linked.id)
+        assertEquals("Lina", linked.name)
+        assertEquals("12", fixture.repository.selectedStudentId.first())
+        assertEquals(listOf("1", "12"), fixture.repository.linkedStudents.first().map { it.id })
+    }
+
+    @Test
+    fun linkStudentRejectsUnknownCodeWithBackendDetail() = runBlocking {
+        val api = FakeParentApi()
+        api.linkResult = ApiCallResult.HttpFailure(404, detail = "رمز الربط غير صالح")
+        val fixture = fixture(api)
+
+        val result = fixture.repository.linkStudent("ZZZZZZZZ")
+        assertIs<AppResult.Failure>(result)
+        assertEquals(AppError.Domain("رمز الربط غير صالح"), result.error)
+        assertEquals("ZZZZZZZZ", api.lastLinkRequest?.linkCode)
+    }
+
+    @Test
+    fun alreadyLinkedCodeReturnsExistingStudent() = runBlocking {
+        val api = FakeParentApi(students = mutableListOf(studentDto(7, "Omar")))
+        api.linkResult = ApiCallResult.Success(ParentLinkStudentResponseDto(ok = true, studentId = 7))
+        val fixture = fixture(api)
+
+        val linked = assertIs<AppResult.Success<ParentLinkedStudent>>(
+            fixture.repository.linkStudent("EXISTING1"),
+        ).data
+        assertEquals("7", linked.id)
+        assertEquals("Omar", linked.name)
+        assertEquals(1, api.studentList.size)
+    }
+
+    @Test
+    fun shortCodeIsRejectedBeforeRequest() = runBlocking {
+        val api = FakeParentApi()
+        val fixture = fixture(api)
+        val result = fixture.repository.linkStudent("AB")
+        assertIs<AppResult.Failure>(result)
+        assertEquals(AppError.Validation(mapOf("link_code" to "invalid_length")), result.error)
+        assertEquals(null, api.lastLinkRequest)
+    }
+
+    @Test
+    fun linkRequestJsonMatchesFastApiLinkCodeField() {
+        val encoded = Json.encodeToString(
+            ParentLinkStudentRequestDto.serializer(),
+            ParentLinkStudentRequestDto(linkCode = "AB12CD34"),
+        )
+        assertEquals("""{"link_code":"AB12CD34"}""", encoded)
+    }
+
     private suspend fun fixture(api: FakeParentApi): Fixture {
         val auth = FakeParentAuthApi()
         val store = InMemoryTokenStore().apply {
@@ -379,22 +543,35 @@ class RemoteParentRepositoryTest {
 }
 
 private class FakeParentApi(
-    private val students: List<ParentLinkedStudentDto> = emptyList(),
+    students: List<ParentLinkedStudentDto> = emptyList(),
     private val dashboards: Map<Int, ParentDashboardDto> = emptyMap(),
     private val courses: Map<Int, List<ParentCourseProgressDto>> = emptyMap(),
     private val activities: Map<Int, List<ParentActivityDto>> = emptyMap(),
     private val notesByStudent: Map<Int, MutableList<ParentViewerNoteDto>> = emptyMap(),
     private val failCoursesFor: Set<Int> = emptySet(),
     private val failActivityFor: Set<Int> = emptySet(),
+    private val lessonProgressByStudent: Map<Int, JsonElement> = emptyMap(),
+    private val insightsByStudent: Map<Int, JsonElement> = emptyMap(),
+    private val academicIntelligenceByStudent: Map<Int, JsonElement> = emptyMap(),
+    private val subjectsTeachersByStudent: Map<Int, JsonElement> = emptyMap(),
+    private val notificationsByStudent: Map<Int, JsonElement> = emptyMap(),
+    private val notificationSettingsByStudent: Map<Int, JsonElement> = emptyMap(),
 ) : ParentApi {
+    val studentList = students.toMutableList()
+    var lastLinkRequest: ParentLinkStudentRequestDto? = null
+    var linkResult: ApiCallResult<ParentLinkStudentResponseDto> =
+        ApiCallResult.HttpFailure(404, detail = "رمز الربط غير صالح")
+    var onLinked: (() -> Unit)? = null
     val dashboardCalls = mutableListOf<Int>()
     val courseCalls = mutableListOf<Int>()
     val activityCalls = mutableListOf<Int>()
     val notesCalls = mutableListOf<Int>()
+    var lastNotificationSettingsStudentId: Int? = null
+    var lessonProgressFailure: ApiCallResult.HttpFailure? = null
     private var nextReplyId = 1000
 
     override suspend fun students(accessToken: String): ApiCallResult<List<ParentLinkedStudentDto>> =
-        ApiCallResult.Success(students)
+        ApiCallResult.Success(studentList.toList())
 
     override suspend fun dashboard(accessToken: String, studentId: Int): ApiCallResult<ParentDashboardDto> {
         dashboardCalls += studentId
@@ -473,6 +650,65 @@ private class FakeParentApi(
         )
         bucket[index] = updated
         return ApiCallResult.Success(updated)
+    }
+
+    override suspend fun linkStudent(
+        accessToken: String,
+        body: ParentLinkStudentRequestDto,
+    ): ApiCallResult<ParentLinkStudentResponseDto> {
+        lastLinkRequest = body
+        val result = linkResult
+        if (result is ApiCallResult.Success) onLinked?.invoke()
+        return result
+    }
+
+    override suspend fun lessonProgress(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        lessonProgressFailure ?: ApiCallResult.Success(
+            lessonProgressByStudent[studentId] ?: JsonObject(emptyMap()),
+        )
+
+    override suspend fun lessonDetails(
+        accessToken: String,
+        studentId: Int,
+        lessonId: String,
+    ): ApiCallResult<JsonElement> = ApiCallResult.Success(JsonObject(mapOf("lesson_id" to JsonPrimitive(lessonId))))
+
+    override suspend fun subjectsTeachers(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(subjectsTeachersByStudent[studentId] ?: JsonObject(emptyMap()))
+
+    override suspend fun plannerVisibility(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun plannerProgress(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun studentRoutine(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun attendance(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun activityTrackingSummary(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun insights(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(insightsByStudent[studentId] ?: JsonObject(emptyMap()))
+
+    override suspend fun academicIntelligence(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(academicIntelligenceByStudent[studentId] ?: JsonObject(emptyMap()))
+
+    override suspend fun executiveSummary(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun historicalReport(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(JsonObject(emptyMap()))
+
+    override suspend fun notifications(accessToken: String, studentId: Int): ApiCallResult<JsonElement> =
+        ApiCallResult.Success(notificationsByStudent[studentId] ?: JsonObject(emptyMap()))
+
+    override suspend fun notificationSettings(accessToken: String, studentId: Int): ApiCallResult<JsonElement> {
+        lastNotificationSettingsStudentId = studentId
+        return ApiCallResult.Success(notificationSettingsByStudent[studentId] ?: JsonObject(emptyMap()))
     }
 
     private fun markReadInternal(noteId: Int): ApiCallResult<ParentViewerNoteDto> {
