@@ -406,6 +406,15 @@ object Routes {
     const val PARENT_REPORTS = "parent/reports"
     const val PARENT_MESSAGES = "parent/messages"
     const val PARENT_ME = "parent/me"
+    const val PARENT_LINK_STUDENT = "parent/link-student"
+    const val PARENT_PLANNER = "parent/planner"
+    const val PARENT_ALERTS = "parent/alerts"
+    const val PARENT_AI_INSIGHTS = "parent/ai-insights"
+    const val PARENT_ATTENDANCE_STUDY_TIME = "parent/progress/attendance-study-time"
+    const val PARENT_LESSON_PROGRESS = "parent/progress/lessons"
+    const val PARENT_LESSON_DETAILS = "parent/progress/lessons/{$LESSON_ID_ARG}"
+    fun parentLessonDetailsRoute(lessonId: String) = "parent/progress/lessons/${Uri.encode(lessonId)}"
+    const val PARENT_SUBJECTS_TEACHERS = "parent/progress/subjects-teachers"
 
     // ── Cross-cutting (Phase 6) ───────────────────────────────────────────
     const val MESSAGES = "messages" // X-01 · Messages List

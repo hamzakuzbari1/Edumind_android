@@ -119,6 +119,18 @@ import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentDashboardViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAiInsightsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAlertsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentHomeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLessonProgressViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
+import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentPlannerViewModel
+import com.rork.eduspark.ui.screens.parent.ParentProgressViewModel
+import com.rork.eduspark.ui.screens.parent.ParentReportsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersViewModel
 import com.rork.eduspark.ui.screens.student.CourseDetailViewModel
 import com.rork.eduspark.ui.screens.student.ExamCaptureViewModel
 import com.rork.eduspark.ui.screens.student.LessonPlayerViewModel
@@ -614,6 +626,20 @@ val appModule = module {
     viewModel { AppShellViewModel(preferences = get(), connectivity = get(), localeController = get()) }
     viewModel { StudentNavigationDrawerViewModel(authRepository = get(), teacherRepository = get()) }
     viewModel { ParentDashboardViewModel(authRepository = get(), parentRepository = get(), connectivity = get()) }
+    viewModel { ParentHomeViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentReportsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentMeViewModel(authRepository = get(), parentRepository = get()) }
+    viewModel { ParentLinkStudentViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentPlannerViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAlertsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAiInsightsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentLessonProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { (lessonId: String) ->
+        ParentLessonDetailsViewModel(lessonId = lessonId, parentRepository = get(), connectivity = get())
+    }
+    viewModel { ParentSubjectsTeachersViewModel(parentRepository = get(), connectivity = get()) }
 
     // ── Phase 0 · A-01 → A-04, the entry funnel ──────────────────────────
     viewModel {

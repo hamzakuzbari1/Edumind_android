@@ -15,6 +15,7 @@ import io.ktor.http.contentType
 import java.io.IOException
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -44,6 +45,22 @@ internal interface ParentApi {
         noteId: Int,
         body: ParentViewerNoteReplyCreateDto,
     ): ApiCallResult<ParentViewerNoteDto>
+
+    suspend fun linkStudent(accessToken: String, body: ParentLinkStudentRequestDto): ApiCallResult<ParentLinkStudentResponseDto>
+    suspend fun lessonProgress(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun lessonDetails(accessToken: String, studentId: Int, lessonId: String): ApiCallResult<JsonElement>
+    suspend fun subjectsTeachers(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun plannerVisibility(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun plannerProgress(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun studentRoutine(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun attendance(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun activityTrackingSummary(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun insights(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun academicIntelligence(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun executiveSummary(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun historicalReport(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun notifications(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
+    suspend fun notificationSettings(accessToken: String, studentId: Int): ApiCallResult<JsonElement>
 }
 
 internal class KtorParentApi(
@@ -96,6 +113,79 @@ internal class KtorParentApi(
         body: ParentViewerNoteReplyCreateDto,
     ): ApiCallResult<ParentViewerNoteDto> =
         authenticatedPost("/api/parent/notes/$noteId/reply", accessToken, body)
+
+    override suspend fun linkStudent(accessToken: String, body: ParentLinkStudentRequestDto): ApiCallResult<ParentLinkStudentResponseDto> =
+        authenticatedPost("/api/parent/link", accessToken, body)
+
+    override suspend fun lessonProgress(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/lesson-progress", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun lessonDetails(accessToken: String, studentId: Int, lessonId: String) =
+        authenticatedGet<JsonElement>("/api/parent/lesson-progress/$lessonId", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun subjectsTeachers(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/subjects-teachers", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun plannerVisibility(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/planner-visibility", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun plannerProgress(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/planner-progress", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun studentRoutine(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/student-routine", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun attendance(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/attendance", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun activityTrackingSummary(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/activity-tracking/summary", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun insights(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/insights", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun academicIntelligence(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/academic-intelligence", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun executiveSummary(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/executive-summary", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun historicalReport(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/historical-report", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun notifications(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/notifications", accessToken) {
+            parameter("student_id", studentId)
+        }
+
+    override suspend fun notificationSettings(accessToken: String, studentId: Int) =
+        authenticatedGet<JsonElement>("/api/parent/notification-settings", accessToken) {
+            parameter("student_id", studentId)
+        }
 
     private suspend inline fun <reified T> authenticatedGet(
         path: String,

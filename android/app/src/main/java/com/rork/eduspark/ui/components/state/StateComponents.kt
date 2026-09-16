@@ -280,6 +280,27 @@ fun ErrorState(
             modifier = modifier,
         )
 
+        is AppError.Domain -> MessageState(
+            icon = Icons.Filled.ErrorOutline,
+            title = stringResource(R.string.state_error_unknown_title),
+            body = error.code.ifBlank { stringResource(R.string.state_error_unknown_body) },
+            iconTint = EduTheme.colors.danger,
+            primaryActionLabel = retryLabel,
+            onPrimaryAction = onRetry,
+            modifier = modifier,
+        )
+
+        is AppError.Validation -> MessageState(
+            icon = Icons.Filled.ErrorOutline,
+            title = stringResource(R.string.state_error_unknown_title),
+            body = error.fieldErrors.values.firstOrNull()
+                ?: stringResource(R.string.state_error_unknown_body),
+            iconTint = EduTheme.colors.danger,
+            primaryActionLabel = retryLabel,
+            onPrimaryAction = onRetry,
+            modifier = modifier,
+        )
+
         else -> MessageState(
             icon = Icons.Filled.ErrorOutline,
             title = stringResource(R.string.state_error_unknown_title),

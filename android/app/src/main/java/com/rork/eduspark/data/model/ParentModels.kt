@@ -73,3 +73,52 @@ data class ParentNotesFeed(
     val notes: List<ParentNote> = emptyList(),
     val unreadCount: Int = 0,
 )
+
+data class ParentLinkedStudentRequest(
+    val code: String,
+)
+
+data class ParentMetric(
+    val label: String,
+    val value: String,
+    val supporting: String = "",
+)
+
+data class ParentActionItem(
+    val id: String,
+    val title: String,
+    val subtitle: String = "",
+    val value: String = "",
+    val status: String = "",
+)
+
+data class ParentFeatureSnapshot(
+    val title: String,
+    val subtitle: String,
+    val metrics: List<ParentMetric> = emptyList(),
+    val items: List<ParentActionItem> = emptyList(),
+)
+
+data class ParentLessonProgressSnapshot(
+    val completedLessons: Int,
+    val totalLessons: Int,
+    val lessons: List<ParentActionItem> = emptyList(),
+)
+
+data class ParentLessonDetails(
+    val lessonId: String,
+    val title: String,
+    val subtitle: String,
+    val metrics: List<ParentMetric> = emptyList(),
+    val timeline: List<ParentActionItem> = emptyList(),
+)
+
+data class ParentSubjectsTeachersSnapshot(
+    val items: List<ParentActionItem> = emptyList(),
+)
+
+data class ParentNotificationSnapshot(
+    val unreadCount: Int,
+    val notifications: List<ParentActionItem> = emptyList(),
+    val preferences: List<ParentActionItem> = emptyList(),
+)

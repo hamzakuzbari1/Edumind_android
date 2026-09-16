@@ -12,10 +12,12 @@ import com.rork.eduspark.data.model.ParentNote
 import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.ParentRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 data class ParentDashboardUiState(
@@ -39,6 +41,7 @@ class ParentDashboardViewModel(
 
     private val _state = MutableStateFlow(ParentDashboardUiState())
     val state: StateFlow<ParentDashboardUiState> = _state.asStateFlow()
+    private var overviewJob: Job? = null
 
     init {
         viewModelScope.launch {
@@ -120,7 +123,8 @@ class ParentDashboardViewModel(
     }
 
     private fun load() {
-        _state.update { it.copy(result = UiState.Loading) }
+        overviewJob?.cancel()
+        _state.update { it.copy(result = UiState.Loading, notes = emptyList(), notesUnreadCount = 0) }
         viewModelScope.launch {
             when (val studentsResult = parentRepository.getLinkedStudents()) {
                 is AppResult.Success -> {
@@ -144,37 +148,52 @@ class ParentDashboardViewModel(
         }
     }
 
-    private suspend fun loadChildOverview(studentId: String) {
-        _state.update {
-            it.copy(
-                result = UiState.Loading,
-                replyDrafts = emptyMap(),
-                acknowledgingNoteId = null,
-                replyingNoteId = null,
-            )
-        }
-        when (val overview = parentRepository.getChildOverview(studentId)) {
-            is AppResult.Success -> _state.update { it.copy(result = UiState.Content(overview.data)) }
-            is AppResult.Failure -> {
-                _state.update {
-                    it.copy(
-                        result = UiState.Failure(overview.error),
-                        notes = emptyList(),
-                        notesUnreadCount = 0,
-                    )
-                }
-                return
-            }
-        }
-        when (val notes = parentRepository.getParentNotes(studentId)) {
-            is AppResult.Success -> _state.update {
+    private fun loadChildOverview(studentId: String) {
+        overviewJob?.cancel()
+        overviewJob = viewModelScope.launch {
+            _state.update {
                 it.copy(
-                    notes = notes.data.notes,
-                    notesUnreadCount = notes.data.unreadCount,
+                    result = UiState.Loading,
+                    notes = emptyList(),
+                    notesUnreadCount = 0,
+                    replyDrafts = emptyMap(),
+                    acknowledgingNoteId = null,
+                    replyingNoteId = null,
                 )
             }
-            is AppResult.Failure -> _state.update {
-                it.copy(notes = emptyList(), notesUnreadCount = 0)
+            when (val overview = parentRepository.getChildOverview(studentId)) {
+                is AppResult.Success -> {
+                    if (!isActive) return@launch
+                    _state.update { it.copy(result = UiState.Content(overview.data)) }
+                }
+                is AppResult.Failure -> {
+                    if (!isActive) return@launch
+                    _state.update {
+                        it.copy(
+                            result = UiState.Failure(overview.error),
+                            notes = emptyList(),
+                            notesUnreadCount = 0,
+                        )
+                    }
+                    return@launch
+                }
+            }
+            when (val notes = parentRepository.getParentNotes(studentId)) {
+                is AppResult.Success -> {
+                    if (!isActive) return@launch
+                    _state.update {
+                        it.copy(
+                            notes = notes.data.notes,
+                            notesUnreadCount = notes.data.unreadCount,
+                        )
+                    }
+                }
+                is AppResult.Failure -> {
+                    if (!isActive) return@launch
+                    _state.update {
+                        it.copy(notes = emptyList(), notesUnreadCount = 0)
+                    }
+                }
             }
         }
     }
