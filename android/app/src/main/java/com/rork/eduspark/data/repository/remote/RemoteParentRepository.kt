@@ -4,28 +4,42 @@ import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.core.session.SecureTokenStore
 import com.rork.eduspark.data.model.ParentActivity
+import com.rork.eduspark.data.model.ParentAiInsightsSnapshot
+import com.rork.eduspark.data.model.ParentAlertPreferenceKey
+import com.rork.eduspark.data.model.ParentAlertsSnapshot
+import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentCourseProgress
 import com.rork.eduspark.data.model.ParentDashboard
-import com.rork.eduspark.data.model.ParentFeatureSnapshot
+import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentLessonDetails
 import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentNote
 import com.rork.eduspark.data.model.ParentNotesFeed
-import com.rork.eduspark.data.model.ParentNotificationSnapshot
+import com.rork.eduspark.data.model.ParentPerformanceSnapshot
+import com.rork.eduspark.data.model.ParentPlannerSnapshot
+import com.rork.eduspark.data.model.ParentReportDateRange
+import com.rork.eduspark.data.model.ParentReportExport
+import com.rork.eduspark.data.model.ParentReportPeriod
+import com.rork.eduspark.data.model.ParentReportsSnapshot
 import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.remote.auth.ApiCallResult
 import com.rork.eduspark.data.remote.parent.ParentApi
 import com.rork.eduspark.data.remote.parent.ParentLinkStudentRequestDto
 import com.rork.eduspark.data.remote.parent.ParentViewerNoteReplyCreateDto
+import com.rork.eduspark.data.remote.parent.buildAlertsSnapshot
+import com.rork.eduspark.data.remote.parent.buildAiInsightsSnapshot
+import com.rork.eduspark.data.remote.parent.buildAttendanceSnapshot
+import com.rork.eduspark.data.remote.parent.buildPerformanceSnapshot
+import com.rork.eduspark.data.remote.parent.toAiInsightsSnapshot
+import com.rork.eduspark.data.remote.parent.toDashboardSnapshot
 import com.rork.eduspark.data.remote.parent.toDomain
-import com.rork.eduspark.data.remote.parent.toFeatureSnapshot
-import com.rork.eduspark.data.remote.parent.toInsightsSnapshot
-import com.rork.eduspark.data.remote.parent.toLessonDetailsSnapshot
+import com.rork.eduspark.data.remote.parent.toLessonDetails
 import com.rork.eduspark.data.remote.parent.toLessonProgressSnapshot
-import com.rork.eduspark.data.remote.parent.toNotificationSnapshot
-import com.rork.eduspark.data.remote.parent.toPerformanceSnapshot
+import com.rork.eduspark.data.remote.parent.toPlannerSnapshot
+import com.rork.eduspark.data.remote.parent.toReportsSnapshot
 import com.rork.eduspark.data.remote.parent.toSubjectsTeachersSnapshot
+import com.rork.eduspark.data.remote.parent.toUpdateDto
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.ParentRepository
 import kotlinx.coroutines.flow.Flow
@@ -44,6 +58,9 @@ internal class RemoteParentRepository(
 
     private val _selectedStudentId = MutableStateFlow<String?>(null)
     override val selectedStudentId: Flow<String?> = _selectedStudentId.asStateFlow()
+
+    private val _unreadAlertCount = MutableStateFlow(0)
+    override val unreadAlertCount: Flow<Int> = _unreadAlertCount.asStateFlow()
 
     override suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>> =
         when (val response = authorizedRequest(api::students)) {
@@ -183,21 +200,70 @@ internal class RemoteParentRepository(
         }
     }
 
-    override suspend fun getPerformanceSummary(studentId: String): AppResult<ParentFeatureSnapshot> =
-        when (val courses = getCourseProgress(studentId)) {
-            is AppResult.Success -> AppResult.Success(courses.data.toPerformanceSnapshot())
-            is AppResult.Failure -> courses
+    override suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot> =
+        withStudentId(studentId) { numericId ->
+            when (val response = authorizedRequest { token -> api.dashboard(token, numericId) }) {
+                is ApiCallResult.Success -> {
+                    val alerts = authorizedRequest { token -> api.notifications(token, numericId) }
+                    val unread = (alerts as? ApiCallResult.Success)?.value?.unreadCount ?: 0
+                    _unreadAlertCount.value = unread
+                    val latestNote = authorizedRequest { token -> api.notes(token, numericId, limit = 1) }
+                        .valueOrNull()
+                        ?.notes
+                        ?.firstOrNull()
+                        ?.toDomain()
+                    AppResult.Success(
+                        response.value.toDashboardSnapshot(
+                            alertCount = unread,
+                            latestTeacherNote = latestNote,
+                        ),
+                    )
+                }
+                else -> AppResult.Failure(handleFailure(response))
+            }
         }
 
-    override suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentFeatureSnapshot> =
+    override suspend fun getPerformanceSnapshot(studentId: String): AppResult<ParentPerformanceSnapshot> =
         withStudentId(studentId) { numericId ->
-            when (val response = authorizedRequest { token -> api.attendance(token, numericId) }) {
+            when (
+                val academic = authorizedRequest { token -> api.academicIntelligence(token, numericId) }
+            ) {
                 is ApiCallResult.Success -> AppResult.Success(
-                    response.value.toFeatureSnapshot(
-                        title = "الحضور ووقت الدراسة",
-                        subtitle = "متابعة انتظام الطالب وساعات التعلم",
+                    buildPerformanceSnapshot(
+                        academic = academic.value,
+                        quiz = authorizedRequest { token -> api.quizTracking(token, numericId) }.valueOrNull(),
+                        report = authorizedRequest { token ->
+                            api.historicalReport(token, numericId, period = ParentReportPeriod.ThisMonth.apiValue)
+                        }.valueOrNull(),
+                        lessonProgress = authorizedRequest { token -> api.lessonProgress(token, numericId) }
+                            .valueOrNull(),
+                        gamification = authorizedRequest { token -> api.dashboard(token, numericId) }
+                            .valueOrNull()
+                            ?.gamification,
                     ),
                 )
+                else -> AppResult.Failure(handleFailure(academic))
+            }
+        }
+
+    override suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentAttendanceStudyTimeSnapshot> =
+        withStudentId(studentId) { numericId ->
+            when (val response = authorizedRequest { token -> api.attendance(token, numericId) }) {
+                is ApiCallResult.Success -> {
+                    val analytics = authorizedRequest { token ->
+                        api.activityTrackingAnalytics(token, numericId)
+                    }.valueOrNull()
+                    val sessions = authorizedRequest { token ->
+                        api.activityTrackingSessions(token, numericId)
+                    }.valueOrNull().orEmpty()
+                    AppResult.Success(
+                        buildAttendanceSnapshot(
+                            attendance = response.value,
+                            analytics = analytics,
+                            activitySessions = sessions,
+                        ),
+                    )
+                }
                 else -> AppResult.Failure(handleFailure(response))
             }
         }
@@ -213,7 +279,7 @@ internal class RemoteParentRepository(
     override suspend fun getLessonDetails(studentId: String, lessonId: String): AppResult<ParentLessonDetails> =
         withStudentId(studentId) { numericId ->
             when (val response = authorizedRequest { token -> api.lessonDetails(token, numericId, lessonId) }) {
-                is ApiCallResult.Success -> AppResult.Success(response.value.toLessonDetailsSnapshot(lessonId))
+                is ApiCallResult.Success -> AppResult.Success(response.value.toLessonDetails())
                 else -> AppResult.Failure(handleFailure(response))
             }
         }
@@ -226,63 +292,167 @@ internal class RemoteParentRepository(
             }
         }
 
-    override suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentFeatureSnapshot> =
+    override suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot> =
         withStudentId(studentId) { numericId ->
             when (val response = authorizedRequest { token -> api.plannerProgress(token, numericId) }) {
                 is ApiCallResult.Success -> AppResult.Success(
-                    response.value.toFeatureSnapshot(
-                        title = "الخطة الأسبوعية",
-                        subtitle = "جلسات الطالب وروتين الدراسة من الخادم",
+                    response.value.toPlannerSnapshot(
+                        routine = authorizedRequest { token -> api.studentRoutine(token, numericId) }.valueOrNull(),
                     ),
                 )
                 else -> AppResult.Failure(handleFailure(response))
             }
         }
 
-    override suspend fun getInsightsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot> =
+    override suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot> =
         withStudentId(studentId) { numericId ->
-            when (val insights = authorizedRequest { token -> api.insights(token, numericId) }) {
-                is ApiCallResult.Success -> {
-                    val academic = when (
-                        val response = authorizedRequest { token -> api.academicIntelligence(token, numericId) }
-                    ) {
-                        is ApiCallResult.Success -> response.value
-                        else -> null
-                    }
-                    AppResult.Success(insights.value.toInsightsSnapshot(academic))
-                }
-                else -> AppResult.Failure(handleFailure(insights))
-            }
-        }
-
-    override suspend fun getReportsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot> =
-        withStudentId(studentId) { numericId ->
-            when (val response = authorizedRequest { token -> api.historicalReport(token, numericId) }) {
+            when (val executive = authorizedRequest { token -> api.executiveSummary(token, numericId) }) {
                 is ApiCallResult.Success -> AppResult.Success(
-                    response.value.toFeatureSnapshot(
-                        title = "التقارير",
-                        subtitle = "تقرير متابعة قابل للمراجعة من بيانات الطالب",
+                    executive.value.toAiInsightsSnapshot(
+                        extraInsights = authorizedRequest { token -> api.insights(token, numericId) }
+                            .valueOrNull()
+                            .orEmpty(),
+                        academic = authorizedRequest { token -> api.academicIntelligence(token, numericId) }
+                            .valueOrNull(),
+                        attendance = authorizedRequest { token -> api.attendance(token, numericId) }
+                            .valueOrNull(),
                     ),
                 )
-                else -> AppResult.Failure(handleFailure(response))
+                else -> {
+                    val extraInsights = authorizedRequest { token -> api.insights(token, numericId) }
+                        .valueOrNull()
+                        .orEmpty()
+                    val academic = authorizedRequest { token -> api.academicIntelligence(token, numericId) }
+                        .valueOrNull()
+                    val attendance = authorizedRequest { token -> api.attendance(token, numericId) }
+                        .valueOrNull()
+                    val fallback = buildAiInsightsSnapshot(extraInsights, academic, attendance)
+                    if (fallback.hasData) {
+                        AppResult.Success(fallback)
+                    } else {
+                        AppResult.Failure(handleFailure(executive))
+                    }
+                }
             }
         }
 
-    override suspend fun getNotificationsSnapshot(studentId: String): AppResult<ParentNotificationSnapshot> =
-        withStudentId(studentId) { numericId ->
-            when (val notifications = authorizedRequest { token -> api.notifications(token, numericId) }) {
-                is ApiCallResult.Success -> {
-                    val settings = when (
-                        val response = authorizedRequest { token -> api.notificationSettings(token, numericId) }
-                    ) {
-                        is ApiCallResult.Success -> response.value
-                        else -> null
-                    }
-                    AppResult.Success(notifications.value.toNotificationSnapshot(settings))
-                }
-                else -> AppResult.Failure(handleFailure(notifications))
+    override suspend fun getReportsSnapshot(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+    ): AppResult<ParentReportsSnapshot> = withStudentId(studentId) { numericId ->
+        val range = customDateRange.takeIf { period == ParentReportPeriod.Custom }
+        when (
+            val response = authorizedRequest { token ->
+                api.historicalReport(
+                    accessToken = token,
+                    studentId = numericId,
+                    period = period.apiValue,
+                    startDate = range?.startDateMillis?.let(::formatIsoDate),
+                    endDate = range?.endDateMillis?.let(::formatIsoDate),
+                )
             }
+        ) {
+            is ApiCallResult.Success -> AppResult.Success(response.value.toReportsSnapshot())
+            else -> AppResult.Failure(handleFailure(response))
         }
+    }
+
+    override suspend fun exportHistoricalReport(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+        format: String,
+    ): AppResult<ParentReportExport> = withStudentId(studentId) { numericId ->
+        val range = customDateRange.takeIf { period == ParentReportPeriod.Custom }
+        when (
+            val response = authorizedRequest { token ->
+                api.exportHistoricalReport(
+                    accessToken = token,
+                    studentId = numericId,
+                    period = period.apiValue,
+                    startDate = range?.startDateMillis?.let(::formatIsoDate),
+                    endDate = range?.endDateMillis?.let(::formatIsoDate),
+                    format = format,
+                )
+            }
+        ) {
+            is ApiCallResult.Success -> AppResult.Success(
+                ParentReportExport(
+                    bytes = response.value.bytes,
+                    filename = response.value.filename,
+                    mimeType = response.value.mimeType,
+                ),
+            )
+            else -> AppResult.Failure(handleFailure(response))
+        }
+    }
+
+    override suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot> =
+        withStudentId(studentId) { numericId -> loadAlerts(numericId) }
+
+    override suspend fun markParentAlertRead(
+        studentId: String,
+        alertId: String,
+    ): AppResult<ParentAlertsSnapshot> = withStudentId(studentId) { numericId ->
+        val numericAlertId = alertId.toIntOrNull()?.takeIf { it > 0 }
+            ?: return@withStudentId AppResult.Failure(AppError.Validation(mapOf("alertId" to "invalid_alert_id")))
+        when (
+            val response = authorizedRequest { token ->
+                api.markNotificationRead(token, numericId, numericAlertId)
+            }
+        ) {
+            is ApiCallResult.Success -> loadAlerts(numericId)
+            else -> AppResult.Failure(handleFailure(response))
+        }
+    }
+
+    override suspend fun markAllParentAlertsRead(studentId: String): AppResult<ParentAlertsSnapshot> =
+        withStudentId(studentId) { numericId ->
+            val current = when (val snapshot = loadAlerts(numericId)) {
+                is AppResult.Success -> snapshot.data
+                is AppResult.Failure -> return@withStudentId snapshot
+            }
+            current.alerts.filter { it.isUnread }.forEach { alert ->
+                val numericAlertId = alert.id.toIntOrNull() ?: return@forEach
+                authorizedRequest { token -> api.markNotificationRead(token, numericId, numericAlertId) }
+            }
+            loadAlerts(numericId)
+        }
+
+    override suspend fun setParentAlertPreferenceEnabled(
+        studentId: String,
+        key: ParentAlertPreferenceKey,
+        enabled: Boolean,
+    ): AppResult<ParentAlertsSnapshot> = withStudentId(studentId) { numericId ->
+        when (
+            val response = authorizedRequest { token ->
+                api.updateNotificationSettings(token, numericId, key.toUpdateDto(enabled))
+            }
+        ) {
+            is ApiCallResult.Success -> loadAlerts(numericId)
+            else -> AppResult.Failure(handleFailure(response))
+        }
+    }
+
+    private suspend fun loadAlerts(numericId: Int): AppResult<ParentAlertsSnapshot> =
+        when (val notifications = authorizedRequest { token -> api.notifications(token, numericId) }) {
+            is ApiCallResult.Success -> {
+                val settings = authorizedRequest { token -> api.notificationSettings(token, numericId) }
+                    .valueOrNull()
+                _unreadAlertCount.value = notifications.value.unreadCount
+                AppResult.Success(buildAlertsSnapshot(notifications.value, settings))
+            }
+            else -> AppResult.Failure(handleFailure(notifications))
+        }
+
+    private fun <T> ApiCallResult<T>.valueOrNull(): T? = (this as? ApiCallResult.Success)?.value
+
+    private fun formatIsoDate(epochMillis: Long): String =
+        java.time.Instant.ofEpochMilli(epochMillis)
+            .atZone(java.time.ZoneId.systemDefault())
+            .toLocalDate()
+            .toString()
 
     private fun parseStudentId(studentId: String): Int? = studentId.toIntOrNull()?.takeIf { it > 0 }
 

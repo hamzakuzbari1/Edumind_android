@@ -415,6 +415,7 @@ object Routes {
     const val PARENT_LESSON_DETAILS = "parent/progress/lessons/{$LESSON_ID_ARG}"
     fun parentLessonDetailsRoute(lessonId: String) = "parent/progress/lessons/${Uri.encode(lessonId)}"
     const val PARENT_SUBJECTS_TEACHERS = "parent/progress/subjects-teachers"
+    const val PARENT_NOTES = "parent/notes"
 
     // ── Cross-cutting (Phase 6) ───────────────────────────────────────────
     const val MESSAGES = "messages" // X-01 · Messages List
@@ -541,5 +542,13 @@ val ParentDrawerSections: List<RoleDrawerSection> = listOf(
         destinations = ParentTabs.map { tab ->
             RoleDrawerDestination(tab.route, tab.labelRes, tab.icon)
         },
+    ),
+    RoleDrawerSection(
+        listOf(
+            RoleDrawerDestination(Routes.PARENT_NOTES, R.string.parent_notes_title, Icons.Outlined.EventNote),
+            RoleDrawerDestination(Routes.PARENT_PLANNER, R.string.pr07_title, Icons.Outlined.CalendarViewWeek),
+            RoleDrawerDestination(Routes.PARENT_ALERTS, R.string.pr11_title, Icons.Outlined.Notifications),
+            RoleDrawerDestination(Routes.PARENT_AI_INSIGHTS, R.string.pr08_title, Icons.Outlined.Insights),
+        ),
     ),
 )

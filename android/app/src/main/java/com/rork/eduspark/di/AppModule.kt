@@ -8,6 +8,7 @@ import com.rork.eduspark.core.preferences.AppPreferences
 import com.rork.eduspark.core.session.EncryptedTokenStore
 import com.rork.eduspark.core.session.InMemoryTokenStore
 import com.rork.eduspark.core.session.SecureTokenStore
+import com.rork.eduspark.data.local.ParentReportExportStore
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.AchievementRepository
 import com.rork.eduspark.data.repository.AuthRepository
@@ -279,6 +280,7 @@ val appModule = module {
     single { AppPreferences(androidApplication()) }
     single { ConnectivityObserver(androidApplication()) }
     single { LocaleController(androidApplication()) }
+    single { ParentReportExportStore(androidApplication()) }
     single { MockStudentEntitlements() }
 
     single<SecureTokenStore> {
@@ -628,8 +630,15 @@ val appModule = module {
     viewModel { ParentDashboardViewModel(authRepository = get(), parentRepository = get(), connectivity = get()) }
     viewModel { ParentHomeViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
-    viewModel { ParentReportsViewModel(parentRepository = get(), connectivity = get()) }
-    viewModel { ParentMeViewModel(authRepository = get(), parentRepository = get()) }
+    viewModel { ParentReportsViewModel(parentRepository = get(), connectivity = get(), exportStore = get()) }
+    viewModel {
+        ParentMeViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            securityRepository = get(),
+            connectivity = get(),
+        )
+    }
     viewModel { ParentLinkStudentViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentPlannerViewModel(parentRepository = get(), connectivity = get()) }
     viewModel { ParentAlertsViewModel(parentRepository = get(), connectivity = get()) }
@@ -639,7 +648,13 @@ val appModule = module {
     viewModel { (lessonId: String) ->
         ParentLessonDetailsViewModel(lessonId = lessonId, parentRepository = get(), connectivity = get())
     }
-    viewModel { ParentSubjectsTeachersViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel {
+        ParentSubjectsTeachersViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            connectivity = get(),
+        )
+    }
 
     // ── Phase 0 · A-01 → A-04, the entry funnel ──────────────────────────
     viewModel {

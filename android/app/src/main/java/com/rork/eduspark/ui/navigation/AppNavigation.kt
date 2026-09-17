@@ -64,6 +64,7 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
 import com.rork.eduspark.ui.screens.parent.ParentAiInsightsScreen
 import com.rork.eduspark.ui.screens.parent.ParentAlertsScreen
 import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeScreen
+import com.rork.eduspark.ui.screens.parent.ParentDashboardScreen
 import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
 import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsScreen
 import com.rork.eduspark.ui.screens.parent.ParentLessonProgressScreen
@@ -1897,20 +1898,25 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
                     Routes.PARENT_HOME to {
                         ParentHomeScreen(
                             onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
-                            onOpenProgress = { navController.navigate(Routes.PARENT_LESSON_PROGRESS) },
                             onOpenPlanner = { navController.navigate(Routes.PARENT_PLANNER) },
                             onOpenAlerts = { navController.navigate(Routes.PARENT_ALERTS) },
                             onOpenAiInsights = { navController.navigate(Routes.PARENT_AI_INSIGHTS) },
+                            onOpenNotes = { navController.navigate(Routes.PARENT_NOTES) },
                         )
                     },
                     Routes.PARENT_PROGRESS to {
                         ParentProgressScreen(
-                            onOpenAttendance = { navController.navigate(Routes.PARENT_ATTENDANCE_STUDY_TIME) },
-                            onOpenLessons = { navController.navigate(Routes.PARENT_LESSON_PROGRESS) },
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                            onOpenAttendanceStudyTime = { navController.navigate(Routes.PARENT_ATTENDANCE_STUDY_TIME) },
+                            onOpenLessonProgress = { navController.navigate(Routes.PARENT_LESSON_PROGRESS) },
                             onOpenSubjectsTeachers = { navController.navigate(Routes.PARENT_SUBJECTS_TEACHERS) },
                         )
                     },
-                    Routes.PARENT_REPORTS to { ParentReportsScreen() },
+                    Routes.PARENT_REPORTS to {
+                        ParentReportsScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
                     Routes.PARENT_MESSAGES to {
                         MessagesListScreen(
                             onBack = { navController.popBackStack() },
@@ -1928,21 +1934,36 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
             ParentLinkStudentScreen(onBack = { navController.popBackStack() })
         }
         composable(Routes.PARENT_PLANNER) {
-            ParentPlannerScreen(onBack = { navController.popBackStack() })
+            ParentPlannerScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
         composable(Routes.PARENT_ALERTS) {
-            ParentAlertsScreen(onBack = { navController.popBackStack() })
+            ParentAlertsScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
         composable(Routes.PARENT_AI_INSIGHTS) {
-            ParentAiInsightsScreen(onBack = { navController.popBackStack() })
+            ParentAiInsightsScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
         composable(Routes.PARENT_ATTENDANCE_STUDY_TIME) {
-            ParentAttendanceStudyTimeScreen(onBack = { navController.popBackStack() })
+            ParentAttendanceStudyTimeScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
         composable(Routes.PARENT_LESSON_PROGRESS) {
             ParentLessonProgressScreen(
                 onBack = { navController.popBackStack() },
-                onOpenLesson = { lessonId -> navController.navigate(Routes.parentLessonDetailsRoute(lessonId)) },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                onOpenLessonDetails = { lessonId ->
+                    navController.navigate(Routes.parentLessonDetailsRoute(lessonId))
+                },
             )
         }
         composable(
@@ -1950,13 +1971,21 @@ private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
             arguments = listOf(navArgument(LESSON_ID_ARG) { type = NavType.StringType }),
         ) { backStackEntry ->
             val lessonId = backStackEntry.arguments?.getString(LESSON_ID_ARG).orEmpty()
-            ParentLessonDetailsScreen(lessonId = lessonId, onBack = { navController.popBackStack() })
+            ParentLessonDetailsScreen(
+                lessonId = lessonId,
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
         }
         composable(Routes.PARENT_SUBJECTS_TEACHERS) {
             ParentSubjectsTeachersScreen(
                 onBack = { navController.popBackStack() },
-                onOpenMessages = { navController.navigate(Routes.MESSAGES) },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
             )
+        }
+        composable(Routes.PARENT_NOTES) {
+            ParentDashboardScreen()
         }
     }
 }

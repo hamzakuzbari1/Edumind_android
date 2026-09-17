@@ -23,15 +23,24 @@ import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.ParentActivity
+import com.rork.eduspark.data.model.ParentAiInsightsSnapshot
+import com.rork.eduspark.data.model.ParentAlertPreferenceKey
+import com.rork.eduspark.data.model.ParentAlertsSnapshot
+import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
 import com.rork.eduspark.data.model.ParentCourseProgress
 import com.rork.eduspark.data.model.ParentDashboard
-import com.rork.eduspark.data.model.ParentFeatureSnapshot
+import com.rork.eduspark.data.model.ParentDashboardSnapshot
 import com.rork.eduspark.data.model.ParentLinkedStudent
 import com.rork.eduspark.data.model.ParentLessonDetails
 import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
 import com.rork.eduspark.data.model.ParentNote
 import com.rork.eduspark.data.model.ParentNotesFeed
-import com.rork.eduspark.data.model.ParentNotificationSnapshot
+import com.rork.eduspark.data.model.ParentPerformanceSnapshot
+import com.rork.eduspark.data.model.ParentPlannerSnapshot
+import com.rork.eduspark.data.model.ParentReportDateRange
+import com.rork.eduspark.data.model.ParentReportExport
+import com.rork.eduspark.data.model.ParentReportPeriod
+import com.rork.eduspark.data.model.ParentReportsSnapshot
 import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
 import com.rork.eduspark.data.model.StudentOnboardingStatus
 import com.rork.eduspark.data.model.SubjectOption
@@ -577,15 +586,51 @@ interface ParentRepository {
     /** Links a child with the backend parent invitation code. */
     suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
 
-    suspend fun getPerformanceSummary(studentId: String): AppResult<ParentFeatureSnapshot>
-    suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentFeatureSnapshot>
+    /** Unread parent alert count for the selected child; refreshed whenever alerts are loaded. */
+    val unreadAlertCount: Flow<Int>
+
+    /** PR-02 home summary composed from `/api/parent/dashboard` plus the unread alert count. */
+    suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot>
+
+    suspend fun getPerformanceSnapshot(studentId: String): AppResult<ParentPerformanceSnapshot>
+    suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentAttendanceStudyTimeSnapshot>
     suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot>
     suspend fun getLessonDetails(studentId: String, lessonId: String): AppResult<ParentLessonDetails>
     suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
-    suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
-    suspend fun getInsightsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
-    suspend fun getReportsSnapshot(studentId: String): AppResult<ParentFeatureSnapshot>
-    suspend fun getNotificationsSnapshot(studentId: String): AppResult<ParentNotificationSnapshot>
+    suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot>
+    suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot>
+
+    suspend fun getReportsSnapshot(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+    ): AppResult<ParentReportsSnapshot>
+
+    /**
+     * Downloads the selected child's historical report via
+     * `GET /api/parent/historical-report/export`. [format] must be one of `pdf`, `csv`, `xlsx`.
+     */
+    suspend fun exportHistoricalReport(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+        format: String = "pdf",
+    ): AppResult<ParentReportExport>
+
+    suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Marks one alert read via `POST /api/parent/notifications/{id}/read`. */
+    suspend fun markParentAlertRead(studentId: String, alertId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Marks every unread alert read, one backend call per alert. */
+    suspend fun markAllParentAlertsRead(studentId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Persists one alert switch via `PUT /api/parent/notification-settings`. */
+    suspend fun setParentAlertPreferenceEnabled(
+        studentId: String,
+        key: ParentAlertPreferenceKey,
+        enabled: Boolean,
+    ): AppResult<ParentAlertsSnapshot>
 }
 
 /**
