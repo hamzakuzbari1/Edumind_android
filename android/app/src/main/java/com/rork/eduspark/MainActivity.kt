@@ -27,18 +27,7 @@ class MainActivity : AppCompatActivity() {
         // frame is never drawn in the wrong theme (Design System: the launch frame must
         // not flash a colour outside the system).
         val splash = installSplashScreen()
-        var keepSplash = true
-        splash.setKeepOnScreenCondition { keepSplash }
-        splash.setOnExitAnimationListener { splashScreenView ->
-            splashScreenView.view
-                .animate()
-                .alpha(0f)
-                .scaleX(0.92f)
-                .scaleY(0.92f)
-                .setDuration(220L)
-                .withEndAction { splashScreenView.remove() }
-                .start()
-        }
+        splash.setKeepOnScreenCondition { false }
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val shellViewModel = koinViewModel<AppShellViewModel>()
             val state by shellViewModel.state.collectAsStateWithLifecycle()
-            keepSplash = !state.isReady
 
             EduSparkTheme(
                 themeMode = state.themeMode,

@@ -22,6 +22,28 @@ import com.rork.eduspark.data.model.MessageParticipant
 import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.MessageThread
 import com.rork.eduspark.data.model.OnboardingTeacher
+import com.rork.eduspark.data.model.ParentActivity
+import com.rork.eduspark.data.model.ParentAiInsightsSnapshot
+import com.rork.eduspark.data.model.ParentAlertPreferenceKey
+import com.rork.eduspark.data.model.ParentAlertsSnapshot
+import com.rork.eduspark.data.model.ParentAttendanceStudyTimeSnapshot
+import com.rork.eduspark.data.model.ParentCourseProgress
+import com.rork.eduspark.data.model.ParentDashboard
+import com.rork.eduspark.data.model.ParentDashboardSnapshot
+import com.rork.eduspark.data.model.ParentLinkedStudent
+import com.rork.eduspark.data.model.ParentLessonDetails
+import com.rork.eduspark.data.model.ParentLessonProgressSnapshot
+import com.rork.eduspark.data.model.ParentNote
+import com.rork.eduspark.data.model.ParentNotesFeed
+import com.rork.eduspark.data.model.ParentPerformanceSnapshot
+import com.rork.eduspark.data.model.ParentPlannerSnapshot
+import com.rork.eduspark.data.model.ParentReportDateRange
+import com.rork.eduspark.data.model.ParentReportExport
+import com.rork.eduspark.data.model.ParentReportPeriod
+import com.rork.eduspark.data.model.ParentReportsSnapshot
+import com.rork.eduspark.data.model.ParentSubjectsTeachersSnapshot
+import com.rork.eduspark.data.model.StudentOnboardingStatus
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.PaymentMethod
 import com.rork.eduspark.data.model.PaymentRequest
 import com.rork.eduspark.data.model.PendingPayment
@@ -42,9 +64,13 @@ import com.rork.eduspark.data.model.Quiz
 import com.rork.eduspark.data.model.QuizAnswer
 import com.rork.eduspark.data.model.QuizAttempt
 import com.rork.eduspark.data.model.QuizResult
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
+import com.rork.eduspark.data.model.TeacherCourseQuizAnalytics
+import com.rork.eduspark.data.model.TeacherQuizAnalytics
 import com.rork.eduspark.data.model.RedeemedVoucher
 import com.rork.eduspark.data.model.SecuritySettings
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.TwoFactorChallengeInfo
 import com.rork.eduspark.data.model.RoutineBuilderAnswers
 import com.rork.eduspark.data.model.RoutineDraft
 import com.rork.eduspark.data.model.RoutineProfile
@@ -62,6 +88,8 @@ import com.rork.eduspark.data.model.ProjectMedium
 import com.rork.eduspark.data.model.QuizQuestion
 import com.rork.eduspark.data.model.TeacherActivityItem
 import com.rork.eduspark.data.model.TeacherAnalyticsSnapshot
+import com.rork.eduspark.data.model.TeacherCourseCreateRequest
+import com.rork.eduspark.data.model.TeacherCourseFormSubject
 import com.rork.eduspark.data.model.TeacherCourseSummary
 import com.rork.eduspark.data.model.TeacherCriterionReview
 import com.rork.eduspark.data.model.TeacherProject
@@ -129,13 +157,16 @@ import kotlinx.coroutines.flow.Flow
  * Capabilities that exist: register (student|teacher|parent), login, logout (revokes the
  * server session), `/auth/me`, password reset, email verification, email-OTP 2FA.
  *
- * Capability that does NOT exist: **token refresh**. There is no `refresh()` on this
- * interface on purpose. Every consumer must treat expiry as "sign in again".
+ * Refresh is an internal repository responsibility. Callers receive a restored user or a
+ * signed-out state and never handle transport tokens directly.
  */
 interface AuthRepository {
 
     /** Emits the current session, or null when signed out. */
     val session: Flow<SessionUser?>
+
+    /** Resolves an encrypted stored session through /me and one refresh attempt when needed. */
+    suspend fun restoreSession(): AppResult<SessionUser?>
 
     suspend fun signIn(email: String, password: String): AppResult<SignInOutcome>
 
@@ -144,15 +175,20 @@ interface AuthRepository {
         email: String,
         password: String,
         role: UserRole,
-    ): AppResult<SessionUser>
+    ): AppResult<RegistrationOutcome>
 
     /** Email verification exists on the backend but is NOT enforced at login. */
     suspend fun verifyEmail(code: String): AppResult<Unit>
 
     suspend fun resendEmailCode(): AppResult<Unit>
 
-    /** Email OTP only — the platform returns 501 for TOTP. */
+    /** Public, non-secret metadata for the current login challenge. */
+    val pendingTwoFactorChallenge: Flow<TwoFactorChallengeInfo?>
+
+    /** Email OTP only. trustDevice remains a non-authoritative UI preference. */
     suspend fun verifyTwoFactor(code: String, trustDevice: Boolean): AppResult<SessionUser>
+
+    suspend fun resendTwoFactor(): AppResult<TwoFactorChallengeInfo>
 
     suspend fun requestPasswordReset(email: String): AppResult<Unit>
 
@@ -182,7 +218,13 @@ sealed interface SignInOutcome {
     data class EmailVerificationRequired(val email: String) : SignInOutcome
 
     /** Backend requires the email OTP second factor → route to A-09. */
-    data class TwoFactorRequired(val email: String) : SignInOutcome
+    data class TwoFactorRequired(val challenge: TwoFactorChallengeInfo) : SignInOutcome
+}
+
+/** Registration differs intentionally between the legacy mock and the real backend. */
+sealed interface RegistrationOutcome {
+    data class Authenticated(val user: SessionUser) : RegistrationOutcome
+    data class EmailVerificationRequired(val email: String) : RegistrationOutcome
 }
 
 /**
@@ -214,6 +256,17 @@ interface LearningRepository {
      *  so completing a lesson in ST-03 shows up on Course Detail and Home without a restart,
      *  the same hot-flow shape [PlannerRepository.weekPlan] already establishes. */
     val completedLessonIds: Flow<Set<String>>
+
+    /** ST-03/A3.3. Opens or resumes a real backend progress row for the lesson. */
+    suspend fun recordLessonStarted(lessonId: String, mediaTypes: Set<com.rork.eduspark.data.model.LessonMediaType>)
+
+    /** ST-03/A3.3. Persists playback/page progress as backend percentages (0f..1f). */
+    suspend fun updateLessonProgress(
+        lessonId: String,
+        videoProgress: Float? = null,
+        pdfProgress: Float? = null,
+        pdfOpened: Boolean? = null,
+    )
 
     /** ST-03's Mark Complete, after the completion-verification sheet confirms. */
     suspend fun markLessonCompleted(lessonId: String)
@@ -261,6 +314,15 @@ interface QuizRepository {
 
     /** ST-07's "Practice these again" — a new [Quiz] made only of [sourceQuizId]'s wrong questions. */
     suspend fun buildRemedialQuiz(sourceQuizId: String): AppResult<Quiz>
+
+    /**
+     * Regenerates an AI lesson quiz question set via the backend.
+     * Unsupported for teacher manual quizzes.
+     */
+    suspend fun regenerateQuiz(quizId: String): AppResult<Quiz>
+
+    /** Published manual quizzes for a course (student list). Empty list is a valid no-quizzes state. */
+    suspend fun listCourseQuizzes(courseId: String): AppResult<List<StudentCourseQuizSummary>>
 }
 
 /**
@@ -369,7 +431,15 @@ interface CertificateRepository {
  * profiles (bio, rating, pricing) are genuinely server-driven, so that part gets a contract.
  */
 interface OnboardingRepository {
-    suspend fun getTeachers(subjectId: String): AppResult<List<OnboardingTeacher>>
+    suspend fun getStatus(): AppResult<StudentOnboardingStatus>
+    suspend fun getSubjects(grade: Grade): AppResult<List<SubjectOption>>
+    suspend fun saveGrade(grade: Grade): AppResult<StudentOnboardingStatus>
+    suspend fun saveSubjects(subjectIds: Set<String>): AppResult<StudentOnboardingStatus>
+    suspend fun getTeachers(subjectId: String, grade: Grade): AppResult<List<OnboardingTeacher>>
+    suspend fun saveTeachers(
+        teacherIdBySubject: Map<String, String>,
+    ): AppResult<StudentOnboardingStatus>
+    suspend fun complete(): AppResult<StudentOnboardingStatus>
 }
 
 /**
@@ -419,19 +489,18 @@ interface PaymentRepository {
     suspend fun submitPayment(request: PaymentRequest): AppResult<PendingPayment>
 
     /**
-     * ST-20's entry point from ST-16 — the one pre-seeded [com.rork.eduspark.data.model.PaymentStatus.Verified]
-     * payment that hasn't been activated yet, or null once activated. Never derived from
-     * [pendingPayment]/[submitPayment] — nothing in this build promotes Pending into Verified.
+     * Mock-only ST-16 banner for a pre-seeded verified payment. Remote payment never emits
+     * this — backend `unlocked=true` navigates ST-19 → ST-20 directly, and reload state comes
+     * from GET /subscriptions rather than this in-memory flag.
      */
     val verifiedUnactivatedPayment: Flow<PendingPayment?>
 
-    /** ST-20. Looks up whatever payment exists for [courseId] — Pending, Verified, or none — plus whether access was already activated. */
+    /** ST-20. Looks up whatever payment exists for [courseId] — Pending, Verified, or none — plus whether access is already active on the backend. */
     suspend fun getPurchaseAccess(courseId: String): AppResult<PurchaseAccess?>
 
     /**
-     * ST-20. Idempotent — a no-op success once [courseId] is already activated, never a second
-     * grant. The caller must have already confirmed the underlying payment is
-     * [com.rork.eduspark.data.model.PaymentStatus.Verified]; this call only records the fact.
+     * Mock-only local entitlement record. Remote implementations must not subscribe again —
+     * backend access from POST /subscribe and GET /subscriptions is authoritative.
      */
     suspend fun activateAccess(courseId: String): AppResult<Unit>
 }
@@ -442,6 +511,9 @@ interface PaymentRepository {
  * idempotent per code, tracked entirely within this repository.
  */
 interface VoucherRepository {
+    /** False when remote payment/subscription is active and no backend voucher contract exists. */
+    val isAvailable: Boolean get() = true
+
     /** Read-only check — never marks a code used. */
     suspend fun validateVoucher(code: String): AppResult<VoucherValidationResult>
 
@@ -474,6 +546,91 @@ interface ProfileRepository {
     val learningPreferences: Flow<LearningPreferences>
     suspend fun getLearningPreferences(): AppResult<LearningPreferences>
     suspend fun updateLearningPreferences(preferences: LearningPreferences): AppResult<LearningPreferences>
+}
+
+interface ParentRepository {
+    val linkedStudents: Flow<List<ParentLinkedStudent>>
+    val selectedStudentId: Flow<String?>
+
+    suspend fun getLinkedStudents(): AppResult<List<ParentLinkedStudent>>
+
+    suspend fun selectStudent(studentId: String): AppResult<ParentLinkedStudent>
+
+    /** Child overview metrics from `/api/parent/dashboard` (insights deferred). */
+    suspend fun getDashboard(studentId: String): AppResult<ParentDashboard>
+
+    /** Course/progress rows from `/api/parent/course-progress`. */
+    suspend fun getCourseProgress(studentId: String): AppResult<List<ParentCourseProgress>>
+
+    /** Recent activity from `/api/parent/activity`. */
+    suspend fun getRecentActivity(studentId: String, limit: Int = 30): AppResult<List<ParentActivity>>
+
+    /**
+     * Selected-child home payload: dashboard overview + dedicated course-progress and activity
+     * feeds. Soft-fails courses/activity to empty lists so overview still renders.
+     */
+    suspend fun getChildOverview(studentId: String): AppResult<ParentDashboard>
+
+    /** Teacher notes for the selected child from `/api/parent/notes`. */
+    suspend fun getParentNotes(studentId: String, limit: Int = 30): AppResult<ParentNotesFeed>
+
+    /** Marks a note read via `/api/parent/notes/{id}/read`. */
+    suspend fun markParentNoteRead(noteId: String): AppResult<ParentNote>
+
+    /** Acknowledges a note via `/api/parent/notes/{id}/acknowledge`. */
+    suspend fun acknowledgeParentNote(noteId: String): AppResult<ParentNote>
+
+    /** Replies to a note via `/api/parent/notes/{id}/reply`. */
+    suspend fun replyToParentNote(noteId: String, body: String): AppResult<ParentNote>
+
+    /** Links a child with the backend parent invitation code. */
+    suspend fun linkStudent(code: String): AppResult<ParentLinkedStudent>
+
+    /** Unread parent alert count for the selected child; refreshed whenever alerts are loaded. */
+    val unreadAlertCount: Flow<Int>
+
+    /** PR-02 home summary composed from `/api/parent/dashboard` plus the unread alert count. */
+    suspend fun getDashboardSnapshot(studentId: String): AppResult<ParentDashboardSnapshot>
+
+    suspend fun getPerformanceSnapshot(studentId: String): AppResult<ParentPerformanceSnapshot>
+    suspend fun getAttendanceStudyTime(studentId: String): AppResult<ParentAttendanceStudyTimeSnapshot>
+    suspend fun getLessonProgress(studentId: String): AppResult<ParentLessonProgressSnapshot>
+    suspend fun getLessonDetails(studentId: String, lessonId: String): AppResult<ParentLessonDetails>
+    suspend fun getSubjectsTeachers(studentId: String): AppResult<ParentSubjectsTeachersSnapshot>
+    suspend fun getPlannerSnapshot(studentId: String): AppResult<ParentPlannerSnapshot>
+    suspend fun getAiInsightsSnapshot(studentId: String): AppResult<ParentAiInsightsSnapshot>
+
+    suspend fun getReportsSnapshot(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+    ): AppResult<ParentReportsSnapshot>
+
+    /**
+     * Downloads the selected child's historical report via
+     * `GET /api/parent/historical-report/export`. [format] must be one of `pdf`, `csv`, `xlsx`.
+     */
+    suspend fun exportHistoricalReport(
+        studentId: String,
+        period: ParentReportPeriod,
+        customDateRange: ParentReportDateRange?,
+        format: String = "pdf",
+    ): AppResult<ParentReportExport>
+
+    suspend fun getAlertsSnapshot(studentId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Marks one alert read via `POST /api/parent/notifications/{id}/read`. */
+    suspend fun markParentAlertRead(studentId: String, alertId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Marks every unread alert read, one backend call per alert. */
+    suspend fun markAllParentAlertsRead(studentId: String): AppResult<ParentAlertsSnapshot>
+
+    /** Persists one alert switch via `PUT /api/parent/notification-settings`. */
+    suspend fun setParentAlertPreferenceEnabled(
+        studentId: String,
+        key: ParentAlertPreferenceKey,
+        enabled: Boolean,
+    ): AppResult<ParentAlertsSnapshot>
 }
 
 /**
@@ -642,7 +799,7 @@ interface ProjectRepository {
  * [com.rork.eduspark.data.model.TeacherSetupState.completedStepIds], independent of the other
  * steps, so TC-01 is resumable from whichever step was last saved with its values intact.
  */
-interface TeacherRepository {
+interface TeacherSetupRepository {
     suspend fun getSetupState(teacherId: String): AppResult<TeacherSetupState>
 
     suspend fun saveIdentity(teacherId: String, identity: TeacherIdentityInfo): AppResult<TeacherSetupState>
@@ -654,18 +811,40 @@ interface TeacherRepository {
     suspend fun saveVoiceSample(teacherId: String, voiceSample: TeacherVoiceSample): AppResult<TeacherSetupState>
 
     /**
+     * Uploads a teacher profile photo via `POST /api/teacher/setup/avatar`.
+     * Returns the refreshed setup state (including [TeacherIdentityInfo.photoUrl]).
+     */
+    suspend fun uploadAvatar(
+        teacherId: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): AppResult<TeacherSetupState>
+
+    /**
      * Fails with [com.rork.eduspark.core.result.AppError.Validation] if Identity or Subjects &
      * Grades were never saved with real content (a non-blank display name; at least one
      * subject and one grade) — this never silently completes a required step the teacher
      * skipped. Every other step may stay empty and setup still finishes.
      */
     suspend fun finishSetup(teacherId: String): AppResult<TeacherSetupState>
+}
+
+interface TeacherRepository : TeacherSetupRepository {
 
     /** TC-02. Only ever called once setup is complete. */
     suspend fun getDashboard(teacherId: String): AppResult<TeacherDashboardSummary>
 
     /** TC-03. */
     suspend fun getCourses(teacherId: String): AppResult<List<TeacherCourseSummary>>
+
+    /** Subjects available for [grade] on the existing teacher course create form. */
+    suspend fun getCourseFormSubjects(grade: Grade): AppResult<List<TeacherCourseFormSubject>>
+
+    /** Creates one real Course row through the existing teacher course API. */
+    suspend fun createCourse(request: TeacherCourseCreateRequest): AppResult<TeacherCourseSummary>
+
+    suspend fun setCoursePublished(courseId: String, published: Boolean): AppResult<TeacherCourseSummary>
 
     /** TC-04. Same [com.rork.eduspark.data.model.TeacherCourseSummary] rows [getCourses] returns, looked up by id. */
     suspend fun getCourse(courseId: String): AppResult<TeacherCourseSummary>
@@ -674,6 +853,8 @@ interface TeacherRepository {
     suspend fun getLessons(courseId: String): AppResult<List<TeacherLesson>>
 
     suspend fun getLesson(courseId: String, lessonId: String): AppResult<TeacherLesson>
+
+    suspend fun setLessonVisible(courseId: String, lessonId: String, visible: Boolean): AppResult<TeacherLesson>
 
     /** TC-04 drag reorder. [orderedLessonIds] is the new top-to-bottom order for every lesson currently in [courseId] — reassigns [com.rork.eduspark.data.model.TeacherLesson.order] and persists it. */
     suspend fun reorderLessons(courseId: String, orderedLessonIds: List<String>): AppResult<List<TeacherLesson>>
@@ -808,6 +989,10 @@ interface TeacherRepository {
         feedback: String,
     ): AppResult<TeacherQuizAttempt>
 
+    suspend fun getQuizAnalytics(quizId: String): AppResult<TeacherQuizAnalytics>
+
+    suspend fun getCourseQuizAnalytics(courseId: String): AppResult<TeacherCourseQuizAnalytics>
+
     /** TC-12. [com.rork.eduspark.data.model.TeacherStudentSummary.studentId] values match [TeacherQuizAttempt.studentId] wherever the same fixture persona appears in both, so TC-11 and TC-12 never disagree about who a student is. */
     suspend fun getStudents(teacherId: String): AppResult<List<TeacherStudentSummary>>
 
@@ -834,6 +1019,9 @@ interface TeacherRepository {
 
     /** Reads the mock parent-note list [sendParentNote] already appends — no second store. */
     suspend fun getParentNotes(studentId: String): AppResult<List<TeacherParentNote>>
+
+    /** Closes an open parent note thread when the backend supports it. */
+    suspend fun closeParentNote(studentId: String, noteId: String): AppResult<TeacherParentNote>
 
     /** TC-13 teacher→student message action — an honest mock composer/send, never a real chat thread or push notification. */
     suspend fun sendStudentMessage(studentId: String, message: String): AppResult<Unit>
@@ -946,6 +1134,9 @@ interface MessagingRepository {
         contactId: String,
     ): AppResult<MessageThread>
 
+    /** Student course-detail entrypoint: opens the canonical backend thread for this course's teacher. */
+    suspend fun openCourseTeacherThread(courseId: String, includeParent: Boolean = false): AppResult<MessageThread>
+
     /**
      * The Teacher↔Parent thread linked to [studentId], if one exists in the mock store.
      * Does not create a parent — only ريم has a seeded parent conversation.
@@ -994,6 +1185,6 @@ object FeatureAvailability {
     /** Offline bootstrap/push sync endpoints — planned, not built. */
     const val SYNC_ENDPOINTS_READY = false
 
-    /** Token refresh — no endpoint exists; 401 always means re-login. */
-    const val TOKEN_REFRESH_READY = false
+    /** Auth refresh is available through the canonical FastAPI session endpoint. */
+    const val TOKEN_REFRESH_READY = true
 }

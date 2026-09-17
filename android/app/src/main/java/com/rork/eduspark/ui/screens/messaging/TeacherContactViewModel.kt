@@ -24,17 +24,10 @@ class TeacherContactViewModel(
     private val _events = Channel<TeacherContactEvent>(Channel.BUFFERED)
     val events: Flow<TeacherContactEvent> = _events.receiveAsFlow()
 
-    fun openCourseTeacherThread() {
+    fun openCourseTeacherThread(courseId: String) {
         viewModelScope.launch {
-            val session = authRepository.session.first() ?: return@launch
-            val viewerId = session.messagingParticipantIdOrNull() ?: return@launch
-            val viewerRole = session.messagingRoleOrNull() ?: return@launch
-            val contacts = messagingRepository.getPermittedContacts(viewerId, viewerRole)
-            val teacher = (contacts as? AppResult.Success)
-                ?.data
-                ?.firstOrNull { it.role == MessageParticipantRole.Teacher }
-                ?: return@launch
-            val thread = messagingRepository.openOrCreateThread(viewerId, viewerRole, teacher.id)
+            authRepository.session.first() ?: return@launch
+            val thread = messagingRepository.openCourseTeacherThread(courseId)
             val threadId = (thread as? AppResult.Success)?.data?.id ?: return@launch
             _events.send(TeacherContactEvent.OpenThread(threadId))
         }

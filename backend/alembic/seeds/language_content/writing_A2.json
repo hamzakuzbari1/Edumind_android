@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "Buying a Used Bicycle",
+    "title_ar": "شرا بسكليت مستعملة",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Write an email to a person selling a used bicycle online. Ask about the price, the condition of the brakes, and when you can see it.",
+      "prompt_ar": "اكتب إيميل لشخص عم يبيع بسكليت مستعملة أونلاين. اسألو عن السعر، وعن حالة الفرامل، وإيمتى فيك تشوفها.",
+      "example_answer": "Hello, I saw your advertisement on the website. I want to buy your green bicycle for my university trips. Is the price still fifty euros? How is the condition of the brakes? I am free on Tuesday evening. Can I come to see it at six o'clock?",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "shopping"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "An Unfortunate Train Delay",
+    "title_ar": "تأخير بالقطار صار معي",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Write a message to your friend. Explain why you are late because of a train delay and where they should wait for you.",
+      "prompt_ar": "اكتب مسج لرفيقك. اشرحلو ليش عم تتأخر بسبب تأخير بالقطار، ووين لازم يستناك.",
+      "example_answer": "Hi Jonas, I am very sorry but I will be late for our meeting today. I arrived at the huge central station at eight o'clock, but my train is delayed. The next train is coming in twenty minutes. Please wait for me inside the warm coffee shop near the entrance. See you soon!",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "transport"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "My Plan for a Sunny Weekend",
+    "title_ar": "خطتي لعطلة نهاية الأسبوع المشمسة",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Write a short paragraph about your plans for a warm, sunny weekend. Where are you going and what are you doing there?",
+      "prompt_ar": "اكتب مقطع قصير عن خططك لعطلة نهاية أسبوع دافية ومشمسة. وين رايح وشو بدك تعمل هنيك؟",
+      "example_answer": "The weather forecast says tomorrow will be very sunny and warm. My friends and I want to go to a beautiful lake near Damascus. We are planning to swim in the cool water and eat strawberry ice cream. Then, we will ride our bicycles in the park. I am very excited about the weekend.",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "weather"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "Joining a Local Sports Club",
+    "title_ar": "التسجيل بنادي رياضي محلي",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Write an email to a local football club. Express your interest in joining, ask about the student membership price, and when training sessions start.",
+      "prompt_ar": "اكتب إيميل لنادي فوتبول محلي. قلهن إنك حابب تسجل معهم، واسألهن عن سعر اشتراك الطلاب، وإيمتى بتبلش حصص التدريب.",
+      "example_answer": "Hello, my name is Ahmad and I love playing football. I decided to join your local sports club this month. Can you tell me the price of the student membership? When do your training sessions start during the week? I am free every Thursday evening after school. Thank you!",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "hobbies"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "An Invitation to My Neighbors",
+    "title_ar": "عزيمة لجيراني",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Write a note to invite your new neighbors for tea in your apartment. Tell them when to come and what cake you are preparing.",
+      "prompt_ar": "اكتب ورقة صغيرة لتعزم جيرانك الجداد ع الشاي بشقتك. قلهن إيمتى يجوا وشو الكيك يلي عم تجهزو.",
+      "example_answer": "Dear neighbors, welcome to our apartment building! I want to invite you to have tea at my flat next Sunday evening. We can sit in my living room and talk. I am baking a delicious homemade chocolate cake for you. Please come at five o'clock. See you then!",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "neighborhood"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "My First Week at Language School",
+    "title_ar": "أول أسبوع بمدرسة اللغة",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Write a letter to your family in Syria about your first week at the language school in Syria. Mention your teacher and classmates.",
+      "prompt_ar": "اكتب رسالة لعيلتك بسوريا عن أول أسبوع إلك بمدرسة اللغة بألمانيا. احكي عن آنستك ورفقاتك يلي بالصف.",
+      "example_answer": "Dear family, my first week at the language school was very good. I was quite nervous on Monday, but now I feel confident. Our teacher, Miss Sarah, is very kind and professional. My classmates come from different countries like Spain and Brazil. We practice speaking English together every morning. I miss you!",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "school"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "Registering My New Address",
+    "title_ar": "تسجيل عنوان السكن الجديد تبعي",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Write an email to the local city hall. Ask about the documents required to register your new apartment address and the opening hours.",
+      "prompt_ar": "اكتب إيميل لبلدية المدينة المحلية. اسأل عن الأوراق المطلوبة لتسجيل عنوان شقتك الجديدة وعن أوقات الدوام.",
+      "example_answer": "Hello, I recently moved to a new flat in Homs. I need to register my home address at the city hall this week. What documents do I need to bring to the appointment? Can I upload my rental contract online? Also, what are your opening hours on Wednesday? Thank you for your help.",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "bureaucracy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "An Email to the Doctor's Clinic",
+    "title_ar": "إيميل لعيادة الدكتور",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Write an email to a medical clinic to change your doctor's appointment. Explain why you cannot come tomorrow and ask for a new time.",
+      "prompt_ar": "اكتب إيميل للعيادة الطبية مشان تغير موعد الدكتور. اشرحلن ليش ما فيك تجي بكرا واسألن عن موعد جديد.",
+      "example_answer": "Hello, this is Maya. I have a medical appointment with Doctor Müller tomorrow morning at nine o'clock. Unfortunately, I cannot come because I have an important university exam at that time. Is it possible to change my appointment to Thursday afternoon? I have a bad cough and need some medicine.",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "healthcare"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "Returning a Broken Item",
+    "title_ar": "ترجيع غرض مكسور",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Write a message to an online store customer service. Explain that the winter coat you bought yesterday is too small and ask for a cash refund.",
+      "prompt_ar": "اكتب مسج لخدمة زباين محل أونلاين. اشرحلن إنه الجاكيت الشتوي يلي اشتريتو مبارح كتير صغير، واسألن عن ترجيع المصاري كاش.",
+      "example_answer": "Hello, I bought a black winter coat from your website yesterday afternoon. When I got home, I realized the size was completely wrong. The coat is too small for me and I cannot close the buttons. Your store does not have a bigger size. Can I get a full cash refund?",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "shopping"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A2",
+    "content_type": "writing_prompt",
+    "title": "A Visit to the Local Library",
+    "title_ar": "زيارة للمكتبة العامة المحلية",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Write a blog post about your visit to the local public library. Describe the building, what you can borrow, and why you like studying there.",
+      "prompt_ar": "اكتب بوست لمدونة عن زيارتك للمكتبة العامة المحلية. اوصف البناية، شو فيك تستعير منها، وليش بتحب تدرس هنيك.",
+      "example_answer": "Yesterday, I visited the local public library near the city center. The building is very large and modern. If you have a membership card, you can borrow interesting books and movies. I like studying there because the rooms are quiet and the internet is fast. It is a wonderful place.",
+      "min_words": 50,
+      "min_sentences": 5,
+      "topic": "daily city life"
+    }
+  }
+]

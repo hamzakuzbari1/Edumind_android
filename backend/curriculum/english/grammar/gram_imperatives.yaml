@@ -1,0 +1,42 @@
+grammar_id: gram_imperatives
+display_code: G013
+title: Imperatives
+cefr_level: A1
+order: 130
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- open
+- don't
+- please
+- let's
+teaching_notes: Model the target in classroom instructions, directions; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- You open your books. (as instruction form)
+- Don't to be late.
+examples:
+- Open your books.
+- Don't be late.
+- Let's start.
+learning_objectives:
+- Give simple instructions and polite requests with imperatives
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- listening
+- speaking
+recommended_contexts:
+- classroom instructions
+- directions
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in classroom instructions, directions; check comprehension before guided
+  production, then recycle it in a new context.

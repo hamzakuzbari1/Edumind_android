@@ -27,6 +27,7 @@ import com.rork.eduspark.core.preferences.NumeralSystem
 import com.rork.eduspark.core.preferences.TextSizePreference
 import com.rork.eduspark.core.preferences.ThemeMode
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.StudentOnboardingStep
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.FeatureAvailability
 import com.rork.eduspark.ui.screens.PlaceholderScreen
@@ -36,11 +37,13 @@ import com.rork.eduspark.ui.screens.auth.LocaleSwitchScreen
 import com.rork.eduspark.ui.screens.auth.LoginScreen
 import com.rork.eduspark.ui.screens.auth.RegisterScreen
 import com.rork.eduspark.ui.screens.auth.ResetPasswordScreen
+import com.rork.eduspark.ui.screens.auth.RoleAuthScreen
 import com.rork.eduspark.ui.screens.auth.RoleSelectScreen
 import com.rork.eduspark.ui.screens.auth.SplashDecision
 import com.rork.eduspark.ui.screens.auth.SplashScreen
 import com.rork.eduspark.ui.screens.auth.SplashViewModel
 import com.rork.eduspark.ui.screens.auth.TwoFactorScreen
+import com.rork.eduspark.ui.screens.auth.parseUserRoleArg
 import com.rork.eduspark.ui.screens.auth.ValueCarouselScreen
 import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailScreen
@@ -60,6 +63,19 @@ import com.rork.eduspark.ui.screens.onboarding.OnboardingPersonalizeScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingSubjectsScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingTeachersScreen
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAiInsightsScreen
+import com.rork.eduspark.ui.screens.parent.ParentAlertsScreen
+import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeScreen
+import com.rork.eduspark.ui.screens.parent.ParentDashboardScreen
+import com.rork.eduspark.ui.screens.parent.ParentHomeScreen
+import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsScreen
+import com.rork.eduspark.ui.screens.parent.ParentLessonProgressScreen
+import com.rork.eduspark.ui.screens.parent.ParentLinkStudentScreen
+import com.rork.eduspark.ui.screens.parent.ParentMeScreen
+import com.rork.eduspark.ui.screens.parent.ParentPlannerScreen
+import com.rork.eduspark.ui.screens.parent.ParentProgressScreen
+import com.rork.eduspark.ui.screens.parent.ParentReportsScreen
+import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersScreen
 import com.rork.eduspark.ui.screens.student.AccountSettingsScreen
 import com.rork.eduspark.ui.screens.student.AchievementScreen
 import com.rork.eduspark.ui.screens.student.CoursePaywallScreen
@@ -199,7 +215,7 @@ fun AppNavigation(
             onSelectLocale = onSelectLocale,
         )
         teacherGraph(navController)
-        parentGraph()
+        parentGraph(navController)
 
         // ── Phase 6 · X-01/X-02/X-03 — outside every role graph, same shape as
         // TEACHER_SETUP/CERTIFICATE_VERIFY below: reached via the SAME shared [navController]
@@ -359,53 +375,69 @@ private fun NavGraphBuilder.authGraph(
                 onSelectLocale = startLocaleTransition,
                 onFinished = {
                     viewModel.markSeen()
-                    navController.navigate(Routes.ROLE_SELECT)
+                    navController.navigate(Routes.ROLE_SELECT) {
+                        popUpTo(Routes.VALUE_CAROUSEL) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 },
             )
         }
 
         // ── A-03 · Role Select ───────────────────────────────────────────
         composable(Routes.ROLE_SELECT) {
-            val canGoBack = navController.previousBackStackEntry != null
-
             RoleSelectScreen(
                 locale = locale,
                 onSelectLocale = startLocaleTransition,
                 onSelectRole = { role ->
-                    navController.navigate(
-                        when (role) {
-                            UserRole.Student -> Routes.REGISTER_STUDENT
-                            UserRole.Teacher -> Routes.REGISTER_TEACHER
-                            UserRole.Parent -> Routes.REGISTER_PARENT
-                        }
-                    )
+                    navController.navigate(Routes.roleAuthRoute(role))
                 },
-                onLogin = { navController.navigate(Routes.LOGIN) },
-                onBack = if (canGoBack) {
-                    { navController.popBackStack() }
-                } else {
-                    null
-                },
+                onBack = null,
+            )
+        }
+
+        // ── Role-specific Login / Register hub ───────────────────────────
+        composable(
+            route = Routes.ROLE_AUTH,
+            arguments = listOf(navArgument(Routes.ROLE_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
+            RoleAuthScreen(
+                role = role,
+                locale = locale,
+                onSelectLocale = startLocaleTransition,
+                onLogin = { navController.navigate(Routes.loginRoute(role)) },
+                onRegister = { navController.navigate(Routes.registerRoute(role)) },
+                onChangeAccountType = { navController.popToRoleSelect() },
             )
         }
 
         // ── A-04 · Login ─────────────────────────────────────────────────
-        composable(Routes.LOGIN) {
-            val canGoBack = navController.previousBackStackEntry != null
-
+        composable(
+            route = Routes.LOGIN,
+            arguments = listOf(navArgument(Routes.ROLE_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
             LoginScreen(
+                expectedRole = role,
                 locale = locale,
                 onSelectLocale = startLocaleTransition,
                 onAuthenticated = navController::routeAfterAuthentication,
-                onTwoFactorRequired = { email -> navController.navigate(Routes.twoFactorRoute(email)) },
+                onTwoFactorRequired = { email ->
+                    navController.navigate(Routes.twoFactorRoute(email, role))
+                },
                 onVerifyEmail = { email -> navController.navigate(Routes.verifyEmailRoute(email)) },
                 onForgotPassword = { navController.navigate(Routes.FORGOT_PASSWORD) },
-                onCreateAccount = { navController.navigate(Routes.ROLE_SELECT) },
-                onBack = if (canGoBack) {
-                    { navController.popBackStack() }
-                } else {
-                    null
-                },
+                onCreateAccount = { navController.navigate(Routes.registerRoute(role)) },
+                onChangeAccountType = { navController.popToRoleSelect() },
+                onBack = { navController.popBackStack() },
             )
         }
 
@@ -444,13 +476,26 @@ private fun NavGraphBuilder.authGraph(
         // ── A-09 · Two-Factor Verify ──────────────────────────────────────
         composable(
             route = Routes.TWO_FACTOR,
-            arguments = listOf(navArgument(EMAIL_ARG) { type = NavType.StringType }),
+            arguments = listOf(
+                navArgument(EMAIL_ARG) { type = NavType.StringType },
+                navArgument(Routes.ROLE_ARG) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+            ),
         ) { backStackEntry ->
             val email = backStackEntry.arguments?.getString(EMAIL_ARG).orEmpty()
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
             TwoFactorScreen(
                 email = email,
+                expectedRole = role,
                 onBack = { navController.popBackStack() },
                 onAuthenticated = navController::routeAfterAuthentication,
+                onChangeAccountType = { navController.popToRoleSelect() },
             )
         }
 
@@ -458,7 +503,11 @@ private fun NavGraphBuilder.authGraph(
         composable(Routes.FORGOT_PASSWORD) {
             ForgotPasswordScreen(
                 onBack = { navController.popBackStack() },
-                onLogin = { navController.navigate(Routes.LOGIN) { launchSingleTop = true } },
+                onLogin = {
+                    if (!navController.popBackStack()) {
+                        navController.popToRoleSelect()
+                    }
+                },
             )
         }
 
@@ -489,7 +538,7 @@ private fun NavGraphBuilder.authGraph(
                 onCompleted = {
                     // Resetting a password never returns a session (Source Audit §3) — the
                     // honest next step is Login, same as A-08's no-session branch.
-                    navController.navigate(Routes.LOGIN) {
+                    navController.navigate(Routes.ROLE_SELECT) {
                         popUpTo(Routes.AUTH_GRAPH) { inclusive = false }
                         launchSingleTop = true
                     }
@@ -534,12 +583,14 @@ private fun NavGraphBuilder.registerDestination(
             role = role,
             locale = locale,
             onSelectLocale = onSelectLocale,
-            onRegistered = { email ->
+            onAuthenticated = navController::routeAfterAuthentication,
+            onEmailVerificationRequired = { email ->
                 navController.navigate(Routes.verifyEmailRoute(email)) { launchSingleTop = true }
             },
             onLogin = {
-                navController.navigate(Routes.LOGIN) { launchSingleTop = true }
+                navController.navigate(Routes.loginRoute(role)) { launchSingleTop = true }
             },
+            onChangeAccountType = { navController.popToRoleSelect() },
             onBack = { navController.popBackStack() },
         )
     }
@@ -550,6 +601,16 @@ private fun NavHostController.replaceWith(route: String) {
     navigate(route) {
         popUpTo(Routes.SPLASH) { inclusive = true }
         launchSingleTop = true
+    }
+}
+
+/** Returns to the role-selection entry without stacking another copy of it. */
+private fun NavHostController.popToRoleSelect() {
+    if (!popBackStack(Routes.ROLE_SELECT, inclusive = false)) {
+        navigate(Routes.ROLE_SELECT) {
+            popUpTo(Routes.AUTH_GRAPH) { inclusive = false }
+            launchSingleTop = true
+        }
     }
 }
 
@@ -564,8 +625,21 @@ private fun NavHostController.replaceWith(route: String) {
  * layer up. Parent always goes straight to its shell; neither onboarding nor setup applies to it.
  */
 private fun NavHostController.routeAfterAuthentication(user: SessionUser) {
-    val destination = when {
-        user.role == UserRole.Student && !user.hasCompletedOnboarding -> Routes.ONBOARDING_GRAPH
+    val destination = destinationAfterAuthentication(user)
+    navigate(destination) {
+        popUpTo(Routes.AUTH_GRAPH) { inclusive = true }
+        launchSingleTop = true
+    }
+}
+
+internal fun destinationAfterAuthentication(user: SessionUser): String =
+    when {
+        user.role == UserRole.Student && !user.hasCompletedOnboarding -> when (user.onboardingStep) {
+            StudentOnboardingStep.Subjects -> Routes.SO_SUBJECTS
+            StudentOnboardingStep.Teachers -> Routes.SO_TEACHERS
+            StudentOnboardingStep.Complete -> Routes.STUDENT_GRAPH
+            else -> Routes.ONBOARDING_GRAPH
+        }
         user.role == UserRole.Teacher && !user.hasCompletedOnboarding -> Routes.TEACHER_SETUP
         else -> when (user.role) {
             UserRole.Student -> Routes.STUDENT_GRAPH
@@ -573,11 +647,6 @@ private fun NavHostController.routeAfterAuthentication(user: SessionUser) {
             UserRole.Parent -> Routes.PARENT_GRAPH
         }
     }
-    navigate(destination) {
-        popUpTo(Routes.AUTH_GRAPH) { inclusive = true }
-        launchSingleTop = true
-    }
-}
 
 /**
  * SO-01…SO-05 · Student Onboarding — isolated from Student Core, its own top-level graph.
@@ -902,14 +971,12 @@ private fun NavGraphBuilder.studentGraph(
                 courseId = courseId,
                 onBack = { navController.popBackStack() },
                 onContinueLesson = { lessonId -> navController.navigate(Routes.studentLessonRoute(lessonId)) },
-                // ST-09 — the course's manual quiz has a deterministic id derived from the
-                // course it belongs to, and there is no quiz-list screen to build this
-                // slice, so tapping the quiz count opens it directly.
-                onOpenManualQuiz = { navController.navigate(Routes.studentQuizRoute("manual-$courseId")) },
+                onOpenManualQuiz = { quizId -> navController.navigate(Routes.studentQuizRoute(quizId)) },
+                onOpenManualQuizResults = { quizId -> navController.navigate(Routes.studentQuizResultsRoute(quizId)) },
                 // Whole-course-locked state's Subscribe CTA — the existing ST-17 paywall
                 // sheet, never a second payment entry point.
                 onSubscribe = { navController.navigate(Routes.STUDENT_SUBSCRIPTIONS) },
-                onMessageTeacher = teacherContactViewModel::openCourseTeacherThread,
+                onMessageTeacher = { teacherContactViewModel.openCourseTeacherThread(courseId) },
             )
         }
 
@@ -1131,12 +1198,18 @@ private fun NavGraphBuilder.studentGraph(
                 courseId = courseId,
                 methodId = methodId,
                 onDone = { navController.popBackStack() },
+                onVerified = {
+                    navController.navigate(Routes.studentPurchaseSuccessRoute(courseId)) {
+                        popUpTo(Routes.STUDENT_PAYMENT_PENDING) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
             )
         }
 
         // ── ST-20 · Purchase Success ──────────────────────────────────────────
-        // Only reached via ST-16's "confirmed access" banner (a pre-verified mock fixture) —
-        // never pushed automatically from ST-19; see PurchaseSuccessViewModel's own doc comment.
+        // Reached from ST-19 when the backend returns unlocked/Verified, or from ST-16's
+        // mock-only confirmed-access banner.
         composable(
             route = Routes.STUDENT_PURCHASE_SUCCESS,
             arguments = listOf(navArgument(COURSE_ID_ARG) { type = NavType.StringType }),
@@ -1145,7 +1218,11 @@ private fun NavGraphBuilder.studentGraph(
             PurchaseSuccessScreen(
                 courseId = courseId,
                 onOpenCourse = { navController.navigate(Routes.studentCourseDetailRoute(courseId)) },
-                onBackToSubscriptions = { navController.popBackStack() },
+                onBackToSubscriptions = {
+                    if (!navController.popBackStack(Routes.STUDENT_SUBSCRIPTIONS, false)) {
+                        navController.popBackStack()
+                    }
+                },
             )
         }
 
@@ -1831,11 +1908,28 @@ private fun NavGraphBuilder.teacherGraph(navController: NavHostController) {
 }
 
 /** Phase 4 — Parent (14 screens). */
-private fun NavGraphBuilder.parentGraph() {
+private fun NavGraphBuilder.parentGraph(navController: NavHostController) {
     navigation(startDestination = Routes.PARENT_HOME, route = Routes.PARENT_GRAPH) {
         composable(Routes.PARENT_HOME) {
+            val drawerViewModel = koinViewModel<StudentNavigationDrawerViewModel>()
+            val drawerState by drawerViewModel.state.collectAsStateWithLifecycle()
             RoleShell(
                 tabs = ParentTabs,
+                homeRoute = Routes.PARENT_HOME,
+                homeLabelRes = R.string.tab_parent_home,
+                drawerUser = drawerState.user?.let { user ->
+                    RoleDrawerUser(displayName = user.displayName, email = user.email)
+                },
+                drawerSections = ParentDrawerSections,
+                onConfirmSignOut = {
+                    drawerViewModel.signOut {
+                        navController.navigate(Routes.ROLE_SELECT) {
+                            popUpTo(Routes.PARENT_GRAPH) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                isSigningOut = drawerState.isSigningOut,
                 screenIdFor = { route ->
                     when (route) {
                         Routes.PARENT_HOME -> "PR-02 · Parent Home"
@@ -1846,7 +1940,98 @@ private fun NavGraphBuilder.parentGraph() {
                     }
                 },
                 phaseFor = { "Phase 4" },
+                overrides = mapOf(
+                    Routes.PARENT_HOME to {
+                        ParentHomeScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                            onOpenPlanner = { navController.navigate(Routes.PARENT_PLANNER) },
+                            onOpenAlerts = { navController.navigate(Routes.PARENT_ALERTS) },
+                            onOpenAiInsights = { navController.navigate(Routes.PARENT_AI_INSIGHTS) },
+                            onOpenNotes = { navController.navigate(Routes.PARENT_NOTES) },
+                        )
+                    },
+                    Routes.PARENT_PROGRESS to {
+                        ParentProgressScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                            onOpenAttendanceStudyTime = { navController.navigate(Routes.PARENT_ATTENDANCE_STUDY_TIME) },
+                            onOpenLessonProgress = { navController.navigate(Routes.PARENT_LESSON_PROGRESS) },
+                            onOpenSubjectsTeachers = { navController.navigate(Routes.PARENT_SUBJECTS_TEACHERS) },
+                        )
+                    },
+                    Routes.PARENT_REPORTS to {
+                        ParentReportsScreen(
+                            onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                        )
+                    },
+                    Routes.PARENT_MESSAGES to {
+                        MessagesListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
+                            onOpenNewConversation = { navController.navigate(Routes.NEW_CONVERSATION) },
+                        )
+                    },
+                    Routes.PARENT_ME to {
+                        ParentMeScreen(onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) })
+                    },
+                ),
             )
+        }
+        composable(Routes.PARENT_LINK_STUDENT) {
+            ParentLinkStudentScreen(onBack = { navController.popBackStack() })
+        }
+        composable(Routes.PARENT_PLANNER) {
+            ParentPlannerScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+        composable(Routes.PARENT_ALERTS) {
+            ParentAlertsScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+        composable(Routes.PARENT_AI_INSIGHTS) {
+            ParentAiInsightsScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+        composable(Routes.PARENT_ATTENDANCE_STUDY_TIME) {
+            ParentAttendanceStudyTimeScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+        composable(Routes.PARENT_LESSON_PROGRESS) {
+            ParentLessonProgressScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                onOpenLessonDetails = { lessonId ->
+                    navController.navigate(Routes.parentLessonDetailsRoute(lessonId))
+                },
+            )
+        }
+        composable(
+            route = Routes.PARENT_LESSON_DETAILS,
+            arguments = listOf(navArgument(LESSON_ID_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val lessonId = backStackEntry.arguments?.getString(LESSON_ID_ARG).orEmpty()
+            ParentLessonDetailsScreen(
+                lessonId = lessonId,
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+            )
+        }
+        composable(Routes.PARENT_SUBJECTS_TEACHERS) {
+            ParentSubjectsTeachersScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLinkStudent = { navController.navigate(Routes.PARENT_LINK_STUDENT) },
+                onOpenThread = { threadId -> navController.navigate(Routes.messageThreadRoute(threadId)) },
+            )
+        }
+        composable(Routes.PARENT_NOTES) {
+            ParentDashboardScreen()
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.rork.eduspark.ui.screens.student
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -53,9 +55,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,6 +68,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +79,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
+import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LessonDetail
 import com.rork.eduspark.data.model.LessonMediaType
@@ -136,14 +142,47 @@ fun LessonPlayerScreen(
     var showCompletionSheet by remember { mutableStateOf(false) }
     var quickAccess by rememberSaveable(lessonId) { mutableStateOf<String?>(null) }
     val showingTests = quickAccess == LessonQuickAccess.Quizzes.name
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val networkBody = stringResource(R.string.state_error_network_body)
+    val serverBody = stringResource(R.string.state_error_server_body)
+    val unauthorizedBody = stringResource(R.string.state_error_unauthorized_body)
+    val notFoundBody = stringResource(R.string.state_error_not_found_body)
+    val unknownBody = stringResource(R.string.state_error_unknown_body)
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.refreshSession()
     }
 
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is LessonPlayerEvent.OpenExternalMedia -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.url))
+                    runCatching { context.startActivity(intent) }
+                        .onFailure {
+                            snackbarHostState.showSnackbar(unknownBody)
+                        }
+                }
+                is LessonPlayerEvent.MediaResolveFailed -> {
+                    val message = when (event.error) {
+                        AppError.Offline, AppError.Network -> networkBody
+                        AppError.Server -> serverBody
+                        AppError.SessionExpired -> unauthorizedBody
+                        AppError.Forbidden -> unauthorizedBody
+                        AppError.NotFound -> notFoundBody
+                        else -> unknownBody
+                    }
+                    snackbarHostState.showSnackbar(message)
+                }
+            }
+        }
+    }
+
     EduScaffold(
         title = if (showingTests) stringResource(R.string.st03_quick_quizzes) else lesson?.title.orEmpty(),
         onBack = { if (showingTests) quickAccess = null else onBack() },
+        snackbarHostState = snackbarHostState,
         modifier = modifier,
     ) {
         ScreenStateHost(
@@ -174,6 +213,10 @@ fun LessonPlayerScreen(
                     onCycleSpeed = viewModel::cyclePlaybackSpeed,
                     onToggleCaptions = viewModel::toggleCaptions,
                     onStartDownload = viewModel::startDownload,
+                    onOpenPdf = viewModel::openPdfFile,
+                    onOpenVideo = viewModel::openVideoFile,
+                    onOpenAudio = viewModel::openAudioFile,
+                    onOpenHomework = viewModel::openHomeworkFile,
                     onBackToCourse = onBackToCourse,
                     onAskTutor = onAskTutor,
                     onAskTutorWithPrompt = onAskTutorWithPrompt,
@@ -252,6 +295,10 @@ private fun LessonContent(
     onCycleSpeed: () -> Unit,
     onToggleCaptions: () -> Unit,
     onStartDownload: () -> Unit,
+    onOpenPdf: () -> Unit,
+    onOpenVideo: () -> Unit,
+    onOpenAudio: () -> Unit,
+    onOpenHomework: () -> Unit,
     onBackToCourse: (courseId: String) -> Unit,
     onAskTutor: () -> Unit,
     onAskTutorWithPrompt: (prompt: String) -> Unit,
@@ -304,7 +351,13 @@ private fun LessonContent(
                 selectedMedia = selectedMedia,
                 pdfOpened = pdfOpened,
                 onSelectMedia = { selectedMediaName = it.name },
-                onOpenPdf = { pdfOpened = true },
+                onOpenPdf = {
+                    pdfOpened = true
+                    onOpenPdf()
+                },
+                onOpenVideo = onOpenVideo,
+                onOpenAudio = onOpenAudio,
+                onOpenHomework = onOpenHomework,
                 onPreviousPage = onPreviousPage,
                 onNextPage = onNextPage,
                 onToggleZoom = onToggleZoom,
@@ -453,7 +506,10 @@ private fun LessonContent(
                     lesson = lesson,
                     state = state,
                     pdfOpened = pdfOpened,
-                    onOpenPdf = { pdfOpened = true },
+                    onOpenPdf = {
+                        pdfOpened = true
+                        onOpenPdf()
+                    },
                     onPreviousPage = onPreviousPage,
                     onNextPage = onNextPage,
                     onToggleZoom = onToggleZoom,
@@ -960,6 +1016,9 @@ private fun LessonTeacherMediaPanel(
     pdfOpened: Boolean,
     onSelectMedia: (LessonMediaType) -> Unit,
     onOpenPdf: () -> Unit,
+    onOpenVideo: () -> Unit,
+    onOpenAudio: () -> Unit,
+    onOpenHomework: () -> Unit,
     onPreviousPage: () -> Unit,
     onNextPage: () -> Unit,
     onToggleZoom: () -> Unit,
@@ -969,6 +1028,14 @@ private fun LessonTeacherMediaPanel(
     onToggleCaptions: () -> Unit,
 ) {
     val colors = EduTheme.colors
+        val attachmentNames = buildList {
+            if (!lesson.homeworkUrl.isNullOrBlank()) {
+                add(
+                    lesson.homeworkUrl.substringAfterLast('/')
+                        .ifBlank { stringResource(R.string.tc17_media_document) },
+                )
+            }
+        }
     Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -1018,7 +1085,10 @@ private fun LessonTeacherMediaPanel(
                         color = colors.primary,
                         modifier = Modifier.eduClickable(
                             onClickLabel = stringResource(R.string.st03_play_video),
-                            onClick = onTogglePlayback,
+                            onClick = {
+                                if (!lesson.videoUrl.isNullOrBlank()) onOpenVideo()
+                                else onTogglePlayback()
+                            },
                         ),
                     )
                     Text(
@@ -1041,15 +1111,29 @@ private fun LessonTeacherMediaPanel(
                     text = stringResource(R.string.st03_media_clock, numeral(lesson.durationMinutes)),
                     style = EduTheme.typography.caption.copy(fontWeight = FontWeight.Bold),
                     color = colors.textSecondary,
+                    modifier = if (!lesson.audioUrl.isNullOrBlank()) {
+                        Modifier.eduClickable(
+                            onClickLabel = stringResource(R.string.st03_media_audio),
+                            onClick = onOpenAudio,
+                        )
+                    } else {
+                        Modifier
+                    },
                 )
             }
         }
-        LessonAttachmentsRow(names = emptyList())
+        LessonAttachmentsRow(
+            names = attachmentNames,
+            onOpen = if (!lesson.homeworkUrl.isNullOrBlank()) onOpenHomework else null,
+        )
     }
 }
 
 @Composable
-private fun LessonAttachmentsRow(names: List<String>) {
+private fun LessonAttachmentsRow(
+    names: List<String>,
+    onOpen: (() -> Unit)? = null,
+) {
     if (names.isEmpty()) return
     Column(verticalArrangement = Arrangement.spacedBy(Spacing.xxs)) {
         Text(
@@ -1062,6 +1146,11 @@ private fun LessonAttachmentsRow(names: List<String>) {
                 text = name,
                 style = EduTheme.typography.caption,
                 color = EduTheme.colors.textSecondary,
+                modifier = if (onOpen != null) {
+                    Modifier.eduClickable(onClickLabel = name, onClick = onOpen)
+                } else {
+                    Modifier
+                },
             )
         }
     }

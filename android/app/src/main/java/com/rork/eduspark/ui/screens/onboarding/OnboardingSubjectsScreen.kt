@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,8 +21,12 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
+import com.rork.eduspark.core.ui.UiState
+import com.rork.eduspark.data.model.SubjectGroup
 import com.rork.eduspark.ui.components.action.PrimaryButton
+import com.rork.eduspark.ui.components.action.SecondaryButton
 import com.rork.eduspark.ui.components.input.EduChip
+import com.rork.eduspark.ui.components.surface.SkeletonBlock
 import com.rork.eduspark.ui.theme.EduTheme
 import com.rork.eduspark.ui.theme.Spacing
 
@@ -46,11 +51,25 @@ fun OnboardingSubjectsScreen(
 
     BackHandler { onBack() }
 
+    LaunchedEffect(viewModel) {
+        viewModel.loadSubjectsIfNeeded()
+        viewModel.events.collect { event ->
+            if (event == OnboardingEvent.SubjectsSaved) onContinue()
+        }
+    }
+
     OnboardingStepScaffold(
         step = 2,
         onBack = onBack,
         bottomBar = {
             when {
+                state.subjectsSaveFailed -> Text(
+                    text = stringResource(R.string.state_error_unknown_body),
+                    style = EduTheme.typography.caption,
+                    color = EduTheme.colors.danger,
+                    modifier = Modifier.padding(bottom = Spacing.xs),
+                )
+
                 state.subjectIds.isNotEmpty() -> Text(
                     text = pluralStringResource(
                         R.plurals.so02_selected_count,
@@ -71,7 +90,8 @@ fun OnboardingSubjectsScreen(
             }
             PrimaryButton(
                 text = stringResource(R.string.so02_continue),
-                onClick = { if (state.canContinueFromSubjects) onContinue() else showValidation = true },
+                onClick = { if (state.canContinueFromSubjects) viewModel.saveSubjects() else showValidation = true },
+                isLoading = state.isSavingSubjects,
                 modifier = Modifier.fillMaxWidth(),
             )
         },
@@ -88,26 +108,61 @@ fun OnboardingSubjectsScreen(
             modifier = Modifier.padding(top = Spacing.xs),
         )
 
-        OnboardingCatalog.groupsFor(state.track).forEach { (groupTitleRes, subjects) ->
-            Text(
-                text = stringResource(groupTitleRes),
-                style = EduTheme.typography.caption,
+        when (val subjectsState = state.availableSubjects) {
+            UiState.Loading -> Column(
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+                modifier = Modifier.padding(top = Spacing.section),
+            ) {
+                repeat(3) { SkeletonBlock(widthFraction = 1f) }
+            }
+
+            is UiState.Failure -> Column(modifier = Modifier.padding(top = Spacing.section)) {
+                Text(
+                    text = stringResource(R.string.state_error_network_body),
+                    style = EduTheme.typography.body,
+                    color = EduTheme.colors.textMuted,
+                )
+                SecondaryButton(
+                    text = stringResource(R.string.common_retry),
+                    onClick = viewModel::retrySubjects,
+                    modifier = Modifier.padding(top = Spacing.sm),
+                )
+            }
+
+            is UiState.Empty -> Text(
+                text = stringResource(R.string.state_empty_default_body),
+                style = EduTheme.typography.body,
                 color = EduTheme.colors.textMuted,
                 modifier = Modifier.padding(top = Spacing.section),
             )
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
-                verticalArrangement = Arrangement.spacedBy(Spacing.xs),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Spacing.xs),
-            ) {
-                subjects.forEach { subject ->
-                    EduChip(
-                        label = stringResource(subject.labelRes),
-                        selected = subject.id in state.subjectIds,
-                        onClick = { viewModel.toggleSubject(subject.id) },
+
+            is UiState.Content -> listOf(
+                SubjectGroup.Core to R.string.so02_group_science_core,
+                SubjectGroup.LanguagesAndGeneral to R.string.so02_group_languages_general,
+            ).forEach { (group, groupTitleRes) ->
+                val subjects = subjectsState.data.filter { it.group == group }
+                if (subjects.isNotEmpty()) {
+                    Text(
+                        text = stringResource(groupTitleRes),
+                        style = EduTheme.typography.caption,
+                        color = EduTheme.colors.textMuted,
+                        modifier = Modifier.padding(top = Spacing.section),
                     )
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Spacing.xs),
+                    ) {
+                        subjects.forEach { subject ->
+                            EduChip(
+                                label = subject.name,
+                                selected = subject.id in state.subjectIds,
+                                onClick = { viewModel.toggleSubject(subject.id) },
+                            )
+                        }
+                    }
                 }
             }
         }

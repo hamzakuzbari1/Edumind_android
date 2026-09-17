@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Hello from Damascus",
+    "title_ar": "مرحبا من برلين",
+    "sort_order": 0,
+    "body_json": {
+      "text": "Hello! My name is Ahmad. I am from Syria. Now, I live in Damascus, Syria. I am twenty-five years old. I am a student here. I speak Arabic and a little English. I learn German every day. Damascus is big and very beautiful. I like my new life here.",
+      "text_ar": "الأهلين! اسمي أحمد. أنا من سوريا. هلق أنا عايش ببرلين بألمانيا. عمري خمسة وعشرين سنة. أنا طالب هون. بحكي عربي وشوي إنكليزي. عم اتعلم ألماني كل يوم. برلين كبيرة وحلوة كتير. عاجبتني حياتي الجديدة هون.",
+      "vocabulary": [
+        "student",
+        "live",
+        "beautiful",
+        "learn",
+        "life"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Where does Ahmad live now?",
+          "choices": [
+            "In Damascus",
+            "In Syria",
+            "In London",
+            "In Damascus"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "self-introduction",
+      "passage": "Hello! My name is Ahmad. I am from Syria. Now, I live in Damascus, Syria. I am twenty-five years old. I am a student here. I speak Arabic and a little English. I learn German every day. Damascus is big and very beautiful. I like my new life here.",
+      "passage_ar": "الأهلين! اسمي أحمد. أنا من سوريا. هلق أنا عايش ببرلين بألمانيا. عمري خمسة وعشرين سنة. أنا طالب هون. بحكي عربي وشوي إنكليزي. عم اتعلم ألماني كل يوم. برلين كبيرة وحلوة كتير. عاجبتني حياتي الجديدة هون."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My Roommate's Family",
+    "title_ar": "عيلة رفيقي بالسكن",
+    "sort_order": 1,
+    "body_json": {
+      "text": "This is my friend. His name is Thomas. He is German. We live in a small flat in Munich. Thomas has a nice family. He has one brother and two sisters. His father is a doctor. His mother is a teacher. They live in a small village. They visit Thomas on Sunday.",
+      "text_ar": "هاد رفيقي. اسمه توماس. هو ألماني. نحنا عايشين بشقة صغيرة بميونيخ. توماس عنده عيلة حبابة. عنده أخ واحد وأختين. أبوه دكتور وأمه معلمة. هنن عايشين بضيعة صغيرة. بيجوا بيزوروا توماس يوم الأحد.",
+      "vocabulary": [
+        "friend",
+        "flat",
+        "brother",
+        "sister",
+        "visit"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How many sisters does Thomas have?",
+          "choices": [
+            "One sister",
+            "Two sisters",
+            "Three sisters",
+            "No sisters"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "family",
+      "passage": "This is my friend. His name is Thomas. He is German. We live in a small flat in Munich. Thomas has a nice family. He has one brother and two sisters. His father is a doctor. His mother is a teacher. They live in a small village. They visit Thomas on Sunday.",
+      "passage_ar": "هاد رفيقي. اسمه توماس. هو ألماني. نحنا عايشين بشقة صغيرة بميونيخ. توماس عنده عيلة حبابة. عنده أخ واحد وأختين. أبوه دكتور وأمه معلمة. هنن عايشين بضيعة صغيرة. بيجوا بيزوروا توماس يوم الأحد."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My Daily Trip",
+    "title_ar": "مشواري اليومي",
+    "sort_order": 2,
+    "body_json": {
+      "text": "Every day, I get up at seven o'clock. I drink hot coffee. Then, I go to the bus station. I take the blue bus at eight o'clock. The bus is always on time. I go to my school. The ticket costs three euros. I buy a ticket every morning. I love my bus.",
+      "text_ar": "كل يوم بفيق الساعة سبعة الصبح. بشرب قهوة سخنة. بعدين بروح عموقف الباص. بركب بالباص الأزرق الساعة تمنية. الباص دايماً بيجي عالموعد. بروح عالمدرسة تبعي. التكت حقه تلاتة يورو. بشتري تكت كل يوم الصبح. بحب الباص تبعي.",
+      "vocabulary": [
+        "morning",
+        "station",
+        "always",
+        "ticket",
+        "cost"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What time does the bus come?",
+          "choices": [
+            "At seven o'clock",
+            "At three o'clock",
+            "At eight o'clock",
+            "At nine o'clock"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "public transport",
+      "passage": "Every day, I get up at seven o'clock. I drink hot coffee. Then, I go to the bus station. I take the blue bus at eight o'clock. The bus is always on time. I go to my school. The ticket costs three euros. I buy a ticket every morning. I love my bus.",
+      "passage_ar": "كل يوم بفيق الساعة سبعة الصبح. بشرب قهوة سخنة. بعدين بروح عموقف الباص. بركب بالباص الأزرق الساعة تمنية. الباص دايماً بيجي عالموعد. بروح عالمدرسة تبعي. التكت حقه تلاتة يورو. بشتري تكت كل يوم الصبح. بحب الباص تبعي."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Shopping for Food",
+    "title_ar": "عم اتسوق للأكل",
+    "sort_order": 3,
+    "body_json": {
+      "text": "Today is Friday. I go to the German supermarket. I need fresh food. I buy red apples and green bananas. I buy warm bread and white milk. I also buy five brown eggs. The food is cheap. I pay ten euros. The supermarket is clean and big. I walk home now.",
+      "text_ar": "اليوم الجمعة. عم روح عالسوبرماركت الألماني. بدي أكل طازة. بشتري تفاح أحمر وموز أخضر. بشتري خبز سخن وحليب أبيض. وكمان بشتري خمس بيضات بنيين. الأكل رخيص. بدفع عشرة يورو. السوبرماركت نضيف وكبير. هلق عم امشي عالبيت.",
+      "vocabulary": [
+        "supermarket",
+        "fresh",
+        "cheap",
+        "pay",
+        "clean"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How much does the food cost?",
+          "choices": [
+            "Five euros",
+            "Three euros",
+            "Friday euros",
+            "Ten euros"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "food",
+      "passage": "Today is Friday. I go to the German supermarket. I need fresh food. I buy red apples and green bananas. I buy warm bread and white milk. I also buy five brown eggs. The food is cheap. I pay ten euros. The supermarket is clean and big. I walk home now.",
+      "passage_ar": "اليوم الجمعة. عم روح عالسوبرماركت الألماني. بدي أكل طازة. بشتري تفاح أحمر وموز أخضر. بشتري خبز سخن وحليب أبيض. وكمان بشتري خمس بيضات بنيين. الأكل رخيص. بدفع عشرة يورو. السوبرماركت نضيف وكبير. هلق عم امشي عالبيت."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My New Apartment",
+    "title_ar": "شقتي الجديدة",
+    "sort_order": 4,
+    "body_json": {
+      "text": "I have a new flat in Damascus. It is small but very nice. It has a small kitchen and a bathroom. It also has a big bedroom. The walls are clean and white. I have one very big window. I see a green park from it. The monthly rent is four hundred euros. I like my cozy home every day.",
+      "text_ar": "عندي شقة جديدة بفرانكفورت. هي صغيرة بس كتير حلوة. فيها مطبخ صغير وحمام. وكمان فيها غرفة نوم كبيرة. الحيطان نضاف وبيض. عندي شباك واحد كتير كبير. بشوف جنينة خضرا منه. الآجار الشهري أربعمية يورو. بحب بيتي الدافي كل يوم.",
+      "vocabulary": [
+        "kitchen",
+        "bathroom",
+        "bedroom",
+        "window",
+        "rent"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What can be seen from the window?",
+          "choices": [
+            "A green park",
+            "A big kitchen",
+            "A blue bus",
+            "A small supermarket"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "home",
+      "passage": "I have a new flat in Damascus. It is small but very nice. It has a small kitchen and a bathroom. It also has a big bedroom. The walls are clean and white. I have one very big window. I see a green park from it. The monthly rent is four hundred euros. I like my cozy home every day.",
+      "passage_ar": "عندي شقة جديدة بفرانكفورت. هي صغيرة بس كتير حلوة. فيها مطبخ صغير وحمام. وكمان فيها غرفة نوم كبيرة. الحيطان نضاف وبيض. عندي شباك واحد كتير كبير. بشوف جنينة خضرا منه. الآجار الشهري أربعمية يورو. بحب بيتي الدافي كل يوم."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My English Class",
+    "title_ar": "صف الإنكليزي تبعي",
+    "sort_order": 5,
+    "body_json": {
+      "text": "I go to a language school in Damascus. My class has twelve students. We have four men and eight women. We meet at nine o'clock every morning. We study English for three hours. Our teacher is very kind. We have fifteen new books. We count numbers from one to one hundred. Learning a new language is fun. I like my school very much.",
+      "text_ar": "عم روح عالمدرسة تبع اللغات ببرلين. صفي فيه طنعش طالب وطالبة. عنا أربع رجال وتمن نسوان. بنلتقي الساعة تسعة كل يوم الصبح. مندرس إنكليزي لتلات ساعات. الأستاذ تبعنا كتير حباب. عنا خمسطشر كتاب جديد. منعد الأرقام من الواحد للمية. تعليم لغة جديدة بيمتع. كتير بحب مدرستي.",
+      "vocabulary": [
+        "class",
+        "students",
+        "hours",
+        "kind",
+        "count"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How many hours do they study English every morning?",
+          "choices": [
+            "Four hours",
+            "Three hours",
+            "Twelve hours",
+            "Nine hours"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "numbers",
+      "passage": "I go to a language school in Damascus. My class has twelve students. We have four men and eight women. We meet at nine o'clock every morning. We study English for three hours. Our teacher is very kind. We have fifteen new books. We count numbers from one to one hundred. Learning a new language is fun. I like my school very much.",
+      "passage_ar": "عم روح عالمدرسة تبع اللغات ببرلين. صفي فيه طنعش طالب وطالبة. عنا أربع رجال وتمن نسوان. بنلتقي الساعة تسعة كل يوم الصبح. مندرس إنكليزي لتلات ساعات. الأستاذ تبعنا كتير حباب. عنا خمسطشر كتاب جديد. منعد الأرقام من الواحد للمية. تعليم لغة جديدة بيمتع. كتير بحب مدرستي."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Cold Days in Syria",
+    "title_ar": "الأيام الباردة بألمانيا",
+    "sort_order": 6,
+    "body_json": {
+      "text": "The winter in Syria is very cold. Today, the sky is grey and dark. It is raining outside right now. I wear my heavy black coat today. I wear blue jeans and warm boots. I have a big yellow umbrella. I do not walk to school today. I take the fast underground train. The train is warm and clean. I like my train trip.",
+      "text_ar": "الشتوية بألمانيا كتير باردة. اليوم السما رمادية ومعتمة. عم تشتي برّا هلق. عم البس جاكيتي الأسود التقيل اليوم. بلبس بنطلون جينز أزرق وبوط دافي. عندي شمسية كبيرة وصفرا. ما عم امشي عالمدرسة اليوم. بركب بمترو الأنفاق السريع. المترو دافي ونضيف. بحب مشواري بالمترو.",
+      "vocabulary": [
+        "winter",
+        "grey",
+        "heavy",
+        "umbrella",
+        "underground"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How does the person travel to school today?",
+          "choices": [
+            "By walking",
+            "By a blue bus",
+            "By underground train",
+            "By a black coat"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "weather",
+      "passage": "The winter in Syria is very cold. Today, the sky is grey and dark. It is raining outside right now. I wear my heavy black coat today. I wear blue jeans and warm boots. I have a big yellow umbrella. I do not walk to school today. I take the fast underground train. The train is warm and clean. I like my train trip.",
+      "passage_ar": "الشتوية بألمانيا كتير باردة. اليوم السما رمادية ومعتمة. عم تشتي برّا هلق. عم البس جاكيتي الأسود التقيل اليوم. بلبس بنطلون جينز أزرق وبوط دافي. عندي شمسية كبيرة وصفرا. ما عم امشي عالمدرسة اليوم. بركب بمترو الأنفاق السريع. المترو دافي ونضيف. بحب مشواري بالمترو."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My Saturday Morning",
+    "title_ar": "سبت الصبح تبعي",
+    "sort_order": 7,
+    "body_json": {
+      "text": "On Saturday, I do not study at school. I sleep until nine o'clock in the morning. Then, I go to a small bakery. I buy two sweet cakes there. I drink black tea with my Syrian friend. We sit in a beautiful green park. We talk about our families in Syria. The sun is very warm today. I feel happy on my weekend.",
+      "text_ar": "يوم السبت ما بدرس بالمدرسة. بنام للساعة تسعة الصبح. بعدين بروح عفرن صغير. بشتري قطعتين كيك حلوين هنيك. بشرب شاي أسود مع رفيقي السوري. بنقعد بجنينة خضرا وحلوة. بنحكي عن عيلاتنا بسوريا. الشمس كتير دافية اليوم. حاسس حالي مبسوط بعطلتي.",
+      "vocabulary": [
+        "bakery",
+        "sweet",
+        "cakes",
+        "friend",
+        "weekend"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What does the person buy at the bakery?",
+          "choices": [
+            "Black tea",
+            "Warm bread",
+            "Fresh food",
+            "Two sweet cakes"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "daily routine",
+      "passage": "On Saturday, I do not study at school. I sleep until nine o'clock in the morning. Then, I go to a small bakery. I buy two sweet cakes there. I drink black tea with my Syrian friend. We sit in a beautiful green park. We talk about our families in Syria. The sun is very warm today. I feel happy on my weekend.",
+      "passage_ar": "يوم السبت ما بدرس بالمدرسة. بنام للساعة تسعة الصبح. بعدين بروح عفرن صغير. بشتري قطعتين كيك حلوين هنيك. بشرب شاي أسود مع رفيقي السوري. بنقعد بجنينة خضرا وحلوة. بنحكي عن عيلاتنا بسوريا. الشمس كتير دافية اليوم. حاسس حالي مبسوط بعطلتي."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My First Job",
+    "title_ar": "أول شغل إلي",
+    "sort_order": 8,
+    "body_json": {
+      "text": "I work in a small cafe in Aleppo. My new job is very nice. I work four days every week. I make hot coffee and delicious tea. I clean all the wooden tables. I speak English with many international tourists. My boss is a friendly German man. I earn some money for my rent. I like working here every day.",
+      "text_ar": "عم اشتغل بقهوة صغيرة بهامبورغ. شغلي الجديد كتير حلو. بشتغل أربعة أيام كل أسبوع. بعمل قهوة سخنة وشاي طيب. بنضف كل الطاولات الخشب. بحكي إنكليزي مع سواح أجانب كتار. معملّمي زلمة ألماني ودود. عم اطلع شويّة مصاري عشان الآجار. بحب اشتغل هون كل يوم.",
+      "vocabulary": [
+        "job",
+        "cafe",
+        "tables",
+        "tourists",
+        "boss"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How many days a week does the person work?",
+          "choices": [
+            "Four days",
+            "Three days",
+            "Five days",
+            "Seven days"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "daily city life",
+      "passage": "I work in a small cafe in Aleppo. My new job is very nice. I work four days every week. I make hot coffee and delicious tea. I clean all the wooden tables. I speak English with many international tourists. My boss is a friendly German man. I earn some money for my rent. I like working here every day.",
+      "passage_ar": "عم اشتغل بقهوة صغيرة بهامبورغ. شغلي الجديد كتير حلو. بشتغل أربعة أيام كل أسبوع. بعمل قهوة سخنة وشاي طيب. بنضف كل الطاولات الخشب. بحكي إنكليزي مع سواح أجانب كتار. معملّمي زلمة ألماني ودود. عم اطلع شويّة مصاري عشان الآجار. بحب اشتغل هون كل يوم."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Cooking Dinner",
+    "title_ar": "عم اطبخ العشا",
+    "sort_order": 9,
+    "body_json": {
+      "text": "Tonight, I cook dinner for my roommates. I make chicken and fresh yellow rice. I use hot salt and black pepper. I slice three red tomatoes for the salad. The small kitchen smells very good. We sit together at eight o'clock. We eat our dinner happily. We drink cold water and apple juice. The homemade food is very delicious. We clean the kitchen together.",
+      "text_ar": "الليلة عم اطبخ عشا لرفقاتي بالسكن. عم اعمل جاج ورز أصفر طازة. بحط ملح وفلفل أسود حار. بفرم تلات حبات بندورة حمرا للسلطة. المطبخ الصغير ريحته كتير طيبة. بنقعد سوا الساعة تمنية. بناكل عشانا بمبسطة. بنشرب مي باردة وعصير تفاح. الأكل المعمول بالبيت كتير طيب. بننظف المطبخ سوا.",
+      "vocabulary": [
+        "dinner",
+        "roommates",
+        "rice",
+        "salad",
+        "delicious"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What do they drink with their dinner?",
+          "choices": [
+            "Hot coffee",
+            "Cold water and apple juice",
+            "Black tea",
+            "White milk"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "food",
+      "passage": "Tonight, I cook dinner for my roommates. I make chicken and fresh yellow rice. I use hot salt and black pepper. I slice three red tomatoes for the salad. The small kitchen smells very good. We sit together at eight o'clock. We eat our dinner happily. We drink cold water and apple juice. The homemade food is very delicious. We clean the kitchen together.",
+      "passage_ar": "الليلة عم اطبخ عشا لرفقاتي بالسكن. عم اعمل جاج ورز أصفر طازة. بحط ملح وفلفل أسود حار. بفرم تلات حبات بندورة حمرا للسلطة. المطبخ الصغير ريحته كتير طيبة. بنقعد سوا الساعة تمنية. بناكل عشانا بمبسطة. بنشرب مي باردة وعصير تفاح. الأكل المعمول بالبيت كتير طيب. بننظف المطبخ سوا."
+    }
+  }
+]

@@ -82,6 +82,7 @@ class MessagesListViewModel(
                 return@launch
             }
             _state.update { it.copy(viewerId = viewerId, viewerRole = viewerRole) }
+            messagingRepository.getThreads()
             messagingRepository.threads.collect { all ->
                 val mine = all.filter { it.involves(viewerId) }
                     .sortedByDescending { it.lastMessage?.sentAtMillis ?: 0L }

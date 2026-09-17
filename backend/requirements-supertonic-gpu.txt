@@ -1,0 +1,12 @@
+# Optional GPU acceleration for Language module Supertonic TTS (NVIDIA CUDA only).
+#
+# Prerequisites: backend venv with requirements.txt + requirements-voice.txt installed.
+# Fresh clones and CPU-only machines do NOT need this file — Supertonic uses CPU automatically.
+#
+# Install (from backend/, inside venv):
+#   pip uninstall -y onnxruntime
+#   pip install -r requirements-supertonic-gpu.txt
+#
+# onnxruntime and onnxruntime-gpu are mutually exclusive pip packages.
+# Uninstall the CPU build before installing the GPU build.
+onnxruntime-gpu[cuda,cudnn]==1.26.0

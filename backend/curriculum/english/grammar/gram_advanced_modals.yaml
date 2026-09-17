@@ -1,0 +1,55 @@
+grammar_id: gram_advanced_modals
+display_code: G044
+title: Perfect modals for deduction and reflection
+cefr_level: C1
+order: 440
+prerequisites:
+- gram_modals_possibility
+- gram_present_perfect
+unlock_targets: []
+grammar_targets:
+- must have + past participle
+- might/may/could have + past participle
+- cannot/could not have + past participle
+- should/ought to have + past participle
+- need not have + past participle
+teaching_notes: 'Organise perfect modals by communicative meaning: strong deduction, possibility, impossibility,
+  criticism, and unnecessary action. Use evidence-based scenarios and certainty scales rather than one
+  undifferentiated form list. Model the target in speculation about past, moral pressure; check comprehension
+  before guided production, then recycle it in a new context.'
+common_mistakes:
+- They must missed the announcement.
+- You should had told me.
+- She might have took the wrong bus.
+- He cannot has seen it.
+- Confusing did not need to with need not have done.
+examples:
+- They must have missed the announcement.
+- She might have taken the wrong bus.
+- He cannot have seen the message.
+- You should have told me earlier.
+- We need not have brought extra food.
+learning_objectives:
+- Express degrees of certainty about past events
+- Reflect on past advice, criticism, and missed alternatives
+- Distinguish unnecessary completed action from absence of necessity
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 88.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- speculation about past
+- moral pressure
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 20.0
+focus_note: 'Organise perfect modals by communicative meaning: strong deduction, possibility, impossibility,
+  criticism, and unnecessary action. Use evidence-based scenarios and certainty scales rather than one
+  undifferentiated form list. Model the target in speculation about past, moral pressure; check comprehension
+  before guided production, then recycle it in a new context.'

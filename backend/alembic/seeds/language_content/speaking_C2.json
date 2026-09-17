@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "The Fiscal Architecture of the Eurozone",
+    "title_ar": "الهيكل المالي لمنطقة اليورو",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Critically analyze the macroeconomic stability of a currency union that executes a unified monetary policy without an underlying fiscal unification. Discuss the ramifications of internal deflation on public infrastructure and how ideological divides shape political impasses regarding joint debt instruments.",
+      "prompt_ar": "حلل بشكل نقدي الاستقرار المالي الكلي لاتحاد عملة عم يطبق سياسة نقدية موحدة من دون ما يكون في توحيد مالي حقيقي بأساسه. شو رأيك بعواقب الانكماش الداخلي ع البنية التحتية العامة، وشلون عم تشكل الانقسامات الفكرية طرق مسدودة بالسياسة بخصوص أدوات الديون المشتركة هلق؟",
+      "example_answer": "The structural architecture of the Eurozone represents an extraordinarily audacious macroeconomic experiment, yet it remains fundamentally hamstrung by a systemic asymmetry: the implementation of a unified monetary policy absent a corresponding fiscal unification. When sovereign states relinquish control over their domestic monetary instruments—specifically the capacity to manipulate interest rates or devalue currency to absorb macroeconomic shocks—they render themselves uniquely vulnerable to asymmetric economic downturns. In the conspicuous absence of a centralized fiscal treasury capable of executing counter-cyclical budgetary transfers, distressed member states are forced to rely almost exclusively upon internal deflation and stringent fiscal austerity to claw back international competitiveness. This structural dynamic frequently ignites severe socio-economic crises, as the burden of adjustment falls disproportionately upon public infrastructure, social welfare networks, and employment metrics. A monetary union cannot achieve long-term equilibrium without robust mechanisms for fiscal risk-sharing, such as a permanent common budget or the issuance of joint sovereign debt instruments. However, the path toward deeper fiscal integration is bitterly contested by national electorates, polarizing the continent along historical geopolitical and ideological fault lines. Wealthier core nations routinely express profound anxiety regarding the moral hazard of subsidizing structurally weaker economies, fearing a permanent transfer union would completely disincentivize domestic structural reforms. Conversely, peripheral nations contend that the current framework systematically favors export-driven core economies, thereby exacerbating structural imbalances across the single market. Ultimately, the survival of the currency union hinges upon a political consensus that transcends localized electoral calculations, demonstrating that macroeconomic integration cannot endure without deep political alignment.",
+      "min_seconds": 120,
+      "topic": "economics",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Algorithmic Determinism and Individualized Justice",
+    "title_ar": "الحتمية الخوارزمية والعدالة الفردية",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Evaluate the ethical implications of proliferating automated decision-making protocols within public administration. Discuss how historical datasets reify discrimination and whether delegating moral evaluations to code completely absolves human actors of accountability.",
+      "prompt_ar": "قيم الأبعاد الأخلاقية لانتشار بروتوكولات اتخاذ القرار المؤتمتة بقلب الدوائر الحكومية هلق. شلون عم تشكل البيانات التاريخية أداة لتثبيت التمييز الممنهج، وهل برأيك تفويض التقييمات الأخلاقية المعقدة لأكواد برمجية عم يعفي الأشخاص تماماً من المسؤولية والمحاسبة؟",
+      "example_answer": "The contemporary proliferation of automated decision-making systems within public administration and judicial frameworks has catalyzed a profound paradigm shift in how modern societies conceptualize moral agency and constitutional rights. Utilizing predictive analytics and complex machine-learning models, institutions increasingly rely on algorithms to assess variables ranging from recidivism risks in criminal sentencing to eligibility criteria for social housing and welfare distributions. While proponents aggressively champion these technologies as emblems of mathematical objectivity capable of purging human bias from administrative processes, a more meticulous examination uncovers systemic discrimination deliberately reified and obscured under a veneer of computational neutrality. Because these proprietary algorithms are trained on historical datasets that inherently reflect deeply entrenched societal inequalities, their predictive outputs invariably perpetuate those exact structural disparities, transforming past prejudices into predictive certainty. This phenomenon, which can be defined as algorithmic determinism, systematically erodes the foundational legal principle of individualized justice, replacing nuanced human evaluation with reductionist probabilistic categorization. Furthermore, the opaque, unmapped 'black-box' nature of advanced machine-learning protocols creates an insurmountable epistemic barrier that completely undermines democratic accountability and administrative transparency. When a citizen is denied a fundamental constitutional right or benefit based on an automated scoring system, tracing the specific underlying logic behind that decision becomes virtually impossible, thereby effectively neutralizing the legal right to appeal or challenge administrative overreach. By abdicating complex moral evaluations to automated code, society risks entirely absolving human actors of ethical accountability while institutionalizing a form of technocratic governance that prioritizes computational efficiency over human dignity.",
+      "min_seconds": 120,
+      "topic": "ethics",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Kafkaesque Resonances in Transnational Prose",
+    "title_ar": "الأصداء الكافكاوية بالنثر العابر للحدود",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Narrate an analysis of how contemporary European transnational literature utilizes an aesthetics of estrangement. Detail how administrative spaces are transformed into modern iterations of Kafka's 'The Castle' to depict the psychological trauma of legal suspension.",
+      "prompt_ar": "احكيلنا تحليل مفصل عن شلون الأدب المعاصر العابر للحدود بأوروبا عم يستخدم جماليات الاغتراب هلق. وضح شلون عم تتحول المساحات الإدارية لنسخ حديثة من رواية 'القلعة' لكافكا لتصوّر الصدمة النفسية لحالة التعليق القانوني للإقامة.",
+      "example_answer": "The contemporary corpus of transnational literature emerging from the European migrant experience frequently deploys an aesthetics of estrangement to rigorously interrogate the labyrinthine and oppressive structures of state bureaucracy. Literary analysts observe that modern authors systematically move beyond conventional, linear migration narratives, which typically center on simplistic cultural assimilation or superficial linguistic friction. Instead, these highly sophisticated texts articulate a profound existential dislocation by drawing explicit structural and thematic parallels to the surreal, menacing architectures found across Franz Kafka’s seminal oeuvre. In these narratives, the municipal immigration office, the isolated asylum accommodation center, and the rigid judicial courtroom are transfigured into contemporary iterations of Kafka's The Castle—spaces fundamentally defined by arbitrary regulatory shifts, invisible authorities, and seemingly infinite procedural delays. The protagonist's journey is characterized by a perpetual ontological suspension, wherein their legal identity, human rights, and very temporal existence are governed by an inaccessible administrative machinery. By utilizing highly stylized prose, fragmented narrative structures, and magical realist disruptions, these authors meticulously deconstruct the deep psychological trauma inflicted by systemic bureaucratic alienation. The text becomes a potent hermeneutic mirror, reflecting how the modern state utilizes complex paperwork, linguistic mistranslations, and shifting legislative mandates as deliberate instruments of socio-political containment. Consequently, this literary subgenre serves as a devastating epistemological critique of Western integration discourses, exposing the violence implicit in structural demands for absolute cultural compliance. Through the radical subversion of standard narrative conventions, transnational literature challenges readers to confront the institutional absurdities that reduce lived human experiences to static administrative files, thereby reaffirming the novel as a vital space for political critique and existential resistance.",
+      "min_seconds": 120,
+      "topic": "literature analysis",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "The Geopolitical Scramble for Quantum Sovereignty",
+    "title_ar": "السباق الجيوسياسي على السيادة الكمية",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Discuss the geopolitical and macroeconomic implications of fault-tolerant quantum computing scales. Analyze how quantum capabilities invalidate public-key encryption infrastructure (RSA) and evaluate the material constraints shaping technocratic blocs.",
+      "prompt_ar": "ناقش العواقب الجيوسياسية والاقتصادية الكبيرة لقرب الوصول لحوسبة كمية قادرة على تصحيح الأخطاء. حلل شلون هي القدرات الكمية عم تطير وتلغي أنظمة التشفير التقليدية (RSA)، وقيم شروط المواد النادرة يلي عم تقسم العالم لتكتلات تكنوقراطية هلق.",
+      "example_answer": "The impending technical realization of fault-tolerant quantum computing architectures at scale has ignited an aggressive international race for quantum sovereignty, fundamentally redefining the parameters of macroeconomic stability and national security. Unlike conventional semiconductor innovations, which merely deliver incremental upgrades to computational velocity, quantum architecture leverages superposition and entanglement to execute complex calculations at speeds that completely invalidate existing cryptographic standards. The primary geopolitical threat centers directly upon the absolute vulnerability of current public-key encryption infrastructure, specifically RSA algorithms, which safeguard global financial transactions, state intelligence networks, and critical industrial utilities. A sovereign state that achieves mathematical supremacy via a scalable quantum system would possess the asymmetric capacity to decrypt legacy data retroactively, thereby entirely neutralizing the strategic intelligence shields of foreign adversaries. Recognizing this systemic risk, European research institutes and regulatory frameworks are accelerating the development of post-quantum cryptography (PQC) standards to fortify critical digital infrastructure before decryption capabilities fully materialize. However, the transition to quantum-resistant ecosystems is profoundly complicated by the sheer material scarcity of essential components, such as high-purity superconducting materials and specialized dilution refrigeration hardware. Consequently, the geopolitical landscape is splintering into competitive technocratic blocs, with major global powers implementing aggressive export controls on quantum hardware and intellectual capital to prevent strategic spillover. This intense imperative forces smaller economies to navigate complex technological dependencies, demonstrating that future geopolitical autonomy will depend heavily upon a nation's internal capacity to sustain a localized quantum infrastructure, independent of transnational supply chains.",
+      "min_seconds": 120,
+      "topic": "advanced science",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Federalist Friction in Decarbonization Policies",
+    "title_ar": "الاحتكاك الفيدرالي بسياسات إزالة الكربون",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Evaluate how supranational environmental mandates create structural friction within federalized constitutional frameworks. Discuss the institutional tug-of-war over natural resource allocation and how regional legislative leverage delays transition timelines.",
+      "prompt_ar": "قيم شلون الأوامر البيئية الأوروبية العابرة للدول عم تعمل احتكاك هيكلي وقانوني بقلب الأنظمة الدستورية الفيدرالية هلق. شو رأيك بحبل الشد بين المؤسسات على توزيع الموارد، وشلون عم تستغل الولايات الإقليمية قدرتها التشريعية لتأخر خطط التحول؟",
+      "example_answer": "The operationalization of supranational climate mitigation policies within heavily federalized European constitutional frameworks frequently reveals deep structural frictions between centralized mandates and regional statutory autonomy. When the European Union issues aggressive decarbonization directives, the ultimate implementation of these statutory laws relies upon complex administrative multi-level governance systems, nowhere more pronounced than within the German federal structure. In this framework, regional states (Länder) possess substantial constitutional authority over regional economic planning, energy infrastructure regulation, and natural resource allocation. This decentralization inevitably generates an institutional tug-of-war, as regional administrations frequently seek to protect localized industrial sectors from the economic disruption associated with rapid ecological transitions. For instance, regions dependent upon heavy manufacturing or automotive industries routinely utilize their legislative leverage to systematically delay or dilute national carbon reduction targets, citing immediate concerns regarding labor market destabilization and regional economic decline. Constitutional scholars observe that this structural friction is often exacerbated by profound legal ambiguity concerning the precise boundary of federal versus regional jurisdiction over sustainable architecture subsidies and grid expansion projects. Had central administrations established more binding consensus mechanisms prior to enacting legislative overhauls, the integration of renewable energy networks would have proceeded with substantially fewer judicial challenges. Until these constitutional boundaries are calibrated through clear legal precedents, climate governance will remain a bitterly contested arena where ecological necessity continuously clashes with the entrenched mechanics of federalist distribution.",
+      "min_seconds": 120,
+      "topic": "policy debate",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Epistemic Dissonance in Corporate Assimilation",
+    "title_ar": "التنافر المعرفي بالاندماج بقلب الشركات",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Discuss the communicative and organizational misattunement that occurs when diverse global workforces integrate into consensus-driven corporate systems. Analyze the impact of unvarnished direct critique on psychological safety.",
+      "prompt_ar": "ناقش عدم الانسجام التواصلي والتنظيمي يلي عم يصير لما تندمج أيدي عاملة عالمية ومتنوعة بقلب أنظمة الشركات القائمة ع الإجماع هلق. شو تأثير النقد المباشر والناشف بوضوح ع الأمان النفسي للموظف الأجنبي؟",
+      "example_answer": "The integration of diverse global workforces within the distinct institutional landscape of Rhineland capitalism frequently precipitates a complex form of epistemic dissonance, radically altering standard communication protocols and organizational behavior. In multinational corporate environments throughout Central Europe, corporate governance is traditionally predicated upon consensus-driven deliberation, high-context statutory documentation, and a meticulous separation between professional execution and personal identification. When international professional candidates, trained within entirely divergent communicative and organizational paradigms, enter this systemic matrix, linguistic proficiency alone proves completely insufficient to guarantee successful integration. Cross-cultural communication experts observe that structural friction points often manifest not during explicit legal disputes, but during localized corporate rituals—such as performance feedback evaluations, project presentations, and consensus-building meetings. For instance, the high reliance upon direct, unvarnished critique characteristic of central European corporate communication can be perceived by international employees as deeply destabilizing or personally hostile, thereby rapidly eroding psychological safety. Conversely, localized managers often misinterpret indirect communication styles or relational problem-solving approaches as a distinct lack of professional transparency or intellectual autonomy. This mutual misattunement demonstrates that corporate assimilation requires far more than superficial sensitivity training; it necessitates a comprehensive re-engineering of communication channels that explicitly validates communicative diversity as a cognitive asset. Until corporate leadership teams move beyond superficial diversity metrics, the latent intellectual capital of global talent will remain structurally constrained by localized behavioral models.",
+      "min_seconds": 120,
+      "topic": "cross-cultural communication",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Deconstructing the Degrowth Paradigm",
+    "title_ar": "تفكيك نموذج تراجع النمو الاقتصادي",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Evaluate the theoretical validity of the degrowth paradigm in ecological economics. Critique the absolute decoupling hypothesis within carbon capitalism, and confront critics who assert that planned material contraction causes macroeconomic collapse.",
+      "prompt_ar": "قيم الصلاحية النظرية لنموذج تراجع النمو (Degrowth) بالاقتصاد البيئي هلق. انتقد فرضية الفصل المطلق بقلب رأسمالية الكربون، وواجه المنتقدين يلي عم يقولوا إن الانكماش المادي المخطط له بيعمل فوضى وانهيار فوري بالاقتصاد الكلي.",
+      "example_answer": "As escalating ecological crises systematically expose the inherent structural limitations of carbon capitalism, the academic discourse surrounding ecological economics has increasingly centered on the radical degrowth paradigm. This macro-economic theory fundamentally challenges the core foundational axiom of contemporary economics: the unvetted assumption that infinite Gross Domestic Product (GDP) expansion is physically compatible with finite planetary biophysical boundaries. Degrowth proponents convincingly argue that contemporary corporate strategies for eco-modernism, such as green capitalism and decoupling, constitute a dangerous environmental illusion. They maintain that absolute decoupling—the mathematical insulation of economic expansion from total resource extraction and environmental degradation—has never actually occurred at the scale or velocity required to avert catastrophic climate destabilization. Instead, the degrowth framework advocates for a deliberate, planned contraction of material and energy throughput in wealthy nations, fundamentally restructuring social institutions to prioritize human well-being and ecological health over capital accumulation. Critics, however, aggressively contend that such a deliberate contraction would induce immediate macroeconomic chaos, resulting in catastrophic unemployment rates, public revenue collapses, and intense geopolitical vulnerability. They assert that without the financial surplus continuously generated by conventional economic growth, funding advanced scientific research and sustainable infrastructure transformations becomes fiscally impossible. This intellectual impasse highlights the fundamental systemic dilemma of the anthropocene: whether modern democratic societies can successfully re-engineer their socio-economic institutions away from growth dependency without triggering a complete systemic collapse, or whether they will remain bound to an expansionist paradigm until ecological boundary collapses enforce an unplanned contraction.",
+      "min_seconds": 120,
+      "topic": "economics",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Neural Interfaces and Cognitive Liberty",
+    "title_ar": "الواجهات العصبية والحرية الإدراكية",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Discuss the bioethical and biopolitical threats that consumer-grade brain-computer interfaces (BCIs) pose to mental privacy. Formulate a legal argument for the immediate codification of unique 'neurorights' to shield individual autonomy.",
+      "prompt_ar": "ناقش التهديدات الأخلاقية والسياسية الحيوية يلي عم تشكلها واجهات الدماغ والكمبيوتر التجارية ع الخصوصية العقلية هلق. ابنِ حجة قانونية واضحة للتدوين الفوري لـ 'حقوق عصبية' فريدة لتحمي استقلالية الشخص الفكرية.",
+      "example_answer": "The rapid clinical maturation of brain-computer interfaces (BCIs) and neuroprosthetics has officially transcended the traditional domain of restorative medicine, projecting modern society into a challenging bioethical frontier centered on the sanctity of cognitive liberty. Modern neurotechnologies, which utilize advanced machine-learning algorithms to decode neural signals and translate mental processes into computational commands, offer revolutionary therapeutic solutions for individuals with severe motor impairments. However, as corporate enterprises aggressively invest in consumer-grade neural interfaces designed to enhance cognitive efficiency, optimize attention metrics, or facilitate direct digital communication, the boundary of personal identity and mental privacy becomes profoundly vulnerable. Bioethicists warn that the commercialization of neural data introduces unprecedented opportunities for invasive algorithmic corporate surveillance, enabling corporations or state entities to monitor individual emotional states, subconscious cognitive preferences, and neural responses directly from the cerebral cortex. This capacity for neural monitoring introduces a fundamental epistemic threat to individual autonomy; when corporate data streams can access and manipulate cognitive processes before they even register in conscious human awareness, the very concept of free will becomes compromised. Furthermore, the integration of algorithmic feedback loops that directly stimulate neural pathways to alter mood or behavior risks eroding the boundary of individual agency, transforming human subjects into semi-automated nodes within decentralized digital networks. This systemic vulnerability necessitates a rigorous jurisdictional evolution: legal scholars contend that conventional human rights frameworks are completely inadequate to handle neurotechnological intrusion, demanding the immediate codification of specific 'neurorights' designed to protect cognitive liberty, mental privacy, and psychological continuity from predatory commercial exploitation.",
+      "min_seconds": 120,
+      "topic": "ethics",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "The EU AI Act Paradox",
+    "title_ar": "تناقض قانون الذكاء الاصطناعي الأوروبي",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Evaluate the systemic paradox embedded within centralized AI legislation like the EU AI Act. Address how rigid risk-based compliance frameworks designed to protect civic spaces might inadvertently freeze domestic innovation and create foreign dependencies.",
+      "prompt_ar": "قيم التناقض الممنهج والواضح بقلب قوانين الذكاء الاصطناعي المركزية متل قانون الذكاء الاصطناعي الأوروبي هلق. شلون عم تتسبب أطر الامتثال الصارمة القائمة ع المخاطر بتجميد الابتكار المحلي وعمل تبعية لشركات أجنبية بلا ما تقصد؟",
+      "example_answer": "The ongoing policy debate surrounding the statutory regulation of foundational artificial intelligence architectures within Europe illustrates a fundamental systemic tension between technological sovereignty and legislative overreach. As transnational technology corporations solidify their monopolistic hegemony over large-scale generative models and computational infrastructure, European regulatory bodies have introduced comprehensive legal frameworks, such as the EU AI Act, to mitigate existential risks and preserve data privacy. This pioneering legislation utilizes a risk-based tier system, mandating absolute architectural transparency, algorithmic auditing, and strict copyright compliance for high-risk deployments. Proponents of this centralized regulatory approach assert that strict statutory boundaries are essential to shield citizens from automated discrimination, systemic disinformation, and corporate data exploitation. However, a growing faction of technology strategists, open-source advocates, and digital economists contends that this rigid legislative paradigm inadvertently sabotages regional innovation, creating insurmountable bureaucratic hurdles for local start-ups and independent research frameworks. They argue that by imposing criminal liabilities and expensive compliance protocols on open-source software development, the state effectively centralizes technological control into the hands of a few dominant foreign tech conglomerates who possess the capital to navigate administrative compliance effortlessly. Consequently, this dynamic could result in an ironic geopolitical outcome: a legislative framework explicitly designed to guarantee digital autonomy might solidify Europe’s technological dependency on foreign proprietary platforms. Moving forward, policymakers face the complex task of calibrating enforcement mechanisms so that ethical guardrails protect civic space without completely freezing the domestic capital investment necessary to construct sovereign, locally adapted computational infrastructure.",
+      "min_seconds": 120,
+      "topic": "policy debate",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C2",
+    "content_type": "speaking_prompt",
+    "title": "Linguistic Drift and Polyphonic Identity",
+    "title_ar": "الانزياح اللغوي والهوية متعددة الأصوات",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Describe the sociolinguistic evolution of second-generation diasporic communities in urban spaces. Analyze how fluid code-switching serves as a sophisticated third space for agency, and critique the institutional pathologization of these hybrid structures.",
+      "prompt_ar": "اوصف التطور اللغوي والاجتماعي لمجتمعات الجيل الثاني من المغتربين بالمساحات الحضرية هلق. حلل شلون عم يشتغل التبديل اللغوي المرن كمساحة تالتة متطورة للتعبير عن الإرادة، وانتقد التعامل المرضي والسلبي للمؤسسات مع هي الهياكل الهجينة.",
+      "example_answer": "The long-term sociolinguistic evolution of second-generation diasporic communities within Western European metropolises offers a fascinating study in linguistic drift and polyphonic identity synthesis. Within these urban spaces, young individuals continuously navigate a dense communicative ecosystem, synthesizing the syntactic structures of their heritage languages—such as Syrian Arabic—with the morphology and lexicon of their host societies' standard tongues, like German or English. Rather than representing a corrupted or incomplete mastery of either idiom, contemporary sociolinguists interpret this fluid code-switching and hybrid speech production as the emergence of a sophisticated third space. This linguistic hybridity functions as an active strategy for individual and collective agency, allowing youth to construct a localized, syncretic identity that consciously resists both majoritarian cultural erasure and the rigid traditionalism of diasporic enclaves. Through the subversion of standard monolingual registers, these speakers develop a rich polyphonic repertoire that serves as an expressive medium for their unique existential positionality. However, the institutional recognition of these hybrid communication models remains a highly contested domain within formal education and employment spheres. National pedagogical institutions routinely prioritize standardized language competence as the absolute, non-negotiable metric for socio-economic mobility, pathologizing hybrid structures as indicators of linguistic deficit or cognitive confusion. This institutional rigidity creates an intellectual impasse: while the lived reality of multicultural urban centers requires flexible, multifaceted communicative adaptability, systemic evaluation mechanisms remain bound to an antiquated monolingual ideology. Ultimately, dismantling these systemic biases requires an epistemological shift that validates polyphonic hybridity not as a deficit, but as a form of valuable socio-cultural capital essential for cross-cultural communication.",
+      "min_seconds": 120,
+      "topic": "cross-cultural communication",
+      "question_type": "describe"
+    }
+  }
+]

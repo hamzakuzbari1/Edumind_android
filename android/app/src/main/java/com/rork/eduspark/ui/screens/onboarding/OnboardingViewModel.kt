@@ -12,8 +12,10 @@ import com.rork.eduspark.data.model.OnboardingAnswers
 import com.rork.eduspark.data.model.OnboardingSelections
 import com.rork.eduspark.data.model.OnboardingTeacher
 import com.rork.eduspark.data.model.SimpleDate
+import com.rork.eduspark.data.model.StudentOnboardingStatus
 import com.rork.eduspark.data.model.StudyHoursPerDay
 import com.rork.eduspark.data.model.StudyTimeOfDay
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.Track
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.OnboardingRepository
@@ -39,22 +41,29 @@ import kotlinx.coroutines.launch
  * SO-01 and SO-03 within one session never loses a selection, because the state never left
  * memory that belongs to one screen.
  *
- * [completeOnboarding] is the one call that reaches [AuthRepository] — Source Audit §3
- * already documents an `onboarding_complete` flag on the session; this flips it. Grade,
- * subjects and the teacher/personalize choices themselves are Student Core writes and are
- * deliberately not sent anywhere yet, matching "do not integrate the real backend" for this
- * slice — SO-05 shows them back to the student, it does not persist them server-side.
+ * Grade, subject and teacher selections are persisted by the canonical FastAPI onboarding
+ * endpoints before navigation advances. The non-contract personalization questions remain
+ * local drafts and are never presented as server-owned state.
  */
 data class OnboardingUiState(
     val grade: Grade? = null,
     val track: Track? = null,
     val subjectIds: Set<String> = emptySet(),
+    val availableSubjects: UiState<List<SubjectOption>> = UiState.Loading,
     val teachersBySubject: Map<String, UiState<List<OnboardingTeacher>>> = emptyMap(),
     val selectedTeacherIdBySubject: Map<String, String> = emptyMap(),
     val answers: OnboardingAnswers = OnboardingAnswers(),
     /** SO-05's celebration addresses the student by name — read from the live session. */
     val studentName: String = "",
     val isOnline: Boolean = true,
+    val isRestoring: Boolean = true,
+    val statusLoadFailed: Boolean = false,
+    val isSavingGrade: Boolean = false,
+    val gradeSaveFailed: Boolean = false,
+    val isSavingSubjects: Boolean = false,
+    val subjectsSaveFailed: Boolean = false,
+    val isSavingTeachers: Boolean = false,
+    val teachersSaveFailed: Boolean = false,
     val isCompleting: Boolean = false,
     val completionFailed: Boolean = false,
 ) {
@@ -72,6 +81,10 @@ data class OnboardingUiState(
 }
 
 sealed interface OnboardingEvent {
+    data object GradeSaved : OnboardingEvent
+    data object SubjectsSaved : OnboardingEvent
+    data object TeachersSaved : OnboardingEvent
+
     /** SO-05's primary action succeeded — the caller routes to Student Core from here. */
     data object Completed : OnboardingEvent
 }
@@ -97,6 +110,36 @@ class OnboardingViewModel(
                 _state.update { it.copy(studentName = session?.displayName.orEmpty()) }
             }
         }
+        loadStatus()
+    }
+
+    fun retryStatus() = loadStatus()
+
+    private fun loadStatus() {
+        _state.update { it.copy(isRestoring = true, statusLoadFailed = false) }
+        viewModelScope.launch {
+            when (val result = onboardingRepository.getStatus()) {
+                is AppResult.Success -> {
+                    applyServerStatus(result.data)
+                    _state.update { it.copy(isRestoring = false) }
+                    result.data.grade?.let { loadSubjects(it) }
+                }
+
+                is AppResult.Failure -> _state.update {
+                    it.copy(isRestoring = false, statusLoadFailed = true)
+                }
+            }
+        }
+    }
+
+    private fun applyServerStatus(status: StudentOnboardingStatus) {
+        _state.update { current ->
+            current.copy(
+                grade = status.grade ?: current.grade,
+                subjectIds = status.selectedSubjectIds,
+                selectedTeacherIdBySubject = status.selectedTeacherIdBySubject,
+            )
+        }
     }
 
     // ── SO-01 · Grade ─────────────────────────────────────────────────────
@@ -115,6 +158,26 @@ class OnboardingViewModel(
         _state.update { it.copy(track = track) }
     }
 
+    fun saveGrade() {
+        val grade = _state.value.grade ?: return
+        if (_state.value.isSavingGrade) return
+        _state.update { it.copy(isSavingGrade = true, gradeSaveFailed = false) }
+        viewModelScope.launch {
+            when (val result = onboardingRepository.saveGrade(grade)) {
+                is AppResult.Success -> {
+                    applyServerStatus(result.data)
+                    loadSubjects(grade)
+                    _state.update { it.copy(isSavingGrade = false) }
+                    _events.send(OnboardingEvent.GradeSaved)
+                }
+
+                is AppResult.Failure -> _state.update {
+                    it.copy(isSavingGrade = false, gradeSaveFailed = true)
+                }
+            }
+        }
+    }
+
     // ── SO-02 · Subjects ─────────────────────────────────────────────────
     fun toggleSubject(subjectId: String) {
         _state.update {
@@ -125,6 +188,50 @@ class OnboardingViewModel(
                 // selection for a subject that is no longer part of the path.
                 selectedTeacherIdBySubject = it.selectedTeacherIdBySubject.filterKeys { id -> id in next },
             )
+        }
+    }
+
+    fun loadSubjectsIfNeeded() {
+        val grade = _state.value.grade ?: return
+        if (_state.value.availableSubjects !is UiState.Content) loadSubjects(grade)
+    }
+
+    fun retrySubjects() {
+        _state.value.grade?.let(::loadSubjects)
+    }
+
+    private fun loadSubjects(grade: Grade) {
+        _state.update { it.copy(availableSubjects = UiState.Loading) }
+        viewModelScope.launch {
+            when (val result = onboardingRepository.getSubjects(grade)) {
+                is AppResult.Success -> _state.update {
+                    val subjects = if (result.data.isEmpty()) UiState.Empty() else UiState.Content(result.data)
+                    it.copy(availableSubjects = subjects)
+                }
+
+                is AppResult.Failure -> _state.update {
+                    it.copy(availableSubjects = UiState.Failure(result.error))
+                }
+            }
+        }
+    }
+
+    fun saveSubjects() {
+        val subjectIds = _state.value.subjectIds
+        if (subjectIds.isEmpty() || _state.value.isSavingSubjects) return
+        _state.update { it.copy(isSavingSubjects = true, subjectsSaveFailed = false) }
+        viewModelScope.launch {
+            when (val result = onboardingRepository.saveSubjects(subjectIds)) {
+                is AppResult.Success -> {
+                    applyServerStatus(result.data)
+                    _state.update { it.copy(isSavingSubjects = false) }
+                    _events.send(OnboardingEvent.SubjectsSaved)
+                }
+
+                is AppResult.Failure -> _state.update {
+                    it.copy(isSavingSubjects = false, subjectsSaveFailed = true)
+                }
+            }
         }
     }
 
@@ -139,9 +246,10 @@ class OnboardingViewModel(
     fun retryTeachers(subjectId: String) = loadTeachers(subjectId)
 
     private fun loadTeachers(subjectId: String) {
+        val grade = _state.value.grade ?: return
         _state.update { it.copy(teachersBySubject = it.teachersBySubject + (subjectId to UiState.Loading)) }
         viewModelScope.launch {
-            when (val result = onboardingRepository.getTeachers(subjectId)) {
+            when (val result = onboardingRepository.getTeachers(subjectId, grade)) {
                 is AppResult.Success -> _state.update {
                     val loaded = if (result.data.isEmpty()) UiState.Empty() else UiState.Content(result.data)
                     it.copy(teachersBySubject = it.teachersBySubject + (subjectId to loaded))
@@ -157,6 +265,25 @@ class OnboardingViewModel(
     fun selectTeacher(subjectId: String, teacherId: String) {
         _state.update {
             it.copy(selectedTeacherIdBySubject = it.selectedTeacherIdBySubject + (subjectId to teacherId))
+        }
+    }
+
+    fun saveTeachers() {
+        val choices = _state.value.selectedTeacherIdBySubject
+        if (!_state.value.canContinueFromTeachers || _state.value.isSavingTeachers) return
+        _state.update { it.copy(isSavingTeachers = true, teachersSaveFailed = false) }
+        viewModelScope.launch {
+            when (val result = onboardingRepository.saveTeachers(choices)) {
+                is AppResult.Success -> {
+                    applyServerStatus(result.data)
+                    _state.update { it.copy(isSavingTeachers = false) }
+                    _events.send(OnboardingEvent.TeachersSaved)
+                }
+
+                is AppResult.Failure -> _state.update {
+                    it.copy(isSavingTeachers = false, teachersSaveFailed = true)
+                }
+            }
         }
     }
 
@@ -202,10 +329,20 @@ class OnboardingViewModel(
         if (_state.value.isCompleting) return
         _state.update { it.copy(isCompleting = true, completionFailed = false) }
         viewModelScope.launch {
-            when (authRepository.completeOnboarding()) {
-                is AppResult.Success -> {
-                    _state.update { it.copy(isCompleting = false) }
-                    _events.send(OnboardingEvent.Completed)
+            when (onboardingRepository.complete()) {
+                is AppResult.Success -> when (val restored = authRepository.restoreSession()) {
+                    is AppResult.Success -> {
+                        if (restored.data?.hasCompletedOnboarding == true) {
+                            _state.update { it.copy(isCompleting = false) }
+                            _events.send(OnboardingEvent.Completed)
+                        } else {
+                            _state.update { it.copy(isCompleting = false, completionFailed = true) }
+                        }
+                    }
+
+                    is AppResult.Failure -> _state.update {
+                        it.copy(isCompleting = false, completionFailed = true)
+                    }
                 }
 
                 is AppResult.Failure -> _state.update {

@@ -1,0 +1,45 @@
+grammar_id: gram_possessives
+display_code: G009
+title: Possessives
+cefr_level: A1
+order: 90
+prerequisites:
+- gram_personal_pronouns
+- gram_articles_a_an_the
+unlock_targets: []
+grammar_targets:
+- my
+- your
+- his
+- her
+- our
+- their
+- '''s'
+teaching_notes: Model the target in family belongings, classroom objects; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- This is me bag.
+- The phone of Sara is new. (overused at A1)
+examples:
+- This is my bag.
+- Sara's phone is new.
+learning_objectives:
+- Use possessive adjectives and 's for ownership
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- speaking
+recommended_contexts:
+- family belongings
+- classroom objects
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 14.0
+focus_note: Model the target in family belongings, classroom objects; check comprehension before guided
+  production, then recycle it in a new context.

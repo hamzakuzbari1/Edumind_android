@@ -39,6 +39,7 @@ import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.rork.eduspark.R
+import com.rork.eduspark.data.model.UserRole
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
@@ -62,19 +63,31 @@ object Routes {
     const val SPLASH = "auth/splash"                    // A-01
     const val VALUE_CAROUSEL = "auth/carousel"          // A-02
     const val ROLE_SELECT = "auth/role"                 // A-03
-    const val LOGIN = "auth/login"                      // A-04
+    const val ROLE_ARG = "role"
+    const val ROLE_AUTH = "auth/role-auth/{$ROLE_ARG}"  // Role-specific Login / Register hub
+    fun roleAuthRoute(role: UserRole) = "auth/role-auth/${role.name.lowercase()}"
+    const val LOGIN = "auth/login/{$ROLE_ARG}"          // A-04 — role is UX context only
+    fun loginRoute(role: UserRole) = "auth/login/${role.name.lowercase()}"
     const val REGISTER_STUDENT = "auth/register/student" // A-05
     const val REGISTER_PARENT = "auth/register/parent"   // A-06
     const val REGISTER_TEACHER = "auth/register/teacher" // A-07
+    fun registerRoute(role: UserRole) = when (role) {
+        UserRole.Student -> REGISTER_STUDENT
+        UserRole.Teacher -> REGISTER_TEACHER
+        UserRole.Parent -> REGISTER_PARENT
+    }
 
     // A-08 and A-09 both need the email the previous screen was working with (Register's
     // new address, or Login's unverified/2FA-pending one), so the route carries it as an
     // argument rather than relying on a shared ViewModel or global state to smuggle it across.
     private const val EMAIL_ARG = "email"
     const val VERIFY_EMAIL = "auth/verify-email/{$EMAIL_ARG}" // A-08 — route pattern
-    const val TWO_FACTOR = "auth/two-factor/{$EMAIL_ARG}"     // A-09 — route pattern
+    const val TWO_FACTOR = "auth/two-factor/{$EMAIL_ARG}?$ROLE_ARG={$ROLE_ARG}" // A-09
     fun verifyEmailRoute(email: String) = "auth/verify-email/${Uri.encode(email)}"
-    fun twoFactorRoute(email: String) = "auth/two-factor/${Uri.encode(email)}"
+    fun twoFactorRoute(email: String, role: UserRole? = null): String {
+        val base = "auth/two-factor/${Uri.encode(email)}"
+        return if (role == null) base else "$base?$ROLE_ARG=${role.name.lowercase()}"
+    }
 
     const val FORGOT_PASSWORD = "auth/forgot" // A-10 — no arguments
 
@@ -202,9 +215,8 @@ object Routes {
     fun studentPaymentPendingRoute(courseId: String, methodId: String) =
         "student/payment/pending/${Uri.encode(courseId)}/${Uri.encode(methodId)}"
 
-    // ST-20 · Purchase Success — courseId-scoped; reached only for a course whose payment is
-    // already Verified (see PaymentRepository.getPurchaseAccess's own doc comment), never
-    // pushed automatically from ST-19 on a timer.
+    // ST-20 · Purchase Success — courseId-scoped; reached from ST-19 when backend
+    // subscribe returns unlocked/Verified, or from ST-16's mock-only banner.
     const val STUDENT_PURCHASE_SUCCESS = "student/purchase-success/{$COURSE_ID_ARG}" // ST-20 — route pattern
     fun studentPurchaseSuccessRoute(courseId: String) = "student/purchase-success/${Uri.encode(courseId)}"
 
@@ -407,6 +419,16 @@ object Routes {
     const val PARENT_REPORTS = "parent/reports"
     const val PARENT_MESSAGES = "parent/messages"
     const val PARENT_ME = "parent/me"
+    const val PARENT_LINK_STUDENT = "parent/link-student"
+    const val PARENT_PLANNER = "parent/planner"
+    const val PARENT_ALERTS = "parent/alerts"
+    const val PARENT_AI_INSIGHTS = "parent/ai-insights"
+    const val PARENT_ATTENDANCE_STUDY_TIME = "parent/progress/attendance-study-time"
+    const val PARENT_LESSON_PROGRESS = "parent/progress/lessons"
+    const val PARENT_LESSON_DETAILS = "parent/progress/lessons/{$LESSON_ID_ARG}"
+    fun parentLessonDetailsRoute(lessonId: String) = "parent/progress/lessons/${Uri.encode(lessonId)}"
+    const val PARENT_SUBJECTS_TEACHERS = "parent/progress/subjects-teachers"
+    const val PARENT_NOTES = "parent/notes"
 
     // ── Cross-cutting (Phase 6) ───────────────────────────────────────────
     const val MESSAGES = "messages" // X-01 · Messages List
@@ -525,4 +547,21 @@ val ParentTabs: List<TabDestination> = listOf(
     TabDestination(Routes.PARENT_REPORTS, R.string.tab_parent_reports, Icons.Outlined.Assessment, Icons.Filled.Assessment),
     TabDestination(Routes.PARENT_MESSAGES, R.string.tab_parent_messages, Icons.Outlined.Forum, Icons.Filled.Forum),
     TabDestination(Routes.PARENT_ME, R.string.tab_parent_me, Icons.Outlined.Person, Icons.Filled.Person),
+)
+
+/** Parent drawer mirrors the existing five-tab shell and adds the shared sign-out action. */
+val ParentDrawerSections: List<RoleDrawerSection> = listOf(
+    RoleDrawerSection(
+        destinations = ParentTabs.map { tab ->
+            RoleDrawerDestination(tab.route, tab.labelRes, tab.icon)
+        },
+    ),
+    RoleDrawerSection(
+        listOf(
+            RoleDrawerDestination(Routes.PARENT_NOTES, R.string.parent_notes_title, Icons.Outlined.EventNote),
+            RoleDrawerDestination(Routes.PARENT_PLANNER, R.string.pr07_title, Icons.Outlined.CalendarViewWeek),
+            RoleDrawerDestination(Routes.PARENT_ALERTS, R.string.pr11_title, Icons.Outlined.Notifications),
+            RoleDrawerDestination(Routes.PARENT_AI_INSIGHTS, R.string.pr08_title, Icons.Outlined.Insights),
+        ),
+    ),
 )

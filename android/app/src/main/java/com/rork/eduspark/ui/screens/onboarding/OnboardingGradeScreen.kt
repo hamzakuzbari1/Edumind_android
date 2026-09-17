@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,11 +64,24 @@ fun OnboardingGradeScreen(
 
     BackHandler { onBack() }
 
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            if (event == OnboardingEvent.GradeSaved) onContinue()
+        }
+    }
+
     OnboardingStepScaffold(
         step = 1,
         onBack = onBack,
         bottomBar = {
-            if (showValidation && !state.canContinueFromGrade) {
+            if (state.statusLoadFailed || state.gradeSaveFailed) {
+                Text(
+                    text = stringResource(R.string.state_error_network_body),
+                    style = EduTheme.typography.caption,
+                    color = EduTheme.colors.danger,
+                    modifier = Modifier.padding(bottom = Spacing.xs),
+                )
+            } else if (showValidation && !state.canContinueFromGrade) {
                 Text(
                     text = stringResource(
                         if (state.grade == null) R.string.so01_error_grade else R.string.so01_error_track
@@ -79,7 +93,8 @@ fun OnboardingGradeScreen(
             }
             PrimaryButton(
                 text = stringResource(R.string.so01_continue),
-                onClick = { if (state.canContinueFromGrade) onContinue() else showValidation = true },
+                onClick = { if (state.canContinueFromGrade) viewModel.saveGrade() else showValidation = true },
+                isLoading = state.isSavingGrade || state.isRestoring,
                 modifier = Modifier.fillMaxWidth(),
             )
         },

@@ -1,9 +1,28 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
+
+val localEnv = Properties().apply {
+    rootProject.file(".env")
+        .takeIf { it.isFile }
+        ?.inputStream()
+        ?.use(::load)
+}
+
+fun envValue(name: String, defaultValue: String): String =
+    providers.environmentVariable(name).orNull
+        ?.trim()
+        ?.takeIf { it.isNotEmpty() }
+        ?: localEnv.getProperty(name)?.trim()?.takeIf { it.isNotEmpty() }
+        ?: defaultValue
+
+fun buildConfigString(value: String): String =
+    "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
 
 android {
     namespace = "com.rork.eduspark"
@@ -21,11 +40,83 @@ android {
         // `play`   = Google Play build: Play Billing only, no external payment surface.
         // Kept as a BuildConfig constant for now; promoted to real Gradle product
         // flavours at release-engineering time so CI keeps a single release artefact.
-        buildConfigField("String", "PAYMENT_MODE", "\"direct\"")
+        buildConfigField(
+            "String",
+            "PAYMENT_MODE",
+            buildConfigString(envValue("PAYMENT_MODE", "direct"))
+        )
 
-        // Backend is NOT connected yet. MOCK serves isolated in-memory repositories.
-        // Flip to "REMOTE" only once the generated FastAPI client exists.
-        buildConfigField("String", "DATA_SOURCE_MODE", "\"MOCK\"")
+        // Feature data stays isolated in memory while auth can be selected independently.
+        buildConfigField(
+            "String",
+            "DATA_SOURCE_MODE",
+            buildConfigString(envValue("DATA_SOURCE_MODE", "MOCK"))
+        )
+        buildConfigField(
+            "String",
+            "AUTH_DATA_SOURCE_MODE",
+            buildConfigString(envValue("AUTH_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "LEARNING_DATA_SOURCE_MODE",
+            buildConfigString(envValue("LEARNING_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "PROFILE_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PROFILE_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "PLANNER_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PLANNER_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "ROUTINE_DATA_SOURCE_MODE",
+            buildConfigString(envValue("ROUTINE_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "ACHIEVEMENT_DATA_SOURCE_MODE",
+            buildConfigString(envValue("ACHIEVEMENT_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "TEACHER_NOTES_DATA_SOURCE_MODE",
+            buildConfigString(envValue("TEACHER_NOTES_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "QUIZ_DATA_SOURCE_MODE",
+            buildConfigString(envValue("QUIZ_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "TEACHER_UPLOAD_DATA_SOURCE_MODE",
+            buildConfigString(envValue("TEACHER_UPLOAD_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "MESSAGING_DATA_SOURCE_MODE",
+            buildConfigString(envValue("MESSAGING_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "SUBSCRIPTION_DATA_SOURCE_MODE",
+            buildConfigString(envValue("SUBSCRIPTION_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "PAYMENT_DATA_SOURCE_MODE",
+            buildConfigString(envValue("PAYMENT_DATA_SOURCE_MODE", "REMOTE"))
+        )
+        buildConfigField(
+            "String",
+            "API_BASE_URL",
+            buildConfigString(envValue("API_BASE_URL", "http://10.0.2.2:8000"))
+        )
     }
 
     buildTypes {
@@ -80,5 +171,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.core.splashscreen)
+    testImplementation(kotlin("test-junit"))
+    testImplementation(libs.ktor.client.mock)
     debugImplementation(libs.androidx.ui.tooling)
 }

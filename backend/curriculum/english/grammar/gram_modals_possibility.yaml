@@ -1,0 +1,41 @@
+grammar_id: gram_modals_possibility
+display_code: G031
+title: Modals of possibility (may / might / could)
+cefr_level: B1
+order: 310
+prerequisites:
+- gram_modals_should_must
+- gram_first_conditional
+unlock_targets: []
+grammar_targets:
+- may
+- might
+- could
+teaching_notes: Model the target in uncertain plans, guessing reasons; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- It can rain later. (wrong certainty for prediction)
+- She might to be at home.
+examples:
+- It might rain later.
+- She could be at home.
+learning_objectives:
+- Express uncertainty and possibility with may/might/could
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- uncertain plans
+- guessing reasons
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in uncertain plans, guessing reasons; check comprehension before guided production,
+  then recycle it in a new context.

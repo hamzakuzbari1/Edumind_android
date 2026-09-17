@@ -1,0 +1,44 @@
+grammar_id: gram_countable_uncountable
+display_code: G019
+title: Countable and uncountable nouns
+cefr_level: A2
+order: 190
+prerequisites:
+- gram_articles_a_an_the
+- gram_there_is_are
+unlock_targets: []
+grammar_targets:
+- some
+- any
+- much
+- many
+- a lot of
+teaching_notes: Model the target in shopping, kitchen inventory; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- How many water?
+- I need a water.
+examples:
+- I need some water.
+- How many books do you have?
+learning_objectives:
+- Use some/any/much/many with countable and uncountable nouns
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- listening
+- vocabulary
+recommended_contexts:
+- shopping
+- kitchen inventory
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in shopping, kitchen inventory; check comprehension before guided production,
+  then recycle it in a new context.

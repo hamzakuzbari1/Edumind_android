@@ -203,18 +203,14 @@ fun RoleShell(
                 null
             },
             actions = {
-                // Teacher root tabs get a Messages shortcut beside Notifications.
-                // Nested Teacher screens use EduScaffold on the parent nav, so they never inherit this.
-                // Student keeps the frozen top bar (Messages stays drawer-only there).
-                // Parent keeps the pre-existing Messages action.
-                if (!isStudentTab) {
-                    BadgedTopBarAction(
-                        icon = Icons.Filled.Forum,
-                        contentDescription = stringResource(R.string.topbar_messages),
-                        count = unreadMessages,
-                        onClick = onOpenMessages,
-                    )
-                }
+                // Messages + Notifications on every root tab shell (Student Home, Teacher, Parent).
+                // Nested screens use EduScaffold on the parent nav, so they never inherit this row.
+                BadgedTopBarAction(
+                    icon = Icons.Filled.Forum,
+                    contentDescription = stringResource(R.string.topbar_messages),
+                    count = unreadMessages,
+                    onClick = onOpenMessages,
+                )
                 BadgedTopBarAction(
                     icon = Icons.Filled.Notifications,
                     contentDescription = stringResource(R.string.topbar_notifications),

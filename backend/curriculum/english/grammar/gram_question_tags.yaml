@@ -1,0 +1,42 @@
+grammar_id: gram_question_tags
+display_code: G034
+title: Question tags
+cefr_level: B1
+order: 340
+prerequisites:
+- gram_basic_questions
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- isn't it
+- don't you
+- aren't they
+- didn't he
+teaching_notes: Model the target in checking understanding, friendly confirmation; check comprehension
+  before guided production, then recycle it in a new context.
+common_mistakes:
+- You're ready, isn't you?
+- She lives here, isn't she?
+examples:
+- You're ready, aren't you?
+- She lives here, doesn't she?
+learning_objectives:
+- Add basic question tags to confirm information in conversation
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- checking understanding
+- friendly confirmation
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in checking understanding, friendly confirmation; check comprehension before
+  guided production, then recycle it in a new context.

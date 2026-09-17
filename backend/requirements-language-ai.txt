@@ -1,0 +1,4 @@
+# Optional dependencies for AI speaking conversation mode
+language-tool-python>=2.8.0
+# Conversation STT — faster-whisper small.en
+faster-whisper>=1.0.0

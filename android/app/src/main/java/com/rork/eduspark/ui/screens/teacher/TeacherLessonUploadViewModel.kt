@@ -8,6 +8,9 @@ import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LessonContentType
 import com.rork.eduspark.data.model.LessonUploadStage
 import com.rork.eduspark.data.model.TeacherLessonUploadDraft
+import com.rork.eduspark.data.repository.TeacherLessonSelectedFile
+import com.rork.eduspark.data.repository.TeacherLessonUploadKind
+import com.rork.eduspark.data.repository.TeacherLessonUploadRepository
 import com.rork.eduspark.data.repository.TeacherRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -26,31 +29,25 @@ import kotlinx.coroutines.launch
  * TC-05 · Lesson Upload.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * [TeacherLessonUploadFormState] (source kind, mock file or video link, title, order, AI
+ * [TeacherLessonUploadFormState] (source kind, selected device file or video link, title, order, AI
  * options) is a local draft exactly like TC-01's own step drafts — nothing reaches the
  * repository until [submitUpload]. The three-step Teacher chrome (details → content → review)
- * is presentation only; [submitUpload] still calls the same [TeacherRepository.startLessonUpload]
- * contract. From that point on, [activeUpload] mirrors the repository's
- * [TeacherLessonUploadDraft] record, never a private copy — see that model's own doc comment
- * for why. This ViewModel only drives the clock ([tickingJob], a plain `delay` loop calling
- * [TeacherRepository.advanceLessonUpload]); the repository is what remembers where the upload
- * got to. So if this screen is left mid-upload and a new [TeacherLessonUploadViewModel]
- * instance is created later, [load] simply reads whatever [TeacherRepository.getUploadDraft]
- * already has and restarts ticking from there.
+ * is presentation only; [submitUpload] sends a real selected file through
+ * [TeacherLessonUploadRepository]. Existing mock ticking is kept only for compatibility with a
+ * mock upload repository.
  *
  * [TeacherLessonSourceKind.VideoLink] has no dedicated repository field — it reuses
- * [LessonContentType.Video] and stores the typed URL as [TeacherLessonUploadFormState.mockFileName]
+ * [LessonContentType.Video] and stores the typed URL as a lightweight compatibility draft
  * at submit time. AI option toggles stay on the form (and still reach startLessonUpload) but
  * default on so the approved Teacher flow can hide the configuration panel without skipping
  * tutor/quiz stages.
  */
-enum class TeacherLessonSourceKind { Video, VideoLink, Pdf }
+enum class TeacherLessonSourceKind { Video, VideoLink, Pdf, Homework, Audio }
 
 data class TeacherLessonUploadFormState(
     val sourceKind: TeacherLessonSourceKind = TeacherLessonSourceKind.Video,
     val contentType: LessonContentType = LessonContentType.Video,
-    val mockFileName: String? = null,
-    val mockFileBytes: Long = 0L,
+    val selectedFile: TeacherLessonSelectedFile? = null,
     val videoLink: String = "",
     val title: String = "",
     val order: Int = 1,
@@ -72,10 +69,37 @@ data class TeacherLessonUploadUiState(
     val step: Int = 1,
     val showValidationError: Boolean = false,
     val isStartingUpload: Boolean = false,
-    /** Non-null exactly while a mock upload for this course is in flight (or paused) — see the class doc comment for why this mirrors, not owns, repository state. */
+    /** Non-null while upload feedback is visible; real uploads complete as soon as the backend accepts the multipart request. */
     val activeUpload: TeacherLessonUploadDraft? = null,
+    val uploadError: String? = null,
     val showCancelConfirm: Boolean = false,
-)
+) {
+    /** True when the primary bottom action may run for the current step. */
+    val primaryActionEnabled: Boolean
+        get() = when (step) {
+            1 -> form.title.isNotBlank()
+            2 -> hasTeacherSource(form)
+            else -> canSaveLesson(form)
+        }
+
+    /** Human-readable reason Save/Next is blocked; null when the action is allowed. */
+    val primaryActionBlockedReason: String?
+        get() {
+            val selected = form.selectedFile
+            return when {
+                step == 1 && form.title.isBlank() -> "أدخل عنوان الدرس للمتابعة"
+                step >= 2 && form.sourceKind != TeacherLessonSourceKind.VideoLink && selected == null ->
+                    "اختر ملفاً حقيقياً للمتابعة"
+                step >= 2 && form.sourceKind != TeacherLessonSourceKind.VideoLink &&
+                    selected != null && selected.bytes.isEmpty() ->
+                    "الملف المحدد فارغ. اختر ملفاً آخر"
+                step >= 2 && form.sourceKind == TeacherLessonSourceKind.VideoLink && form.videoLink.isBlank() ->
+                    "أدخل رابط الفيديو للمتابعة"
+                step >= 3 && form.title.isBlank() -> "أدخل عنوان الدرس قبل الحفظ"
+                else -> null
+            }
+        }
+}
 
 sealed interface TeacherLessonUploadEvent {
     data class Uploaded(val lessonId: String) : TeacherLessonUploadEvent
@@ -84,6 +108,7 @@ sealed interface TeacherLessonUploadEvent {
 class TeacherLessonUploadViewModel(
     private val courseId: String,
     private val teacherRepository: TeacherRepository,
+    private val uploadRepository: TeacherLessonUploadRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -139,17 +164,23 @@ class TeacherLessonUploadViewModel(
 
     fun selectSourceKind(kind: TeacherLessonSourceKind) {
         if (kind == _state.value.form.sourceKind) return
-        val contentType = if (kind == TeacherLessonSourceKind.Pdf) LessonContentType.Pdf else LessonContentType.Video
+        val contentType = when (kind) {
+            TeacherLessonSourceKind.Pdf,
+            TeacherLessonSourceKind.Homework,
+            TeacherLessonSourceKind.Audio -> LessonContentType.Pdf
+            TeacherLessonSourceKind.Video,
+            TeacherLessonSourceKind.VideoLink -> LessonContentType.Video
+        }
         _state.update {
             it.copy(
                 form = it.form.copy(
                     sourceKind = kind,
                     contentType = contentType,
-                    mockFileName = null,
-                    mockFileBytes = 0L,
+                    selectedFile = null,
                     videoLink = if (kind == TeacherLessonSourceKind.VideoLink) it.form.videoLink else "",
                 ),
                 showValidationError = false,
+                uploadError = null,
             )
         }
     }
@@ -161,18 +192,25 @@ class TeacherLessonUploadViewModel(
         )
     }
 
-    /** Also used for "Replace" — same deterministic fixture per content type, an honest MOCK label, never a real file. */
-    fun selectMockFile() {
-        val kind = _state.value.form.sourceKind
-        if (kind == TeacherLessonSourceKind.VideoLink) return
-        val (name, bytes) = when (kind) {
-            TeacherLessonSourceKind.Pdf -> MOCK_PDF_NAME to MOCK_PDF_BYTES
-            TeacherLessonSourceKind.Video, TeacherLessonSourceKind.VideoLink -> MOCK_VIDEO_NAME to MOCK_VIDEO_BYTES
+    fun selectRealFile(file: TeacherLessonSelectedFile) {
+        _state.update {
+            it.copy(
+                form = it.form.copy(selectedFile = file),
+                showValidationError = false,
+                uploadError = null,
+            )
         }
-        _state.update { it.copy(form = it.form.copy(mockFileName = name, mockFileBytes = bytes), showValidationError = false) }
     }
 
-    fun removeMockFile() = _state.update { it.copy(form = it.form.copy(mockFileName = null, mockFileBytes = 0L)) }
+    fun rejectSelectedFile(reason: String = "تعذر قراءة الملف المحدد") {
+        _state.update { it.copy(uploadError = reason, showValidationError = false) }
+    }
+
+    fun pickerCancelled() = _state.update { it.copy(uploadError = null) }
+
+    fun removeSelectedFile() = _state.update {
+        it.copy(form = it.form.copy(selectedFile = null), uploadError = null)
+    }
 
     fun updateVideoLink(link: String) = _state.update {
         it.copy(form = it.form.copy(videoLink = link), showValidationError = false)
@@ -226,30 +264,64 @@ class TeacherLessonUploadViewModel(
         val current = _state.value
         if (current.isStartingUpload || current.activeUpload != null) return
         val form = current.form
-        val resolvedName = resolvedSubmitFileName(form)
-        val resolvedBytes = resolvedSubmitBytes(form)
-        if (resolvedName == null || form.title.isBlank()) {
+        val selectedFile = form.selectedFile
+        if (!canSaveLesson(form)) {
             _state.update { it.copy(showValidationError = true) }
             return
         }
-        _state.update { it.copy(isStartingUpload = true, showValidationError = false) }
+        _state.update { it.copy(isStartingUpload = true, showValidationError = false, uploadError = null) }
         viewModelScope.launch {
-            val result = teacherRepository.startLessonUpload(
-                courseId = courseId,
-                contentType = form.contentType,
-                mockFileName = resolvedName,
-                mockTotalBytes = resolvedBytes,
-                title = form.title,
-                order = form.order,
-                generateQuiz = form.generateQuiz,
-                generateNarration = form.generateNarration,
-                indexForTutor = form.indexForTutor,
-            )
-            if (result is AppResult.Success) {
-                _state.update { it.copy(activeUpload = result.data, isStartingUpload = false) }
-                startTicking()
-            } else {
-                _state.update { it.copy(isStartingUpload = false) }
+            try {
+                val result = if (form.sourceKind == TeacherLessonSourceKind.VideoLink) {
+                    teacherRepository.startLessonUpload(
+                        courseId = courseId,
+                        contentType = form.contentType,
+                        mockFileName = form.videoLink.trim(),
+                        mockTotalBytes = LINK_PLACEHOLDER_BYTES,
+                        title = form.title,
+                        order = form.order,
+                        generateQuiz = form.generateQuiz,
+                        generateNarration = form.generateNarration,
+                        indexForTutor = form.indexForTutor,
+                    )
+                } else if (selectedFile != null && selectedFile.bytes.isNotEmpty()) {
+                    uploadRepository.uploadLessonFile(
+                        courseId = courseId,
+                        title = form.title.trim(),
+                        order = form.order,
+                        file = selectedFile,
+                        kind = form.sourceKind.toUploadKind(),
+                        generateQuiz = form.generateQuiz,
+                        generateNarration = form.generateNarration,
+                        indexForTutor = form.indexForTutor,
+                    )
+                } else {
+                    AppResult.Failure(com.rork.eduspark.core.result.AppError.Domain("file_required"))
+                }
+                if (result is AppResult.Success) {
+                    _state.update { it.copy(activeUpload = result.data, isStartingUpload = false) }
+                    if (result.data.stage == LessonUploadStage.Completed) {
+                        result.data.createdLessonId?.let { lessonId ->
+                            _events.send(TeacherLessonUploadEvent.Uploaded(lessonId))
+                        }
+                    } else {
+                        startTicking()
+                    }
+                } else {
+                    _state.update {
+                        it.copy(
+                            isStartingUpload = false,
+                            uploadError = (result as AppResult.Failure).error.toUploadMessage(),
+                        )
+                    }
+                }
+            } catch (_: Throwable) {
+                _state.update {
+                    it.copy(
+                        isStartingUpload = false,
+                        uploadError = "تعذر رفع الملف الحقيقي.",
+                    )
+                }
             }
         }
     }
@@ -312,26 +384,43 @@ class TeacherLessonUploadViewModel(
         super.onCleared()
     }
 
-    private fun hasTeacherSource(form: TeacherLessonUploadFormState): Boolean = when (form.sourceKind) {
-        TeacherLessonSourceKind.Video, TeacherLessonSourceKind.Pdf -> form.mockFileName != null
-        TeacherLessonSourceKind.VideoLink -> form.videoLink.isNotBlank()
-    }
-
-    private fun resolvedSubmitFileName(form: TeacherLessonUploadFormState): String? = when (form.sourceKind) {
-        TeacherLessonSourceKind.VideoLink -> form.videoLink.trim().takeIf { it.isNotEmpty() }
-        TeacherLessonSourceKind.Video, TeacherLessonSourceKind.Pdf -> form.mockFileName
-    }
-
-    private fun resolvedSubmitBytes(form: TeacherLessonUploadFormState): Long = when (form.sourceKind) {
-        TeacherLessonSourceKind.VideoLink -> MOCK_VIDEO_BYTES
-        TeacherLessonSourceKind.Video, TeacherLessonSourceKind.Pdf -> form.mockFileBytes
-    }
-
     private companion object {
         const val TICK_DELAY_MS = 450L
-        const val MOCK_PDF_NAME = "physics_unit_4.pdf"
-        const val MOCK_PDF_BYTES = 3_400_000L
-        const val MOCK_VIDEO_NAME = "chain_rule_lesson.mp4"
-        const val MOCK_VIDEO_BYTES = 42_800_000L
+        const val LINK_PLACEHOLDER_BYTES = 1L
     }
+}
+
+/** Save requires a non-blank title plus a real selected file (or video link). Never mock attachment fields. */
+internal fun canSaveLesson(form: TeacherLessonUploadFormState): Boolean =
+    form.title.isNotBlank() && hasTeacherSource(form)
+
+internal fun hasTeacherSource(form: TeacherLessonUploadFormState): Boolean = when (form.sourceKind) {
+    TeacherLessonSourceKind.Video,
+    TeacherLessonSourceKind.Pdf,
+    TeacherLessonSourceKind.Homework,
+    TeacherLessonSourceKind.Audio -> form.selectedFile != null && form.selectedFile.bytes.isNotEmpty()
+    TeacherLessonSourceKind.VideoLink -> form.videoLink.isNotBlank()
+}
+
+private fun TeacherLessonSourceKind.toUploadKind(): TeacherLessonUploadKind = when (this) {
+    TeacherLessonSourceKind.Video -> TeacherLessonUploadKind.Video
+    TeacherLessonSourceKind.Pdf -> TeacherLessonUploadKind.Pdf
+    TeacherLessonSourceKind.Homework -> TeacherLessonUploadKind.Homework
+    TeacherLessonSourceKind.Audio -> TeacherLessonUploadKind.Audio
+    TeacherLessonSourceKind.VideoLink -> TeacherLessonUploadKind.Video
+}
+
+private fun com.rork.eduspark.core.result.AppError.toUploadMessage(): String = when (this) {
+    com.rork.eduspark.core.result.AppError.Forbidden -> "لا تملك صلاحية رفع ملف لهذا الدرس."
+    com.rork.eduspark.core.result.AppError.Network,
+    com.rork.eduspark.core.result.AppError.Offline -> "تعذر الاتصال بالخادم. تحقق من الإنترنت ثم أعد المحاولة."
+    com.rork.eduspark.core.result.AppError.Server -> "الخادم لم يقبل الرفع حالياً. أعد المحاولة لاحقاً."
+    com.rork.eduspark.core.result.AppError.SessionExpired -> "انتهت الجلسة. سجّل الدخول من جديد."
+    is com.rork.eduspark.core.result.AppError.Domain -> when (code) {
+        "file_too_large" -> "الملف كبير جداً."
+        "unsupported_file_type" -> "نوع الملف غير مدعوم."
+        else -> "تعذر رفع الملف الحقيقي."
+    }
+    is com.rork.eduspark.core.result.AppError.Validation -> "تحقق من نوع الملف وحجمه ثم أعد المحاولة."
+    else -> "تعذر رفع الملف الحقيقي."
 }

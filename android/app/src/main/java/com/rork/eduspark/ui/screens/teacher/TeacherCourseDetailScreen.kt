@@ -131,6 +131,8 @@ fun TeacherCourseDetailScreen(
                 onAddLesson = onAddLesson,
                 onOpenStudents = onOpenStudents,
                 onOpenStudent = onOpenStudent,
+                onTogglePublished = viewModel::togglePublished,
+                onToggleLessonVisible = viewModel::toggleLessonVisible,
             )
         }
     }
@@ -144,6 +146,8 @@ private fun TeacherCourseDetailContent(
     onAddLesson: () -> Unit,
     onOpenStudents: () -> Unit,
     onOpenStudent: (studentId: String) -> Unit,
+    onTogglePublished: () -> Unit,
+    onToggleLessonVisible: (TeacherLesson) -> Unit,
 ) {
     val colors = EduTheme.colors
     val course = data.course
@@ -169,7 +173,7 @@ private fun TeacherCourseDetailContent(
             ) {
                 TeacherClassSubjectVisual(modifier = Modifier.height(96.dp))
             }
-            ClassDetailMetaRow(data = data)
+            ClassDetailMetaRow(data = data, onTogglePublished = onTogglePublished)
             Text(
                 text = stringResource(R.string.tc04_lessons_section),
                 style = EduTheme.typography.title.copy(fontWeight = FontWeight.ExtraBold),
@@ -196,6 +200,7 @@ private fun TeacherCourseDetailContent(
                     isDragging = id == draggingId,
                     dragOffsetPx = if (id == draggingId) dragDeltaPx else 0f,
                     onClick = { onLessonTapped(row.lesson) },
+                    onToggleVisible = { onToggleLessonVisible(row.lesson) },
                     onMeasuredHeight = { px -> rowHeightsPx[id] = px },
                     dragHandleModifier = Modifier.dragHandlePointerInput(
                         id = id,
@@ -260,7 +265,7 @@ private fun TeacherCourseDetailContent(
 }
 
 @Composable
-private fun ClassDetailMetaRow(data: TeacherCourseDetailData) {
+private fun ClassDetailMetaRow(data: TeacherCourseDetailData, onTogglePublished: () -> Unit) {
     val colors = EduTheme.colors
     val course = data.course
     val published = course.status == TeacherCourseStatus.Published
@@ -277,6 +282,7 @@ private fun ClassDetailMetaRow(data: TeacherCourseDetailData) {
             },
             contentColor = if (published) colors.success else colors.warning,
             containerColor = if (published) colors.success.copy(alpha = 0.14f) else colors.highlightContainer,
+            modifier = Modifier.eduClickable(onClick = onTogglePublished),
         )
         Text(
             text = classDetailMetaText(data),
@@ -320,6 +326,7 @@ private fun LazyItemScope.LessonRowItem(
     isDragging: Boolean,
     dragOffsetPx: Float,
     onClick: () -> Unit,
+    onToggleVisible: () -> Unit,
     onMeasuredHeight: (Int) -> Unit,
     dragHandleModifier: Modifier,
 ) {
@@ -374,6 +381,26 @@ private fun LazyItemScope.LessonRowItem(
                     } else {
                         colors.textTertiary
                     },
+                )
+            }
+            if (lesson.status != TeacherLessonStatus.Processing) {
+                StatusPill(
+                    label = if (lesson.status == TeacherLessonStatus.Published) {
+                        stringResource(R.string.tc03_filter_published)
+                    } else {
+                        stringResource(R.string.tc03_filter_draft)
+                    },
+                    contentColor = if (lesson.status == TeacherLessonStatus.Published) {
+                        colors.success
+                    } else {
+                        colors.warning
+                    },
+                    containerColor = if (lesson.status == TeacherLessonStatus.Published) {
+                        colors.success.copy(alpha = 0.14f)
+                    } else {
+                        colors.highlightContainer
+                    },
+                    modifier = Modifier.eduClickable(onClick = onToggleVisible),
                 )
             }
             Icon(

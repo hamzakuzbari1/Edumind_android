@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "phase": "2.1.1",
+  "description": "Frozen grandfathered educational-copy violations outside narrative owner. Must not grow.",
+  "allowed_owner_prefix": "app/services/language_learning_narrative/",
+  "files": {
+    "app/services/language_listening_explainability/learning_path.py": [
+      "11c18ee27f94e1ad",
+      "2b267d46783a501b",
+      "5a5c7da23572af1f",
+      "a5fca18103488a0a",
+      "d0f2f93e98504df9",
+      "f7240d85336570e0"
+    ],
+    "app/services/language_listening_explainability/teacher_summary.py": [
+      "02d06216b0d4bb28",
+      "10d9cc68fd61eb1d",
+      "44f97668e9312db3",
+      "4c38dbf47baaf731",
+      "52ee04faed59a151",
+      "7c5cb3354d424910",
+      "cbcc0faa08072c4b",
+      "d712a1f6c229ddea"
+    ]
+  }
+}

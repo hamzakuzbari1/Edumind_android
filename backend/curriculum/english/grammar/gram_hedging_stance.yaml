@@ -1,0 +1,43 @@
+grammar_id: gram_hedging_stance
+display_code: G051
+title: Hedging and stance
+cefr_level: C2
+order: 510
+prerequisites:
+- gram_advanced_modals
+- gram_cleft_emphasis
+unlock_targets: []
+grammar_targets:
+- appears to
+- it seems that
+- arguably
+- to some extent
+teaching_notes: Model the target in research discussion, diplomatic disagreement; check comprehension
+  before guided production, then recycle it in a new context.
+common_mistakes:
+- Over-hedging that removes commitment
+- Mixing absolute claims with hedges incoherently
+examples:
+- The data appears to support the claim.
+- Arguably, the delay was avoidable.
+learning_objectives:
+- Softened claims and precise stance markers in academic/professional discourse
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 90.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- speaking
+- vocabulary
+recommended_contexts:
+- research discussion
+- diplomatic disagreement
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 24.0
+focus_note: Model the target in research discussion, diplomatic disagreement; check comprehension before
+  guided production, then recycle it in a new context.

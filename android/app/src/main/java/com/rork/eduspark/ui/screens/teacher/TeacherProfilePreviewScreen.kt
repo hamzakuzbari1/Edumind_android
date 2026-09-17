@@ -1,5 +1,7 @@
 package com.rork.eduspark.ui.screens.teacher
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,22 +17,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
+import com.rork.eduspark.core.result.AppError
+import com.rork.eduspark.data.model.TeacherProfessionalDocument
 import com.rork.eduspark.data.model.TeacherQualification
 import com.rork.eduspark.ui.components.action.SecondaryButton
+import com.rork.eduspark.ui.components.foundation.eduClickable
 import com.rork.eduspark.ui.components.scaffold.EduScaffold
 import com.rork.eduspark.ui.components.state.ScreenStateHost
 import com.rork.eduspark.ui.components.surface.EduCard
@@ -42,7 +51,7 @@ import org.koin.androidx.compose.koinViewModel
 
 /**
  * Teaching Page / Qualifications (صفحة التدريس) — intentionally limited.
- * Shows existing qualifications read-only; no public marketplace profile.
+ * Shows existing qualifications read-only; professional documents open via MediaUrlResolver.
  */
 @Composable
 fun TeacherProfilePreviewScreen(
@@ -51,10 +60,41 @@ fun TeacherProfilePreviewScreen(
     viewModel: TeacherProfileViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val offlineBody = stringResource(R.string.state_error_network_body)
+    val serverBody = stringResource(R.string.state_error_server_body)
+    val unauthorizedBody = stringResource(R.string.state_error_unauthorized_body)
+    val notFoundBody = stringResource(R.string.state_error_not_found_body)
+    val unknownBody = stringResource(R.string.state_error_unknown_body)
+
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is TeacherProfileEvent.OpenExternalDocument -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.url))
+                    runCatching { context.startActivity(intent) }
+                        .onFailure { snackbarHostState.showSnackbar(unknownBody) }
+                }
+                is TeacherProfileEvent.DocumentOpenFailed -> {
+                    val message = when (event.error) {
+                        AppError.Offline, AppError.Network -> offlineBody
+                        AppError.Server -> serverBody
+                        AppError.SessionExpired, AppError.Forbidden -> unauthorizedBody
+                        AppError.NotFound -> notFoundBody
+                        else -> unknownBody
+                    }
+                    snackbarHostState.showSnackbar(message)
+                }
+                else -> Unit
+            }
+        }
+    }
 
     EduScaffold(
         title = stringResource(R.string.tc16_teaching_title),
         onBack = onBack,
+        snackbarHostState = snackbarHostState,
         modifier = modifier,
     ) { _ ->
         ScreenStateHost(
@@ -66,6 +106,9 @@ fun TeacherProfilePreviewScreen(
         ) { data ->
             TeacherTeachingPageContent(
                 qualifications = data.qualifications,
+                documents = data.professionalDocuments,
+                isResolvingDocument = state.isResolvingDocument,
+                onOpenDocument = viewModel::openProfessionalDocument,
                 onDone = onBack,
             )
         }
@@ -75,6 +118,9 @@ fun TeacherProfilePreviewScreen(
 @Composable
 private fun TeacherTeachingPageContent(
     qualifications: List<TeacherQualification>,
+    documents: List<TeacherProfessionalDocument>,
+    isResolvingDocument: Boolean,
+    onOpenDocument: (String) -> Unit,
     onDone: () -> Unit,
 ) {
     val colors = EduTheme.colors
@@ -120,6 +166,39 @@ private fun TeacherTeachingPageContent(
         } else {
             items(qualifications, key = { it.id }) { qualification ->
                 TeachingQualificationRow(qualification)
+            }
+        }
+
+        item {
+            Text(
+                text = stringResource(R.string.tc16_documents_section),
+                style = EduTheme.typography.body.copy(fontWeight = FontWeight.ExtraBold),
+                color = colors.textPrimary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.md, bottom = Spacing.sm),
+            )
+        }
+
+        if (documents.isEmpty()) {
+            item {
+                Text(
+                    text = stringResource(R.string.tc16_documents_empty),
+                    style = EduTheme.typography.caption,
+                    color = colors.textMuted,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = Spacing.md),
+                )
+            }
+        } else {
+            items(documents, key = { it.id }) { document ->
+                TeachingDocumentRow(
+                    document = document,
+                    enabled = !isResolvingDocument,
+                    onOpen = { onOpenDocument(document.id) },
+                )
             }
         }
 
@@ -199,7 +278,52 @@ private fun TeachingQualificationRow(qualification: TeacherQualification) {
             Text(
                 text = stringResource(R.string.tc_coming_soon_title),
                 style = EduTheme.typography.caption,
-                color = colors.textSecondary,
+                color = colors.textMuted,
+            )
+        }
+    }
+}
+
+@Composable
+private fun TeachingDocumentRow(
+    document: TeacherProfessionalDocument,
+    enabled: Boolean,
+    onOpen: () -> Unit,
+) {
+    val colors = EduTheme.colors
+    val title = document.title.ifBlank {
+        document.originalFilename.orEmpty().ifBlank { stringResource(R.string.tc17_media_document) }
+    }
+    EduCard(
+        modifier = Modifier
+            .padding(bottom = Spacing.sm)
+            .then(
+                if (enabled) Modifier.eduClickable(onClickLabel = title, onClick = onOpen)
+                else Modifier,
+            ),
+        containerColor = colors.surface.copy(alpha = 0.7f),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(modifier = Modifier.weight(1f).padding(end = Spacing.sm)) {
+                Text(
+                    text = title,
+                    style = EduTheme.typography.body.copy(fontWeight = FontWeight.SemiBold),
+                    color = colors.textPrimary,
+                )
+                Text(
+                    text = stringResource(R.string.tc16_document_uploaded),
+                    style = EduTheme.typography.caption,
+                    color = colors.textSecondary,
+                )
+            }
+            Text(
+                text = stringResource(R.string.tc16_preview),
+                style = EduTheme.typography.caption.copy(fontWeight = FontWeight.Bold),
+                color = colors.primary,
             )
         }
     }
@@ -213,7 +337,8 @@ private fun TeacherPreviewSkeleton() {
             .fillMaxSize()
             .padding(horizontal = Spacing.gutter, vertical = Spacing.md),
     ) {
-        SkeletonCard()
-        SkeletonCard()
+        SkeletonCard(modifier = Modifier.fillMaxWidth().height(120.dp))
+        SkeletonCard(modifier = Modifier.fillMaxWidth().height(72.dp))
+        SkeletonCard(modifier = Modifier.fillMaxWidth().height(72.dp))
     }
 }

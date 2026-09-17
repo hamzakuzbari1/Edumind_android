@@ -3,9 +3,12 @@ package com.rork.eduspark.di
 import com.rork.eduspark.BuildConfig
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.locale.LocaleController
+import com.rork.eduspark.core.network.createEduMindHttpClient
 import com.rork.eduspark.core.preferences.AppPreferences
+import com.rork.eduspark.core.session.EncryptedTokenStore
 import com.rork.eduspark.core.session.InMemoryTokenStore
 import com.rork.eduspark.core.session.SecureTokenStore
+import com.rork.eduspark.data.local.ParentReportExportStore
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.AchievementRepository
 import com.rork.eduspark.data.repository.AuthRepository
@@ -16,6 +19,7 @@ import com.rork.eduspark.data.repository.MessagingRepository
 import com.rork.eduspark.data.repository.NotificationRepository
 import com.rork.eduspark.data.repository.ExamRepository
 import com.rork.eduspark.data.repository.OnboardingRepository
+import com.rork.eduspark.data.repository.ParentRepository
 import com.rork.eduspark.data.repository.PaymentRepository
 import com.rork.eduspark.data.repository.PlannerRepository
 import com.rork.eduspark.data.repository.ProfileRepository
@@ -25,6 +29,8 @@ import com.rork.eduspark.data.repository.RoutineRepository
 import com.rork.eduspark.data.repository.SecurityRepository
 import com.rork.eduspark.data.repository.SubscriptionRepository
 import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherLessonUploadRepository
+import com.rork.eduspark.data.repository.TeacherSetupRepository
 import com.rork.eduspark.data.repository.TutorRepository
 import com.rork.eduspark.data.repository.VoucherRepository
 import com.rork.eduspark.data.repository.mock.MockAchievementRepository
@@ -46,8 +52,61 @@ import com.rork.eduspark.data.repository.mock.MockSecurityRepository
 import com.rork.eduspark.data.repository.mock.MockStudentEntitlements
 import com.rork.eduspark.data.repository.mock.MockSubscriptionRepository
 import com.rork.eduspark.data.repository.mock.MockTeacherRepository
+import com.rork.eduspark.data.repository.mock.MockTeacherLessonUploadRepository
 import com.rork.eduspark.data.repository.mock.MockTutorRepository
 import com.rork.eduspark.data.repository.mock.MockVoucherRepository
+import com.rork.eduspark.data.remote.auth.AuthApi
+import com.rork.eduspark.data.remote.auth.KtorAuthApi
+import com.rork.eduspark.data.remote.gamification.KtorStudentGamificationApi
+import com.rork.eduspark.data.remote.gamification.StudentGamificationApi
+import com.rork.eduspark.data.remote.onboarding.KtorStudentOnboardingApi
+import com.rork.eduspark.data.remote.onboarding.StudentOnboardingApi
+import com.rork.eduspark.data.remote.parent.KtorParentApi
+import com.rork.eduspark.data.remote.parent.ParentApi
+import com.rork.eduspark.data.remote.learning.KtorStudentLearningApi
+import com.rork.eduspark.data.remote.learning.StudentLearningApi
+import com.rork.eduspark.data.remote.planner.KtorStudentPlannerApi
+import com.rork.eduspark.data.remote.planner.StudentPlannerApi
+import com.rork.eduspark.data.remote.profile.KtorStudentProfileApi
+import com.rork.eduspark.data.remote.profile.StudentProfileApi
+import com.rork.eduspark.data.remote.routine.KtorStudentRoutineApi
+import com.rork.eduspark.data.remote.routine.StudentRoutineApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherParentNotesApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherCoursesApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherLessonUploadApi
+import com.rork.eduspark.data.remote.teacher.KtorTeacherSetupApi
+import com.rork.eduspark.data.remote.teacher.TeacherParentNotesApi
+import com.rork.eduspark.data.remote.teacher.TeacherCoursesApi
+import com.rork.eduspark.data.remote.teacher.TeacherLessonUploadApi
+import com.rork.eduspark.data.remote.teacher.TeacherSetupApi
+import com.rork.eduspark.data.remote.media.KtorMediaApi
+import com.rork.eduspark.data.remote.media.MediaApi
+import com.rork.eduspark.data.remote.media.MediaUrlResolver
+import com.rork.eduspark.data.remote.messaging.KtorMessagingApi
+import com.rork.eduspark.data.remote.messaging.MessagingApi
+import com.rork.eduspark.data.remote.quiz.CourseQuizApi
+import com.rork.eduspark.data.remote.quiz.KtorCourseQuizApi
+import com.rork.eduspark.data.remote.quiz.KtorLessonQuizApi
+import com.rork.eduspark.data.remote.quiz.LessonQuizApi
+import com.rork.eduspark.data.repository.remote.AuthRefreshCoordinator
+import com.rork.eduspark.data.repository.remote.RemoteAchievementRepository
+import com.rork.eduspark.data.repository.remote.RemoteAuthRepository
+import com.rork.eduspark.data.repository.remote.RemoteLearningRepository
+import com.rork.eduspark.data.repository.remote.RemoteMessagingRepository
+import com.rork.eduspark.data.repository.remote.RemoteParentRepository
+import com.rork.eduspark.data.repository.remote.RemotePlannerRepository
+import com.rork.eduspark.data.repository.remote.RemotePaymentRepository
+import com.rork.eduspark.data.repository.remote.RemoteProfileRepository
+import com.rork.eduspark.data.repository.remote.RemoteQuizRepository
+import com.rork.eduspark.data.repository.remote.RemoteRoutineRepository
+import com.rork.eduspark.data.repository.remote.RemoteStudentOnboardingRepository
+import com.rork.eduspark.data.repository.remote.RemoteSubscriptionRepository
+import com.rork.eduspark.data.repository.remote.UnavailableVoucherRepository
+import com.rork.eduspark.data.repository.remote.RemoteTeacherSetupRepository
+import com.rork.eduspark.data.repository.remote.RemoteTeacherLessonUploadRepository
+import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteCourses
+import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteParentNotes
+import com.rork.eduspark.data.repository.remote.TeacherRepositoryWithRemoteQuizzes
 import com.rork.eduspark.ui.AppShellViewModel
 import com.rork.eduspark.ui.navigation.StudentNavigationDrawerViewModel
 import com.rork.eduspark.ui.screens.auth.CertificateVerifyViewModel
@@ -60,6 +119,19 @@ import com.rork.eduspark.ui.screens.auth.TwoFactorViewModel
 import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailViewModel
 import com.rork.eduspark.ui.screens.onboarding.OnboardingViewModel
+import com.rork.eduspark.ui.screens.parent.ParentDashboardViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAiInsightsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAlertsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentAttendanceStudyTimeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentHomeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLessonDetailsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLessonProgressViewModel
+import com.rork.eduspark.ui.screens.parent.ParentLinkStudentViewModel
+import com.rork.eduspark.ui.screens.parent.ParentMeViewModel
+import com.rork.eduspark.ui.screens.parent.ParentPlannerViewModel
+import com.rork.eduspark.ui.screens.parent.ParentProgressViewModel
+import com.rork.eduspark.ui.screens.parent.ParentReportsViewModel
+import com.rork.eduspark.ui.screens.parent.ParentSubjectsTeachersViewModel
 import com.rork.eduspark.ui.screens.student.CourseDetailViewModel
 import com.rork.eduspark.ui.screens.student.ExamCaptureViewModel
 import com.rork.eduspark.ui.screens.student.LessonPlayerViewModel
@@ -144,8 +216,56 @@ import org.koin.dsl.module
 enum class DataSourceMode { MOCK, REMOTE }
 
 val dataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.DATA_SOURCE_MODE) }
+    runCatching { DataSourceMode.valueOf(BuildConfig.DATA_SOURCE_MODE.uppercase()) }
         .getOrDefault(DataSourceMode.MOCK)
+
+val authDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.AUTH_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val learningDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.LEARNING_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val profileDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.PROFILE_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val plannerDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.PLANNER_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val routineDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.ROUTINE_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val achievementDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.ACHIEVEMENT_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val teacherNotesDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.TEACHER_NOTES_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val quizDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.QUIZ_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val teacherUploadDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.TEACHER_UPLOAD_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val messagingDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.MESSAGING_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val subscriptionDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.SUBSCRIPTION_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
+
+val paymentDataSourceMode: DataSourceMode =
+    runCatching { DataSourceMode.valueOf(BuildConfig.PAYMENT_DATA_SOURCE_MODE.uppercase()) }
+        .getOrDefault(DataSourceMode.REMOTE)
 
 /**
  * ST-17/ST-18/ST-19 — the only mode this build supports. No Stripe/PayPal/Apple Pay/Google Pay
@@ -160,26 +280,95 @@ val appModule = module {
     single { AppPreferences(androidApplication()) }
     single { ConnectivityObserver(androidApplication()) }
     single { LocaleController(androidApplication()) }
+    single { ParentReportExportStore(androidApplication()) }
     single { MockStudentEntitlements() }
 
-    // Replaced by a Keystore-backed store when the real API layer lands.
-    single<SecureTokenStore> { InMemoryTokenStore() }
+    single<SecureTokenStore> {
+        when (authDataSourceMode) {
+            DataSourceMode.MOCK -> InMemoryTokenStore()
+            DataSourceMode.REMOTE -> EncryptedTokenStore(androidApplication())
+        }
+    }
+    single { createEduMindHttpClient() }
+    single<AuthApi> { KtorAuthApi(client = get(), baseUrl = BuildConfig.API_BASE_URL) }
+    single<StudentOnboardingApi> {
+        KtorStudentOnboardingApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<ParentApi> {
+        KtorParentApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentLearningApi> {
+        KtorStudentLearningApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentGamificationApi> {
+        KtorStudentGamificationApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentProfileApi> {
+        KtorStudentProfileApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentPlannerApi> {
+        KtorStudentPlannerApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<StudentRoutineApi> {
+        KtorStudentRoutineApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherSetupApi> {
+        KtorTeacherSetupApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherParentNotesApi> {
+        KtorTeacherParentNotesApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherLessonUploadApi> {
+        KtorTeacherLessonUploadApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<TeacherCoursesApi> {
+        KtorTeacherCoursesApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<CourseQuizApi> {
+        KtorCourseQuizApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+
+    single<LessonQuizApi> {
+        KtorLessonQuizApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<MediaApi> {
+        KtorMediaApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single<MessagingApi> {
+        KtorMessagingApi(client = get(), baseUrl = BuildConfig.API_BASE_URL)
+    }
+    single { AuthRefreshCoordinator(api = get(), tokenStore = get()) }
+    single {
+        MediaUrlResolver(
+            api = get(),
+            tokenStore = get(),
+            refreshCoordinator = get(),
+            authRepository = get(),
+            apiBaseUrl = BuildConfig.API_BASE_URL,
+        )
+    }
 
     single<AuthRepository> {
-        when (dataSourceMode) {
+        when (authDataSourceMode) {
             DataSourceMode.MOCK -> MockAuthRepository(tokenStore = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — the FastAPI client has " +
-                    "not been generated. Keep DATA_SOURCE_MODE=MOCK until it exists."
+            DataSourceMode.REMOTE -> RemoteAuthRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                deviceName = android.os.Build.MODEL,
             )
         }
     }
 
     single<LearningRepository> {
-        when (dataSourceMode) {
+        when (learningDataSourceMode) {
             DataSourceMode.MOCK -> MockLearningRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteLearningRepository(
+                api = get(),
+                gamificationApi = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -203,12 +392,24 @@ val appModule = module {
     }
 
     single<OnboardingRepository> {
-        when (dataSourceMode) {
+        when (authDataSourceMode) {
             DataSourceMode.MOCK -> MockOnboardingRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteStudentOnboardingRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
+    }
+
+    single<ParentRepository> {
+        RemoteParentRepository(
+            api = get(),
+            tokenStore = get(),
+            refreshCoordinator = get(),
+            authRepository = get(),
+        )
     }
 
     single<TutorRepository> {
@@ -221,82 +422,103 @@ val appModule = module {
     }
 
     single<QuizRepository> {
-        when (dataSourceMode) {
+        when (quizDataSourceMode) {
             DataSourceMode.MOCK -> MockQuizRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteQuizRepository(
+                api = get(),
+                lessonQuizApi = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<PlannerRepository> {
-        when (dataSourceMode) {
+        when (plannerDataSourceMode) {
             DataSourceMode.MOCK -> MockPlannerRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemotePlannerRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<RoutineRepository> {
-        when (dataSourceMode) {
+        when (routineDataSourceMode) {
             DataSourceMode.MOCK -> MockRoutineRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteRoutineRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<ExamRepository> {
-        when (dataSourceMode) {
+        when (plannerDataSourceMode) {
             DataSourceMode.MOCK -> MockExamRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
-            )
+            DataSourceMode.REMOTE -> get<PlannerRepository>() as RemotePlannerRepository
         }
     }
 
     single<AchievementRepository> {
-        when (dataSourceMode) {
+        when (achievementDataSourceMode) {
             DataSourceMode.MOCK -> MockAchievementRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteAchievementRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<SubscriptionRepository> {
-        when (dataSourceMode) {
+        when (subscriptionDataSourceMode) {
             DataSourceMode.MOCK -> MockSubscriptionRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteSubscriptionRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<PaymentRepository> {
-        when (dataSourceMode) {
+        when (paymentDataSourceMode) {
             DataSourceMode.MOCK -> MockPaymentRepository(entitlements = get())
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemotePaymentRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
 
     single<VoucherRepository> {
-        when (dataSourceMode) {
-            DataSourceMode.MOCK -> MockVoucherRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
-            )
+        val remoteCommerce = paymentDataSourceMode == DataSourceMode.REMOTE ||
+            subscriptionDataSourceMode == DataSourceMode.REMOTE
+        if (remoteCommerce) {
+            UnavailableVoucherRepository()
+        } else {
+            MockVoucherRepository()
         }
     }
 
     single<ProfileRepository> {
-        when (dataSourceMode) {
+        when (profileDataSourceMode) {
             DataSourceMode.MOCK -> MockProfileRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteProfileRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -320,20 +542,76 @@ val appModule = module {
     }
 
     single<TeacherRepository> {
-        when (dataSourceMode) {
+        val mockTeacher = when (dataSourceMode) {
             DataSourceMode.MOCK -> MockTeacherRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
+            )
+        }
+        val withCourses = when (teacherUploadDataSourceMode) {
+            DataSourceMode.MOCK -> mockTeacher
+            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteCourses(
+                delegate = mockTeacher,
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+        val withNotes = when (teacherNotesDataSourceMode) {
+            DataSourceMode.MOCK -> withCourses
+            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteParentNotes(
+                delegate = withCourses,
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+        when (quizDataSourceMode) {
+            DataSourceMode.MOCK -> withNotes
+            DataSourceMode.REMOTE -> TeacherRepositoryWithRemoteQuizzes(
+                delegate = withNotes,
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+    }
+    single<TeacherLessonUploadRepository> {
+        when (teacherUploadDataSourceMode) {
+            DataSourceMode.MOCK -> MockTeacherLessonUploadRepository(teacherRepository = get())
+            DataSourceMode.REMOTE -> RemoteTeacherLessonUploadRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+            )
+        }
+    }
+    single<TeacherSetupRepository> {
+        when (authDataSourceMode) {
+            DataSourceMode.MOCK -> get<TeacherRepository>()
+            DataSourceMode.REMOTE -> RemoteTeacherSetupRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
+                apiBaseUrl = BuildConfig.API_BASE_URL,
             )
         }
     }
 
     // Phase 6 · X-01/X-02/X-03 — one canonical thread store shared by Student and Teacher.
     single<MessagingRepository> {
-        when (dataSourceMode) {
+        when (messagingDataSourceMode) {
             DataSourceMode.MOCK -> MockMessagingRepository()
-            DataSourceMode.REMOTE -> error(
-                "Remote repositories are not implemented yet — see data/repository/remote."
+            DataSourceMode.REMOTE -> RemoteMessagingRepository(
+                api = get(),
+                tokenStore = get(),
+                refreshCoordinator = get(),
+                authRepository = get(),
             )
         }
     }
@@ -349,6 +627,34 @@ val appModule = module {
 
     viewModel { AppShellViewModel(preferences = get(), connectivity = get(), localeController = get()) }
     viewModel { StudentNavigationDrawerViewModel(authRepository = get(), teacherRepository = get()) }
+    viewModel { ParentDashboardViewModel(authRepository = get(), parentRepository = get(), connectivity = get()) }
+    viewModel { ParentHomeViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentReportsViewModel(parentRepository = get(), connectivity = get(), exportStore = get()) }
+    viewModel {
+        ParentMeViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            securityRepository = get(),
+            connectivity = get(),
+        )
+    }
+    viewModel { ParentLinkStudentViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentPlannerViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAlertsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAiInsightsViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentAttendanceStudyTimeViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { ParentLessonProgressViewModel(parentRepository = get(), connectivity = get()) }
+    viewModel { (lessonId: String) ->
+        ParentLessonDetailsViewModel(lessonId = lessonId, parentRepository = get(), connectivity = get())
+    }
+    viewModel {
+        ParentSubjectsTeachersViewModel(
+            authRepository = get(),
+            parentRepository = get(),
+            connectivity = get(),
+        )
+    }
 
     // ── Phase 0 · A-01 → A-04, the entry funnel ──────────────────────────
     viewModel {
@@ -359,7 +665,9 @@ val appModule = module {
         )
     }
     viewModel { ValueCarouselViewModel(preferences = get()) }
-    viewModel { LoginViewModel(authRepository = get(), connectivity = get()) }
+    viewModel { (expectedRole: UserRole) ->
+        LoginViewModel(authRepository = get(), connectivity = get(), expectedRole = expectedRole)
+    }
 
     // A-05 / A-06 / A-07 share one ViewModel; the role comes from the destination, so each
     // register route gets its own instance rather than three duplicated definitions.
@@ -376,8 +684,13 @@ val appModule = module {
     viewModel { (email: String) ->
         VerifyEmailViewModel(email = email, authRepository = get(), connectivity = get())
     }
-    viewModel { (email: String) ->
-        TwoFactorViewModel(email = email, authRepository = get(), connectivity = get())
+    viewModel { (email: String, expectedRole: UserRole) ->
+        TwoFactorViewModel(
+            email = email,
+            authRepository = get(),
+            connectivity = get(),
+            expectedRole = expectedRole,
+        )
     }
 
     // A-10 — no parameters; the address is typed on the screen itself.
@@ -411,13 +724,14 @@ val appModule = module {
             achievementRepository = get(),
             plannerRepository = get(),
             routineRepository = get(),
+            authRepository = get(),
             connectivity = get(),
         )
     }
 
     // STUDENT_COURSES tab — course discovery; no parameters, same "session tells the
     // repository who's asking" shape as ST-01.
-    viewModel { StudentCoursesViewModel(learningRepository = get(), connectivity = get()) }
+    viewModel { StudentCoursesViewModel(learningRepository = get(), onboardingRepository = get(), connectivity = get()) }
 
     // LN-01/LN-04 — one Language module foundation: access gate, placement gate, home,
     // placement exam and the eight peer area hooks all read from the same module repository.
@@ -425,12 +739,24 @@ val appModule = module {
 
     // ST-02 — parameterised by which course was tapped on ST-01.
     viewModel { (courseId: String) ->
-        CourseDetailViewModel(courseId = courseId, learningRepository = get(), paymentRepository = get(), connectivity = get())
+        CourseDetailViewModel(
+            courseId = courseId,
+            learningRepository = get(),
+            paymentRepository = get(),
+            quizRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-03 — parameterised by which lesson was tapped on ST-02.
     viewModel { (lessonId: String) ->
-        LessonPlayerViewModel(lessonId = lessonId, learningRepository = get(), quizRepository = get(), connectivity = get())
+        LessonPlayerViewModel(
+            lessonId = lessonId,
+            learningRepository = get(),
+            quizRepository = get(),
+            mediaUrlResolver = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-04 / ST-05 — one instance shared by both tutor screens (graph-scoped in
@@ -488,11 +814,24 @@ val appModule = module {
     // ST-16 — no parameters; read-only, so no hot flow of its own is needed (see
     // SubscriptionRepository's own doc comment for why nothing here can mutate a subscription).
     // PaymentRepository is only for ST-20's "confirmed access" banner — see SubscriptionViewModel's own doc comment.
-    viewModel { SubscriptionViewModel(subscriptionRepository = get(), paymentRepository = get(), connectivity = get()) }
+    viewModel {
+        SubscriptionViewModel(
+            subscriptionRepository = get(),
+            paymentRepository = get(),
+            voucherRepository = get(),
+            connectivity = get(),
+        )
+    }
 
     // ST-17 — parameterised by the course the paywall was opened for.
     viewModel { (courseId: String) ->
-        PaywallViewModel(courseId = courseId, subscriptionRepository = get(), paymentRepository = get(), connectivity = get())
+        PaywallViewModel(
+            courseId = courseId,
+            subscriptionRepository = get(),
+            paymentRepository = get(),
+            voucherRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-18 — same courseId ST-17 already resolved an offer for.
@@ -509,7 +848,13 @@ val appModule = module {
 
     // ST-20 — parameterised by the course the confirmed payment is for.
     viewModel { (courseId: String) ->
-        PurchaseSuccessViewModel(courseId = courseId, paymentRepository = get(), connectivity = get())
+        PurchaseSuccessViewModel(
+            courseId = courseId,
+            paymentRepository = get(),
+            subscriptionRepository = get(),
+            learningRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // ST-21 — no parameters; a fresh instance per visit, same as ST-12's builder.
@@ -620,7 +965,7 @@ val appModule = module {
     }
 
     // ── Phase 3 · TC-01 Teacher Setup Wizard / TC-02 Dashboard / TC-03 Courses ──────────
-    viewModel { TeacherSetupViewModel(authRepository = get(), teacherRepository = get(), preferences = get(), connectivity = get()) }
+    viewModel { TeacherSetupViewModel(authRepository = get(), teacherSetupRepository = get(), preferences = get(), connectivity = get()) }
     viewModel { TeacherDashboardViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
     viewModel { TeacherCoursesViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
 
@@ -631,7 +976,12 @@ val appModule = module {
 
     // TC-05 — parameterised by the course a lesson is being added to.
     viewModel { (courseId: String) ->
-        TeacherLessonUploadViewModel(courseId = courseId, teacherRepository = get(), connectivity = get())
+        TeacherLessonUploadViewModel(
+            courseId = courseId,
+            teacherRepository = get(),
+            uploadRepository = get(),
+            connectivity = get(),
+        )
     }
 
     // TC-06 — parameterised by which lesson (and its course) is being watched.
@@ -698,8 +1048,15 @@ val appModule = module {
 
     // TC-16 — no parameters; the session already tells the repository which teacher's profile. The
     // live-preview screen reuses this exact same ViewModel class (a second Koin-created instance).
-    viewModel { TeacherAccountViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
-    viewModel { TeacherProfileViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
+    viewModel { TeacherAccountViewModel(authRepository = get(), teacherSetupRepository = get(), connectivity = get()) }
+    viewModel {
+        TeacherProfileViewModel(
+            authRepository = get(),
+            teacherSetupRepository = get(),
+            mediaUrlResolver = get(),
+            connectivity = get(),
+        )
+    }
 
     // TC-17 — no parameters for the project list root; the editor is parameterised by which project.
     viewModel { TeacherProjectsViewModel(authRepository = get(), teacherRepository = get(), connectivity = get()) }
@@ -729,6 +1086,7 @@ val appModule = module {
             threadId = threadId,
             authRepository = get(),
             messagingRepository = get(),
+            mediaUrlResolver = get(),
             connectivity = get(),
         )
     }

@@ -1,0 +1,46 @@
+grammar_id: gram_basic_questions
+display_code: G007
+title: Basic questions
+cefr_level: A1
+order: 70
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- what
+- where
+- who
+- can you
+- do you
+- '?'
+teaching_notes: Include simple spoken questions characters ask each other. Model the target in meeting
+  someone new, asking for directions; check comprehension before guided production, then recycle it in
+  a new context.
+common_mistakes:
+- Where you live?
+- What you name?
+examples:
+- Where do you live?
+- What is your name?
+- Can you help me?
+learning_objectives:
+- Form yes/no and Wh- questions for basic information
+- Answer questions with short, accurate replies
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- meeting someone new
+- asking for directions
+minimum_context_diversity: 2
+review_priority: 5
+review_half_life_days: 14.0
+focus_note: Include simple spoken questions characters ask each other. Model the target in meeting someone
+  new, asking for directions; check comprehension before guided production, then recycle it in a new context.

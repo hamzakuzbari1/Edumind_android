@@ -1,0 +1,4 @@
+-r requirements-voice.txt
+
+# Notebook pipeline models (optional — full PDF AI pipeline)
+imageio-ffmpeg

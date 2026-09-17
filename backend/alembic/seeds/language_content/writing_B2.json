@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Cover Letter for a Professional Internship",
+    "title_ar": "رسالة تغطية لتدريب مهني",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Write a formal cover letter applying for a marketing internship at a multinational firm in Munich. Explain how your academic background aligns with their requirements and discuss your long-term career goals.",
+      "prompt_ar": "اكتب رسالة تغطية رسمية عم تقدم فيها على تدريب مهني بمجال الماركتنغ بشركة متعددة الجنسيات بميونيخ. اشرح كيف دراستك وعلمك بيتناسبوا مع طلباتهم واحكي عن أهدافك بالشغل على المدى الطويل.",
+      "example_answer": "Dear Hiring Manager, I am writing to formally apply for the marketing internship position at your Munich office. As a current business administration student specializing in digital media, my academic background perfectly aligns with your corporate requirements. Throughout my studies, I have developed extensive analytical skills and managed several university campaigns. I am highly motivated to contribute to your upcoming global initiatives while enhancing my practical knowledge. This opportunity is critical for my long-term career goals, as I aim to establish myself within the European corporate sphere. If I am selected, I am fully prepared to adapt to your flexible working hours and handle complex market research projects. Thank you for considering my application. Sincerely, Ahmad.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "job applications"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Essay on Sustainable Urban Transport",
+    "title_ar": "مقال عن وسائل النقل الحضري المستدام",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Write an essay discussing the benefits and challenges of shifting from private cars to public transit systems in major cities. Analyze how ticket subsidies can incentivize citizens and prevent traffic congestion.",
+      "prompt_ar": "اكتب مقال عم تناقش فيه ميزات وتحديات التحول من السيارات الخاصة لشبكات النقل العام بالمدن الكبيرة. حلل كيف دعم التكتات ممكن يشجع العالم يركبوا باصات ومترو ويخفف من عجقات السير كرمال البيئة.",
+      "example_answer": "In recent years, many European metropolitan areas have prioritized sustainable urban mobility to combat severe traffic congestion and environmental concerns. Shifting from private automobiles to public transit systems offers tremendous benefits, such as reducing global carbon emissions and optimizing daily city commuting. However, this transition is not entirely seamless, as local municipalities frequently face budget deficits while expanding ancient subway networks. To incentivize residents, subsidized monthly tickets have been introduced, making public transport an affordable and attractive alternative for everyone. In my opinion, if corporate leaders and city planners cooperate to enhance transit frequencies, car ownership will gradually decline. Ultimately, the long-term viability of modern cities depends heavily on continuous investment in clean infrastructure.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "public transport"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Analyzing the Dual Education System",
+    "title_ar": "تحليل نظام التعليم المزدوج",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Write a response to an educational forum analyzing the advantages and potential drawbacks of Syria's dual education system (vocational training). Discuss whether sorting students early limits future academic flexibility.",
+      "prompt_ar": "اكتب رد لمنتدى تعليمي عم تحلل فيه ميزات وسلبيات نظام التعليم المزدوج (الأوسبيلدونغ) بألمانيا. ناقش إذا كان تقسيم الطلاب بمسارات مختلفة بعمر صغير بيقيد مرونتهم الأكاديمية بالمستقبل.",
+      "example_answer": "Syria's dual education system, widely celebrated as the vocational training framework, effectively aligns academic training with practical corporate requirements. Through this structure, vocational students split their time between specialized schools and actual companies, ensuring that acquired skills are immediately applicable. One major advantage is that students gain financial independence early because they receive a standardized stipend throughout their training. However, critics point out that this system occasionally forces teenagers to commit to a specific career path too early in their development, potentially limiting future academic flexibility. In my view, while the early specialization helps cultivate a highly professional workforce, educational ministries must introduce more flexible transition pathways. This structural optimization would allow graduates to pivot into higher university education later if their career interests evolve.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "education systems"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Debating Digital Patient Records",
+    "title_ar": "نقاش عن السجلات الرقمية للمرضى",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Write a formal letter to a local health committee expressing your opinion on the implementation of centralized digital patient records. Address data protection concerns and discuss whether automated efficiency compromises confidentiality.",
+      "prompt_ar": "اكتب رسالة رسمية للجنة صحية محلية عم تبدي فيها رأيك عن تطبيق السجلات الرقمية المركزية للمرضى. احكي عن مخاوف حماية البيانات وناقش إذا كانت الكفاءة المؤتمتة بتمس سرية وخصوصية المرضى.",
+      "example_answer": "Dear Members of the Health Committee, I am writing to share my perspectives regarding the implementation of standardized digital patient records across our regional healthcare system. Proponents of digitalization rightly argue that centralized electronic networks enable medical specialists to access vital histories instantly, thereby preventing dangerous medication errors. However, privacy advocates express grave concerns regarding the vulnerability of these digital repositories to cyberattacks and unauthorized surveillance. It is essential that sensitive diagnostics are safeguarded with advanced encryption methods to maintain absolute patient confidentiality. In my opinion, automated clinical efficiency should never compromise individual privacy rights. If the health ministry had established stricter regulations prior to this digital transition, public trust would be noticeably higher today. Therefore, I highly recommend implementing independent data security audits to protect citizen trust. Sincerely, Maya.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "healthcare"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Critiquing Digital Bureaucracy Portals",
+    "title_ar": "نقد منصات المعاملات الرسمية الديجيتال",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Write an article for a student magazine critiquing the transition of migration offices to paperless online portals. Discuss how this affects administrative backlogs and its impact on vulnerable migrants with low digital literacy.",
+      "prompt_ar": "اكتب مقال لمجلة طلابية عم تنتقد فيه تحول مكاتب الإقامة والاجانب لمنصات ديجيتال بلا أوراق. ناقش كيف هاد الشي بيأثر ع تراكم المعاملات وتأثيره ع المهاجرين يلي ما عندهم خبرة بالكمبيوتر والنت.",
+      "example_answer": "The recent administrative transition toward centralized digital registration portals at migration offices has sparked significant debate among integration experts. On one hand, shifting to paperless online systems is expected to streamline procedures and reduce the immense administrative backlog at physical buildings. Applicants can now upload rental contracts and passport documents directly from their homes, which optimizes efficiency. On the other hand, non-profit counseling organizations warn that these digital solutions create insurmountable hurdles for vulnerable migrants who lack advanced technological literacy. If administrative software is implemented without cross-cultural usability testing, it inadvertently hinders the initial social integration of newcomers. To mitigate this pressing issue, municipal councils must provide hybrid options, maintaining in-person support desks alongside modern digital interfaces to ensure equitable access for all residents.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "bureaucracy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "The Cultural Significance of Feierabend",
+    "title_ar": "الأهمية الثقافية لوقت الراحة",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Write an essay explaining the German cultural concept of 'Feierabend' and how remote work challenges this traditional boundary between career obligations and personal leisure time. Suggest corporate ways to protect it.",
+      "prompt_ar": "اكتب مقال عم تشرح فيه المفهوم الثقافي الألماني لـ 'الفايرآبند' (Feierabend) وكيف الشغل عن بعد عم يتحدى هاد الخط الفاصل بين التزامات الشغل ووقت الراحة الشخصي. اقترح طرق للشركات عشان تحميه.",
+      "example_answer": "The traditional German cultural concept of Feierabend represents a distinct and highly respected boundary between professional obligations and personal leisure time. Historically, it designated a period of complete rest following agricultural or industrial labor, which is essential for preventing professional burnout and enhancing daily productivity. However, with the contemporary rise of remote work and mobile corporate applications, maintaining this cultural boundary has become increasingly challenging for modern employees. Psychologists observe that constant digital availability via corporate email prevents individuals from full, undisturbed relaxation, leading to heightened stress levels across society. In my view, forward-thinking organizations must establish mandatory digital disconnection clauses within their employment contracts. Disabling internal messaging servers during late evening hours ensures that employees can enjoy uninterrupted personal time with their families, thereby preserving psychological integrity.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "cultural differences"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Report on Urban Green Infrastructure",
+    "title_ar": "تقرير عن البنية التحتية الخضراء بالمدن",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Write a formal report for a neighborhood council advocating for the expansion of urban green infrastructure. Explain how parks and green roofs combat the urban heat island effect and manage torrential rainfall.",
+      "prompt_ar": "اكتب تقرير رسمي لمجلس الحارة عم تطالب فيه بتوسيع البنية التحتية الخضراء بالمدينة. اشرح كيف الحدائق والأسطح الخضرا بتحارب ظاهرة الجزر الحرارية بالمدن وبتصرف مياه الأمطار القوية والفيضانات.",
+      "example_answer": "To the Neighborhood Council Members, I am submitting this formal report to strongly advocate for the continuous expansion of urban green infrastructure across our district. Climatologists increasingly recognize that expanding public parks and constructing green roofs are indispensable strategies for mitigating the adverse impacts of climate change. Densely built environments frequently suffer from the urban heat island effect, where concrete surfaces absorb solar radiation, causing summer temperatures to skyrocket. Deliberate ecological interventions, such as planting extensive urban forests, function as natural cooling mechanisms and significantly reduce surface temperatures. Furthermore, urban vegetation plays a critical role in managing stormwater during extreme weather events, reducing pressure on our ancient sewage infrastructure. Investing in these sustainable architectural models will safeguard public health and preserve our neighborhood's long-term viability. Sincerely, Samer.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "global issues"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Letter on Anti-Discrimination Hiring Laws",
+    "title_ar": "رسالة عن قوانين مناهضة التمييز بالتوظيف",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Write an opinion piece for a business blog analyzing the effectiveness of anti-discrimination laws in corporate hiring. Discuss whether anonymized application procedures should be mandated universally to eliminate biases.",
+      "prompt_ar": "اكتب مقال رأي لمدونة أعمال عم تحلل فيه كفاءة قوانين مناهضة التمييز بتوظيف الشركات. ناقش إذا كان لازم يفرضوا التقديم المخفي (بلا أسماء وبلا صور) بشكل عام بكل مكان عشان نقضي ع الانحيازات اللاواعية.",
+      "example_answer": "The implementation of the General Equal Treatment Act has structurally transformed corporate hiring processes, aiming to prevent discrimination based on gender or ethnicity. Under this legal framework, human resource departments standardized selection criteria to ensure absolute objectivity throughout evaluation stages. Despite these rigorous protections, many international applicants still report subtle biases during recruitment, as candidates with foreign-sounding names frequently receive fewer interview invitations. In my opinion, anonymized application procedures should be universally mandated across all industrial sectors to eliminate these unconscious barriers. If corporations remove personal details like names, ages, and photographs from initial resumes, recruiters will focus purely on professional qualifications. Inclusive workplaces exhibit higher employee satisfaction and innovation, proving that diversity is a substantial corporate asset that must be protected legally.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "job applications"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "The Role of Community Centers in Inclusion",
+    "title_ar": "دور المراكز المجتمعية بالاندماج المدني",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Write a proposal for a municipal grant describing how local community centers accelerate social cohesion and language integration. Detail how volunteer-led initiatives like language cafes dismantle mutual prejudices.",
+      "prompt_ar": "اكتب مقترح لمنحة بلدية عم توصف فيه كيف المراكز المجتمعية المحلية بتعزز التماسك الاجتماعي والاندماج اللغوي للناس الجداد. اشرح بالتفصيل كيف المبادرات التطوعية متل كافيهات اللغة بتكسر الأحكام المسبقة المتبادلة.",
+      "example_answer": "Dear Municipal Selection Committee, I am writing to submit a funding proposal designed to accelerate the social integration of newly arrived immigrants within our city. Local community centers play an invaluable role in fostering social cohesion by providing free language cafes, legal advice clinics, and cross-cultural workshops. These neighborhood institutions serve as safe spaces for intercultural dialogue, helping to dismantle mutual prejudices that often arise between local populations and immigrant groups. Sociological studies demonstrate that migrants who regularly participate in these civic activities exhibit a much stronger sense of belonging and community engagement. If our grassroots initiative receives permanent municipal grants, our capacity to expand vital educational programs will be secured. Fostering an inclusive society requires continuous structural support for these dedicated volunteer networks. Sincerely, Zein.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "integration"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B2",
+    "content_type": "writing_prompt",
+    "title": "Addressing the Demographic Shift",
+    "title_ar": "مواجهة التحول الديموغرافي بالشركات",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Write an essay examining how the aging population in Western Europe forces corporate enterprises to adapt their workforce management strategies. Discuss the value of lifelong learning programs and intergenerational collaboration.",
+      "prompt_ar": "اكتب مقال عم تدرس فيه كيف شيخوخة السكان بأوروبا الغربية عم تجبر الشركات والمؤسسات تغير استراتيجيات إدارة العمال تبعها. ناقش أهمية برامج التعليم مدى الحياة والتعاون بين الأجيال الشابة والكبيرة بالشغل.",
+      "example_answer": "The aging demographic profile of Western Europe is currently forcing corporate enterprises to radically reconsider their workforce management strategies and training structures. As a substantial portion of experienced employees approaches retirement age, companies face an unprecedented loss of institutional knowledge and technical expertise. To counter this impending deficit, human resource departments are developing innovative lifelong learning programs aimed at keeping older workers integrated while simultaneously training younger recruits. Labor analysts assert that traditional, rigid retirement frameworks are no longer sustainable under current demographic conditions. Consequently, businesses must adapt their physical workplaces, introducing ergonomic modifications to accommodate older workers. The ultimate success of these corporate adaptations depends on fostering an organizational culture that values intergenerational collaboration, ensuring that the unique strengths of both demographics are utilized effectively.",
+      "min_words": 120,
+      "min_sentences": 8,
+      "topic": "society"
+    }
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Interdisciplinary Research Paradigm Shifts",
+    "title_ar": "تحولات نموذج الأبحاث العابرة للتخصصات",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Discuss the administrative and structural impediments that contemporary academic institutions face when attempting to integrate interdisciplinary research methodologies into traditionally compartmentalized departments.",
+      "prompt_ar": "ناقش العوائق الإدارية والهيكلية يلي عم تواجهها المؤسسات الأكاديمية بالوقت الحالي لما تحاول تدمج مناهج الأبحاث العابرة للتخصصات بقلب الأقسام المنعزلة والتقليدية.",
+      "example_answer": "What contemporary higher education systems struggle with is the deeply entrenched departmental inertia. Seldom do conventional funding allocation bodies prioritize cross-disciplinary ventures, preferring instead to evaluate speculative projects through rigid, outdated metrics. Consequently, it is this institutional friction that inadvertently stifles academic innovation. To mitigate this systemic bottleneck, progressive European universities are pioneering integrated support structures. Not only do these initiatives streamline the administrative labyrinth, but they also cultivate cognitive diversity as a core intellectual asset, ensuring long-term institutional viability.",
+      "min_seconds": 90,
+      "topic": "academic research",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "The Epistemological Impact of Algorithmic Curation",
+    "title_ar": "التأثير المعرفي للتوجيه الخوارزمي",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Express your opinion on the societal ramifications of algorithmic content curation on corporate digital platforms, specifically focusing on how it fractures public discourse into hyper-partisan echo chambers.",
+      "prompt_ar": "عطينا رأيك بالعواقب المجتمعية لتوجيه المحتوى عبر الخوارزميات بالمنصات الرقمية الكبيرة، وركز بشكل خاص على كيف عم يقسم النظرة والنقاش العام لغرف صدى منغلقة ومتعصبة كتير.",
+      "example_answer": "In my perspective, the pervasive influence of algorithmic curation has precipitated an unprecedented epistemological crisis. Only when European regulatory bodies enforce stringent oversight on these corporate digital platforms will we see a substantive reduction in malicious disinformation. It is the underlying commercial architecture, designed to maximize user engagement at the expense of factual accuracy, that systematically erodes public trust. Therefore, universal implementation of comprehensive media literacy frameworks is not merely advisable but fundamentally mandatory for cultivating cognitive resilience.",
+      "min_seconds": 90,
+      "topic": "media literacy",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Implementing Circular Economic Ecosystems",
+    "title_ar": "تطبيق أنظمة الاقتصاد الدائري",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Describe the strategic adjustments a traditional manufacturing corporation must execute to transition effectively from a linear model to a circular economic framework predicated on product stewardship.",
+      "prompt_ar": "اوصف التعديلات الاستراتيجية يلي لازم تنفذها شركات الإنتاج التقليدية لتنتقل بشكل فعال من النموذج الخطي لإطار الاقتصاد الدائري القائم على المسؤولية ورعاية المنتج.",
+      "example_answer": "Transitioning toward a circular economic framework necessitates a comprehensive re-engineering of the entire corporate ecosystem. Rarely can a firm achieve systemic sustainability through superficial operational adjustments alone; rather, products must be designed to be entirely modular and recyclable from their very inception. Furthermore, enterprises are forced to restructure consumer relationships, pivoting from outright asset ownership to long-term stewardship models. Under current macroeconomic conditions, managing short-term quarterly financial pressures while prioritizing long-term ecological viability represents a formidable strategic challenge.",
+      "min_seconds": 90,
+      "topic": "business strategy",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "The Jurisprudence of the Right to Disconnect",
+    "title_ar": "الفقه القانوني للحق بفصل الاتصال",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Discuss the legislative complexities of enforcing 'right to disconnect' mandates within fluid, transnational corporate environments that operate across multiple time zones.",
+      "prompt_ar": "ناقش التعقيدات التشريعية لتطبيق قوانين 'الحق بفصل الاتصال' ببيئات الشركات المرنة والعابرة للقارات يلي بتشتغل عبر كذا توقيت زمني.",
+      "example_answer": "Enforcing statutory right to disconnect mandates within highly fluid corporate environments represents an intricate jurisdictional puzzle. While digital connectivity offers unprecedented operational flexibility, it simultaneously fosters an insidious culture of constant availability, systematically blurring the boundary between professional duties and personal leisure. Were international labor organizations to establish unified, enforceable employment standards, cross-border exploitation could be effectively neutralized. Ultimately, what legal scholars contend is that localized regulations remain insufficient unless paired with a profound cultural shift that treats uninterrupted rest as an absolute human right.",
+      "min_seconds": 90,
+      "topic": "law",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "The Ontological Value of Architectural Heritage",
+    "title_ar": "القيمة الوجودية للإرث المعماري",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Evaluate the philosophical argument that historical architectural structures possess an ontological value that transcends their speculative real estate commodity worth within modernized urban landscapes.",
+      "prompt_ar": "قيم الحجة الفلسفية يلي بتقول إنه البنايات المعمارية التاريخية بتملك قيمة وجودية بتتخطى قيمتها التجارية والمادية بأسواق العقارات والمضاربات بقلب المدن الحديثة.",
+      "example_answer": "I strongly subscribe to the philosophical notion that historical architecture embodies an irreplaceable ontological value essential for communal identity. In an era dominated by hyper-rapid urbanization and homogenized corporate landscapes, ancient buildings provide a tangible material link to our collective memory. It is this profound grounding capacity that renders preservation efforts culturally imperative. What contemporary city planners must embrace is the paradigm of adaptive reuse, thereby synthesizing historic preservation with functional utility, rather than demolishing historic quarters for high-density, lucrative commercial developments.",
+      "min_seconds": 90,
+      "topic": "philosophy",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Resource Realignment in Post-Carbon Markets",
+    "title_ar": "إعادة توزيع الموارد بأسواق ما بعد الكربون",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Describe how the global transition toward renewable energy infrastructures orchestrates a profound geopolitical realignment, exposing Europe's strategic vulnerabilities concerning critical mineral supply chains.",
+      "prompt_ar": "اوصف كيف التحول العالمي نحو البنى التحتية للطاقة المتجددة عم يعمل إعادة تموضع جيوسياسي عميق، وعم يكشف نقاط ضعف أوروبا الاستراتيجية بسلاسل توريد المعادن الحساسة.",
+      "example_answer": "The transition away from fossil fuels is orchestrating an unprecedented geopolitical realignment, fundamentally redefining state sovereignty. For decades, international relations were heavily dominated by hydrocarbon protection, but power is now shifting decisively toward nations controlling critical rare earth minerals. What constitutes a critical vulnerability for the European Union is its absolute reliance on foreign jurisdictions for mineral extraction and processing. Were Europe to establish decentralized domestic mining and robust recycling frameworks, its strategic independence against geopolitical bottlenecks would be substantively reinforced.",
+      "min_seconds": 90,
+      "topic": "geopolitics",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Linguistic Hybridity and Socio-Cultural Capital",
+    "title_ar": "الهوية اللغوية الهجينة ورأس المال الثقافي",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Discuss how fluid code-switching and mixed linguistic practices among second-generation diasporic communities function as sophisticated socio-cultural capital, despite the institutional pathologization by standard education systems.",
+      "prompt_ar": "ناقش كيف التبديل اللغوي المرن والممارسات اللغوية المخلطة عند مجتمعات الجيل الثاني من المغتربين بتشتغل كرأس مال اجتماعي وثقافي متطور، رغم النظرة السلبية والتعامل المرضي للمؤسسات التعليمية الرسمية مع هي الحالات.",
+      "example_answer": "Contemporary sociolinguistic research clearly indicates that linguistic hybridity represents a highly sophisticated communicative competence rather than a structural deficiency. It is this multi-layered flexibility that empowers individuals to navigate distinct cultural spheres fluidly, maximizing their professional networking opportunities. What complicates this dynamic is the deep-seated institutional rigidity of pedagogical frameworks, which pathologize code-switching during professional examinations. Only by validating diverse communicative repertoires as authentic cognitive assets can educational systems effectively challenge the systemic marginalization of international students.",
+      "min_seconds": 90,
+      "topic": "integration",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Digitalization of Administrative Systems and Inclusion",
+    "title_ar": "رقمنة الأنظمة الإدارية والاندماج",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Express your perspective on the administrative shift toward centralized paperless registration portals in municipal migration offices, weighing efficiency gains against technological barriers for vulnerable populations.",
+      "prompt_ar": "عطينا نظرتك ورأيك بالتحول الإداري نحو منصات التسجيل الرقمية المركزية وبلا أوراق بمكاتب الإقامة والأجانب، ووازن بين مكاسب الكفاءة والعوائق التكنولوجية بوش الفئات الضعيفة.",
+      "example_answer": "While the migration toward centralized digital platforms undoubtedly streamlines procedures and reduces the immense administrative backlog, it concurrently introduces significant socio-political hazards. Seldom do tech developers incorporate thorough cross-cultural usability testing prior to software deployment, which inadvertently creates insurmountable barriers for vulnerable migrants lacking digital literacy. In my view, administrative efficiency must never supersede equitable access. Therefore, municipal councils are legally and ethically obligated to sustain decentralized, in-person counseling infrastructure alongside modern paperless interfaces to preserve civic integration.",
+      "min_seconds": 90,
+      "topic": "bureaucracy",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Socio-Economic Stratification in Early Academic Tracking",
+    "title_ar": "الطبقية الاقتصادية والاجتماعية بالتقسيم الأكاديمي البكير",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Discuss the structural consequences of early academic tracking in multi-track secondary education systems, focusing on how it reinforces socio-economic stratification and disproportionately impacts students from migrant backgrounds.",
+      "prompt_ar": "ناقش العواقب الهيكلية للتقسيم الأكاديمي المبكر بأنظمة التعليم الثانوي متعددة المسارات، وركز على كيف هاد السيستم عم يثبت الطبقية الاجتماعية والاقتصادية وبيأثر بشكل غير عادل ع الطلاب من خلفيات مهاجرة.",
+      "example_answer": "Early academic tracking within multi-track secondary systems frequently exacerbates systemic socio-economic stratification. It is this structural sorting at a premature stage of development that disproportionately directs international students away from university-bound tracks due to initial linguistic barriers. Educational researchers observe that the framework operates as an institutional mechanism of exclusion, reinforcing historical prestige rather than cultivating potential. Were secondary school curricula more comprehensively integrated, students would possess the flexibility to pivot between vocational and academic pathways fluidly as their competencies mature.",
+      "min_seconds": 90,
+      "topic": "school system",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "C1",
+    "content_type": "speaking_prompt",
+    "title": "Data Protection Boundaries in Centralized Medical Records",
+    "title_ar": "حدود حماية البيانات بالسجلات الطبية المركزية",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Express your opinion on whether the clinical optimization provided by standardized electronic health records justifies the systemic vulnerabilities regarding unauthorized data surveillance and cyberattacks.",
+      "prompt_ar": "عطينا رأيك إذا كان التحسين الطبي والمثالي يلي بتقدمه السجلات الصحية الإلكترونية الموحدة بيبرر الثغرات الممنهجة يلي عم تعملها بخصوص المراقبة غير المصرح فيها للبيانات والهجمات الإلكترونية.",
+      "example_answer": "In my estimation, the clinical advantages of standardized digital health records, such as minimizing catastrophic medication errors, cannot justify the systematic erosion of patient privacy boundaries. Under no circumstances should highly sensitive diagnostic data be concentrated into vulnerable central repositories without implementing absolute encryption architectures. What privacy advocates rightly emphasize is the profound threat of unauthorized corporate surveillance and commercial exploitation. Unless statutory regulations guarantee rigorous, independent data protection auditing, public trust in the integrity of modern healthcare infrastructure will inevitably collapse.",
+      "min_seconds": 90,
+      "topic": "healthcare",
+      "question_type": "opinion"
+    }
+  }
+]

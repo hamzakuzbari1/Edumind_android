@@ -267,14 +267,31 @@ private fun ResultHeroCard(result: QuizResult) {
                 color = colors.textSecondary,
                 textAlign = TextAlign.Center,
             )
+            if (result.hasPendingEssay) {
+                Text(
+                    text = stringResource(R.string.st07_pending_essay),
+                    style = EduTheme.typography.body,
+                    color = colors.warning,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = Spacing.xs),
+                )
+            }
             ProgressRing(
-                progress = if (result.totalCount == 0) 0f else result.correctCount / result.totalCount.toFloat(),
+                progress = when {
+                    result.scorePercent != null -> (result.scorePercent.coerceIn(0, 100)) / 100f
+                    result.totalCount == 0 -> 0f
+                    else -> result.correctCount / result.totalCount.toFloat()
+                },
                 size = Sizing.heroBadge,
                 tint = colors.success,
                 modifier = Modifier.padding(top = Spacing.sm),
             )
             Text(
-                text = stringResource(R.string.st07_correct_count, numeral(result.correctCount), numeral(result.totalCount)),
+                text = if (result.scorePercent != null) {
+                    stringResource(R.string.st07_score_percent, numeral(result.scorePercent))
+                } else {
+                    stringResource(R.string.st07_correct_count, numeral(result.correctCount), numeral(result.totalCount))
+                },
                 style = EduTheme.typography.titleLg,
                 color = colors.textPrimary,
                 modifier = Modifier.padding(top = Spacing.sm),

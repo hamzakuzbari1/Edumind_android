@@ -1,0 +1,123 @@
+-- W0 Writing Schema Plan (NOT applied in W0 — reference for W1+ migrations)
+-- Official policy: official_writing_cefr only updated by official promotion engine.
+
+-- ---------------------------------------------------------------------------
+-- 1. Extend language_writing_progress for revision lifecycle
+-- ---------------------------------------------------------------------------
+-- ALTER TABLE language_writing_progress
+--     ADD COLUMN IF NOT EXISTS status language_content_progress_status DEFAULT 'not_started',
+--     ADD COLUMN IF NOT EXISTS attempt_count INTEGER DEFAULT 0,
+--     ADD COLUMN IF NOT EXISTS lifecycle_state VARCHAR(32) DEFAULT 'not_started',
+--     ADD COLUMN IF NOT EXISTS draft_history_json JSONB,
+--     ADD COLUMN IF NOT EXISTS coach_turns_json JSONB,
+--     ADD COLUMN IF NOT EXISTS first_draft_text TEXT,
+--     ADD COLUMN IF NOT EXISTS final_draft_text TEXT,
+--     ADD COLUMN IF NOT EXISTS ready_to_complete BOOLEAN DEFAULT FALSE;
+
+-- ---------------------------------------------------------------------------
+-- 2. Writing reservation (mirror listening reservation pattern)
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_reservations (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     content_item_id INTEGER REFERENCES language_content_items(id) ON DELETE SET NULL,
+--     lifecycle_state VARCHAR(32) NOT NULL DEFAULT 'queued',
+--     chain_id VARCHAR(64),
+--     chain_node_id VARCHAR(64),
+--     context_complexity SMALLINT CHECK (context_complexity BETWEEN 1 AND 5),
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 3. Lexis progression (category-aware)
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_lexis_state (
+--     id SERIAL PRIMARY KEY,
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     lemma VARCHAR(120) NOT NULL,
+--     category VARCHAR(32) NOT NULL,
+--     state VARCHAR(16) NOT NULL DEFAULT 'unknown',
+--     topic_id VARCHAR(32),
+--     evidence_count INTEGER DEFAULT 0,
+--     introduced_at TIMESTAMPTZ,
+--     last_seen_at TIMESTAMPTZ,
+--     UNIQUE (student_id, language_id, lemma, category)
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 4. Grammar progression
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_grammar_state (
+--     id SERIAL PRIMARY KEY,
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     structure_id VARCHAR(64) NOT NULL,
+--     state VARCHAR(16) NOT NULL DEFAULT 'unknown',
+--     evidence_count INTEGER DEFAULT 0,
+--     introduced_at TIMESTAMPTZ,
+--     last_seen_at TIMESTAMPTZ,
+--     UNIQUE (student_id, language_id, structure_id)
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 5. Knowledge chain progress
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_chain_progress (
+--     id SERIAL PRIMARY KEY,
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     chain_id VARCHAR(64) NOT NULL,
+--     current_node_id VARCHAR(64) NOT NULL,
+--     completed_node_ids JSONB DEFAULT '[]',
+--     last_completed_at TIMESTAMPTZ,
+--     UNIQUE (student_id, language_id, chain_id)
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 6. Trend snapshot (longitudinal coach layer)
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_trend_snapshot (
+--     id SERIAL PRIMARY KEY,
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     trend_headline TEXT NOT NULL,
+--     improvement_areas JSONB DEFAULT '[]',
+--     sustained_skills JSONB DEFAULT '[]',
+--     regression_warnings JSONB DEFAULT '[]',
+--     comparison_window_lessons INTEGER DEFAULT 5,
+--     comparison_window_days INTEGER DEFAULT 14,
+--     generated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 7. Portfolio (educational archive — no progression reads)
+-- ---------------------------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS language_writing_portfolio_entry (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     language_id INTEGER NOT NULL REFERENCES languages(id) ON DELETE CASCADE,
+--     content_item_id INTEGER NOT NULL REFERENCES language_content_items(id) ON DELETE CASCADE,
+--     mission_title TEXT NOT NULL,
+--     mission_why TEXT NOT NULL,
+--     first_draft_text TEXT NOT NULL,
+--     final_draft_text TEXT NOT NULL,
+--     coach_feedback_json JSONB NOT NULL,
+--     skills_learned JSONB DEFAULT '[]',
+--     progress_highlights JSONB DEFAULT '[]',
+--     topic_id VARCHAR(32),
+--     chain_node_id VARCHAR(64),
+--     completion_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     UNIQUE (student_id, content_item_id)
+-- );
+
+-- ---------------------------------------------------------------------------
+-- 8. Content metadata: context_complexity on body_json.writing_curriculum
+--     (no column — stored in language_content_items.body_json)
+-- ---------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------
+-- 9. Goal → WPA bundle mapping (code catalog in language_writing_promotion_test)
+-- ---------------------------------------------------------------------------

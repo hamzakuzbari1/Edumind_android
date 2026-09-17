@@ -38,7 +38,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.locale.AppLocale
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.model.UserRole
+import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.action.SecondaryButton
 import com.rork.eduspark.ui.components.foundation.eduClickable
@@ -80,8 +82,10 @@ fun RegisterScreen(
     role: UserRole,
     locale: AppLocale,
     onSelectLocale: (AppLocale) -> Unit,
-    onRegistered: (String) -> Unit,
+    onAuthenticated: (SessionUser) -> Unit,
+    onEmailVerificationRequired: (String) -> Unit,
     onLogin: () -> Unit,
+    onChangeAccountType: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel = koinViewModel(parameters = { parametersOf(role) }),
@@ -95,7 +99,9 @@ fun RegisterScreen(
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
             when (event) {
-                is RegisterEvent.Registered -> onRegistered(event.email)
+                is RegisterEvent.Authenticated -> onAuthenticated(event.user)
+                is RegisterEvent.EmailVerificationRequired ->
+                    onEmailVerificationRequired(event.email)
             }
         }
     }
@@ -282,6 +288,12 @@ fun RegisterScreen(
                 question = stringResource(R.string.a03_have_account),
                 actionLabel = stringResource(R.string.a03_login_action),
                 onAction = onLogin,
+            )
+
+            GhostButton(
+                text = stringResource(R.string.a03_change_account_type),
+                onClick = onChangeAccountType,
+                modifier = Modifier.fillMaxWidth(),
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))

@@ -1,0 +1,49 @@
+grammar_id: gram_zero_conditional
+display_code: G022
+title: Zero conditional
+cefr_level: A2
+order: 220
+prerequisites:
+- gram_present_simple
+- gram_connectors_and_but
+unlock_targets: []
+grammar_targets:
+- if + present, present
+- when + present, present
+- unless + present, present
+teaching_notes: Teach the zero conditional for facts, routines, and reliable results. Contrast its general
+  meaning with the future possibility expressed later by the first conditional. Model the target in science
+  facts, daily routines; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- If you heat ice, it will melt. (when stating a general fact)
+- If people does not sleep, they feel tired.
+- When you will press this button, the machine stops.
+examples:
+- If you heat water to 100°C, it boils.
+- When I feel tired, I go to bed early.
+- Plants die if they do not get water.
+- Unless you charge the phone, it does not work.
+learning_objectives:
+- Express general truths and predictable results with present forms in both clauses
+- Distinguish general conditions from specific future possibilities
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- reading
+- vocabulary
+recommended_contexts:
+- science facts
+- daily routines
+- instructions and rules
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Teach the zero conditional for facts, routines, and reliable results. Contrast its general
+  meaning with the future possibility expressed later by the first conditional. Model the target in science
+  facts, daily routines; check comprehension before guided production, then recycle it in a new context.

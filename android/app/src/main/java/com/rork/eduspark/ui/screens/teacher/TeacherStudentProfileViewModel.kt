@@ -223,8 +223,18 @@ class TeacherStudentProfileViewModel(
         val message = _state.value.messageDraft.trim()
         if (message.isBlank()) return
         viewModelScope.launch {
-            teacherRepository.sendStudentMessage(studentId, message)
-            _state.update { it.copy(messageSent = true) }
+            val session = authRepository.session.first() ?: return@launch
+            val viewerId = session.id
+            val threadResult = messagingRepository.openOrCreateThread(
+                viewerId = viewerId,
+                viewerRole = com.rork.eduspark.data.model.MessageParticipantRole.Teacher,
+                contactId = studentId,
+            )
+            val thread = (threadResult as? AppResult.Success)?.data ?: return@launch
+            val sent = messagingRepository.sendMessage(thread.id, viewerId, message)
+            if (sent is AppResult.Success) {
+                _state.update { it.copy(messageSent = true) }
+            }
         }
     }
 

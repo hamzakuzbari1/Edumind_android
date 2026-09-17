@@ -2,3 +2,21 @@ node_modules
 .env
 .expo
 .rork
+
+# Consolidated FastAPI backend local/runtime files
+backend/.env
+backend/.env.*
+!backend/.env.example
+!backend/.env.docker.example
+backend/.venv/
+backend/venv/
+backend/uploads/
+backend/**/__pycache__/
+backend/**/.pytest_cache/
+backend/**/.mypy_cache/
+backend/**/.ruff_cache/
+backend/**/.cache/
+backend/**/*.pyc
+
+# Dependency/build artifacts already excluded from the source tree
+tmp/

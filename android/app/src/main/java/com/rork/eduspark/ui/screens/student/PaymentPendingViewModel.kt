@@ -6,6 +6,7 @@ import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.PaymentRequest
+import com.rork.eduspark.data.model.PaymentStatus
 import com.rork.eduspark.data.model.PendingPayment
 import com.rork.eduspark.data.repository.PaymentRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,15 +20,11 @@ import kotlinx.coroutines.launch
  * ST-19 · Payment Pending.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Owns the submit call ST-18 deliberately did not make — [submit] resolves the same
- * [CourseOffer][com.rork.eduspark.data.model.CourseOffer]/[PaymentMethod][com.rork.eduspark.data.model.PaymentMethod]
- * ST-18 already showed (by [courseId]/[methodId], not a duplicated repository field) and calls
- * [PaymentRepository.submitPayment]. That call is idempotent per course (see its own doc
- * comment), so calling [submit] again — on [retry], or because this ViewModel was simply
- * recreated by returning to ST-19 later — can never create a second pending transaction; the
- * repository just hands back the same [PendingPayment] it already has.
+ * Owns the submit call ST-18 deliberately did not make. Backend `unlocked=true` / Verified
+ * is success — this screen must not stay on Pending review, and must not subscribe again.
+ * Genuine pending stays on this UI; API failure is retryable.
  */
-enum class PaymentPendingPhase { Submitting, Pending, Failed }
+enum class PaymentPendingPhase { Submitting, Pending, Succeeded, Failed }
 
 data class PaymentPendingUiState(
     val phase: PaymentPendingPhase = PaymentPendingPhase.Submitting,
@@ -49,13 +46,6 @@ class PaymentPendingViewModel(
     init {
         viewModelScope.launch {
             connectivity.isOnline.collect { online -> _state.update { it.copy(isOnline = online) } }
-        }
-        viewModelScope.launch {
-            paymentRepository.pendingPayment.collect { pending ->
-                if (pending != null && pending.courseId == courseId) {
-                    _state.update { it.copy(phase = PaymentPendingPhase.Pending, pending = pending) }
-                }
-            }
         }
         submit()
     }
@@ -86,12 +76,27 @@ class PaymentPendingViewModel(
                 amount = offerResult.data.price,
                 methodId = method.id,
                 methodName = method.name,
+                teacherName = offerResult.data.teacherName,
             )
             when (val result = paymentRepository.submitPayment(request)) {
-                // Success is reflected by the flow collector above — same convention as
-                // PlannerViewModel's own loadWeekPlan() call.
-                is AppResult.Success -> Unit
-                is AppResult.Failure -> _state.update { it.copy(phase = PaymentPendingPhase.Failed, error = result.error) }
+                is AppResult.Success -> {
+                    val payment = result.data
+                    val phase = when (payment.status) {
+                        PaymentStatus.Verified -> PaymentPendingPhase.Succeeded
+                        PaymentStatus.Pending -> PaymentPendingPhase.Pending
+                        else -> PaymentPendingPhase.Failed
+                    }
+                    _state.update {
+                        it.copy(
+                            phase = phase,
+                            pending = payment,
+                            error = if (phase == PaymentPendingPhase.Failed) AppError.Unknown else null,
+                        )
+                    }
+                }
+                is AppResult.Failure -> _state.update {
+                    it.copy(phase = PaymentPendingPhase.Failed, error = result.error)
+                }
             }
         }
     }

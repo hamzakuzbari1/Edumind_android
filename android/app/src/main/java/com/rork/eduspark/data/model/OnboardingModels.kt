@@ -13,6 +13,8 @@ package com.rork.eduspark.data.model
 /** Syrian secondary grades — Screen Inventory SO-01. */
 enum class Grade { Grade10, Grade11, Baccalaureate }
 
+enum class StudentOnboardingStep { Grade, Subjects, Teachers, Complete }
+
 /** Only the Baccalaureate year forks by track (Screen Inventory SO-01). */
 enum class Track { Science, Literary }
 
@@ -20,7 +22,17 @@ enum class SubjectGroup { Core, LanguagesAndGeneral }
 
 data class SubjectOption(
     val id: String,
+    val name: String,
+    val slug: String,
     val group: SubjectGroup,
+)
+
+data class StudentOnboardingStatus(
+    val step: StudentOnboardingStep,
+    val grade: Grade?,
+    val onboardingComplete: Boolean,
+    val selectedSubjectIds: Set<String>,
+    val selectedTeacherIdBySubject: Map<String, String>,
 )
 
 /**
@@ -31,11 +43,11 @@ data class OnboardingTeacher(
     val id: String,
     val subjectId: String,
     val name: String,
-    val yearsTeaching: Int,
+    val yearsTeaching: Int?,
     val rating: Float,
     val studentCount: Int,
-    val priceLabel: String,
-    val introClipSeconds: Int,
+    val priceLabel: String?,
+    val introClipSeconds: Int?,
 )
 
 /** SO-04 Q1. */

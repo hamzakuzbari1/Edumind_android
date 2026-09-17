@@ -95,19 +95,18 @@ class TeacherDashboardViewModel(
             _state.update { it.copy(result = UiState.Loading) }
         }
         viewModelScope.launch {
-            val teacherId = authRepository.session.first()?.id
+            val session = authRepository.session.first()
+            val teacherId = session?.id
             if (teacherId == null) {
                 _state.update { it.copy(result = UiState.Failure(AppError.NotFound)) }
                 return@launch
             }
-            val setupResult = teacherRepository.getSetupState(teacherId)
             val dashboardResult = teacherRepository.getDashboard(teacherId)
             val voiceProfileResult = teacherRepository.getVoiceProfile(teacherId)
             val quizzesResult = teacherRepository.getQuizzes(teacherId)
             val studentsResult = teacherRepository.getStudents(teacherId)
-            if (setupResult !is AppResult.Success || dashboardResult !is AppResult.Success) {
+            if (dashboardResult !is AppResult.Success) {
                 val error = (dashboardResult as? AppResult.Failure)?.error
-                    ?: (setupResult as? AppResult.Failure)?.error
                     ?: AppError.NotFound
                 _state.update { it.copy(result = UiState.Failure(error)) }
                 return@launch
@@ -116,7 +115,7 @@ class TeacherDashboardViewModel(
                 it.copy(
                     result = UiState.Content(
                         TeacherDashboardScreenData(
-                            teacherDisplayName = setupResult.data.identity.displayName,
+                            teacherDisplayName = canonicalTeacherDisplayName(session),
                             summary = dashboardResult.data,
                             voiceProfileStatus = (voiceProfileResult as? AppResult.Success)?.data?.profileStatus ?: VoiceProfileStatus.NotReady,
                             quizCount = (quizzesResult as? AppResult.Success)?.data?.size ?: 0,
@@ -171,3 +170,9 @@ class TeacherDashboardViewModel(
 
     fun dismissComingSoon() = _state.update { it.copy(showComingSoon = false) }
 }
+
+internal fun canonicalTeacherDisplayName(session: com.rork.eduspark.data.model.SessionUser?): String =
+    session
+        ?.takeIf { it.role == com.rork.eduspark.data.model.UserRole.Teacher }
+        ?.displayName
+        .orEmpty()

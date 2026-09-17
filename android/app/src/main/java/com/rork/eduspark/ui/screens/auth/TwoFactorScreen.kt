@@ -40,6 +40,7 @@ import com.rork.eduspark.core.format.isolateBidi
 import com.rork.eduspark.core.format.maskEmail
 import com.rork.eduspark.core.format.numeral
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.ui.components.action.EduIconButton
 import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
@@ -69,10 +70,12 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun TwoFactorScreen(
     email: String,
+    expectedRole: UserRole,
     onBack: () -> Unit,
     onAuthenticated: (SessionUser) -> Unit,
+    onChangeAccountType: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: TwoFactorViewModel = koinViewModel(parameters = { parametersOf(email) }),
+    viewModel: TwoFactorViewModel = koinViewModel(parameters = { parametersOf(email, expectedRole) }),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
@@ -87,7 +90,9 @@ fun TwoFactorScreen(
         }
     }
 
-    val fieldsEnabled = state.phase != TwoFactorPhase.Verifying && state.phase != TwoFactorPhase.Success
+    val fieldsEnabled = state.phase != TwoFactorPhase.Verifying &&
+        state.phase != TwoFactorPhase.Success &&
+        state.phase !is TwoFactorPhase.RoleMismatch
     val isError = state.phase is TwoFactorPhase.Invalid
 
     AuthScaffold(
@@ -171,6 +176,22 @@ fun TwoFactorScreen(
                     }
 
                     TwoFactorPhase.Idle -> Unit
+
+                    is TwoFactorPhase.RoleMismatch -> AuthMessageSurface(
+                        icon = Icons.Filled.ErrorOutline,
+                        accent = EduTheme.colors.danger,
+                    ) {
+                        Text(
+                            text = stringResource(roleMismatchMessageRes(phase.actualRole)),
+                            style = EduTheme.typography.caption,
+                            color = EduTheme.colors.textPrimary,
+                        )
+                        GhostButton(
+                            text = stringResource(R.string.a03_change_account_type),
+                            onClick = onChangeAccountType,
+                            modifier = Modifier.padding(top = Spacing.xs),
+                        )
+                    }
                 }
             }
 
@@ -187,7 +208,9 @@ fun TwoFactorScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            if (state.phase != TwoFactorPhase.Success) {
+            if (state.phase != TwoFactorPhase.Success &&
+                state.phase !is TwoFactorPhase.RoleMismatch
+            ) {
                 TwoFactorResendRow(
                     canResend = state.canResend,
                     resendCapReached = state.resendCapReached,

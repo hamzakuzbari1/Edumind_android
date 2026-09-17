@@ -5,19 +5,13 @@ package com.rork.eduspark.data.model
  * TC-01 · Teacher Setup Wizard / TC-02 · Teacher Dashboard / TC-03 · Courses List.
  * ══════════════════════════════════════════════════════════════════════════
  *
- * Phase 3's first slice — MOCK UI/domain state only. The real FastAPI teacher backend
- * (course/lesson management, PDF/video/homework upload, AI lesson processing, voice profile,
- * quiz builder, students/analytics) already exists server-side and is deliberately NOT
- * integrated here; every field below is what
- * [com.rork.eduspark.data.repository.mock.MockTeacherRepository] can honestly construct from
- * deterministic fixtures.
+ * Teacher setup identity, teaching selections, qualifications, and supported experience fields
+ * can be backed by FastAPI. Documents, pricing, voice, and the broader teacher workspace remain
+ * explicitly local/mock until their dedicated integration batches.
  *
- * [TeacherSetupState.completedStepIds] is the single source of truth for wizard progress —
- * "saved" and "completed" are the same event for this MOCK wizard (see
- * [com.rork.eduspark.data.repository.TeacherRepository]'s own doc comment).
- * [SessionUser.hasCompletedOnboarding] is reused verbatim for "has this teacher finished
- * setup" — the exact same field SO-01…SO-05 already uses for student onboarding, never a
- * second parallel flag.
+ * [TeacherSetupState.completedStepIds] drives only the current visual wizard. Server data is
+ * used to reconstruct a safe resume point, while [SessionUser.hasCompletedOnboarding] remains
+ * authoritative for incomplete versus complete setup.
  */
 enum class TeacherSetupStepId { Identity, SubjectsGrades, Qualifications, Experience, Documents, Pricing, VoiceSample }
 
@@ -34,6 +28,20 @@ data class TeacherIdentityInfo(
     val headline: String = "",
     val bio: String = "",
     val whyStudyWithMe: String = "",
+    /** Absolute or relative avatar URL from setup status (`image_url` / `avatar_url`). */
+    val photoUrl: String? = null,
+)
+
+/** Remote professional document from teacher portfolio (file_url may be private download path). */
+data class TeacherProfessionalDocument(
+    val id: String,
+    val title: String,
+    val documentType: String,
+    /** Backend media reference — resolve via MediaUrlResolver at open time. */
+    val fileUrl: String,
+    val originalFilename: String? = null,
+    val mimeType: String? = null,
+    val sortOrder: Int = 0,
 )
 
 /** [grades] reuses [Grade] verbatim — the same Syrian-secondary taxonomy SO-01 already models — rather than a second grade concept for "which grades this teacher teaches". */
@@ -94,6 +102,8 @@ data class TeacherSetupState(
     val qualifications: List<TeacherQualification> = emptyList(),
     val experience: TeacherExperienceInfo = TeacherExperienceInfo(),
     val documents: List<TeacherSetupDocument> = emptyList(),
+    /** Remote professional documents from portfolio (authenticated open via MediaUrlResolver). */
+    val professionalDocuments: List<TeacherProfessionalDocument> = emptyList(),
     val pricing: TeacherPricingInfo = TeacherPricingInfo(),
     val voiceSample: TeacherVoiceSample = TeacherVoiceSample(),
     val completedStepIds: Set<TeacherSetupStepId> = emptySet(),
@@ -143,6 +153,21 @@ data class TeacherCourseSummary(
     val studentCount: Int,
     val lessonCount: Int,
     val status: TeacherCourseStatus,
+)
+
+data class TeacherCourseFormSubject(
+    val id: String,
+    val name: String,
+    val grade: Grade,
+)
+
+data class TeacherCourseCreateRequest(
+    val title: String,
+    val subjectId: String,
+    val subjectTitle: String,
+    val grade: Grade,
+    val description: String? = null,
+    val published: Boolean = true,
 )
 
 /**
@@ -428,6 +453,8 @@ data class TeacherQuizAttempt(
     val answers: Map<String, Boolean> = emptyMap(),
     /** questionId → student essay text + teacher grade. Empty when the attempt has no essay items. */
     val essayResponses: Map<String, TeacherEssayResponse> = emptyMap(),
+    /** Backend attempt id for essay grading API; null in pure mock fixtures. */
+    val attemptId: String? = null,
 ) {
     val pendingEssayCount: Int get() = essayResponses.values.count { it.pending }
     val hasPendingEssay: Boolean get() = pendingEssayCount > 0

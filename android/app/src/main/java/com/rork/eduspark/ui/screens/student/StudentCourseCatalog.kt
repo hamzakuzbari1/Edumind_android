@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.data.model.cardState
 import com.rork.eduspark.ui.components.progress.EduLinearProgress
 import com.rork.eduspark.ui.components.surface.EduCard
+import com.rork.eduspark.ui.components.surface.ListRow
 import com.rork.eduspark.ui.components.surface.StatusPill
 import com.rork.eduspark.ui.theme.EduTheme
 import com.rork.eduspark.ui.theme.Radius
@@ -73,6 +75,29 @@ internal fun StudentWebSectionIntro(
                 color = EduTheme.colors.textSecondary,
                 modifier = Modifier.padding(top = Spacing.xxs),
             )
+        }
+    }
+}
+
+@Composable
+internal fun TeacherDiscoverySection(
+    teachers: List<DiscoverableTeacher>,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        StudentWebSectionIntro(title = stringResource(R.string.so03_title))
+        teachers.forEach { teacher ->
+            EduCard {
+                ListRow(
+                    title = teacher.name,
+                    supporting = teacher.subjectName,
+                    leading = Icons.Filled.School,
+                    showChevron = false,
+                )
+            }
         }
     }
 }
@@ -126,12 +151,12 @@ internal fun StudentCourseCatalogSection(
 private fun SubjectCatalogCard(
     course: StudentCourseSummary,
     onOpenCourse: (courseId: String) -> Unit,
-    onOpenSubscriptions: () -> Unit,
+    @Suppress("UNUSED_PARAMETER") onOpenSubscriptions: () -> Unit,
 ) {
     val colors = EduTheme.colors
     val state = course.cardState()
     val isLocked = state == CourseCardState.Locked
-    val action = if (isLocked) onOpenSubscriptions else ({ onOpenCourse(course.courseId) })
+    val action = { onOpenCourse(course.courseId) }
     val (ctaLabel, ctaIcon, ctaColor, ctaContainer) = catalogCta(state)
 
     EduCard(

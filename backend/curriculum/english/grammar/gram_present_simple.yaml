@@ -1,0 +1,48 @@
+grammar_id: gram_present_simple
+display_code: G003
+title: Present simple
+cefr_level: A1
+order: 30
+prerequisites:
+- gram_be_present
+- gram_personal_pronouns
+unlock_targets: []
+grammar_targets:
+- is
+- are
+- want
+- need
+- says
+- live
+- like
+teaching_notes: Show simple present facts and habits (no lecture). Model the target in daily routines,
+  city facts; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- She want a ticket.
+- He don't like coffee.
+examples:
+- I live in Damascus.
+- She wants a ticket.
+- They need help.
+learning_objectives:
+- Express habits and facts with present simple
+- Use third-person -s where required
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- daily routines
+- city facts
+- preferences
+minimum_context_diversity: 2
+review_priority: 5
+review_half_life_days: 12.0
+focus_note: Show simple present facts and habits (no lecture). Model the target in daily routines, city
+  facts; check comprehension before guided production, then recycle it in a new context.

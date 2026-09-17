@@ -9,7 +9,7 @@ import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.TeacherIdentityInfo
 import com.rork.eduspark.data.model.TeacherSubjectsGrades
 import com.rork.eduspark.data.repository.AuthRepository
-import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherSetupRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
  */
 data class TeacherAccountScreenData(
     val identity: TeacherIdentityInfo,
+    val email: String,
     val subjectsGrades: TeacherSubjectsGrades,
 )
 
@@ -33,7 +34,7 @@ data class TeacherAccountUiState(
 
 class TeacherAccountViewModel(
     private val authRepository: AuthRepository,
-    private val teacherRepository: TeacherRepository,
+    private val teacherSetupRepository: TeacherSetupRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
@@ -54,17 +55,19 @@ class TeacherAccountViewModel(
             _state.update { it.copy(result = UiState.Loading) }
         }
         viewModelScope.launch {
-            val teacherId = authRepository.session.first()?.id
+            val session = authRepository.session.first()
+            val teacherId = session?.id
             if (teacherId == null) {
                 _state.update { it.copy(result = UiState.Failure(AppError.NotFound)) }
                 return@launch
             }
-            when (val setupResult = teacherRepository.getSetupState(teacherId)) {
+            when (val setupResult = teacherSetupRepository.getSetupState(teacherId)) {
                 is AppResult.Success -> _state.update {
                     it.copy(
                         result = UiState.Content(
                             TeacherAccountScreenData(
-                                identity = setupResult.data.identity,
+                                identity = setupResult.data.identity.copy(displayName = session.displayName),
+                                email = session.email,
                                 subjectsGrades = setupResult.data.subjectsGrades,
                             )
                         )

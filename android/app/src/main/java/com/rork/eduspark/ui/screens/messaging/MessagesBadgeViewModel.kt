@@ -24,6 +24,7 @@ class MessagesBadgeViewModel(
     val unreadCount: StateFlow<Int> = _unreadCount.asStateFlow()
 
     init {
+        viewModelScope.launch { messagingRepository.getThreads() }
         viewModelScope.launch {
             combine(authRepository.session, messagingRepository.threads) { session, threads ->
                 val viewerId = session?.messagingParticipantIdOrNull() ?: return@combine 0

@@ -1,0 +1,51 @@
+grammar_id: gram_adverbs_frequency
+display_code: G004
+title: Adverbs of frequency
+cefr_level: A1
+order: 40
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- always/usually/often + main verb
+- be + always/usually/often
+- sometimes + clause
+- never + affirmative verb
+teaching_notes: Teach frequency on a clear always-to-never scale immediately after present simple. Contrast
+  placement before main verbs with placement after be, then recycle routine vocabulary. Model the target
+  in daily routines, habits interview; check comprehension before guided production, then recycle it in
+  a new context.
+common_mistakes:
+- I walk usually to school.
+- She drinks never coffee.
+- He always is late. (neutral word order)
+- She does not never drink coffee.
+examples:
+- I usually walk to school.
+- She never drinks coffee.
+- They are often busy after class.
+- Sometimes we study together.
+learning_objectives:
+- Place frequency adverbs correctly with main verbs and be
+- Describe how often routines happen without double negatives
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+- vocabulary
+recommended_contexts:
+- daily routines
+- habits interview
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Teach frequency on a clear always-to-never scale immediately after present simple. Contrast
+  placement before main verbs with placement after be, then recycle routine vocabulary. Model the target
+  in daily routines, habits interview; check comprehension before guided production, then recycle it in
+  a new context.

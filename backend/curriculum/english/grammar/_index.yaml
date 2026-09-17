@@ -1,0 +1,64 @@
+version: 1.1.0
+language_code: en
+schema_version: 1
+cefr_quotas:
+  A1: 13
+  A2: 11
+  B1: 11
+  B2: 8
+  C1: 6
+  C2: 4
+ordered_grammar_ids:
+- gram_be_present
+- gram_personal_pronouns
+- gram_present_simple
+- gram_adverbs_frequency
+- gram_articles_a_an_the
+- gram_there_is_are
+- gram_basic_questions
+- gram_can_ability
+- gram_possessives
+- gram_object_pronouns
+- gram_this_that_these_those
+- gram_prepositions_place
+- gram_imperatives
+- gram_present_continuous
+- gram_past_simple
+- gram_connectors_and_but
+- gram_comparatives_basic
+- gram_going_to
+- gram_countable_uncountable
+- gram_prepositions_time
+- gram_modals_should_must
+- gram_zero_conditional
+- gram_past_continuous
+- gram_will_future
+- gram_present_perfect
+- gram_present_perfect_continuous
+- gram_first_conditional
+- gram_reported_speech_light
+- gram_used_to
+- gram_relative_clauses_basic
+- gram_modals_possibility
+- gram_too_enough
+- gram_gerunds_infinitives
+- gram_question_tags
+- gram_past_perfect_light
+- gram_second_conditional
+- gram_third_conditional
+- gram_mixed_conditionals_light
+- gram_passive_voice
+- gram_relative_clauses
+- gram_reported_questions
+- gram_causatives_basic
+- gram_wish_regret
+- gram_advanced_modals
+- gram_cleft_emphasis
+- gram_concession
+- gram_inversion_emphasis
+- gram_participle_clauses
+- gram_subjunctive_formal
+- gram_nominalisation
+- gram_hedging_stance
+- gram_discourse_signalling
+- gram_fronting_advanced

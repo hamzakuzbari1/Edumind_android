@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Introduce Yourself",
+    "title_ar": "تعريف عن حالك",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Introduce yourself to the class. What is your name? Where are you from and where do you live now?",
+      "prompt_ar": "عرفنا عن حالك بالصف. شو اسمك؟ من وين أنت؟ ووين عايش هلق؟",
+      "example_answer": "Hello. My name is Ahmad. I am from Syria. Now, I live in Damascus, Syria. I am twenty-five years old. I am a student.",
+      "min_seconds": 20,
+      "topic": "self-introduction",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Your Family Members",
+    "title_ar": "أفراد عيلتك",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Talk about your family. Do you have brothers or sisters? How many brothers or sisters do you have?",
+      "prompt_ar": "احكي عن عيلتك. عندك أخوات شباب أو بنات؟ قديش عدد أخواتك؟",
+      "example_answer": "I have a nice family. I have one brother and two sisters. My father is a doctor. My mother is a teacher. We live together.",
+      "min_seconds": 20,
+      "topic": "family",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Describe Your Bedroom",
+    "title_ar": "وصف غرفة نومك",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Describe your bedroom in Syria. What is in your room? What color are the walls?",
+      "prompt_ar": "اوصف غرفة نومك بألمانيا. شو في بقلب غرفتك؟ وشو لون الحيطان؟",
+      "example_answer": "My room is small and clean. It has a white bed. I have a brown desk and a big window. The walls are white.",
+      "min_seconds": 20,
+      "topic": "home",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Your Morning Routine",
+    "title_ar": "روتينك الصباحي",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Talk about your morning routine. What time do you wake up? What do you drink or eat every morning?",
+      "prompt_ar": "احكي عن روتينك الصباحي. بأي ساعة بتفيق؟ شو بتشرب أو بتاكل كل يوم الصبح؟",
+      "example_answer": "Every morning, I wake up at seven o'clock. I drink hot black tea. I eat warm bread with cheese. Then, I go to school.",
+      "min_seconds": 20,
+      "topic": "daily routine",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Your Favorite Fruit",
+    "title_ar": "فاكهتك المفضلة",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "What is your favorite fruit? Do you like red apples or green bananas? Why do you like it?",
+      "prompt_ar": "شو هي فاكهتك المفضلة؟ بتحب التفاح الأحمر ولا الموز الأخضر؟ وليش بتحبها؟",
+      "example_answer": "My favorite fruit is the red apple. I like red apples because they are very sweet and fresh. I eat one apple every day.",
+      "min_seconds": 20,
+      "topic": "food",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Counting Students in Class",
+    "title_ar": "عدّ الطلاب بالصف",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Talk about the numbers in your language class. How many students are there? How many men and women do you see?",
+      "prompt_ar": "احكي عن الأرقام بصف اللغة تبعك. كم طالب وطالبة فيه؟ كم زلمة ومرّة شايف؟",
+      "example_answer": "My class is big. There are ten students in the room. We have four men and six women. We have twelve new books.",
+      "min_seconds": 20,
+      "topic": "numbers",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Your Weekend Hobby",
+    "title_ar": "هوايتك بالعطلة",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "What is your favorite hobby on the weekend? What do you like to do on Saturday afternoon?",
+      "prompt_ar": "شو هي هوايتك المفضلة بعطلة نهاية الأسبوع؟ شو بتحب تعمل يوم السبت بعد الظهر؟",
+      "example_answer": "On Saturday afternoon, I do not study at school. I play football with my Syrian friends in the park. Football is my favorite hobby.",
+      "min_seconds": 20,
+      "topic": "self-introduction",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Describe Your Mother",
+    "title_ar": "وصف أمك",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Talk about your mother. What is her name? What does she look like and where does she live?",
+      "prompt_ar": "احكي عن أمك. شو اسمها؟ كيف شكلها ووين عايشة؟",
+      "example_answer": "My mother is very kind. Her name is Fatima. She has beautiful green eyes and brown hair. She lives in Damascus, Syria now.",
+      "min_seconds": 20,
+      "topic": "family",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "The Flat's Shared Kitchen",
+    "title_ar": "المطبخ المشترك بالشقة",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Describe the shared kitchen in your flat. Is it big or clean? Do you cook dinner there with your flatmates?",
+      "prompt_ar": "اوصف المطبخ المشترك يلي بشقتك. هل هو كبير أو نضيف؟ عم تطبخ عشا هنيك مع رفقاتك بالسكن؟",
+      "example_answer": "The kitchen in our flat is clean and big. It has a small table. I cook chicken and rice there every night with my flatmates.",
+      "min_seconds": 20,
+      "topic": "home",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A1",
+    "content_type": "speaking_prompt",
+    "title": "Buying Groceries",
+    "title_ar": "شرا غراض الأكل",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Talk about shopping for food. What do you buy at the German supermarket? How much money do you pay?",
+      "prompt_ar": "احكي عن شرا الأكل. شو عم تشتري من السوبرماركت الألماني؟ وقديش عم تدفع مصاري؟",
+      "example_answer": "I go to the supermarket on Friday. I buy fresh white milk, warm bread, and red tomatoes. The food is cheap. I pay ten euros.",
+      "min_seconds": 20,
+      "topic": "food",
+      "question_type": "describe"
+    }
+  }
+]

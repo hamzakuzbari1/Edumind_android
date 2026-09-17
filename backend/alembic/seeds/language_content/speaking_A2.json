@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "Buying a New Jacket",
+    "title_ar": "شرا جاكيت جديد",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Talk about the last time you went shopping for clothes. What did you buy and how much did it cost?",
+      "prompt_ar": "احكي عن آخر مرة رحت فيها تتسوق ثياب. شو اشتريت وقديش كلفك؟",
+      "example_answer": "Last Saturday, I went to a large shopping mall downtown. I bought a warm black jacket because the weather was freezing. It cost forty euros, which was quite cheap. The shop assistant was very friendly and helpful. I am very happy with my new jacket.",
+      "min_seconds": 30,
+      "topic": "shopping",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "A Train Journey",
+    "title_ar": "مشوار بالقطار",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Tell a story about a train journey you took recently. Where did you go and was it comfortable?",
+      "prompt_ar": "احكي قصة عن مشوار بالقطار عملته مؤخراً. وين رحت وهل كان مريح؟",
+      "example_answer": "Yesterday morning, I travelled by train from Damascus to Aleppo to visit my friend. I arrived at the station early and bought my ticket from a machine. The journey took two hours, and the train was clean and comfortable. I read a storybook during the trip.",
+      "min_seconds": 30,
+      "topic": "transport",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "My Favorite Season",
+    "title_ar": "فصلي المفضل",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "What is your favorite season in Syria? Do you like sunny summers or snowy winters? Why?",
+      "prompt_ar": "شو هو فصلك المفضل بألمانيا؟ بتحب الصيف المشمس ولا الشتا يلي فيه ثلج؟ وليش؟",
+      "example_answer": "In my opinion, summer is the best season here. I love warm and sunny days because I can spend time outside. Winters are extremely cold and dark, which I do not like. In summer, my friends and I always swim in the nearby lake.",
+      "min_seconds": 30,
+      "topic": "weather",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "My Weekend Hobby",
+    "title_ar": "هوايتي بالعطلة",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Describe your favorite hobby. When do you practice it and who do you play with?",
+      "prompt_ar": "اوصف هوايتك المفضلة. إيمتى بتمارسها ومع مين بتلعب؟",
+      "example_answer": "My favorite hobby is playing football. I joined a local German sports club last month. We practice together every Thursday evening after school on a big green field. I play with three friendly international students. It is fun and healthy.",
+      "min_seconds": 30,
+      "topic": "hobbies",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "My New Neighborhood",
+    "title_ar": "حارتي الجديدة",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Describe the neighborhood where you live now. Are there shops, parks, or restaurants near your flat?",
+      "prompt_ar": "اوصف الحارة يلي عايش فيها هلق. في محلات، جناين، أو مطاعم قريب من شقتك؟",
+      "example_answer": "I live in a beautiful neighborhood near Munich. It is very quiet and clean. There is a large supermarket and a pharmacy down the street. A new Syrian restaurant opened last Tuesday right next to my flat. I love walking in the local park.",
+      "min_seconds": 30,
+      "topic": "neighborhood",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "First Day at School",
+    "title_ar": "أول يوم بالمدرسة",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Talk about your first day at the language institute. How did you feel and who did you meet?",
+      "prompt_ar": "احكي عن أول يوم إلك بمعهد اللغة. كيف كنت حاسس ومين التقيت؟",
+      "example_answer": "Last Monday, I started my new English course. I was very nervous in the morning because I did not know anyone. I entered the classroom at nine o'clock and met our teacher, Miss Sarah. She gave me a big vocabulary textbook and welcomed me warmly.",
+      "min_seconds": 30,
+      "topic": "school",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "Buying Used Items Online",
+    "title_ar": "شرا غراض مستعملة أونلاين",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Do you think buying used items like bicycles online is a good idea? Why or why not?",
+      "prompt_ar": "هل بتظن إنه شرا غراض مستعملة متل البسكليتات أونلاين فكرة منيحة؟ ليش إي وليش لأ؟",
+      "example_answer": "I think buying used items online is a great idea. New things are very expensive for international students, so websites help us save money. Yesterday, I bought a good used bicycle for only fifty euros. The brakes work perfectly and it is in excellent condition.",
+      "min_seconds": 30,
+      "topic": "shopping",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "Buses Versus Bicycles",
+    "title_ar": "الباصات بوش البسكليتات",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Discuss the differences between traveling by bus and riding a bicycle in the city. Which is better?",
+      "prompt_ar": "ناقش الفروقات بين المشاوير بالباص وركوب البسكليت بالمدينة. أنهي الأحسن؟",
+      "example_answer": "Traveling by bus is comfortable when it rains heavily outside because the bus is always warm. However, buying tickets every month costs money. Riding a bicycle is cheaper and healthier, but it is difficult when the weather is cold. I prefer bicycles for short trips.",
+      "min_seconds": 30,
+      "topic": "transport",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "Morning Classes or Evening Classes",
+    "title_ar": "صفوف الصبح ولا صفوف المسا",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Compare morning classes and evening classes at your institute. Which schedule do you prefer?",
+      "prompt_ar": "قارن بين صفوف الصبح وصفوف المسا بالمعهد تبعك. أنهي دوام بتفضله؟",
+      "example_answer": "Morning classes are excellent because your brain is active and you can study well. However, many students must work during the day. Evening classes allow you to attend lessons after five o'clock. I prefer morning classes because I enjoy studying early with my classmates.",
+      "min_seconds": 30,
+      "topic": "school",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "A2",
+    "content_type": "speaking_prompt",
+    "title": "Living in a Shared Apartment",
+    "title_ar": "العيشة بشقة مشتركة",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Is it better to live alone or with roommates in a shared apartment? Share your opinion.",
+      "prompt_ar": "هل الأحسن الواحد يعيش لحاله ولا مع رفقات سكن بشقة مشتركة؟ اعطينا رأيك.",
+      "example_answer": "In my opinion, living in a shared apartment is much better for newcomers. You can practice languages with your flatmates and make new friends easily. Living alone is very quiet but it can be lonely and expensive. My roommates are polite and we often cook together.",
+      "min_seconds": 30,
+      "topic": "neighborhood",
+      "question_type": "opinion"
+    }
+  }
+]

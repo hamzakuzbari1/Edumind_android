@@ -1,0 +1,43 @@
+grammar_id: gram_relative_clauses
+display_code: G040
+title: Relative clauses
+cefr_level: B2
+order: 400
+prerequisites:
+- gram_relative_clauses_basic
+unlock_targets: []
+grammar_targets:
+- ' who '
+- ' which '
+- ' that '
+- whose
+- where
+teaching_notes: Embed detail about people/decisions with who/which/that. Model the target in people and
+  decisions, formal description; check comprehension before guided production, then recycle it in a new
+  context.
+common_mistakes:
+- The manager which arrived late...
+- Comma misuse with defining clauses
+examples:
+- The manager, who arrived late, apologised.
+- This is the policy that changed everything.
+learning_objectives:
+- Embed non-defining and richer defining relative detail
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- reading
+- writing
+recommended_contexts:
+- people and decisions
+- formal description
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Embed detail about people/decisions with who/which/that. Model the target in people and decisions,
+  formal description; check comprehension before guided production, then recycle it in a new context.

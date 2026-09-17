@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +28,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.Groups
-import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -95,60 +92,44 @@ private val RoleChoices = listOf(
         prominence = RoleProminence.Primary,
     ),
     RoleChoice(
-        role = UserRole.Parent,
-        titleRes = R.string.a03_role_parent,
-        lineRes = R.string.a03_role_parent_line,
-        icon = Icons.Outlined.Person,
-        prominence = RoleProminence.Secondary,
-    ),
-    RoleChoice(
         role = UserRole.Teacher,
         titleRes = R.string.a03_role_teacher,
         lineRes = R.string.a03_role_teacher_line,
         icon = Icons.Outlined.Groups,
         prominence = RoleProminence.Secondary,
     ),
+    RoleChoice(
+        role = UserRole.Parent,
+        titleRes = R.string.a03_role_parent,
+        lineRes = R.string.a03_role_parent_line,
+        icon = Icons.Outlined.Person,
+        prominence = RoleProminence.Secondary,
+    ),
 )
 
-private val BenefitLabels = listOf(
-    R.string.a03_benefit_ai_tutor,
-    R.string.a03_benefit_daily_plan,
-    R.string.a03_benefit_progress,
-)
-
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RoleSelectScreen(
     locale: AppLocale,
     onSelectLocale: (AppLocale) -> Unit,
     onSelectRole: (UserRole) -> Unit,
-    onLogin: () -> Unit,
     onBack: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
     val reducedMotion = LocalReducedMotion.current
     val scope = rememberCoroutineScope()
-    var logoVisible by remember { mutableStateOf(false) }
-    var copyVisible by remember { mutableStateOf(false) }
-    var benefitsVisible by remember { mutableStateOf(false) }
-    var rolesVisible by remember { mutableStateOf(false) }
+    var copyVisible by remember { mutableStateOf(reducedMotion) }
+    var rolesVisible by remember { mutableStateOf(reducedMotion) }
     var selectedRole by remember { mutableStateOf<UserRole?>(null) }
 
     BackHandler(enabled = onBack != null) { onBack?.invoke() }
 
     LaunchedEffect(reducedMotion) {
         if (reducedMotion) {
-            logoVisible = true
             copyVisible = true
-            benefitsVisible = true
             rolesVisible = true
         } else {
-            logoVisible = true
-            delay(500)
             copyVisible = true
-            delay(400)
-            benefitsVisible = true
-            delay(300)
+            delay(180)
             rolesVisible = true
         }
     }
@@ -157,15 +138,9 @@ fun RoleSelectScreen(
         modifier = modifier,
         onBack = onBack,
         bottomBlock = {
-            AuthFooterPrompt(
-                question = stringResource(R.string.a03_have_account),
-                actionLabel = stringResource(R.string.a03_login_action),
-                onAction = onLogin,
-            )
             AuthLanguageToggle(
                 current = locale,
                 onSelect = onSelectLocale,
-                modifier = Modifier.padding(top = Spacing.sm),
             )
         },
     ) {
@@ -178,24 +153,17 @@ fun RoleSelectScreen(
         ) {
             Spacer(modifier = Modifier.height(Spacing.xs))
 
-            BrandWordmark(
-                size = WordmarkSize.Compact,
-                modifier = Modifier.publicEntryAnimated(
-                    visible = logoVisible,
-                    translate = 0.dp,
-                    initialScale = 0.92f,
-                ),
-            )
+            BrandLogo(height = 64.dp)
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .publicEntryAnimated(visible = copyVisible, translate = 14.dp),
+                    .publicEntryAnimated(visible = copyVisible, translate = 12.dp),
             ) {
                 Text(
                     text = stringResource(R.string.a03_entry_headline),
-                    style = EduTheme.typography.display,
+                    style = EduTheme.typography.titleLg,
                     color = EduTheme.colors.textPrimary,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -213,39 +181,22 @@ fun RoleSelectScreen(
                 )
             }
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs, Alignment.CenterHorizontally),
-                verticalArrangement = Arrangement.spacedBy(Spacing.xs),
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                BenefitLabels.forEachIndexed { index, labelRes ->
-                    BenefitChip(
-                        label = stringResource(labelRes),
-                        modifier = Modifier.publicEntryAnimated(
-                            visible = benefitsVisible,
-                            delayMillis = index * 120,
-                            translate = 8.dp,
-                        ),
-                    )
-                }
-            }
-
             RoleSelectionArea(
                 choices = RoleChoices,
                 selectedRole = selectedRole,
+                rolesVisible = rolesVisible,
                 onSelect = { role ->
                     if (selectedRole == null) {
                         selectedRole = role
                         scope.launch {
-                            if (!reducedMotion) delay(180)
+                            if (!reducedMotion) delay(160)
                             onSelectRole(role)
                         }
                     }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = Spacing.xs)
-                    .publicEntryAnimated(visible = rolesVisible, translate = 16.dp),
+                    .padding(top = Spacing.xs),
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -257,6 +208,7 @@ fun RoleSelectScreen(
 private fun RoleSelectionArea(
     choices: List<RoleChoice>,
     selectedRole: UserRole?,
+    rolesVisible: Boolean,
     onSelect: (UserRole) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -267,18 +219,15 @@ private fun RoleSelectionArea(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm),
         modifier = modifier,
     ) {
-        Text(
-            text = stringResource(R.string.a03_role_section_title),
-            style = EduTheme.typography.title,
-            color = EduTheme.colors.textPrimary,
-            modifier = Modifier.semantics { heading() },
-        )
-
         PublicRoleCard(
             choice = primary,
             selected = selectedRole == primary.role,
             selectionLocked = selectedRole != null,
             onClick = { onSelect(primary.role) },
+            modifier = Modifier.publicEntryAnimated(
+                visible = rolesVisible,
+                translate = 14.dp,
+            ),
         )
 
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -287,24 +236,35 @@ private fun RoleSelectionArea(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    secondary.forEach { choice ->
+                    secondary.forEachIndexed { index, choice ->
                         PublicRoleCard(
                             choice = choice,
                             selected = selectedRole == choice.role,
                             selectionLocked = selectedRole != null,
                             onClick = { onSelect(choice.role) },
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier
+                                .weight(1f)
+                                .publicEntryAnimated(
+                                    visible = rolesVisible,
+                                    delayMillis = 90 + (index * 80),
+                                    translate = 16.dp,
+                                ),
                         )
                     }
                 }
             } else {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                    secondary.forEach { choice ->
+                    secondary.forEachIndexed { index, choice ->
                         PublicRoleCard(
                             choice = choice,
                             selected = selectedRole == choice.role,
                             selectionLocked = selectedRole != null,
                             onClick = { onSelect(choice.role) },
+                            modifier = Modifier.publicEntryAnimated(
+                                visible = rolesVisible,
+                                delayMillis = 90 + (index * 80),
+                                translate = 16.dp,
+                            ),
                         )
                     }
                 }
@@ -413,34 +373,6 @@ private fun PublicRoleCard(
                     .mirrorInRtl(),
             )
         }
-    }
-}
-
-@Composable
-private fun BenefitChip(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.xxs),
-        modifier = modifier
-            .background(EduTheme.colors.aiAccentContainer, RoundedCornerShape(Radius.pill))
-            .padding(horizontal = Spacing.sm, vertical = Spacing.xs),
-    ) {
-        Icon(
-            imageVector = Icons.Outlined.Insights,
-            contentDescription = null,
-            tint = EduTheme.colors.aiAccent,
-            modifier = Modifier.size(Sizing.iconSm),
-        )
-        Text(
-            text = label,
-            style = EduTheme.typography.caption,
-            color = EduTheme.colors.textPrimary,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
     }
 }
 

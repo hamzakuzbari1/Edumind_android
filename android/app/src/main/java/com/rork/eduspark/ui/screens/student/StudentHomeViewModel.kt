@@ -13,7 +13,9 @@ import com.rork.eduspark.data.model.RoutineSlotStatus
 import com.rork.eduspark.data.model.SessionStatus
 import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.data.model.StudentHomeSnapshot
+import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.repository.AchievementRepository
+import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.LearningRepository
 import com.rork.eduspark.data.repository.PlannerRepository
 import com.rork.eduspark.data.repository.RoutineRepository
@@ -55,15 +57,26 @@ class StudentHomeViewModel(
     private val achievementRepository: AchievementRepository,
     private val plannerRepository: PlannerRepository,
     private val routineRepository: RoutineRepository,
+    private val authRepository: AuthRepository,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(StudentHomeUiState())
     val state: StateFlow<StudentHomeUiState> = _state.asStateFlow()
+    private var sessionUser: SessionUser? = null
 
     init {
         viewModelScope.launch {
             connectivity.isOnline.collect { online -> _state.update { it.copy(isOnline = online) } }
+        }
+        viewModelScope.launch {
+            authRepository.session.collect { user ->
+                sessionUser = user
+                _state.update { current ->
+                    val content = current.result as? UiState.Content ?: return@update current
+                    current.copy(result = UiState.Content(content.data.withSessionIdentity(user), content.isStale))
+                }
+            }
         }
         viewModelScope.launch {
             plannerRepository.weekPlan.collect { plan ->
@@ -122,7 +135,9 @@ class StudentHomeViewModel(
 
     private suspend fun fetch() {
         when (val result = learningRepository.getStudentHome()) {
-            is AppResult.Success -> _state.update { it.copy(result = UiState.Content(result.data)) }
+            is AppResult.Success -> _state.update {
+                it.copy(result = UiState.Content(result.data.withSessionIdentity(sessionUser)))
+            }
             is AppResult.Failure -> _state.update { it.copy(result = UiState.Failure(result.error)) }
         }
         val coursesResult = learningRepository.getStudentCourses()
@@ -136,4 +151,17 @@ class StudentHomeViewModel(
         plannerRepository.loadWeekPlan()
         routineRepository.loadRoutine()
     }
+}
+
+internal fun StudentHomeSnapshot.withSessionIdentity(user: SessionUser?): StudentHomeSnapshot =
+    copy(
+        studentName = user?.displayName.orEmpty(),
+        grade = user?.grade?.toStudentGrade() ?: grade,
+    )
+
+private fun Int.toStudentGrade(): com.rork.eduspark.data.model.Grade? = when (this) {
+    10 -> com.rork.eduspark.data.model.Grade.Grade10
+    11 -> com.rork.eduspark.data.model.Grade.Grade11
+    12 -> com.rork.eduspark.data.model.Grade.Baccalaureate
+    else -> null
 }

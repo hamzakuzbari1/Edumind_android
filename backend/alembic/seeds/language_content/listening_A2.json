@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Returning a Winter Coat",
+    "title_ar": "ترجيع جاكيت شتوي",
+    "sort_order": 0,
+    "body_json": {
+      "audio_transcript": "Hello. I bought this black winter coat yesterday afternoon, but I need to return it. When I got home, I realized the size was completely wrong. It is too small for me, and I cannot close the buttons properly. I am currently looking for a bigger one, but your store does not have any left in stock. Here is my receipt. Can I get a full refund in cash, please?",
+      "situation": "A customer is explaining to a store assistant why they need to return an item.",
+      "situation_ar": "زبون عم يشرح لموظف بالمحل ليش بده يرجع قطعة ثياب.",
+      "vocabulary": [
+        "bought",
+        "return",
+        "realized",
+        "receipt",
+        "refund"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why is the customer returning the winter coat?",
+          "choices": [
+            "It is too small",
+            "It is the wrong color",
+            "It has a broken button",
+            "It was too expensive"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "shopping",
+      "instructions": "A customer is explaining to a store assistant why they need to return an item."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Missing the Subway Train",
+    "title_ar": "راحت عليّ تروحة المترو",
+    "sort_order": 1,
+    "body_json": {
+      "audio_transcript": "Hey Jonas, it is Ahmad. I am calling to tell you that I will be late for our meeting. I was running to the subway station, but the train left exactly one minute before I arrived. The next train is coming in fifteen minutes, so I am waiting on platform three right now. I am really sorry about this. Please wait for me at the cafe entrance.",
+      "situation": "A student calls their friend because they are going to be late due to transport issues.",
+      "situation_ar": "طالب عم يتصل برفيقه لأنه رح يتأخر بسبب مشكلة بالمواصلات.",
+      "vocabulary": [
+        "late",
+        "running",
+        "station",
+        "platform",
+        "entrance"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Where is the speaker waiting right now?",
+          "choices": [
+            "At the cafe entrance",
+            "On platform three",
+            "In a taxi",
+            "Inside a restaurant"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "transport",
+      "instructions": "A student calls their friend because they are going to be late due to transport issues."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Planning a Weekend Picnic",
+    "title_ar": "عم نخطط لسيران بالعطلة",
+    "sort_order": 2,
+    "body_json": {
+      "audio_transcript": "Good morning! Here is your weekend weather report for Munich. Today, it is raining heavily, and the temperature is only twelve degrees. However, the weather is changing tonight. Tomorrow morning will be beautiful, warm, and sunny. Temperatures are rising to twenty-five degrees. It is the perfect day for a picnic in the park or a bicycle ride by the lake. Enjoy your weekend!",
+      "situation": "Two people are listening to a local weather forecast on the radio to plan their weekend.",
+      "situation_ar": "شخصين عم يسمعوا النشرة الجوية ع الراديو كرمال يخططوا لسيران بالعطلة.",
+      "vocabulary": [
+        "weather",
+        "report",
+        "changing",
+        "rising",
+        "picnic"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What will the weather be like tomorrow morning?",
+          "choices": [
+            "Cold and raining heavily",
+            "Very dark and windy",
+            "Beautiful, warm, and sunny",
+            "Snowy and cold"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "weather",
+      "instructions": "Two people are listening to a local weather forecast on the radio to plan their weekend."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Joining a Photography Class",
+    "title_ar": "التسجيل بصف تصوير",
+    "sort_order": 3,
+    "body_json": {
+      "audio_transcript": "I started an interesting photography class last Saturday. The course is held at the community center near my apartment. We learned how to use a digital camera properly to take beautiful pictures of nature. Our teacher is a professional photographer who traveled all around Europe. Next weekend, our class is visiting a famous museum downtown to look at old photographs. I am really enjoying this new hobby.",
+      "situation": "A woman tells her colleague about her new weekend hobby at a community center.",
+      "situation_ar": "مرّة عم تخبر رفيقتها بالشغل عن هوايتها الجديدة بالعطلة بمركز مجتمعي.",
+      "vocabulary": [
+        "interesting",
+        "course",
+        "community",
+        "professional",
+        "museum"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Where does the photography class take place?",
+          "choices": [
+            "At a famous museum",
+            "In a big school",
+            "In a digital camera shop",
+            "At the community center"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "hobbies",
+      "instructions": "A woman tells her colleague about her new weekend hobby at a community center."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "A New Syrian Restaurant",
+    "title_ar": "مطعم سوري جديد",
+    "sort_order": 4,
+    "body_json": {
+      "audio_transcript": "Hi Sarah, did you see the new Syrian restaurant down the street? It opened last Tuesday night, right next to the pharmacy. My roommates and I went there yesterday evening for dinner. We ordered delicious chicken shawarma, fresh hummus, and hot falafel. The food was excellent, and the prices were very reasonable. The staff were extremely friendly too. We should definitely go there together next week.",
+      "situation": "A resident talks to his neighbor about a new dining option in their neighborhood.",
+      "situation_ar": "ساكن عم يحكي مع جاره عن مطعم جديد فتح بحارتهم.",
+      "vocabulary": [
+        "opened",
+        "pharmacy",
+        "delicious",
+        "reasonable",
+        "extremely"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "When did the new Syrian restaurant open?",
+          "choices": [
+            "Last Tuesday night",
+            "Yesterday evening",
+            "Next week",
+            "Last Sunday morning"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "neighborhood",
+      "instructions": "A resident talks to his neighbor about a new dining option in their neighborhood."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Registering for a Course",
+    "title_ar": "التسجيل بكورس مسائي",
+    "sort_order": 5,
+    "body_json": {
+      "audio_transcript": "Hello, I want to register for the evening English course, please. I work during the day, so I can only attend lessons after five o'clock. Are there any spaces left in the intermediate level? The secretary said the class meets twice a week, on Mondays and Wednesdays. It costs eighty euros per month. I need to fill out this yellow application form now.",
+      "situation": "A student is asking the school secretary for information about evening classes.",
+      "situation_ar": "طالب عم يسأل سكرتيرة المدرسة عن معلومات بتخص كورسات المسا.",
+      "vocabulary": [
+        "register",
+        "attend",
+        "intermediate",
+        "meets",
+        "application"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "On which days does the evening course meet?",
+          "choices": [
+            "Tuesdays and Thursdays",
+            "Mondays and Wednesdays",
+            "Every Saturday morning",
+            "Fridays and Sundays"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "school",
+      "instructions": "A student is asking the school secretary for information about evening classes."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Lost Wallet at the Supermarket",
+    "title_ar": "ضياع الجزدان بالسوبرماركت",
+    "sort_order": 6,
+    "body_json": {
+      "audio_transcript": "Excuse me, I need some help. I think I lost my small brown wallet in this supermarket. I was buying some fresh vegetables and bread twenty minutes ago. When I reached the cashier to pay, my wallet was gone. It contains my student identity card, my health insurance card, and about thirty euros in cash. Did anyone find it?",
+      "situation": "A man speaks to a security guard at a supermarket about a lost item.",
+      "situation_ar": "زلمة عم يحكي مع حارس الأمن بالسوبرماركت عن غرض ضايع منه.",
+      "vocabulary": [
+        "lost",
+        "wallet",
+        "reached",
+        "cashier",
+        "contains"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What was the speaker doing when he realized his wallet was missing?",
+          "choices": [
+            "Buying fresh vegetables",
+            "Walking to the train station",
+            "Paying the cashier",
+            "Filling out a yellow form"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "daily city life",
+      "instructions": "A man speaks to a security guard at a supermarket about a lost item."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Extending a Parking Permit",
+    "title_ar": "تمديد ورقة صف السيارات",
+    "sort_order": 7,
+    "body_json": {
+      "audio_transcript": "Good morning. My name is Samer, and I live in the city center. I need to extend my residential parking permit because it expires next week. Can I complete this process online through your website, or must I visit the city hall in person? The clerk explained that I can upload my rental contract online, and the new permit costs thirty euros yearly. That is very convenient.",
+      "situation": "A resident calls the local city office to ask about renewing a document.",
+      "situation_ar": "ساكن عم يتصل بمكتب البلدية كرمال يسأل عن تجديد ورقة رسمية.",
+      "vocabulary": [
+        "extend",
+        "permit",
+        "expires",
+        "upload",
+        "convenient"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why is Samer calling the city office?",
+          "choices": [
+            "To pay a parking fine",
+            "To buy a new bicycle",
+            "To rent a flat downtown",
+            "To extend his parking permit"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "bureaucracy",
+      "instructions": "A resident calls the local city office to ask about renewing a document."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Changing a Medical Appointment",
+    "title_ar": "تغيير موعد الدكتور",
+    "sort_order": 8,
+    "body_json": {
+      "audio_transcript": "Hello, this is Maya. I have a medical appointment with Doctor Müller tomorrow morning at nine o'clock. Unfortunately, I cannot come because I have an important university exam at the same time. Is it possible to change my appointment to Thursday afternoon? I have a bad stomachache, so I really need to see the doctor this week if possible.",
+      "situation": "A patient calls a medical clinic to reschedule an appointment.",
+      "situation_ar": "مريض عم يتصل بالعيادة الطبية كرمال يغير موعده.",
+      "vocabulary": [
+        "appointment",
+        "unfortunately",
+        "important",
+        "possible",
+        "stomachache"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why can't Maya attend her appointment tomorrow morning?",
+          "choices": [
+            "She has a university exam",
+            "She must work flexible hours",
+            "She lost her health card",
+            "She went to Munich by train"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "healthcare",
+      "instructions": "A patient calls a medical clinic to reschedule an appointment."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Arranging a Meeting Location",
+    "title_ar": "الاتفاق عمكان الشوفة",
+    "sort_order": 9,
+    "body_json": {
+      "audio_transcript": "Hey Rami, I am arriving at the central station right now. The train journey was very comfortable. Since it is raining heavily outside, let us not meet at the green park as we planned. Instead, I am walking to the big shopping mall opposite the station. I am waiting for you inside the bookstore on the ground floor. See you soon!",
+      "situation": "A man leaves a voice message for his friend about where to meet in the city.",
+      "situation_ar": "زلمة عم يترك رسالة صوتية لرفيقه عن مكان الشوفة بالمدينة.",
+      "vocabulary": [
+        "arriving",
+        "journey",
+        "planned",
+        "opposite",
+        "bookstore"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Where do the friends decide to meet instead of the park?",
+          "choices": [
+            "At the train platform",
+            "Inside the bookstore in the mall",
+            "At a new Syrian restaurant",
+            "Near the local pharmacy"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "daily city life",
+      "instructions": "A man leaves a voice message for his friend about where to meet in the city."
+    }
+  }
+]

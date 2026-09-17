@@ -10,6 +10,7 @@ import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.AuthRepository
+import com.rork.eduspark.data.repository.RegistrationOutcome
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -86,8 +87,8 @@ data class RegisterUiState(
 
 /** One-shot outcome. Kept off the state so it cannot replay on rotation. */
 sealed interface RegisterEvent {
-    /** Account created; next stop is A-08 Verify Email. */
-    data class Registered(val role: UserRole, val email: String) : RegisterEvent
+    data class Authenticated(val user: com.rork.eduspark.data.model.SessionUser) : RegisterEvent
+    data class EmailVerificationRequired(val email: String) : RegisterEvent
 }
 
 class RegisterViewModel(
@@ -207,7 +208,12 @@ class RegisterViewModel(
                         preferences.setTeacherIntent(current.subjectIds, current.gradeIds)
                     }
                     _state.update { it.copy(isSubmitting = false) }
-                    _events.send(RegisterEvent.Registered(role, result.data.email))
+                    when (val outcome = result.data) {
+                        is RegistrationOutcome.Authenticated ->
+                            _events.send(RegisterEvent.Authenticated(outcome.user))
+                        is RegistrationOutcome.EmailVerificationRequired ->
+                            _events.send(RegisterEvent.EmailVerificationRequired(outcome.email))
+                    }
                 }
 
                 // Values are left untouched: a failed attempt must never cost typed input.

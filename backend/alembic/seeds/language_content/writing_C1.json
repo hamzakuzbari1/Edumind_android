@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "The Interdisciplinary Dilemma in Higher Education",
+    "title_ar": "المعضلة المشتركة بين التخصصات بالتعليم العالي",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Write a critical essay discussing the structural challenges of implementing interdisciplinary research within modern European higher education frameworks. Address institutional inertia, funding allocation metrics, and pedagogical friction points.",
+      "prompt_ar": "اكتب مقال نقدي عم تناقش فيه التحديات الهيكلية لتطبيق الأبحاث العابرة للتخصصات بأنظمة التعليم العالي الأوروبي الحديثة. احكي عن الجمود المؤسساتي، معايير توزيع التمويل، ونقاط الاحتكاك بطرق التعليم.",
+      "example_answer": "Seldom have we witnessed a more profound transformation within contemporary higher education than the integration of interdisciplinary methodologies into traditional research frameworks. However, despite clear evidence that global crises demand a radical synthesis of distinct disciplines, severe structural inertia remains embedded within academic systems. Financial resources continue to be distributed based on historical departmental prestige and narrow disciplinary metrics, thereby inadvertently discouraging younger scholars from speculative ventures. To rectify this institutional paralysis, funding bodies must establish permanent endowments specifically earmarked for collaborative research hubs. Furthermore, international doctoral candidates often bear the brunt of these systemic friction points, navigating complex pedagogical adjustments alongside dense academic bureaucracy. Progressive universities are pioneering integrated support centers that synthesize linguistic refinement with professional development to mitigate these challenges. Ultimately, the long-term viability of academic institutions hinges entirely upon their capacity to dismantle antiquated departmental boundaries. Only by fostering an environment where cognitive diversity is celebrated can universities cultivate the intellectual agility necessary for global advancement.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "academic research"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Deconstructing Algorithmic Echo Chambers",
+    "title_ar": "تفكيك غرف الصدى الخوارزمية",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Write a formal analysis concerning the epistemological crisis precipitated by algorithmic content curation on digital corporate platforms. Suggest comprehensive media literacy strategies to cultivate individual cognitive resilience.",
+      "prompt_ar": "اكتب تحليل رسمي بخصوص الأزمة المعرفية يلي عملتها الخوارزميات وتوجيه المحتوى بالمنصات الرقمية الكبيرة. اقترح خطط تعليمية شاملة للتربية الإعلامية لبناء مناعة فكرية عند الشخص.",
+      "example_answer": "The contemporary digital landscape has precipitated an unprecedented epistemological crisis, fundamentally altering how public audiences consume and evaluate socio-political information. Driven by algorithmic curation, corporate digital platforms systematically prioritize sensationalized content designed to maximize user screen time rather than factual accuracy. Consequently, the public sphere has fragmented into hyper-partisan echo chambers that reinforce existing cognitive biases and manipulate consensus. To counteract this destabilizing societal trend, educational specialists strongly advocate for the universal implementation of media literacy frameworks. Such curricula must transcend elementary fact-checking techniques, focusing instead on equipping citizens with advanced analytical tools to deconstruct systemic media bias. Not only do these digital loops distort public perception, but they also systematically erode public trust in governance institutions. Were regulatory bodies to enforce more stringent oversight on corporate data algorithms, the proliferation of disinformation could be substantively curtailed. Until then, individual cognitive resilience must be meticulously cultivated through continuous critical inquiry across all demographics. Restoring democratic integrity requires a synchronized approach that synthesizes government regulation with unwavering public media education.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "media literacy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "The Paradox of Circular Economic Business Strategies",
+    "title_ar": "تناقض استراتيجيات الاقتصاد الدائري بالشركات",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Write a strategic business proposal advocating for the integration of circular economic frameworks in traditional manufacturing firms. Address short-term financial pressures and the transition toward product stewardship.",
+      "prompt_ar": "اكتب مقترح استراتيجي للشركات عم تطالب فيه بدمج أطر الاقتصاد الدائري بمصانع الإنتاج التقليدية، واحكي عن كيفية مواجهة الضغوطات المادية قصيرة الأمد والتحول نحو المسؤولية عن رعاية المنتج.",
+      "example_answer": "As global supply chain vulnerabilities continue to expose the fragility of linear economies, manufacturing corporations must accelerate their transition toward circular business strategies. The conventional manufacturing paradigm generates catastrophic ecological consequences while continuously exposing enterprises to highly volatile raw material markets. In contrast, circular economic frameworks prioritize systemic regeneration, designing products to be entirely modular and recyclable from inception. Adopting this sustainable blueprint requires a comprehensive re-engineering of the corporate ecosystem rather than superficial operational adjustments. Not only must enterprises reinvent their physical manufacturing methodologies, but they must also cultivate customer relationships predicated on stewardship. What complicates this corporate transformation is the immense financial pressure exerted by investment markets demanding immediate quarterly returns. Had financial institutions integrated comprehensive environmental ESG metrics into valuation models sooner, the corporate adoption of circularity would be vastly more advanced. Moving forward, businesses failing to integrate these sustainable paradigms risk institutional obsolescence as compliance regulations tighten globally. Embracing product stewardship represents an absolute commercial imperative for navigating modern macroeconomic uncertainty.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "business strategy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Transnational Privacy Jurisprudence and Local Autonomy",
+    "title_ar": "أحكام خصوصية البيانات العابرة للدول والاستقلالية المحلية",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Write a legal memorandum analyzing the institutional friction between trans-European data privacy harmonization and localized statutory traditions. Discuss the implications for individual autonomy and judicial agility.",
+      "prompt_ar": "اكتب مذكرة قانونية عم تحلل فيها الاحتكاك بين توحيد قوانين سرية البيانات الأوروبية والتقاليد القانونية المحلية. ناقش عواقب هاد الشي ع الاستقلالية الفردية والمرونة القضائية.",
+      "example_answer": "The evolution of trans-European legal frameworks represents a continuous negotiation between jurisdictional harmonization and the preservation of national individual autonomy. As member states integrate administrative systems to facilitate cross-border commerce, the tension between centralized regulations and localized statutory traditions becomes highly pronounced. Nowhere is this balance more fiercely contested than in data privacy jurisprudence, where standardized protections conflict with regional security mandates. Legal scholars observe that while centralized regulations provide an essential shield against corporate surveillance, they occasionally restrict judicial agility. It is this structural friction that necessitates a sophisticated, continuous calibration of legal enforcement mechanisms. What remains highly problematic is the complex nominalization embedded in legislative texts, obscuring practical application for ordinary citizens. Were local jurisdictions to establish dedicated bilingual clinics, the accessibility of trans-European judicial pathways would be significantly enhanced. Not only must legal professionals master these intricate networks, but they must also develop cultural sensitivity toward localized interpretations. Ultimately, trans-European legitimacy depends upon guaranteeing collective integration without eroding fundamental constitutional protections.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "law"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "The Ontological Value of Architectural Conservation",
+    "title_ar": "القيمة الوجودية للحفاظ على المعمار التاريخي",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Write a philosophical critique examining the ontological value of architectural heritage within modernized urban landscapes. Advocate for the paradigm of adaptive reuse over speculative commercial development.",
+      "prompt_ar": "اكتب نقد فلسفي عم تدرس فيه القيمة الوجودية للإرث المعماري بالمدن الحديثة. طالب بالاعتماد على نموذج إعادة الاستخدام التكيفي بوش مشاريع التطوير العقاري والمضاربات التجارية.",
+      "example_answer": "The conceptual framework surrounding urban preservation has shifted from simple aesthetic appreciation to an investigation into the ontological value of architectural heritage. Contemporary philosophical discourse posits that historical buildings are vital spatial structures that activate human consciousness and ground communal identity. In an age characterized by hyper-rapid urbanization and homogenized corporate architecture, ancient structures offer a tangible link to collective memory. It is this profound grounding capacity that renders preservation efforts culturally and existentially essential. However, the operationalization of preservation principles within modern real estate markets remains highly problematic due to commercial pressure. Urban planners frequently confront intense commercial demands to demolish historic quarters in favor of high-density, economically lucrative developments. What is desperately needed is a philosophical framework that synthesizes historical preservation with functional modern utility through adaptive reuse. Not only does adaptive reuse conserve material resources, but it also maintains the architectural continuity of urban landscapes. Were municipal councils to enforce strict legislative mandates protecting spatial heritage, cities would retain their unique character. Ultimately, architectural survival depends on valuing spaces for existential enrichment rather than pure speculation.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "philosophy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Geopolitical Realignment in Post-Carbon Markets",
+    "title_ar": "إعادة التموضع الجيوسياسي بأسواق ما بعد الكربون",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Write a policy paper evaluating the geopolitical realignment generated by the transition to renewable energy infrastructures. Address Europe's strategic vulnerability regarding rare earth mineral extraction.",
+      "prompt_ar": "اكتب ورقة سياسات عم تقيم فيها التحولات الجيوسياسية الناتجة عن الانتقال لتكنولوجيا الطاقة المتجددة. احكي عن نقطة ضعف أوروبا الاستراتيجية باستخراج المعادن الأرضية النادرة.",
+      "example_answer": "The global transition away from fossil fuels is orchestrating a profound geopolitical realignment, redefining the strategic value of geographical territories. For decades, international relations were heavily dominated by hydrocarbon supply chains, with resource-rich nations exercising immense diplomatic leverage. However, the rapid proliferation of renewable infrastructures—such as hydrogen, wind, and solar systems—is shifting power toward nations controlling critical mineral chains. Not only do these technological advancements alter resource dependencies, but they also rewrite transnational trade agreements completely. It is this systemic shift that forces European policymakers to rethink their regional sovereignty strategies immediately. What remains a critical vulnerability for Europe is its heavy reliance on foreign nations for rare earth element extraction. Rare earth processing is indispensable for producing electric batteries, clean transit systems, and advanced military wind turbines. Were the European Union to establish decentralized domestic mining and recycling frameworks, its strategic independence would be strengthened. Navigating the resource realignment demands a comprehensive strategy combining environmental sustainability with aggressive technological innovation.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "geopolitics"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Linguistic Hybridity as Socio-Cultural Capital",
+    "title_ar": "الهوية اللغوية الهجينة كرأس مال اجتماعي وثقافي",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Write an academic response evaluating how mixed linguistic codes among diasporic youth can be validated as cognitive assets. Critique the institutional rigidity of standard monolingual educational systems.",
+      "prompt_ar": "اكتب رد أكاديمي عم تقيم فيه كيف فينا نعتبر الممارسات اللغوية المخلطة عند شباب المغتربين كميزة فكرية حقيقية. انتقد الجمود المؤسساتي بأنظمة التعليم الرسمية يلي بتنحاز للغة الوحدة.",
+      "example_answer": "Academic research into migrant communities in Western Europe has increasingly focused on linguistic hybridity and its correlation with socio-cultural capital. Traditional pedagogical perspectives often treated mixed linguistic codes—such as blending Arabic syntactic structures with German vocabulary—as a deficit indicating incomplete language acquisition. However, contemporary sociolinguistic frameworks deconstruct this outdated narrative, demonstrating that linguistic hybridity represents a highly sophisticated communicative competence. It is this multi-layered linguistic flexibility that allows individuals to navigate distinct cultural spheres fluidly, maximizing social network opportunities. What complicates the academic valuation of these unique skills is the institutional rigidity of standard educational systems. Examinations continue to demand absolute adherence to monolingual standard registers, penalizing code-switching as a cognitive deficiency. Were school curricula to validate multilingual practices as cognitive assets, the educational achievements of international students would improve. Sociologists emphasize that linguistic flexibility functions as a potent form of cultural capital that challenges systemic marginalization. Fostering an inclusive educational ecosystem requires a shift away from monolingual biases toward rich communicative repertoires.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "academic research"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "The Commercial Architecture of Public Disinformation",
+    "title_ar": "البنية التجارية للتضليل الإعلامي العام",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Write an analytical essay discussing how corporate data platforms utilize machine-learning protocols to manipulate collective consciousness. Analyze the threat this poses to democratic consensus and media literacy.",
+      "prompt_ar": "اكتب مقال تحليلي عم تناقش فيه كيف المنصات الرقمية بتستغل بروتوكولات التعلم الآلي لتتلاعب بالوعي الجماعي. حلل التهديد يلي بيشكله هاد الشي ع الإجماع الديمقراطي والتربية الإعلامية.",
+      "example_answer": "The pervasive influence of algorithmic curation on digital information networks has structurally transformed the nature of public discourse, threatening democratic stability. Contemporary data platforms leverage complex machine-learning protocols to analyze individual behavioral arrays, delivering content customized to maximize screen time. This automated feedback loop inherently capitalizes on psychological triggers, systematically amplifying sensationalized or divisive narratives for profit. It is this underlying commercial architecture that distorts collective consciousness, creating deeply polarized societal factions globally. Media researchers note that the standard consumer remains largely oblivious to the invisible mechanisms shaping their digital landscape. Not only do corporate algorithms dictate information visibility, but they also fundamentally undermine rational consensus-building processes. Were regulatory institutions to mandate algorithmic transparency and enforce data sovereignty laws, citizens would regain cognitive agency. However, mitigating this systemic crisis demands a pedagogical overhaul that positions algorithmic literacy as a core civic competence. Preserving democratic integrity in the digital era depends on cultivating critical skepticism toward automated filter networks.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "media literacy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Middle Management Resistance to Decentralized Agility",
+    "title_ar": "مقاومة الإدارة الوسطى للمرونة اللامركزية",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Write a corporate report analyzing the structural and psychological resistance from middle management during corporate transitions to agile frameworks. Suggest leadership metrics to overcome institutional inertia.",
+      "prompt_ar": "اكتب تقرير للشركات عم تحلل فيه المقاومة الهيكلية والنفسية من مدراء منتصف الهرم الوظيفي خلال التحول لأطر العمل المرنة (Agile). اقترح معايير قيادية لتخطّي الجمود المؤسساتي.",
+      "example_answer": "The application of agile methodologies within traditionally bureaucratic corporate structures has emerged as a core strategy to combat institutional inertia. Historically, corporate enterprises operating in stable markets relied on hierarchical command structures and extensive, long-term planning cycles. However, the contemporary commercial landscape, characterized by hyper-accelerated technological disruptions, has rendered these static models completely obsolete. To remain competitive, organizations are forced to decentralize decision-making authority, organizing internal workforces into cross-functional, autonomous teams. What frequently sabotages these essential transformations is the entrenched psychological resistance from middle management, whose authority is challenged. Corporate analysts emphasize that unless leadership teams cultivate an organizational culture viewing failure as a learning metric, structural agility remains unattainable. Were corporate entities to decouple performance evaluations from rigid, short-term targets, employee innovation would flourish rapidly. Not only must enterprises adopt agile digital tools, but they must also re-engineer communication channels completely. Ultimately, dismantling institutional inertia requires a profound commitment to continuous evolution, transforming rigid corporations into adaptive ecosystems.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "business strategy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "C1",
+    "content_type": "writing_prompt",
+    "title": "Legislating the Remote Work Interface and Burnout",
+    "title_ar": "تقنين واجهة الشغل عن بعد والاحتراق النفسي",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Write a comprehensive legal critique evaluating the enforcement mechanisms of 'right to disconnect' mandates within fluid, transnational corporate networks operating across time zones.",
+      "prompt_ar": "اكتب نقد قانوني شامل عم تقيم فيه آليات تطبيق قوانين 'الحق بفصل الاتصال' ببيئات الشركات المرنة والعابرة للقارات يلي بتشتغل عبر كذا توقيت زمني.",
+      "example_answer": "The rapid normalization of remote employment models across Europe has necessitated a fundamental re-examination of statutory labor law frameworks. While digital connectivity offers unparalleled flexibility, it simultaneously facilitates a corporate culture of constant availability, blurring professional duties and private life. To safeguard employee health, several European nations have pioneered statutory interventions universally referred to as the right to disconnect. This legal doctrine establishes that employees are under no obligation to engage with corporate communications outside of official hours. It is this protective legislation that aims to mitigate the rising incidence of psychological burnout among digital workforces. However, enforcing these boundaries within fluid, transnational corporate environments remains immensely complex due to cross-border jurisdiction conflicts. Legal experts note that global companies operate across multiple time zones, complicating localized labor regulations. Were international labor bodies to draft unified, enforceable employment standards, digital cross-border exploitation could be effectively neutralized. Successful containment requires a synchronized strategy reinforcing robust legislative mandates with cultural shifts treating leisure as an absolute right.",
+      "min_words": 180,
+      "min_sentences": 10,
+      "topic": "law"
+    }
+  }
+]

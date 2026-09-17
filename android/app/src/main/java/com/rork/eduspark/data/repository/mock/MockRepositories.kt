@@ -99,6 +99,8 @@ import com.rork.eduspark.data.model.SubmissionDraft
 import com.rork.eduspark.data.model.SubmissionType
 import com.rork.eduspark.data.model.TaskHint
 import com.rork.eduspark.data.model.TaskWorkflowStatus
+import com.rork.eduspark.data.model.TeacherCourseCreateRequest
+import com.rork.eduspark.data.model.TeacherCourseFormSubject
 import com.rork.eduspark.data.model.TeacherCourseStatus
 import com.rork.eduspark.data.model.TeacherCourseSummary
 import com.rork.eduspark.data.model.TeacherDashboardSummary
@@ -138,6 +140,8 @@ import com.rork.eduspark.data.model.ProjectReviewStatus
 import com.rork.eduspark.data.model.TeacherQualification
 import com.rork.eduspark.data.model.TeacherEssayResponse
 import com.rork.eduspark.data.model.TeacherQuiz
+import com.rork.eduspark.data.model.TeacherQuizAnalytics
+import com.rork.eduspark.data.model.TeacherCourseQuizAnalytics
 import com.rork.eduspark.data.model.TeacherQuizAttempt
 import com.rork.eduspark.data.model.TeacherQuizAttemptStatus
 import com.rork.eduspark.data.model.TeacherQuizQuestion
@@ -172,6 +176,7 @@ import com.rork.eduspark.data.model.QuizOption
 import com.rork.eduspark.data.model.QuizOrigin
 import com.rork.eduspark.data.model.QuizQuestion
 import com.rork.eduspark.data.model.QuizResult
+import com.rork.eduspark.data.model.StudentCourseQuizSummary
 import com.rork.eduspark.data.model.RedeemedVoucher
 import com.rork.eduspark.data.model.FeedbackMode
 import com.rork.eduspark.data.model.QuestionType
@@ -179,7 +184,11 @@ import com.rork.eduspark.data.model.SecuritySettings
 import com.rork.eduspark.data.model.SessionUser
 import com.rork.eduspark.data.model.StudentCourseSummary
 import com.rork.eduspark.data.model.StudentHomeSnapshot
+import com.rork.eduspark.data.model.StudentOnboardingStatus
+import com.rork.eduspark.data.model.StudentOnboardingStep
 import com.rork.eduspark.data.model.StudentProfile
+import com.rork.eduspark.data.model.SubjectGroup
+import com.rork.eduspark.data.model.SubjectOption
 import com.rork.eduspark.data.model.SubjectProgress
 import com.rork.eduspark.data.model.CommitmentSchedule
 import com.rork.eduspark.data.model.RoutineBuilderAnswers
@@ -190,6 +199,7 @@ import com.rork.eduspark.data.model.RoutineSlotType
 import com.rork.eduspark.data.model.SimpleDate
 import com.rork.eduspark.data.model.SubscriptionStatus
 import com.rork.eduspark.data.model.TutorReply
+import com.rork.eduspark.data.model.TwoFactorChallengeInfo
 import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.model.VoucherStatus
 import com.rork.eduspark.data.model.VoucherValidationResult
@@ -210,6 +220,7 @@ import com.rork.eduspark.data.repository.PlannerRepository
 import com.rork.eduspark.data.repository.ProfileRepository
 import com.rork.eduspark.data.repository.ProjectRepository
 import com.rork.eduspark.data.repository.QuizRepository
+import com.rork.eduspark.data.repository.RegistrationOutcome
 import com.rork.eduspark.data.repository.RoutineRepository
 import com.rork.eduspark.data.repository.SecurityRepository
 import com.rork.eduspark.data.repository.SignInOutcome
@@ -277,6 +288,12 @@ class MockAuthRepository(
 
     private val _session = MutableStateFlow<SessionUser?>(null)
     override val session: Flow<SessionUser?> = _session.asStateFlow()
+    private val _pendingChallenge = MutableStateFlow<TwoFactorChallengeInfo?>(null)
+    override val pendingTwoFactorChallenge: Flow<TwoFactorChallengeInfo?> =
+        _pendingChallenge.asStateFlow()
+
+    override suspend fun restoreSession(): AppResult<SessionUser?> =
+        AppResult.Success(_session.value)
 
     /**
      * Fixture accounts. The local part of the address selects the outcome, so every
@@ -306,8 +323,16 @@ class MockAuthRepository(
             local.startsWith("unverified") ->
                 AppResult.Success(SignInOutcome.EmailVerificationRequired(email))
 
-            local.startsWith("twofactor") ->
-                AppResult.Success(SignInOutcome.TwoFactorRequired(email))
+            local.startsWith("twofactor") -> {
+                val challenge = TwoFactorChallengeInfo(
+                    email = email,
+                    maskedEmail = email.replaceBefore("@", "••••"),
+                    expiresInSeconds = 600,
+                    resendAvailableInSeconds = 30,
+                )
+                _pendingChallenge.value = challenge
+                AppResult.Success(SignInOutcome.TwoFactorRequired(challenge))
+            }
 
             password.length < 6 ->
                 AppResult.Failure(AppError.Domain("invalid_credentials"))
@@ -332,7 +357,7 @@ class MockAuthRepository(
         email: String,
         password: String,
         role: UserRole,
-    ): AppResult<SessionUser> {
+    ): AppResult<RegistrationOutcome> {
         delay(MockLatency.FAST_MS)
         if (email.contains("taken")) {
             return AppResult.Failure(AppError.Validation(mapOf("email" to "already_registered")))
@@ -345,7 +370,7 @@ class MockAuthRepository(
             hasCompletedOnboarding = false,
         )
         persist(user)
-        return AppResult.Success(user)
+        return AppResult.Success(RegistrationOutcome.EmailVerificationRequired(user.email))
     }
 
     override suspend fun verifyEmail(code: String): AppResult<Unit> {
@@ -365,7 +390,17 @@ class MockAuthRepository(
         if (code != VALID_CODE) return AppResult.Failure(AppError.Domain("invalid_code"))
         val user = fixtureUser("student@edumind.sy", UserRole.Student)
         persist(user)
+        _pendingChallenge.value = null
         return AppResult.Success(user)
+    }
+
+    override suspend fun resendTwoFactor(): AppResult<TwoFactorChallengeInfo> {
+        delay(MockLatency.FAST_MS)
+        val challenge = _pendingChallenge.value
+            ?: return AppResult.Failure(AppError.Domain("two_factor_challenge_missing"))
+        val updated = challenge.copy(expiresInSeconds = 600, resendAvailableInSeconds = 30)
+        _pendingChallenge.value = updated
+        return AppResult.Success(updated)
     }
 
     /**
@@ -403,13 +438,15 @@ class MockAuthRepository(
     override suspend fun signOut() {
         tokenStore.clear()
         _session.value = null
+        _pendingChallenge.value = null
     }
 
     private suspend fun persist(user: SessionUser) {
         tokenStore.write(
             StoredSession(
                 accessToken = "mock-access-token",
-                sessionId = "mock-session",
+                refreshToken = "mock-refresh-token",
+                sessionId = 1,
                 userId = user.id,
             )
         )
@@ -476,6 +513,7 @@ class MockTeacherRepository : TeacherRepository {
     // course, one processing record per lesson. All three screens read/write these same maps;
     // none of them keeps a private copy.
     private val lessons = MutableStateFlow(seedLessons())
+    private val courses = MutableStateFlow(COURSES)
     private val uploadDrafts = MutableStateFlow<Map<String, TeacherLessonUploadDraft>>(emptyMap())
     private val processingStates = MutableStateFlow(seedProcessingStates())
 
@@ -540,6 +578,23 @@ class MockTeacherRepository : TeacherRepository {
         return result
     }
 
+    override suspend fun uploadAvatar(
+        teacherId: String,
+        bytes: ByteArray,
+        filename: String,
+        mimeType: String,
+    ): AppResult<TeacherSetupState> {
+        delay(MockLatency.FAST_MS)
+        if (bytes.isEmpty()) return AppResult.Failure(AppError.Domain("empty_avatar_file"))
+        val photoUrl = "https://example.test/uploads/teachers/$teacherId/$filename"
+        return updateState(teacherId) { state ->
+            state.copy(
+                identity = state.identity.copy(photoUrl = photoUrl),
+                completedStepIds = state.completedStepIds + TeacherSetupStepId.Identity,
+            )
+        }
+    }
+
     /** Never silently completes a skipped required step — see [TeacherRepository.finishSetup]'s own doc comment. */
     override suspend fun finishSetup(teacherId: String): AppResult<TeacherSetupState> {
         delay(MockLatency.FAST_MS)
@@ -559,12 +614,51 @@ class MockTeacherRepository : TeacherRepository {
 
     override suspend fun getCourses(teacherId: String): AppResult<List<TeacherCourseSummary>> {
         delay(MockLatency.LIST_MS)
-        return AppResult.Success(COURSES)
+        return AppResult.Success(courses.value)
+    }
+
+    override suspend fun getCourseFormSubjects(grade: Grade): AppResult<List<TeacherCourseFormSubject>> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Success(
+            listOf(
+                TeacherCourseFormSubject(id = "math", name = "الرياضيات", grade = grade),
+                TeacherCourseFormSubject(id = "physics", name = "الفيزياء", grade = grade),
+                TeacherCourseFormSubject(id = "chemistry", name = "الكيمياء", grade = grade),
+            ),
+        )
+    }
+
+    override suspend fun createCourse(request: TeacherCourseCreateRequest): AppResult<TeacherCourseSummary> {
+        delay(MockLatency.FAST_MS)
+        val created = TeacherCourseSummary(
+            id = "c${courses.value.size + 1}",
+            title = request.title.trim(),
+            subjectId = request.subjectId,
+            subjectTitle = request.subjectTitle,
+            grade = request.grade,
+            studentCount = 0,
+            lessonCount = 0,
+            status = if (request.published) TeacherCourseStatus.Published else TeacherCourseStatus.Draft,
+        )
+        courses.value = courses.value + created
+        lessons.value = lessons.value + (created.id to emptyList())
+        return AppResult.Success(created)
+    }
+
+    override suspend fun setCoursePublished(courseId: String, published: Boolean): AppResult<TeacherCourseSummary> {
+        delay(MockLatency.FAST_MS)
+        val status = if (published) TeacherCourseStatus.Published else TeacherCourseStatus.Draft
+        val updated = courses.value.map { course ->
+            if (course.id == courseId) course.copy(status = status) else course
+        }
+        if (updated.none { it.id == courseId }) return AppResult.Failure(AppError.NotFound)
+        courses.value = updated
+        return AppResult.Success(updated.first { it.id == courseId })
     }
 
     override suspend fun getCourse(courseId: String): AppResult<TeacherCourseSummary> {
         delay(MockLatency.FAST_MS)
-        val course = COURSES.firstOrNull { it.id == courseId } ?: return AppResult.Failure(AppError.NotFound)
+        val course = courses.value.firstOrNull { it.id == courseId } ?: return AppResult.Failure(AppError.NotFound)
         return AppResult.Success(course)
     }
 
@@ -577,6 +671,18 @@ class MockTeacherRepository : TeacherRepository {
         delay(MockLatency.FAST_MS)
         val lesson = lessons.value[courseId]?.firstOrNull { it.id == lessonId } ?: return AppResult.Failure(AppError.NotFound)
         return AppResult.Success(lesson)
+    }
+
+    override suspend fun setLessonVisible(courseId: String, lessonId: String, visible: Boolean): AppResult<TeacherLesson> {
+        delay(MockLatency.FAST_MS)
+        val current = lessons.value[courseId] ?: return AppResult.Failure(AppError.NotFound)
+        val updated = current.map { lesson ->
+            if (lesson.id != lessonId) lesson
+            else lesson.copy(status = if (visible) TeacherLessonStatus.Published else TeacherLessonStatus.Draft)
+        }
+        if (updated.none { it.id == lessonId }) return AppResult.Failure(AppError.NotFound)
+        lessons.value = lessons.value + (courseId to updated)
+        return AppResult.Success(updated.first { it.id == lessonId })
     }
 
     override suspend fun reorderLessons(courseId: String, orderedLessonIds: List<String>): AppResult<List<TeacherLesson>> {
@@ -953,6 +1059,16 @@ class MockTeacherRepository : TeacherRepository {
         return AppResult.Success(updated)
     }
 
+    override suspend fun getQuizAnalytics(quizId: String): AppResult<TeacherQuizAnalytics> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Failure(AppError.Domain("quiz_analytics_not_available"))
+    }
+
+    override suspend fun getCourseQuizAnalytics(courseId: String): AppResult<TeacherCourseQuizAnalytics> {
+        delay(MockLatency.FAST_MS)
+        return AppResult.Failure(AppError.Domain("course_quiz_analytics_not_available"))
+    }
+
     override suspend fun generateAiQuizQuestionCandidates(quizId: String): AppResult<List<TeacherQuizQuestion>> {
         delay(MockLatency.LIST_MS)
         return AppResult.Success(AI_QUESTION_CANDIDATES)
@@ -1107,6 +1223,13 @@ class MockTeacherRepository : TeacherRepository {
     override suspend fun getParentNotes(studentId: String): AppResult<List<TeacherParentNote>> {
         delay(MockLatency.FAST_MS)
         return AppResult.Success(parentNotes.value.filter { it.studentId == studentId })
+    }
+
+    override suspend fun closeParentNote(studentId: String, noteId: String): AppResult<TeacherParentNote> {
+        delay(MockLatency.FAST_MS)
+        val note = parentNotes.value.firstOrNull { it.studentId == studentId && it.id == noteId }
+            ?: return AppResult.Failure(AppError.NotFound)
+        return AppResult.Success(note)
     }
 
     override suspend fun sendStudentMessage(studentId: String, message: String): AppResult<Unit> {
@@ -2200,6 +2323,15 @@ class MockLearningRepository(
         completedLessonIdsFlow.update { it + lessonId }
     }
 
+    override suspend fun recordLessonStarted(lessonId: String, mediaTypes: Set<LessonMediaType>) = Unit
+
+    override suspend fun updateLessonProgress(
+        lessonId: String,
+        videoProgress: Float?,
+        pdfProgress: Float?,
+        pdfOpened: Boolean?,
+    ) = Unit
+
     private fun isMathLesson3Completed(): Boolean = "math-3" in completedLessonIdsFlow.value
     private fun mathCompletedLessonCount(): Int = MATH_BASE_COMPLETED_COUNT + if (isMathLesson3Completed()) 1 else 0
     private fun mathProgress(): Float = mathCompletedLessonCount().toFloat() / MATH_TOTAL_LESSON_COUNT
@@ -2736,9 +2868,67 @@ class MockLearningRepository(
  */
 class MockOnboardingRepository : OnboardingRepository {
 
-    override suspend fun getTeachers(subjectId: String): AppResult<List<OnboardingTeacher>> {
+    private var status = StudentOnboardingStatus(
+        step = StudentOnboardingStep.Grade,
+        grade = null,
+        onboardingComplete = false,
+        selectedSubjectIds = emptySet(),
+        selectedTeacherIdBySubject = emptyMap(),
+    )
+
+    override suspend fun getStatus(): AppResult<StudentOnboardingStatus> =
+        AppResult.Success(status)
+
+    override suspend fun getSubjects(grade: Grade): AppResult<List<SubjectOption>> =
+        AppResult.Success(
+            listOf(
+                SubjectOption("math", "الرياضيات", "math", SubjectGroup.Core),
+                SubjectOption("physics", "الفيزياء", "physics", SubjectGroup.Core),
+                SubjectOption("chemistry", "الكيمياء", "chemistry", SubjectGroup.Core),
+                SubjectOption("biology", "الأحياء", "biology", SubjectGroup.Core),
+                SubjectOption("arabic", "العربية", "arabic", SubjectGroup.LanguagesAndGeneral),
+                SubjectOption("english", "الإنكليزية", "english", SubjectGroup.LanguagesAndGeneral),
+            )
+        )
+
+    override suspend fun saveGrade(grade: Grade): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Subjects,
+            grade = grade,
+            onboardingComplete = false,
+            selectedSubjectIds = emptySet(),
+            selectedTeacherIdBySubject = emptyMap(),
+        )
+        return AppResult.Success(status)
+    }
+
+    override suspend fun saveSubjects(subjectIds: Set<String>): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Teachers,
+            selectedSubjectIds = subjectIds,
+            selectedTeacherIdBySubject = emptyMap(),
+        )
+        return AppResult.Success(status)
+    }
+
+    override suspend fun getTeachers(subjectId: String, grade: Grade): AppResult<List<OnboardingTeacher>> {
         delay(MockLatency.LIST_MS)
         return AppResult.Success(TeacherFixtures[subjectId].orEmpty())
+    }
+
+    override suspend fun saveTeachers(
+        teacherIdBySubject: Map<String, String>,
+    ): AppResult<StudentOnboardingStatus> {
+        status = status.copy(selectedTeacherIdBySubject = teacherIdBySubject)
+        return AppResult.Success(status)
+    }
+
+    override suspend fun complete(): AppResult<StudentOnboardingStatus> {
+        status = status.copy(
+            step = StudentOnboardingStep.Complete,
+            onboardingComplete = true,
+        )
+        return AppResult.Success(status)
     }
 
     private object TeacherFixtures {
@@ -2899,6 +3089,7 @@ class MockQuizRepository : QuizRepository {
     private val quizzes: MutableMap<String, Quiz> = mutableMapOf(
         QUIZ_MATH_3.id to QUIZ_MATH_3,
         QUIZ_MANUAL_MATH.id to QUIZ_MANUAL_MATH,
+        QUIZ_MANUAL_MATH_REVIEW.id to QUIZ_MANUAL_MATH_REVIEW,
         QUIZ_MANUAL_PHYSICS.id to QUIZ_MANUAL_PHYSICS,
     )
     private val attempts = mutableMapOf<String, QuizAttempt>()
@@ -2967,6 +3158,45 @@ class MockQuizRepository : QuizRepository {
         attempts.remove(remedialId)
         results.remove(remedialId)
         return AppResult.Success(remedial)
+    }
+
+    override suspend fun regenerateQuiz(quizId: String): AppResult<Quiz> {
+        delay(MockLatency.FAST_MS)
+        val quiz = quizzes[quizId] ?: return AppResult.Failure(AppError.NotFound)
+        if (quiz.origin != QuizOrigin.AiLesson || quiz.isRemedial) {
+            return AppResult.Failure(AppError.Domain("regenerate_not_supported_for_manual"))
+        }
+        attempts.remove(quizId)
+        results.remove(quizId)
+        return AppResult.Success(quiz)
+    }
+
+    override suspend fun listCourseQuizzes(courseId: String): AppResult<List<StudentCourseQuizSummary>> {
+        delay(MockLatency.FAST_MS)
+        val items = quizzes.values
+            .filter { it.origin == QuizOrigin.TeacherManual }
+            .filter { quiz ->
+                quiz.id == "manual-$courseId" ||
+                    quiz.id.startsWith("manual-$courseId-") ||
+                    (courseId == "math" && quiz.id.contains("math")) ||
+                    (courseId == "physics" && quiz.id.contains("physics"))
+            }
+            .map { quiz ->
+                val attempt = attempts[quiz.id]
+                StudentCourseQuizSummary(
+                    id = quiz.id,
+                    courseId = courseId,
+                    title = quiz.title,
+                    questionCount = quiz.questions.size,
+                    durationMinutes = quiz.timerSeconds?.div(60),
+                    attemptStatus = if (attempt?.isCompleted == true) "graded" else null,
+                    scorePercent = results[quiz.id]?.let { r ->
+                        if (r.totalCount == 0) 0 else (r.correctCount * 100 / r.totalCount)
+                    },
+                    isCompleted = attempt?.isCompleted == true,
+                )
+            }
+        return AppResult.Success(items)
     }
 
     private fun score(quiz: Quiz, attempt: QuizAttempt): QuizResult {
@@ -3072,6 +3302,29 @@ class MockQuizRepository : QuizRepository {
                     prompt = "اذكر خطوة واحدة تُستخدم لإيجاد نقاط الانعطاف لدالة.",
                     correctAnswer = "نساوي المشتقة الثانية بالصفر",
                     explanation = "نساوي المشتقة الثانية بالصفر ونحل المعادلة لإيجاد نقاط الانعطاف المحتملة.",
+                ),
+            ),
+        )
+
+        val QUIZ_MANUAL_MATH_REVIEW = Quiz(
+            id = "manual-math-review",
+            origin = QuizOrigin.TeacherManual,
+            lessonId = "math-3",
+            lessonTitle = "المشتقة الثانية",
+            title = "مراجعة سريعة — المشتقات",
+            teacherName = "الأستاذ سامر الخطيب",
+            feedbackMode = FeedbackMode.Deferred,
+            timerSeconds = null,
+            questions = listOf(
+                QuizQuestion(
+                    id = "mr1", type = QuestionType.MultipleChoice,
+                    prompt = "مشتقة x³ هي؟",
+                    options = listOf(
+                        QuizOption("a", "3x²"), QuizOption("b", "x²"),
+                        QuizOption("c", "3x"), QuizOption("d", "x³"),
+                    ),
+                    correctAnswer = "a",
+                    explanation = "مشتقة xⁿ هي n·x^(n−1).",
                 ),
             ),
         )
@@ -5122,6 +5375,9 @@ class MockMessagingRepository : MessagingRepository {
         _threads.value = _threads.value + (threadId to created)
         return AppResult.Success(created)
     }
+
+    override suspend fun openCourseTeacherThread(courseId: String, includeParent: Boolean): AppResult<MessageThread> =
+        openOrCreateThread(CURRENT_STUDENT_MESSAGING_ID, MessageParticipantRole.Student, TEACHER.id)
 
     override suspend fun getParentThreadForStudent(teacherId: String, studentId: String): AppResult<MessageThread> {
         delay(MockLatency.FAST_MS)

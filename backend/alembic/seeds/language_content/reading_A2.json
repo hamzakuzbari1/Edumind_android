@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Shopping at the Flea Market",
+    "title_ar": "التسوق بسوق الأشياء المستعملة",
+    "sort_order": 0,
+    "body_json": {
+      "text": "Last Sunday, I went to a famous flea market in Damascus. The weather was very nice and sunny, so many people were walking around. I wanted to buy a cheap lamp for my small bedroom. I saw many interesting old things like vintage books, clothes, and colorful pictures. Suddenly, I found a beautiful metal lamp on a wooden table. The friendly man asked for twenty euros, but I offered twelve euros. He smiled and accepted my offer. I also bought a small box for three euros. It was a great shopping day, and I walked back home happily with my nice things.",
+      "text_ar": "الأحد الماضي، رحت عالماركت المشهور تبع الأشياء المستعملة ببرلين. الجو كان كتير حلو ومشمس، كرمال هيك كان في ناس كتار عم يتمشوا. كان بدي اشتري ضو رخيص لغرفة نومي الصغيرة. شفت غراض قديمة وبتجنن متل كتب قديمة، وثياب، ولوحات ملونة. فجأة، لقيت ضو معدن كتير حلو على طاولة خشب. الزلمة الودود طلب عشرين يورو، بس أنا عرضت عليه طنعش يورو. ابتسم وقبل العرض تبعي. وكمان اشتريت صندوق صغير بتلاتة يورو. كان يوم تسوق بياخد العقل، ورجعت عالبيت مشي وأنا مبسوط بغراضي الجداد.",
+      "vocabulary": [
+        "flea market",
+        "sunny",
+        "lamp",
+        "suddenly",
+        "accepted"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How much did the person finally pay for the metal lamp?",
+          "choices": [
+            "Twelve euros",
+            "Twenty euros",
+            "Three euros",
+            "Fifteen euros"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "shopping",
+      "passage": "Last Sunday, I went to a famous flea market in Damascus. The weather was very nice and sunny, so many people were walking around. I wanted to buy a cheap lamp for my small bedroom. I saw many interesting old things like vintage books, clothes, and colorful pictures. Suddenly, I found a beautiful metal lamp on a wooden table. The friendly man asked for twenty euros, but I offered twelve euros. He smiled and accepted my offer. I also bought a small box for three euros. It was a great shopping day, and I walked back home happily with my nice things.",
+      "passage_ar": "الأحد الماضي، رحت عالماركت المشهور تبع الأشياء المستعملة ببرلين. الجو كان كتير حلو ومشمس، كرمال هيك كان في ناس كتار عم يتمشوا. كان بدي اشتري ضو رخيص لغرفة نومي الصغيرة. شفت غراض قديمة وبتجنن متل كتب قديمة، وثياب، ولوحات ملونة. فجأة، لقيت ضو معدن كتير حلو على طاولة خشب. الزلمة الودود طلب عشرين يورو، بس أنا عرضت عليه طنعش يورو. ابتسم وقبل العرض تبعي. وكمان اشتريت صندوق صغير بتلاتة يورو. كان يوم تسوق بياخد العقل، ورجعت عالبيت مشي وأنا مبسوط بغراضي الجداد."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "The Train to Damascus",
+    "title_ar": "القطار لفرانكفورت",
+    "sort_order": 1,
+    "body_json": {
+      "text": "Yesterday morning, I travelled by train from Damascus to Damascus to see my uncle. I arrived at the huge central station at eight o'clock. The station was very crowded and busy. I bought my ticket from a modern machine, and it cost forty euros. My train left exactly on time from platform four. During the long journey, I sat next to a window and watched the green hills and small villages. I was also reading an interesting English storybook. The train was fast and comfortable, and I arrived safely in the afternoon.",
+      "text_ar": "مبارح الصبح، سافرت بالقطار من برلين لفرانكفورت عشان شوف عمي. وصلت عالمحطة المركزية الضخمة الساعة تمنية. المحطة كانت كتير زحمة وعجقة. اشتريت التكت تبعي من ماكينة حديثة، وكلفتني أربعين يورو. القطار تبعي مشي عالوقت تماماً من الرصيف رقم أربعة. خلال الرحلة الطويلة، قعدت جنب الشباك وصرت اتفرج عالتلال الخضرا والضيع الصغيرة. وكمان كنت عم اقرأ كتاب قصص إنكليزي كتير ممتع. القطار كان سريع ومريح، ووصلت بالسلامة بعد الظهر.",
+      "vocabulary": [
+        "crowded",
+        "machine",
+        "platform",
+        "journey",
+        "comfortable"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "From which platform did the train leave?",
+          "choices": [
+            "Platform eight",
+            "Platform four",
+            "Platform forty",
+            "Platform three"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "transport",
+      "passage": "Yesterday morning, I travelled by train from Damascus to Damascus to see my uncle. I arrived at the huge central station at eight o'clock. The station was very crowded and busy. I bought my ticket from a modern machine, and it cost forty euros. My train left exactly on time from platform four. During the long journey, I sat next to a window and watched the green hills and small villages. I was also reading an interesting English storybook. The train was fast and comfortable, and I arrived safely in the afternoon.",
+      "passage_ar": "مبارح الصبح، سافرت بالقطار من برلين لفرانكفورت عشان شوف عمي. وصلت عالمحطة المركزية الضخمة الساعة تمنية. المحطة كانت كتير زحمة وعجقة. اشتريت التكت تبعي من ماكينة حديثة، وكلفتني أربعين يورو. القطار تبعي مشي عالوقت تماماً من الرصيف رقم أربعة. خلال الرحلة الطويلة، قعدت جنب الشباك وصرت اتفرج عالتلال الخضرا والضيع الصغيرة. وكمان كنت عم اقرأ كتاب قصص إنكليزي كتير ممتع. القطار كان سريع ومريح، ووصلت بالسلامة بعد الظهر."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Joining a Football Club",
+    "title_ar": "التسجيل بنادي الفوتبول",
+    "sort_order": 2,
+    "body_json": {
+      "text": "I love playing football, so last week I decided to join a local German sports club. I went to the club office on Tuesday evening. A kind woman gave me an application form to fill out. The monthly membership is only fifteen euros for students, which is very cheap. Yesterday, I attended my first training session on the big green field. We practiced passing the ball for one hour, and then we played a short match. I met three friendly players from Spain and Italy. We are planning to practice together every Thursday after school.",
+      "text_ar": "أنا بحب العب فوتبول كتير، كرمال هيك الأسبوع الماضي قررت سجل بنادي رياضي ألماني محلي. رحت عالمكتب تبع النادي يوم التلاتا المسا. في مرّة حبابة عطتني فورم طلب عشان عبيه. الاشتراك الشهري بس خمسطشر يورو للطلاب، وهاد شي كتير رخيص. مبارح، حضرت أول حصة تدريبية بالملعب الأخضر الكبير. تدربنا على تمرير الطابة لساعة كاملة، وبعدين لعبنا مباراة قصيرة. التقيت بتلات لاعبين ودودين من إسبانيا وإيطاليا. عم نخطط نتدرب سوا كل يوم خميس بعد المدرسة.",
+      "vocabulary": [
+        "decided",
+        "membership",
+        "attended",
+        "field",
+        "practice"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "When are the players planning to practice together in the future?",
+          "choices": [
+            "Every Tuesday",
+            "Last week",
+            "Every Thursday",
+            "Every Sunday"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "hobbies",
+      "passage": "I love playing football, so last week I decided to join a local German sports club. I went to the club office on Tuesday evening. A kind woman gave me an application form to fill out. The monthly membership is only fifteen euros for students, which is very cheap. Yesterday, I attended my first training session on the big green field. We practiced passing the ball for one hour, and then we played a short match. I met three friendly players from Spain and Italy. We are planning to practice together every Thursday after school.",
+      "passage_ar": "أنا بحب العب فوتبول كتير، كرمال هيك الأسبوع الماضي قررت سجل بنادي رياضي ألماني محلي. رحت عالمكتب تبع النادي يوم التلاتا المسا. في مرّة حبابة عطتني فورم طلب عشان عبيه. الاشتراك الشهري بس خمسطشر يورو للطلاب، وهاد شي كتير رخيص. مبارح، حضرت أول حصة تدريبية بالملعب الأخضر الكبير. تدربنا على تمرير الطابة لساعة كاملة، وبعدين لعبنا مباراة قصيرة. التقيت بتلات لاعبين ودودين من إسبانيا وإيطاليا. عم نخطط نتدرب سوا كل يوم خميس بعد المدرسة."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "A Strange Summer Day",
+    "title_ar": "يوم صيف غريب",
+    "sort_order": 3,
+    "body_json": {
+      "text": "We had a very strange summer day in Aleppo yesterday. In the morning, the weather was extremely hot and sunny. The temperature was thirty-two degrees, so my friends and I went to a nearby lake. We were swimming in the cool water and eating strawberry ice cream. However, at three o'clock in the afternoon, the sky suddenly became very dark. Strong winds started blowing, and we heard loud thunder. It started raining heavily, so we ran quickly to a small coffee shop. We waited there for one hour until the storm finally stopped.",
+      "text_ar": "مر علينا يوم صيف غريب كتير بهامبورغ مبارح. بالصبح، الجو كان شوب كتير ومشمس. درجة الحرارة كانت اتنين وتلاتين، كرمال هيك رحت أنا ورفقاتي عبحيرة قريبة. كنا عم نسبح بالمي الباردة وعم ناكل بوظة على فريز. بس الساعة تلاتة بعد الظهر، السما فجأة صارت كتير معتمة. بلشت هواء قوي يضرب، وسمعنا صوت رعد قوي. بلشت تشتي بغزارة، كرمال هيك ركضنا بسرعة عقهوة صغيرة. استنينا هنيك ساعة كاملة لحتى العاصفة أخيراً وقفت.",
+      "vocabulary": [
+        "extremely",
+        "lake",
+        "thunder",
+        "heavily",
+        "storm"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why did the writer and their friends run to a coffee shop?",
+          "choices": [
+            "To buy strawberry ice cream",
+            "To swim in the cool water",
+            "Because the temperature was thirty-two degrees",
+            "Because it started raining heavily"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "weather",
+      "passage": "We had a very strange summer day in Aleppo yesterday. In the morning, the weather was extremely hot and sunny. The temperature was thirty-two degrees, so my friends and I went to a nearby lake. We were swimming in the cool water and eating strawberry ice cream. However, at three o'clock in the afternoon, the sky suddenly became very dark. Strong winds started blowing, and we heard loud thunder. It started raining heavily, so we ran quickly to a small coffee shop. We waited there for one hour until the storm finally stopped.",
+      "passage_ar": "مر علينا يوم صيف غريب كتير بهامبورغ مبارح. بالصبح، الجو كان شوب كتير ومشمس. درجة الحرارة كانت اتنين وتلاتين، كرمال هيك رحت أنا ورفقاتي عبحيرة قريبة. كنا عم نسبح بالمي الباردة وعم ناكل بوظة على فريز. بس الساعة تلاتة بعد الظهر، السما فجأة صارت كتير معتمة. بلشت هواء قوي يضرب، وسمعنا صوت رعد قوي. بلشت تشتي بغزارة، كرمال هيك ركضنا بسرعة عقهوة صغيرة. استنينا هنيك ساعة كاملة لحتى العاصفة أخيراً وقفت."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "My New Neighbors",
+    "title_ar": "جيراني الجداد",
+    "sort_order": 4,
+    "body_json": {
+      "text": "Two weeks ago, a new family moved into the apartment next to mine. They came from a small town in the south of Syria. The family has four people: the parents, a young son, and a beautiful white cat. Yesterday evening, they knocked on my door and invited me to have tea with them. They were very polite and brought a delicious homemade chocolate cake. We sat in their living room and talked for two hours. They asked me about Syria and my life in Syria. I am very happy because I have wonderful neighbors now.",
+      "text_ar": "قبل أسبوعين، في عيلة جديدة سكنت بالشقة يلي جنبي تماماً. إجو من مدينة صغيرة بجنوب ألمانيا. العيلة فيها أربع أشخاص: الأب والأم، وابن صغير، وبسة بيضا بتجنن. مبارح المسا، دقوا الباب تبعي وعزموني اشرب شاي معهم. كانوا كتير أكابر وجابوا معهم كيكة شوكولا طيبة كتير معمول بالبيت. قعدنا بغرفة القعدة وحكينا لساعتين. سألوني عن سوريا وعن حياتي بألمانيا. أنا كتير مبسوط كرمال صار عندي جيران بياخدوا العقل هلق.",
+      "vocabulary": [
+        "moved",
+        "apartment",
+        "polite",
+        "homemade",
+        "wonderful"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What did the new neighbors bring with them when they met the writer?",
+          "choices": [
+            "A chocolate cake",
+            "A beautiful white cat",
+            "A map of southern Syria",
+            "Some Syrian tea"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "neighborhood",
+      "passage": "Two weeks ago, a new family moved into the apartment next to mine. They came from a small town in the south of Syria. The family has four people: the parents, a young son, and a beautiful white cat. Yesterday evening, they knocked on my door and invited me to have tea with them. They were very polite and brought a delicious homemade chocolate cake. We sat in their living room and talked for two hours. They asked me about Syria and my life in Syria. I am very happy because I have wonderful neighbors now.",
+      "passage_ar": "قبل أسبوعين، في عيلة جديدة سكنت بالشقة يلي جنبي تماماً. إجو من مدينة صغيرة بجنوب ألمانيا. العيلة فيها أربع أشخاص: الأب والأم، وابن صغير، وبسة بيضا بتجنن. مبارح المسا، دقوا الباب تبعي وعزموني اشرب شاي معهم. كانوا كتير أكابر وجابوا معهم كيكة شوكولا طيبة كتير معمول بالبيت. قعدنا بغرفة القعدة وحكينا لساعتين. سألوني عن سوريا وعن حياتي بألمانيا. أنا كتير مبسوط كرمال صار عندي جيران بياخدوا العقل هلق."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "The First Day at Language School",
+    "title_ar": "أول يوم بمدرسة اللغات",
+    "sort_order": 5,
+    "body_json": {
+      "text": "I started my intermediate English course at a modern language institute last Monday. On the first day, I was very nervous because I did not know anyone. I entered the classroom at nine o'clock and met our teacher, Miss Sarah. She welcomed me warmly and gave me a big vocabulary textbook. There are ten other students in my class from different countries like Turkey and Brazil. We practiced speaking about our hobbies in pairs. The lesson was very interesting and active. Now, I feel more confident about learning English and making new international friends.",
+      "text_ar": "بلشت كورس الإنكليزي المتوسط بمعهد لغات حديث الاثنين الماضي. بأول يوم، كنت كتير متوتر كرمال ما كنت اعرف حدا. دخلت عالصف الساعة تسعة والتقيت بمعلمتنا، الآنسة سارة. رحبت فيني بحفاوة وعطتني كتاب مفردات كبير. في عشر طلاب غيري بالصف من بلاد مختلفة متل تركيا والبرازيل. تدربنا عالحكي عن هواياتنا بضهر بعض (كل اتنين سوا). الدرس كان كتير ممتع وفيه حركة. هلق، حاسس حالي واثق أكتر من تعلم الإنكليزي ومن عمل رفقات أجانب جداد.",
+      "vocabulary": [
+        "intermediate",
+        "nervous",
+        "textbook",
+        "different",
+        "confident"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How did the writer feel at the very beginning of the first day?",
+          "choices": [
+            "Confident",
+            "Nervous",
+            "Warm",
+            "Active"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "school",
+      "passage": "I started my intermediate English course at a modern language institute last Monday. On the first day, I was very nervous because I did not know anyone. I entered the classroom at nine o'clock and met our teacher, Miss Sarah. She welcomed me warmly and gave me a big vocabulary textbook. There are ten other students in my class from different countries like Turkey and Brazil. We practiced speaking about our hobbies in pairs. The lesson was very interesting and active. Now, I feel more confident about learning English and making new international friends.",
+      "passage_ar": "بلشت كورس الإنكليزي المتوسط بمعهد لغات حديث الاثنين الماضي. بأول يوم، كنت كتير متوتر كرمال ما كنت اعرف حدا. دخلت عالصف الساعة تسعة والتقيت بمعلمتنا، الآنسة سارة. رحبت فيني بحفاوة وعطتني كتاب مفردات كبير. في عشر طلاب غيري بالصف من بلاد مختلفة متل تركيا والبرازيل. تدربنا عالحكي عن هواياتنا بضهر بعض (كل اتنين سوا). الدرس كان كتير ممتع وفيه حركة. هلق، حاسس حالي واثق أكتر من تعلم الإنكليزي ومن عمل رفقات أجانب جداد."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "A Visit to the Doctor",
+    "title_ar": "زيارة لعند الدكتور",
+    "sort_order": 6,
+    "body_json": {
+      "text": "Yesterday, I woke up with a terrible headache and a bad cough. I decided to visit a local doctor near my house. I called the medical clinic at eight o'clock, and the nurse gave me an appointment at ten. When I arrived, I waited in a quiet room for twenty minutes. The doctor was very kind and professional. He checked my throat and measured my temperature. He said I had a simple winter cold. He wrote a prescription for some medicine and told me to rest in bed for three days.",
+      "text_ar": "مبارح، فقت وعندي وجع راس بيموّت وسعلة قوية. قررت زور دكتور محلي قريب من بيتي. اتصلت بالعيادة الطبية الساعة تمنية، والممرضة عطتني موعد الساعة عشرة. لما وصلت، استنيت بغرفة هادية لعشرين دقيقة. الدكتور كان كتير حباب وبروفيسيونال. فحصلي حلقي وقاسلي حرارتي. قال إنه عندي رشة شتوية بسيطة. كتبلي روشتة لعلاج وشوية أدوية وقلي ارتاح بالتخت لتلات أيام.",
+      "vocabulary": [
+        "terrible",
+        "clinic",
+        "appointment",
+        "throat",
+        "prescription"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How long did the doctor tell the patient to rest in bed?",
+          "choices": [
+            "Twenty minutes",
+            "Eight days",
+            "Three days",
+            "Ten hours"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "daily city life",
+      "passage": "Yesterday, I woke up with a terrible headache and a bad cough. I decided to visit a local doctor near my house. I called the medical clinic at eight o'clock, and the nurse gave me an appointment at ten. When I arrived, I waited in a quiet room for twenty minutes. The doctor was very kind and professional. He checked my throat and measured my temperature. He said I had a simple winter cold. He wrote a prescription for some medicine and told me to rest in bed for three days.",
+      "passage_ar": "مبارح، فقت وعندي وجع راس بيموّت وسعلة قوية. قررت زور دكتور محلي قريب من بيتي. اتصلت بالعيادة الطبية الساعة تمنية، والممرضة عطتني موعد الساعة عشرة. لما وصلت، استنيت بغرفة هادية لعشرين دقيقة. الدكتور كان كتير حباب وبروفيسيونال. فحصلي حلقي وقاسلي حرارتي. قال إنه عندي رشة شتوية بسيطة. كتبلي روشتة لعلاج وشوية أدوية وقلي ارتاح بالتخت لتلات أيام."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Registering my Address",
+    "title_ar": "تسجيل عنوان السكن",
+    "sort_order": 7,
+    "body_json": {
+      "text": "When I arrived in Homs last month, I needed to register my new home address. I went to the local city hall on Wednesday morning. The building was large and modern. I took a waiting number from a small machine near the entrance. My number was forty-five. I sat in the waiting area for thirty minutes. Finally, an officer called my name. I showed him my passport and my rental contract. He typed my information into his computer and stamped my document. The process was fast, and the officer was very helpful.",
+      "text_ar": "لما وصلت عشتوتغارت الشهر الماضي، كان لازم سجل عنوان بيتي الجديد. رحت عبلدية المدينة المحلية يوم الأربعا الصبح. البناية كانت كبيرة وحديثة. أخذت رقم دور من ماكينة صغيرة جنب المدخل. رقمي كان خمسة وأربعين. قعدت بمنطقة الانتظار لثلاثين دقيقة. وأخيراً، الموظف نادى اسمي. فرجيته جواز سفري وعقد الآجار تبعي. كتب معلوماتي عكمبيوتره وختم الورقة تبعي. المعاملة كانت سريعة، والموظف كان كتير متعاون.",
+      "vocabulary": [
+        "register",
+        "entrance",
+        "passport",
+        "contract",
+        "stamped"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Which documents did the writer show to the city hall officer?",
+          "choices": [
+            "A waiting number and a computer",
+            "A map of Homs and a ticket",
+            "A student card and a prescription",
+            "A passport and a rental contract"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "bureaucracy",
+      "passage": "When I arrived in Homs last month, I needed to register my new home address. I went to the local city hall on Wednesday morning. The building was large and modern. I took a waiting number from a small machine near the entrance. My number was forty-five. I sat in the waiting area for thirty minutes. Finally, an officer called my name. I showed him my passport and my rental contract. He typed my information into his computer and stamped my document. The process was fast, and the officer was very helpful.",
+      "passage_ar": "لما وصلت عشتوتغارت الشهر الماضي، كان لازم سجل عنوان بيتي الجديد. رحت عبلدية المدينة المحلية يوم الأربعا الصبح. البناية كانت كبيرة وحديثة. أخذت رقم دور من ماكينة صغيرة جنب المدخل. رقمي كان خمسة وأربعين. قعدت بمنطقة الانتظار لثلاثين دقيقة. وأخيراً، الموظف نادى اسمي. فرجيته جواز سفري وعقد الآجار تبعي. كتب معلوماتي عكمبيوتره وختم الورقة تبعي. المعاملة كانت سريعة، والموظف كان كتير متعاون."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Buying a Used Bicycle",
+    "title_ar": "شرا بسكليت مستعملة",
+    "sort_order": 8,
+    "body_json": {
+      "text": "I needed a bicycle to go to my university every day because transport is expensive. Yesterday, I searched on a famous German website for used items. I found a nice green bicycle for only fifty euros. I called the owner, and he invited me to see it in the evening. The bicycle was in a very good condition, and the brakes worked perfectly. I paid the man fifty euros, and he also gave me a free blue helmet. I rode my new bicycle back to my flat. I am very happy with it.",
+      "text_ar": "كان بدي بسكليت عشان روح عجامعتي كل يوم كرمال المواصلات غالية. مبارح، دورت على موقع ألماني مشهور للأشياء المستعملة. لقيت بسكليت خضرا حلوة بس بخمسين يورو. اتصلت بصاحبها، وعزمني شوفها بالمسا. البسكليت كانت بحالة كتير ممتازة، والفرامل عم تشتغل تمام. دفعت للزلمة خمسين يورو، وهو كمان عطاني خوذة زرقا ببلاش. ركبت بسكليتي الجديدة ورجعت ع شقتي. أنا كتير مبسوط فيها.",
+      "vocabulary": [
+        "expensive",
+        "website",
+        "condition",
+        "brakes",
+        "helmet"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What free item did the seller give along with the bicycle?",
+          "choices": [
+            "A blue helmet",
+            "A green bag",
+            "A university map",
+            "A modern computer"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "shopping",
+      "passage": "I needed a bicycle to go to my university every day because transport is expensive. Yesterday, I searched on a famous German website for used items. I found a nice green bicycle for only fifty euros. I called the owner, and he invited me to see it in the evening. The bicycle was in a very good condition, and the brakes worked perfectly. I paid the man fifty euros, and he also gave me a free blue helmet. I rode my new bicycle back to my flat. I am very happy with it.",
+      "passage_ar": "كان بدي بسكليت عشان روح عجامعتي كل يوم كرمال المواصلات غالية. مبارح، دورت على موقع ألماني مشهور للأشياء المستعملة. لقيت بسكليت خضرا حلوة بس بخمسين يورو. اتصلت بصاحبها، وعزمني شوفها بالمسا. البسكليت كانت بحالة كتير ممتازة، والفرامل عم تشتغل تمام. دفعت للزلمة خمسين يورو، وهو كمان عطاني خوذة زرقا ببلاش. ركبت بسكليتي الجديدة ورجعت ع شقتي. أنا كتير مبسوط فيها."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "A2",
+    "content_type": "lesson",
+    "title": "Lost in the Subway",
+    "title_ar": "ضيعة بالمترو",
+    "sort_order": 9,
+    "body_json": {
+      "text": "Last night, I had a confusing experience in the Cologne subway system. I wanted to meet my friends at a famous restaurant downtown. I took the underground train line three at seven o'clock. However, I accidentally looked at the wrong map and got off at the wrong station. The station was very dark and unfamiliar to me. I did not know which way to go. Fortunately, I saw a friendly transport worker. I asked him for help in English. He explained the correct route clearly, and I reached the restaurant successfully.",
+      "text_ar": "مبارح بالليل، صار معي قصة بتبكّك بنظام مترو الأنفاق بكولونيا. كان بدي التقي برفقاتي بمطعم مشهور بوسط البلد. ركبت خط المترو رقم تلاتة الساعة سبعة. بس بالغلط تطلعت عالخريطة الغلط ونزلت بالمحطة الغلط. المحطة كانت كتير عتمة وما بعرفها بنوب. ما كنت اعرف بأي اتجاه لازم اروح. لحسن الحظ، شفت موظف مواصلات ودود. سألته عالمساعدة بالإنكليزي. شرحلي الطريق الصح بوضوح، ووصلت عالمطعم بنجاح.",
+      "vocabulary": [
+        "confusing",
+        "accidentally",
+        "unfamiliar",
+        "fortunately",
+        "route"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why did the writer get off at the wrong subway station?",
+          "choices": [
+            "Because the restaurant was closed",
+            "Because they looked at the wrong map",
+            "Because the train broke down",
+            "Because they were talking to a worker"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "transport",
+      "passage": "Last night, I had a confusing experience in the Cologne subway system. I wanted to meet my friends at a famous restaurant downtown. I took the underground train line three at seven o'clock. However, I accidentally looked at the wrong map and got off at the wrong station. The station was very dark and unfamiliar to me. I did not know which way to go. Fortunately, I saw a friendly transport worker. I asked him for help in English. He explained the correct route clearly, and I reached the restaurant successfully.",
+      "passage_ar": "مبارح بالليل، صار معي قصة بتبكّك بنظام مترو الأنفاق بكولونيا. كان بدي التقي برفقاتي بمطعم مشهور بوسط البلد. ركبت خط المترو رقم تلاتة الساعة سبعة. بس بالغلط تطلعت عالخريطة الغلط ونزلت بالمحطة الغلط. المحطة كانت كتير عتمة وما بعرفها بنوب. ما كنت اعرف بأي اتجاه لازم اروح. لحسن الحظ، شفت موظف مواصلات ودود. سألته عالمساعدة بالإنكليزي. شرحلي الطريق الصح بوضوح، ووصلت عالمطعم بنجاح."
+    }
+  }
+]

@@ -1,0 +1,42 @@
+grammar_id: gram_will_future
+display_code: G024
+title: Will for future decisions and offers
+cefr_level: A2
+order: 240
+prerequisites:
+- gram_going_to
+unlock_targets: []
+grammar_targets:
+- will
+- won't
+- I'll
+- shall
+teaching_notes: Model the target in offers of help, weather predictions; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- I will to help you.
+- I going to help you. (when spontaneous offer is needed)
+examples:
+- I'll help you with the bags.
+- It will be sunny tomorrow.
+learning_objectives:
+- Use will for spontaneous decisions, offers, and predictions
+- Contrast lightly with going to for plans
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- offers of help
+- weather predictions
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Model the target in offers of help, weather predictions; check comprehension before guided
+  production, then recycle it in a new context.

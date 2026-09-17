@@ -1,0 +1,39 @@
+grammar_id: gram_used_to
+display_code: G029
+title: Used to (past habits)
+cefr_level: B1
+order: 290
+prerequisites:
+- gram_past_simple
+unlock_targets: []
+grammar_targets:
+- used to
+- didn't use to
+teaching_notes: Model the target in childhood habits, life changes; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- I use to walk to school.
+- I didn't used to like coffee.
+examples:
+- I used to walk to school.
+- She didn't use to like coffee.
+learning_objectives:
+- Contrast past habits with present using used to
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- childhood habits
+- life changes
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in childhood habits, life changes; check comprehension before guided production,
+  then recycle it in a new context.

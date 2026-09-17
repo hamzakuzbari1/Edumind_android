@@ -219,6 +219,12 @@ private fun ProfileContent(
                         modifier = Modifier.padding(top = Spacing.sm),
                     )
                     Text(
+                        text = data.email,
+                        style = EduTheme.typography.caption,
+                        color = colors.textSecondary,
+                        modifier = Modifier.padding(top = Spacing.xxs),
+                    )
+                    Text(
                         text = gradeLabel(data.profile.grade),
                         style = EduTheme.typography.caption,
                         color = colors.textSecondary,

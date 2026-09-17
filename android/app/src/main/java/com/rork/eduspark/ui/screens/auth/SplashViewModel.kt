@@ -12,21 +12,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * A-01 · Splash & Language Gate.
  *
  * ── The one thing to understand about this screen ─────────────────────────
  * The Screen Inventory describes the returning-launch path as "logo + silent token
- * refresh". **There is no token refresh.** The Source Audit is explicit: the platform has
- * no `/auth/refresh` endpoint, and a 401 always means sign in again.
- *
- * So this ViewModel does the only honest equivalent: it reads the session that is already
- * stored, gives it a hard ~600ms budget, and routes. A stored session either still works
- * or the user logs in again — there is no silent-renewal path to model, and pretending
- * otherwise would bake a non-existent capability into the first screen of the app.
+ * refresh". The repository now resolves encrypted tokens through /me and performs one
+ * rotation when the access token has expired. Pending remains visible until that completes.
  */
 sealed interface SplashDecision {
     /** Still resolving — the branded launch frame stays up. */
@@ -95,15 +90,19 @@ class SplashViewModel(
     }
 
     private suspend fun afterLanguageGate(): SplashDecision {
-        // No refresh call — we read what is already stored and trust it or fall back to the
-        // public role landing. The landing now carries the product value message, so logged-out
-        // launches should not stop on the older value carousel first.
-        val session = authRepository.session.first()
-        return session?.let { SplashDecision.Home(it) } ?: SplashDecision.Login
+        val restored = withTimeoutOrNull(RESTORE_TIMEOUT_MS) {
+            authRepository.restoreSession()
+        } ?: return SplashDecision.Login
+        return when (restored) {
+            is com.rork.eduspark.core.result.AppResult.Success ->
+                restored.data?.let { SplashDecision.Home(it) } ?: SplashDecision.Login
+            is com.rork.eduspark.core.result.AppResult.Failure -> SplashDecision.Login
+        }
     }
 
     private companion object {
-        /** "~600ms max" from the Screen Inventory, used as the brand beat, not a fake delay. */
-        const val MIN_BRAND_BEAT_MS = 600L
+        /** Launch logo animation window (1.2–2.0s). Session restore still runs concurrently. */
+        const val MIN_BRAND_BEAT_MS = 1600L
+        const val RESTORE_TIMEOUT_MS = 4_000L
     }
 }

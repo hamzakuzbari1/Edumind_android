@@ -1,0 +1,43 @@
+grammar_id: gram_prepositions_place
+display_code: G012
+title: Prepositions of place
+cefr_level: A1
+order: 120
+prerequisites:
+- gram_there_is_are
+unlock_targets: []
+grammar_targets:
+- in
+- 'on'
+- under
+- next to
+- between
+teaching_notes: Model the target in describing a room, map landmarks; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- The bag is in the table. (wrong for surface)
+- She is next the door.
+examples:
+- The bag is under the table.
+- She is next to the door.
+learning_objectives:
+- Locate objects and people with in / on / under / next to / between
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- listening
+- speaking
+- vocabulary
+recommended_contexts:
+- describing a room
+- map landmarks
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in describing a room, map landmarks; check comprehension before guided production,
+  then recycle it in a new context.

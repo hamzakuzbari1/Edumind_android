@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "Introducing Yourself to Your Classmate",
+    "title_ar": "تعريف عن حالك لرفيقك بالصف",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Write a message to a new classmate. Tell them your name, your country, your age, and where you live now in Syria.",
+      "prompt_ar": "اكتب رسالة لرفيقك الجديد بالصف. قله شو اسمك، من أي بلد أنت، قديش عمرك، ووين عايش هلق بألمانيا.",
+      "example_answer": "Hello! My name is Rami. I am from Syria. I am twenty-six years old. Now, I live in Damascus, Syria. I am a student here. Nice to meet you!",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "self-introduction"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "Describing Your Family",
+    "title_ar": "عم توصف عيلتك",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Write about your family. Talk about your parents, your brothers, or your sisters. Where do they live?",
+      "prompt_ar": "اكتب عن عيلتك. احكي عن أبوك وأمك، أو أخواتك الشباب والبنات. وين هنن عايشين؟",
+      "example_answer": "My family is nice. I have a father and a mother. I have one brother. His name is Ali. They live in Damascus, Syria. I love my family very much.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "family"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "My New Apartment in Aleppo",
+    "title_ar": "شقتي الجديدة بهامبورغ",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Write about your new apartment in Syria. Describe your room and what color it is. Do you like it?",
+      "prompt_ar": "اكتب عن شقتك الجديدة بألمانيا. اوصف غرفتك وشو لونها. عاجبتك؟",
+      "example_answer": "I have a new apartment in Aleppo. My room is small and clean. The walls are white. I have a big brown desk. I like my new home every day.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "home"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "My Morning Routine",
+    "title_ar": "روتيني الصباحي",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Write about what you do every morning. What time do you wake up? What do you eat or drink?",
+      "prompt_ar": "اكتب شو عم تعمل كل يوم الصبح. بأي ساعة بتفيق؟ شو بتاكل أو بتشرب؟",
+      "example_answer": "Every morning, I wake up at seven o'clock. I drink hot black tea. I eat warm bread with cheese. Then, I go to my language school. I walk there.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "daily routine"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "Shopping for Dinner",
+    "title_ar": "عم اتسوق للعشا",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Write about your trip to the supermarket. What food do you need to buy for dinner tonight? How much does it cost?",
+      "prompt_ar": "اكتب عن مشوارك على السوبرماركت. شو بدك تشتري أكل للعشا الليلة؟ قديش حقه؟",
+      "example_answer": "Today, I go to the big supermarket. I buy fresh chicken and yellow rice. I buy five red tomatoes. The food costs ten euros. I cook dinner for my friends.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "food"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "Taking the Bus to School",
+    "title_ar": "ركوب الباص عالمدرسة",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Write about how you travel to your language school. What color is the bus or train? Is the ticket cheap?",
+      "prompt_ar": "اكتب كيف عم تروح عمدرستك تبع اللغة. شو لون الباص أو المترو؟ هل التكت رخيص؟",
+      "example_answer": "Every morning, I take the blue bus to school. The bus is always on time. The ticket costs three euros. It is very cheap. I love public transport here.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "public transport"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "My German Class in Numbers",
+    "title_ar": "صف الألماني تبعي بالأرقام",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Write about the numbers in your classroom. How many students are there? How many men, women, and books do you see?",
+      "prompt_ar": "اكتب عن الأرقام بصفك. كم طالب وطالبة فيه؟ كم زلمة ومرّة وكم كتاب شايف؟",
+      "example_answer": "My class is big. We have twelve international students. There are four men and eight women. We have fifteen new books on the tables. Our class starts at nine.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "numbers"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "A Cold Winter Day",
+    "title_ar": "يوم شتي بارد",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Write about the weather today in your city. Is it cold or hot? What clothes do you wear outside?",
+      "prompt_ar": "اكتب عن الجو اليوم بمدينتك. هل هو بارد ولا شوب؟ شو عم تلبس ثياب برّا؟",
+      "example_answer": "The winter here is very cold. The sky is dark grey today. It is raining outside. I wear my heavy black coat and boots. I carry a yellow umbrella.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "weather"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "My Favorite Cafe",
+    "title_ar": "قهوتي المفضلة",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Write about your favorite cafe in the city. Where is it? What do you order there and who do you talk to?",
+      "prompt_ar": "اكتب عن قهوتك المفضلة بالمدينة. وين صايرة؟ شو عم تطلب هنيك ومع مين عم تحكي؟",
+      "example_answer": "I go to a small cafe near my flat. It is very beautiful. I order hot coffee and a sweet cake. I talk to my Syrian friend, Ahmad.",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "daily city life"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "A1",
+    "content_type": "writing_prompt",
+    "title": "Email to a New Flatmate",
+    "title_ar": "إيميل لرفيق سكن جديد",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Write a short email to your new flatmate before you move in. Greet them, state your age, your hobbies, and what language you speak.",
+      "prompt_ar": "اكتب إيميل قصير لرفيق سكنك الجديد قبل ما تنقل. سلم عليه، وقله قديش عمرك، شو هواياتك، وشو اللغة يلي بتحكيها.",
+      "example_answer": "Hello Jonas! I am your new flatmate. I am twenty-five years old. I speak Arabic and English. I like football and hot coffee. See you on Sunday morning!",
+      "min_words": 30,
+      "min_sentences": 3,
+      "topic": "self-introduction"
+    }
+  }
+]

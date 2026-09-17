@@ -80,7 +80,10 @@ class AchievementViewModel(
                                 AchievementScreenData(
                                     gamification = gamification,
                                     achievements = achievementsResult.data,
-                                    longestStreakDays = longestTrueRun(gamification.streakHistory).coerceAtLeast(gamification.streakDays),
+                                    longestStreakDays = gamification.longestStreakDays
+                                        .takeIf { it > 0 }
+                                        ?: longestTrueRun(gamification.streakHistory)
+                                            .coerceAtLeast(gamification.streakDays),
                                     recentXp = recentXp(gamification),
                                     xpRules = xpRules(),
                                 )

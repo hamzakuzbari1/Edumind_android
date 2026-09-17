@@ -1,5 +1,11 @@
 package com.rork.eduspark.ui.screens.teacher
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.OpenableColumns
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +33,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +49,7 @@ import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
 import com.rork.eduspark.data.model.LessonUploadStage
 import com.rork.eduspark.data.model.TeacherLessonUploadDraft
+import com.rork.eduspark.data.repository.TeacherLessonSelectedFile
 import com.rork.eduspark.ui.components.action.EduIconButton
 import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
@@ -66,9 +75,8 @@ import org.koin.core.parameter.parametersOf
  * TC-05 · Lesson Upload — Teacher content flow (PDF pages 07–09).
  * ══════════════════════════════════════════════════════════════════════════
  *
- * MOCK interaction only — no real file picker, no storage permission, no backend upload
- * (see [TeacherLessonUploadViewModel]). Three local steps share one ViewModel and the same
- * [TeacherRepository.startLessonUpload] pipeline; they are not separate destinations.
+ * Teacher content flow with real Android document picking for local lesson assets. Three local
+ * steps share one ViewModel; they are not separate destinations.
  */
 @Composable
 fun TeacherLessonUploadScreen(
@@ -79,6 +87,20 @@ fun TeacherLessonUploadScreen(
     viewModel: TeacherLessonUploadViewModel = koinViewModel(parameters = { parametersOf(courseId) }),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val sourceKind by rememberUpdatedState(state.form.sourceKind)
+    val pickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) {
+            viewModel.pickerCancelled()
+        } else {
+            val selectedFile = readSelectedLessonFile(context, uri, sourceKind)
+            if (selectedFile == null) {
+                viewModel.rejectSelectedFile()
+            } else {
+                viewModel.selectRealFile(selectedFile)
+            }
+        }
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -117,9 +139,12 @@ fun TeacherLessonUploadScreen(
                         step = state.step,
                         maxOrder = data.maxOrder,
                         showValidationError = state.showValidationError,
+                        uploadError = state.uploadError,
                         onSelectSourceKind = viewModel::selectSourceKind,
-                        onSelectMockFile = viewModel::selectMockFile,
-                        onRemoveMockFile = viewModel::removeMockFile,
+                        onChooseFile = {
+                            pickerLauncher.launch(lessonUploadAcceptedMimeTypes(state.form.sourceKind))
+                        },
+                        onRemoveSelectedFile = viewModel::removeSelectedFile,
                         onUpdateVideoLink = viewModel::updateVideoLink,
                         onUpdateTitle = viewModel::updateTitle,
                         onUpdateOrder = viewModel::updateOrder,
@@ -128,6 +153,10 @@ fun TeacherLessonUploadScreen(
                     UploadActionBar(
                         step = state.step,
                         isStartingUpload = state.isStartingUpload,
+                        enabled = state.primaryActionEnabled,
+                        blockedReason = state.primaryActionBlockedReason
+                            ?.takeIf { !state.primaryActionEnabled || state.showValidationError },
+                        uploadError = state.uploadError?.takeIf { state.step >= 3 },
                         onAction = viewModel::goNext,
                     )
                 }
@@ -153,9 +182,10 @@ private fun UploadWizardContent(
     step: Int,
     maxOrder: Int,
     showValidationError: Boolean,
+    uploadError: String?,
     onSelectSourceKind: (TeacherLessonSourceKind) -> Unit,
-    onSelectMockFile: () -> Unit,
-    onRemoveMockFile: () -> Unit,
+    onChooseFile: () -> Unit,
+    onRemoveSelectedFile: () -> Unit,
     onUpdateVideoLink: (String) -> Unit,
     onUpdateTitle: (String) -> Unit,
     onUpdateOrder: (Int) -> Unit,
@@ -200,12 +230,17 @@ private fun UploadWizardContent(
             2 -> ContentStep(
                 form = form,
                 showValidationError = showValidationError,
+                uploadError = uploadError,
                 onSelectSourceKind = onSelectSourceKind,
-                onSelectMockFile = onSelectMockFile,
-                onRemoveMockFile = onRemoveMockFile,
+                onChooseFile = onChooseFile,
+                onRemoveSelectedFile = onRemoveSelectedFile,
                 onUpdateVideoLink = onUpdateVideoLink,
             )
-            else -> ReviewStep(form = form)
+            else -> ReviewStep(
+                form = form,
+                showValidationError = showValidationError,
+                uploadError = uploadError,
+            )
         }
 
         Spacer(modifier = Modifier.height(Spacing.xl))
@@ -238,9 +273,10 @@ private fun DetailsStep(
 private fun ContentStep(
     form: TeacherLessonUploadFormState,
     showValidationError: Boolean,
+    uploadError: String?,
     onSelectSourceKind: (TeacherLessonSourceKind) -> Unit,
-    onSelectMockFile: () -> Unit,
-    onRemoveMockFile: () -> Unit,
+    onChooseFile: () -> Unit,
+    onRemoveSelectedFile: () -> Unit,
     onUpdateVideoLink: (String) -> Unit,
 ) {
     val colors = EduTheme.colors
@@ -248,15 +284,28 @@ private fun ContentStep(
 
     when (form.sourceKind) {
         TeacherLessonSourceKind.Video -> VideoSourceSurface(
-            fileName = form.mockFileName,
-            fileBytes = form.mockFileBytes,
-            onSelect = onSelectMockFile,
-            onRemove = onRemoveMockFile,
+            fileName = form.selectedFile?.filename,
+            fileBytes = form.selectedFile?.sizeBytes ?: 0L,
+            onSelect = onChooseFile,
+            onRemove = onRemoveSelectedFile,
         )
         TeacherLessonSourceKind.Pdf -> PdfSourceSurface(
-            fileName = form.mockFileName,
-            fileBytes = form.mockFileBytes,
-            onSelect = onSelectMockFile,
+            fileName = form.selectedFile?.filename,
+            fileBytes = form.selectedFile?.sizeBytes ?: 0L,
+            onSelect = onChooseFile,
+            onRemove = onRemoveSelectedFile,
+        )
+        TeacherLessonSourceKind.Homework -> PdfSourceSurface(
+            fileName = form.selectedFile?.filename,
+            fileBytes = form.selectedFile?.sizeBytes ?: 0L,
+            onSelect = onChooseFile,
+            onRemove = onRemoveSelectedFile,
+        )
+        TeacherLessonSourceKind.Audio -> PdfSourceSurface(
+            fileName = form.selectedFile?.filename,
+            fileBytes = form.selectedFile?.sizeBytes ?: 0L,
+            onSelect = onChooseFile,
+            onRemove = onRemoveSelectedFile,
         )
         TeacherLessonSourceKind.VideoLink -> VideoLinkSurface(
             link = form.videoLink,
@@ -265,9 +314,17 @@ private fun ContentStep(
         )
     }
 
-    if (showValidationError && form.sourceKind != TeacherLessonSourceKind.VideoLink && form.mockFileName == null) {
+    if (showValidationError && form.sourceKind != TeacherLessonSourceKind.VideoLink && form.selectedFile == null) {
         Text(
             text = stringResource(R.string.tc05_file_required),
+            style = EduTheme.typography.caption,
+            color = colors.danger,
+            modifier = Modifier.padding(top = Spacing.xxs),
+        )
+    }
+    if (uploadError != null) {
+        Text(
+            text = uploadError,
             style = EduTheme.typography.caption,
             color = colors.danger,
             modifier = Modifier.padding(top = Spacing.xxs),
@@ -280,36 +337,56 @@ private fun SourceKindSelector(
     selected: TeacherLessonSourceKind,
     onSelect: (TeacherLessonSourceKind) -> Unit,
 ) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+    Column(
+        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = Spacing.sm),
     ) {
-        SourceKindOption(
-            kind = TeacherLessonSourceKind.Video,
-            icon = Icons.Filled.PlayArrow,
-            label = stringResource(R.string.tc05_source_video),
-            selected = selected == TeacherLessonSourceKind.Video,
-            onSelect = onSelect,
-            modifier = Modifier.weight(1f),
-        )
-        SourceKindOption(
-            kind = TeacherLessonSourceKind.VideoLink,
-            icon = Icons.Filled.Link,
-            label = stringResource(R.string.tc05_source_link),
-            selected = selected == TeacherLessonSourceKind.VideoLink,
-            onSelect = onSelect,
-            modifier = Modifier.weight(1f),
-        )
-        SourceKindOption(
-            kind = TeacherLessonSourceKind.Pdf,
-            icon = Icons.Filled.Description,
-            label = stringResource(R.string.tc05_source_pdf),
-            selected = selected == TeacherLessonSourceKind.Pdf,
-            onSelect = onSelect,
-            modifier = Modifier.weight(1f),
-        )
+        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.xs), modifier = Modifier.fillMaxWidth()) {
+            SourceKindOption(
+                kind = TeacherLessonSourceKind.Video,
+                icon = Icons.Filled.PlayArrow,
+                label = stringResource(R.string.tc05_source_video),
+                selected = selected == TeacherLessonSourceKind.Video,
+                onSelect = onSelect,
+                modifier = Modifier.weight(1f),
+            )
+            SourceKindOption(
+                kind = TeacherLessonSourceKind.VideoLink,
+                icon = Icons.Filled.Link,
+                label = stringResource(R.string.tc05_source_link),
+                selected = selected == TeacherLessonSourceKind.VideoLink,
+                onSelect = onSelect,
+                modifier = Modifier.weight(1f),
+            )
+            SourceKindOption(
+                kind = TeacherLessonSourceKind.Pdf,
+                icon = Icons.Filled.Description,
+                label = stringResource(R.string.tc05_source_pdf),
+                selected = selected == TeacherLessonSourceKind.Pdf,
+                onSelect = onSelect,
+                modifier = Modifier.weight(1f),
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.xs), modifier = Modifier.fillMaxWidth()) {
+            SourceKindOption(
+                kind = TeacherLessonSourceKind.Homework,
+                icon = Icons.Filled.Description,
+                label = stringResource(R.string.tc05_source_homework),
+                selected = selected == TeacherLessonSourceKind.Homework,
+                onSelect = onSelect,
+                modifier = Modifier.weight(1f),
+            )
+            SourceKindOption(
+                kind = TeacherLessonSourceKind.Audio,
+                icon = Icons.Filled.PlayArrow,
+                label = stringResource(R.string.tc05_source_audio),
+                selected = selected == TeacherLessonSourceKind.Audio,
+                onSelect = onSelect,
+                modifier = Modifier.weight(1f),
+            )
+        }
     }
 }
 
@@ -409,6 +486,7 @@ private fun PdfSourceSurface(
     fileName: String?,
     fileBytes: Long,
     onSelect: () -> Unit,
+    onRemove: () -> Unit,
 ) {
     val colors = EduTheme.colors
     if (fileName == null) {
@@ -439,11 +517,18 @@ private fun PdfSourceSurface(
                 color = colors.textMuted,
                 modifier = Modifier.padding(top = Spacing.xxs, bottom = Spacing.sm),
             )
-            SecondaryButton(
-                text = stringResource(R.string.tc05_replace_file),
-                onClick = onSelect,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            Row(horizontalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+                SecondaryButton(
+                    text = stringResource(R.string.tc05_replace_file),
+                    onClick = onSelect,
+                    modifier = Modifier.weight(1f),
+                )
+                GhostButton(
+                    text = stringResource(R.string.tc05_delete_file),
+                    onClick = onRemove,
+                    modifier = Modifier.weight(1f),
+                )
+            }
         }
     }
 }
@@ -466,23 +551,35 @@ private fun VideoLinkSurface(
 }
 
 @Composable
-private fun ReviewStep(form: TeacherLessonUploadFormState) {
+private fun ReviewStep(
+    form: TeacherLessonUploadFormState,
+    showValidationError: Boolean,
+    uploadError: String?,
+) {
     val colors = EduTheme.colors
+    val sourceReady = hasTeacherSource(form)
     val sourceTitle = when (form.sourceKind) {
         TeacherLessonSourceKind.Video -> stringResource(R.string.tc05_teacher_video)
         TeacherLessonSourceKind.Pdf -> stringResource(R.string.tc05_teacher_pdf)
+        TeacherLessonSourceKind.Homework -> stringResource(R.string.tc05_teacher_homework)
+        TeacherLessonSourceKind.Audio -> stringResource(R.string.tc05_teacher_audio)
         TeacherLessonSourceKind.VideoLink -> stringResource(R.string.tc05_teacher_link)
     }
     val sourceSummary = when (form.sourceKind) {
         TeacherLessonSourceKind.VideoLink -> form.videoLink.trim()
-        TeacherLessonSourceKind.Video, TeacherLessonSourceKind.Pdf ->
-            listOfNotNull(form.mockFileName, form.mockFileBytes.takeIf { it > 0L }?.let { megabytesLabel(it) })
+        TeacherLessonSourceKind.Video,
+        TeacherLessonSourceKind.Pdf,
+        TeacherLessonSourceKind.Homework,
+        TeacherLessonSourceKind.Audio ->
+            listOfNotNull(form.selectedFile?.filename, form.selectedFile?.sizeBytes?.takeIf { it > 0L }?.let { megabytesLabel(it) })
                 .joinToString(" · ")
     }
     val sourceIcon = when (form.sourceKind) {
-        TeacherLessonSourceKind.Pdf -> Icons.Filled.Description
+        TeacherLessonSourceKind.Pdf,
+        TeacherLessonSourceKind.Homework -> Icons.Filled.Description
         TeacherLessonSourceKind.VideoLink -> Icons.Filled.Link
-        TeacherLessonSourceKind.Video -> Icons.Filled.PlayArrow
+        TeacherLessonSourceKind.Video,
+        TeacherLessonSourceKind.Audio -> Icons.Filled.PlayArrow
     }
 
     EduCard(modifier = Modifier.padding(bottom = Spacing.sm)) {
@@ -495,11 +592,32 @@ private fun ReviewStep(form: TeacherLessonUploadFormState) {
                 }
             }
             StatusPill(
-                label = stringResource(R.string.tc05_selected_ready),
-                contentColor = colors.success,
-                containerColor = colors.success.copy(alpha = 0.14f),
+                label = if (sourceReady) {
+                    stringResource(R.string.tc05_selected_ready)
+                } else {
+                    stringResource(R.string.tc05_file_required)
+                },
+                contentColor = if (sourceReady) colors.success else colors.warning,
+                containerColor = if (sourceReady) colors.success.copy(alpha = 0.14f) else colors.highlightContainer,
             )
         }
+    }
+
+    if (showValidationError && !sourceReady) {
+        Text(
+            text = stringResource(R.string.tc05_file_required),
+            style = EduTheme.typography.caption,
+            color = colors.danger,
+            modifier = Modifier.padding(bottom = Spacing.sm),
+        )
+    }
+    if (uploadError != null) {
+        Text(
+            text = uploadError,
+            style = EduTheme.typography.caption,
+            color = colors.danger,
+            modifier = Modifier.padding(bottom = Spacing.sm),
+        )
     }
 
     Text(
@@ -569,18 +687,37 @@ private fun OrderStepper(order: Int, maxOrder: Int, onUpdateOrder: (Int) -> Unit
 private fun UploadActionBar(
     step: Int,
     isStartingUpload: Boolean,
+    enabled: Boolean,
+    blockedReason: String?,
+    uploadError: String?,
     onAction: () -> Unit,
 ) {
     val colors = EduTheme.colors
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.surface)
             .padding(Spacing.gutter),
     ) {
+        if (blockedReason != null) {
+            Text(
+                text = blockedReason,
+                style = EduTheme.typography.caption,
+                color = colors.danger,
+                modifier = Modifier.padding(bottom = Spacing.xs),
+            )
+        } else if (uploadError != null) {
+            Text(
+                text = uploadError,
+                style = EduTheme.typography.caption,
+                color = colors.danger,
+                modifier = Modifier.padding(bottom = Spacing.xs),
+            )
+        }
         PrimaryButton(
             text = if (step >= 3) stringResource(R.string.tc05_save_lesson) else stringResource(R.string.tc05_next),
             onClick = onAction,
+            enabled = enabled,
             isLoading = isStartingUpload,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -656,4 +793,103 @@ private fun TeacherLessonUploadSkeleton() {
         SkeletonCard()
         SkeletonCard()
     }
+}
+
+/**
+ * DocumentsUI filters by declared MIME. Emulator Downloads often indexes copied PDFs as
+ * `application/octet-stream`, so a PDF-only filter shows the file but refuses selection.
+ */
+internal fun lessonUploadAcceptedMimeTypes(kind: TeacherLessonSourceKind): Array<String> = when (kind) {
+    TeacherLessonSourceKind.Video -> arrayOf("video/*")
+    TeacherLessonSourceKind.Pdf -> arrayOf(
+        "application/pdf",
+        "application/octet-stream",
+    )
+    TeacherLessonSourceKind.Homework -> arrayOf(
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "text/*",
+        "application/octet-stream",
+    )
+    TeacherLessonSourceKind.Audio -> arrayOf("audio/*")
+    TeacherLessonSourceKind.VideoLink -> arrayOf("*/*")
+}
+
+private fun readSelectedLessonFile(
+    context: Context,
+    uri: Uri,
+    kind: TeacherLessonSourceKind,
+): TeacherLessonSelectedFile? = runCatching {
+    // OpenDocument grants temporary read access. Persistable permission is best-effort only —
+    // DocumentsUI often does not grant FLAG_GRANT_PERSISTABLE_URI_PERMISSION.
+    runCatching {
+        context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() } ?: return null
+    if (bytes.isEmpty()) return null
+    val (name, declaredSize) = context.openableNameAndSize(uri)
+    val declaredMime = context.contentResolver.getType(uri)
+    TeacherLessonSelectedFile(
+        uriString = uri.toString(),
+        filename = name ?: kind.fallbackFilename(),
+        mimeType = resolveLessonUploadMimeType(kind, declaredMime, name),
+        sizeBytes = declaredSize?.takeIf { it > 0L } ?: bytes.size.toLong(),
+        bytes = bytes,
+    )
+}.getOrNull()
+
+private fun Context.openableNameAndSize(uri: Uri): Pair<String?, Long?> {
+    contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null)?.use { cursor ->
+        if (cursor.moveToFirst()) {
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+            val name = nameIndex.takeIf { it >= 0 }?.let(cursor::getString)
+            val size = sizeIndex.takeIf { it >= 0 }?.let(cursor::getLong)
+            return name to size
+        }
+    }
+    return null to null
+}
+
+internal fun resolveLessonUploadMimeType(
+    kind: TeacherLessonSourceKind,
+    declaredMime: String?,
+    filename: String?,
+): String {
+    val mime = declaredMime?.trim()?.lowercase().orEmpty()
+    if (mime.isNotEmpty() && mime != "application/octet-stream") return mime
+    val lowerName = filename?.lowercase().orEmpty()
+    return when {
+        kind == TeacherLessonSourceKind.Pdf || lowerName.endsWith(".pdf") -> "application/pdf"
+        kind == TeacherLessonSourceKind.Video || lowerName.endsWith(".mp4") || lowerName.endsWith(".mov") -> "video/mp4"
+        kind == TeacherLessonSourceKind.Audio || lowerName.endsWith(".mp3") || lowerName.endsWith(".m4a") ||
+            lowerName.endsWith(".wav") -> "audio/mpeg"
+        lowerName.endsWith(".doc") -> "application/msword"
+        lowerName.endsWith(".docx") ->
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        lowerName.endsWith(".ppt") -> "application/vnd.ms-powerpoint"
+        lowerName.endsWith(".pptx") ->
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        lowerName.endsWith(".txt") -> "text/plain"
+        else -> kind.fallbackMimeType()
+    }
+}
+
+private fun TeacherLessonSourceKind.fallbackMimeType(): String = when (this) {
+    TeacherLessonSourceKind.Video -> "video/mp4"
+    TeacherLessonSourceKind.Pdf,
+    TeacherLessonSourceKind.Homework -> "application/pdf"
+    TeacherLessonSourceKind.Audio -> "audio/mpeg"
+    TeacherLessonSourceKind.VideoLink -> "application/octet-stream"
+}
+
+private fun TeacherLessonSourceKind.fallbackFilename(): String = when (this) {
+    TeacherLessonSourceKind.Video -> "lesson-video.mp4"
+    TeacherLessonSourceKind.Pdf -> "lesson.pdf"
+    TeacherLessonSourceKind.Homework -> "homework.pdf"
+    TeacherLessonSourceKind.Audio -> "lesson-audio.mp3"
+    TeacherLessonSourceKind.VideoLink -> "lesson-file"
 }

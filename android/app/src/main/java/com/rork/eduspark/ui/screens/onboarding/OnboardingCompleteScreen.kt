@@ -53,10 +53,8 @@ import com.rork.eduspark.ui.theme.Spacing
  * purpose. `+50 XP` is one of the design system's sanctioned `barq` moments (celebration),
  * built from the existing [StatusPill] rather than a new badge component.
  *
- * The primary action calls [OnboardingViewModel.completeOnboarding], which is this slice's
- * only reach into [com.rork.eduspark.data.repository.AuthRepository] — grade, subjects and
- * teacher/personalize choices are read back here for the student to confirm, not sent
- * anywhere; only the `onboarding_complete` flag itself is written (mock, in-memory).
+ * The primary action calls the canonical completion endpoint and only leaves this graph
+ * after /auth/me confirms that onboarding is complete.
  */
 @Composable
 fun OnboardingCompleteScreen(
@@ -76,6 +74,7 @@ fun OnboardingCompleteScreen(
         viewModel.events.collect { event ->
             when (event) {
                 OnboardingEvent.Completed -> onStart()
+                else -> Unit
             }
         }
     }
@@ -193,7 +192,7 @@ private fun SummaryCard(
 
         SummaryRow(R.string.so05_field_grade, gradeSummary(state.grade, state.track), onChangeGrade)
         EduDivider()
-        SummaryRow(R.string.so05_field_subjects, subjectsSummary(state.subjectIds), onChangeSubjects)
+        SummaryRow(R.string.so05_field_subjects, subjectsSummary(state), onChangeSubjects)
         EduDivider()
         SummaryRow(R.string.so05_field_teachers, teachersSummary(state), onChangeTeachers)
         EduDivider()
@@ -241,9 +240,9 @@ private fun gradeSummary(grade: Grade?, track: Track?): String {
 }
 
 @Composable
-private fun subjectsSummary(subjectIds: Set<String>): String {
-    val labels = subjectIds.mapNotNull { OnboardingCatalog.byId(it) }.map { stringResource(it.labelRes) }
-    return labels.joinToString(", ")
+private fun subjectsSummary(state: OnboardingUiState): String {
+    val subjects = (state.availableSubjects as? UiState.Content)?.data.orEmpty()
+    return subjects.filter { it.id in state.subjectIds }.joinToString(", ") { it.name }
 }
 
 @Composable
@@ -253,7 +252,11 @@ private fun teachersSummary(state: OnboardingUiState): String {
         val teachersState = state.teachersBySubject[subjectId]
         val teachers = if (teachersState is UiState.Content) teachersState.data else emptyList()
         val teacherName = teachers.firstOrNull { it.id == teacherId }?.name ?: return@mapNotNull null
-        val subjectLabel = OnboardingCatalog.byId(subjectId)?.labelRes?.let { stringResource(it) } ?: subjectId
+        val subjectLabel = (state.availableSubjects as? UiState.Content)
+            ?.data
+            ?.firstOrNull { it.id == subjectId }
+            ?.name
+            ?: subjectId
         "$teacherName · $subjectLabel"
     }
     return lines.joinToString("\n")

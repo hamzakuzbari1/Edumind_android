@@ -1,0 +1,39 @@
+grammar_id: gram_causatives_basic
+display_code: G042
+title: Have/get something done
+cefr_level: B2
+order: 420
+prerequisites:
+- gram_passive_voice
+unlock_targets: []
+grammar_targets:
+- have ... done
+- get ... done
+teaching_notes: Model the target in services, arranging help; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- I had repaired my phone.
+- She got check her essay.
+examples:
+- I had my phone repaired.
+- She got her essay checked.
+learning_objectives:
+- Express arranged services with have/get + object + past participle
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- services
+- arranging help
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 14.0
+focus_note: Model the target in services, arranging help; check comprehension before guided production,
+  then recycle it in a new context.

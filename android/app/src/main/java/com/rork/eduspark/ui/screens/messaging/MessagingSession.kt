@@ -1,5 +1,6 @@
 package com.rork.eduspark.ui.screens.messaging
 
+import com.rork.eduspark.BuildConfig
 import com.rork.eduspark.data.model.CURRENT_STUDENT_MESSAGING_ID
 import com.rork.eduspark.data.model.MessageParticipantRole
 import com.rork.eduspark.data.model.SessionUser
@@ -17,12 +18,12 @@ import com.rork.eduspark.data.model.UserRole
  */
 fun SessionUser.messagingParticipantIdOrNull(): String? = when (role) {
     UserRole.Teacher -> id
-    UserRole.Student -> CURRENT_STUDENT_MESSAGING_ID
-    UserRole.Parent -> null
+    UserRole.Student -> if (BuildConfig.MESSAGING_DATA_SOURCE_MODE.equals("REMOTE", ignoreCase = true)) id else CURRENT_STUDENT_MESSAGING_ID
+    UserRole.Parent -> id
 }
 
 fun SessionUser.messagingRoleOrNull(): MessageParticipantRole? = when (role) {
     UserRole.Teacher -> MessageParticipantRole.Teacher
     UserRole.Student -> MessageParticipantRole.Student
-    UserRole.Parent -> null
+    UserRole.Parent -> MessageParticipantRole.Parent
 }

@@ -1,0 +1,42 @@
+grammar_id: gram_there_is_are
+display_code: G006
+title: There is / there are
+cefr_level: A1
+order: 60
+prerequisites:
+- gram_be_present
+- gram_articles_a_an_the
+unlock_targets: []
+grammar_targets:
+- there is
+- there are
+- there isn't
+- there aren't
+teaching_notes: Model the target in describing a room, map landmarks; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- There have a park.
+- There is three chairs.
+examples:
+- There is a park near my house.
+- There are three chairs.
+learning_objectives:
+- Describe existence and quantity with there is/are
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- describing a room
+- map landmarks
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in describing a room, map landmarks; check comprehension before guided production,
+  then recycle it in a new context.

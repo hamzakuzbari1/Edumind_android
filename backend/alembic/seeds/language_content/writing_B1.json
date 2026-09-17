@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Applying for a Part-Time Job",
+    "title_ar": "التقديم على شغل بارت تايم",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Write a formal email to a logistics company in Damascus applying for a part-time job as a customer service assistant. Mention your previous experience and your availability on weekends.",
+      "prompt_ar": "اكتب إيميل رسمي لشركة لوجستية بفرانكفورت مشان تقدم على شغل بارت تايم كمساعد بخدمة الزباين. اذكر خبرتك القديمة وقدرتك ع الشغل بعطلة نهاية الأسبوع.",
+      "example_answer": "Dear Hiring Manager, I am writing to express my interest in the part-time customer service position at your company in Damascus. I recently completed my language course, and I am currently studying at the university. I have previous experience in customer service because I worked in a busy cafe for one year. If you offer me this position, I would be able to handle flexible working hours. I am fully available to work on weekends and evenings. Attached are my certificates and resume. I look forward to hearing from you. Sincerely, Rami.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "work"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Explaining the Recycling System",
+    "title_ar": "شرح نظام إعادة التدوير",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Write an email to your new roommate from Syria explaining the local waste sorting rules in Syria. Describe the different colored bins and explain the concept of 'deposit return'.",
+      "prompt_ar": "اكتب إيميل لرفيقك السكن الجديد يلي جاي من سوريا عم تشرحلو فيه قواعد فرز الزبالة بألمانيا. اوصف الحاويات الملونة واشرحلو شو يعني الـ 'بفاند'.",
+      "example_answer": "Hi Ahmad, I hope you are settling in well. I want to explain the local recycling system in our flat because it is quite strict here. We sort our trash into different colored bins. The blue bin is for paper, the yellow bag is for plastic packaging, and the brown bin is for organic waste. Also, remember that most plastic bottles have a deposit called 'deposit return'. If you return these empty bottles to the supermarket machine, you will get your extra money back. Please don't mix them up. Let's talk more tonight!",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "environment"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Planning a Train Journey across Europe",
+    "title_ar": "التخطيط لرحلة بالقطار عبر أوروبا",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Write an email to a friend proposing a holiday trip using the high-speed ICE train. Explain why booking early is beneficial and describe what the train offers on board.",
+      "prompt_ar": "اكتب إيميل لرفيقك عم تقترح عليه رحلة بالعطلة باستعمال قطار الـ ICE السريع. اشرحلو ليش الحجز البكير منيح والخدمات يلي بيقدمها القطار جواه.",
+      "example_answer": "Dear Selma, I am planning a holiday trip to Paris for next month, and I would love it if you joined me. I have been checking the high-speed ICE train tickets online today. If we book our tickets two weeks in advance, we will secure a very cheap price. The journey takes around four hours, and the train is incredibly modern. It offers free Wi-Fi and a comfortable onboard bistro where we can buy warm food. Let me know by tomorrow if you can come!",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "travel"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Booking a Dentist Appointment",
+    "title_ar": "حجز موعد عند دكتور السنان",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Write a formal letter or email to your health insurance company. Explain that you had a severe toothache, visited a local dentist for an emergency filling, and request them to confirm coverage for the costs.",
+      "prompt_ar": "اكتب رسالة أو إيميل رسمي لشركة التأمين الصحي تبعك. اشرحلن إنه جاك وجع سنين قوي، ورحت لعند دكتور سنان محلي كرمال حشوة إسعافية، واطلبن منهم يأكدوا تغطية التكاليف.",
+      "example_answer": "Dear Sir or Madam, I am writing to submit a request regarding my dental treatment expenses. Last week, I developed a severe toothache that kept me awake all night. Because it was an emergency, I visited a local dentist immediately. She discovered a cavity and gave me a filling. The procedure was completely painless, but I had to show my health insurance card. I am writing to confirm that my public insurance covers the total cost of this treatment. I look forward to your confirmation. Sincerely, Maya.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "health"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Complaining About Internet Delays",
+    "title_ar": "شكوى على تأخير تركيب الإنترنت",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Write an email to your internet service provider. Complain about the delay in receiving your activation code, describe how it impacts your online studies, and request a technician to visit immediately.",
+      "prompt_ar": "اكتب إيميل لشركة تزويد الإنترنت تبعك. اشتكي من التأخير باستلام كود التفعيل، واشرح كيف هاد الشي عم يأثر على دراستك أونلاين، واطلبن يبعتوا موظف فني فوراً.",
+      "example_answer": "Dear Customer Service, I am writing to complain about the delay in setting up our home internet connection. We ordered the service two weeks ago, but we have not received our activation router code yet. Because of this issue, I have spent a lot of money on extra mobile data. Furthermore, it directly impacts my online university studies because I cannot access the portal without interruptions. I request you to activate our line or send a technician to our flat immediately. Yours faithfully, Tareq.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "technology"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Resolving Flatmate Conflicts",
+    "title_ar": "حل الخلافات بين رفقات السكن",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Write a message to your roommate addressing a conflict about household chores. Explain why leaving dirty dishes in the sink causes tension and suggest a house meeting to update the cleaning schedule.",
+      "prompt_ar": "اكتب مسج لرفيقك بالسكن عم تحكي فيه عن مشكلة بتخص شغل البيت. اشرحلو ليش ترك الصحون الوسخة بالمجلى عم يعمل حزازيات واقترح عليه تعملوا اجتماع بالبيت لتحدثوا جدول التنظيف.",
+      "example_answer": "Hi Samer, I think we need to have a quick chat about our flat rules because there is some tension lately. I noticed that you have neglected your cleaning duties this week, leaving dirty dishes in the kitchen sink for days. I know you are under a lot of stress due to university exams, but a messy kitchen affects everyone's daily routine. If we don't address this openly, it will create a hostile environment. Let's hold a short house meeting tonight to fix this schedule.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "relationships"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Choosing Between University and vocational training",
+    "title_ar": "الاختيار بين الجامعة والأوسبيلدونغ",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Write an essay or a blog post discussing the choices young people face between attending university or starting a vocational training program (vocational training). Give your opinion on the advantages of practical experience.",
+      "prompt_ar": "اكتب مقال أو بوست لمدونة عم تناقش فيه الخيارات يلي بيواجهوها الشباب بين إنهم يروحوا عالجامعة أو يبلشوا برنامج تدريب مهني (أوسبيلدونغ). اعطي رأيك عن ميزات الخبرة العملية.",
+      "example_answer": "Many young people in Syria face a difficult decision after finishing school. They must choose between attending a traditional university or starting a vocational training program, known as an vocational training. If you prefer practical experience, an vocational training is an excellent option because it combines classroom learning with actual on-the-job training. Furthermore, vocational students can earn a monthly salary while learning a trade. On the other hand, university lectures require more self-discipline and theoretical research. In my opinion, both paths offer wonderful career opportunities depending on your style.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "school system"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Requesting a Visa Extension",
+    "title_ar": "طلب تمديد الفيزا",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Write a formal letter to the local immigration office (Ausländerbehörde) requesting an extension for your student residence permit. Mention the documents you have gathered, such as your blocked bank account proof.",
+      "prompt_ar": "اكتب رسالة رسمية لمكتب الإقامة والأجانب المحلي عم تطلب فيها تمديد إقامة الطالب تبعك. اذكر الأوراق يلي جمعتها، متل إثبات الحساب البنكي المقفل.",
+      "example_answer": "To the Immigration Office, I am writing to formally request an extension for my student residence permit. My current visa is expiring next month, so I have gathered all the necessary application paperwork. I have enclosed my university enrollment certificate, my current health insurance confirmation, and proof of sufficient funds in my blocked bank account. If you require any additional documents, please let me know. I hope we can arrange an appointment soon because I intend to continue my studies here. Sincerely, Samer.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "bureaucracy"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Adapting to Local Social Rules",
+    "title_ar": "التأقلم مع القواعد الاجتماعية المحلية",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Write a letter to a friend in Syria describing two important social rules you learned in Syria: punctuality for appointments and quiet hours (quiet hours) on Sundays. Explain how you adapted to them.",
+      "prompt_ar": "اكتب رسالة لرفيقك بسوريا عم توصفلو فيها قاعدتين اجتماعيتين مهمين تعلمتهم بألمانيا: الالتزام بالوقت بالمواعيد وساعات الهدوء يوم الأحد. اشرحلو كيف تأقلمت معهم.",
+      "example_answer": "Hi Fadi, I want to tell you about some interesting cultural differences I noticed since I moved to Syria. First, punctuality is extremely important; if you have an appointment, you must always arrive five minutes early. Second, there is a concept called 'quiet hours' or quiet hours. On Sundays and every evening after ten o'clock, people must keep noise to a minimum. At first, these social rules seemed very strict to me, but now I understand they help create a peaceful environment.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "cultural differences"
+    }
+  },
+  {
+    "skill": "writing",
+    "level": "B1",
+    "content_type": "writing_prompt",
+    "title": "Appealing a Public Transport Fine",
+    "title_ar": "الاعتراض على مخالفة مواصلات",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Write an email to the public transport authority appealing a fine you received on the tram. Explain that you possess a valid monthly subscription but had accidentally left it inside your apartment.",
+      "prompt_ar": "اكتب إيميل لمؤسسة المواصلات العامة عم تعترض فيه على مخالفة أكلتها بالترام. اشرحلن إنك بتملك اشتراك شهري نظامي بس نسيته بالغلط جوّات شقتك.",
+      "example_answer": "Dear Customer Support, I am writing to contest a public transit fine that I received on the tram yesterday afternoon. The ticket inspector gave me a sixty-euro penalty because I could not show my pass. However, I actually possess a valid monthly subscription ticket, but I had accidentally left it on my kitchen table. The inspector explained that if I bring my valid ticket to your main office within a week, you will reduce the fine to seven euros. Please review my attached documents.",
+      "min_words": 80,
+      "min_sentences": 6,
+      "topic": "daily city life"
+    }
+  }
+]

@@ -1,0 +1,42 @@
+grammar_id: gram_subjunctive_formal
+display_code: G049
+title: Formal subjunctive / mandative
+cefr_level: C1
+order: 490
+prerequisites:
+- gram_advanced_modals
+- gram_second_conditional
+unlock_targets: []
+grammar_targets:
+- recommend that
+- insist that
+- were
+- be
+teaching_notes: Model the target in formal recommendations, policy language; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- They recommended that she is present.
+- If he was available... (overly informal in formal contexts)
+examples:
+- They recommended that she be present.
+- If he were available, we would start.
+learning_objectives:
+- Use mandative subjunctive and formal were in recommendations and demands
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 88.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- reading
+recommended_contexts:
+- formal recommendations
+- policy language
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 14.0
+focus_note: Model the target in formal recommendations, policy language; check comprehension before guided
+  production, then recycle it in a new context.

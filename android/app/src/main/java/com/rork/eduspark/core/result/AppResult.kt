@@ -46,10 +46,7 @@ sealed interface AppError {
     /** 5xx-class failure. */
     data object Server : AppError
 
-    /**
-     * 401. Critically: the platform has **no refresh-token endpoint**, so this always
-     * terminates the session and routes to login. There is no silent-refresh path.
-     */
+    /** 401 after the single refresh-and-retry path has failed. */
     data object SessionExpired : AppError
 
     /** 403 — authenticated but not entitled (e.g. unpaid course). */

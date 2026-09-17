@@ -1,0 +1,53 @@
+grammar_id: gram_prepositions_time
+display_code: G020
+title: Prepositions of time
+cefr_level: A2
+order: 200
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- at + clock time
+- on + day/date
+- in + month/year/period
+- for + duration
+- since + starting point
+teaching_notes: Build from concrete schedules (at/on/in), then distinguish duration with for from starting
+  points with since. Recycle the forms in timetables, routines, and personal timelines. Model the target
+  in school timetables, personal timelines; check comprehension before guided production, then recycle
+  it in a new context.
+common_mistakes:
+- I wake up in 7 o'clock.
+- We meet at Monday.
+- I have lived here since three years.
+examples:
+- The lesson starts at nine o'clock.
+- We have English on Monday.
+- She moved here in 2024.
+- I studied for two hours.
+- He has lived here since March.
+learning_objectives:
+- Choose at, on, and in for common time expressions
+- Distinguish for + duration from since + starting point
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- reading
+- listening
+- vocabulary
+recommended_contexts:
+- school timetables
+- personal timelines
+- appointments
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 12.0
+focus_note: Build from concrete schedules (at/on/in), then distinguish duration with for from starting
+  points with since. Recycle the forms in timetables, routines, and personal timelines. Model the target
+  in school timetables, personal timelines; check comprehension before guided production, then recycle
+  it in a new context.

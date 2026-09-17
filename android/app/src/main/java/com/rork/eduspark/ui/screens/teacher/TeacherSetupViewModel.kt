@@ -19,7 +19,7 @@ import com.rork.eduspark.data.model.TeacherSetupStepId
 import com.rork.eduspark.data.model.TeacherSubjectsGrades
 import com.rork.eduspark.data.model.TeacherVoiceSample
 import com.rork.eduspark.data.repository.AuthRepository
-import com.rork.eduspark.data.repository.TeacherRepository
+import com.rork.eduspark.data.repository.TeacherSetupRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,12 +36,9 @@ import kotlinx.coroutines.launch
  * ══════════════════════════════════════════════════════════════════════════
  *
  * One screen, seven steps — [TeacherSetupScreenData.currentStepId] is transient UI state,
- * never persisted; the RESUMABLE state lives entirely in
- * [com.rork.eduspark.data.repository.mock.MockTeacherRepository] (repository/session-level,
- * above this ViewModel's own lifecycle). [load] always recomputes the first genuinely
- * incomplete step from [TeacherSetupState.completedStepIds], so leaving mid-wizard and
- * reopening resumes exactly where the teacher left off with every earlier step's values
- * intact — no separate "resume" call needed.
+ * never treated as server state. [load] reconstructs the safest resume point from canonical
+ * profile data plus any still-live local-only draft steps. The backend knows incomplete versus
+ * complete setup, but intentionally does not claim to know the exact Android visual step.
  *
  * Draft edits ([updateIdentity] etc.) only touch the local [TeacherSetupScreenData.draft];
  * nothing reaches [TeacherRepository] until [saveCurrentStepAndAdvance], which is also the
@@ -49,10 +46,8 @@ import kotlinx.coroutines.launch
  * "at least one each") — matching [TeacherRepository.finishSetup]'s own defensive check so
  * neither path can silently complete a skipped required step.
  *
- * [finishSetup] calls both [TeacherRepository.finishSetup] (the Teacher-domain completion
- * record) and [AuthRepository.completeOnboarding] (the SAME session flag SO-05 already flips
- * for students) — reusing the one existing "has this role finished its onboarding" field
- * rather than a second parallel one.
+ * [finishSetup] calls the focused setup repository, which completes on FastAPI and refreshes
+ * `/auth/me` before this ViewModel emits navigation.
  *
  * On first [load], Identity and Subjects & Grades are prefilled from what A-07 Teacher Register
  * already collected — [AppPreferences.teacherIntentSubjects]/[AppPreferences.teacherIntentGrades]
@@ -81,7 +76,7 @@ sealed interface TeacherSetupEvent {
 
 class TeacherSetupViewModel(
     private val authRepository: AuthRepository,
-    private val teacherRepository: TeacherRepository,
+    private val teacherSetupRepository: TeacherSetupRepository,
     private val preferences: AppPreferences,
     connectivity: ConnectivityObserver,
 ) : ViewModel() {
@@ -113,9 +108,12 @@ class TeacherSetupViewModel(
                 return@launch
             }
             teacherId = id
-            when (val result = teacherRepository.getSetupState(id)) {
+            when (val result = teacherSetupRepository.getSetupState(id)) {
                 is AppResult.Success -> {
-                    val prefilled = applyRegistrationPrefill(result.data, session)
+                    val prefilled = applyRegistrationPrefill(
+                        result.data.withCanonicalTeacherIdentity(session),
+                        session,
+                    )
                     val firstIncomplete = STEP_ORDER.firstOrNull { it !in prefilled.completedStepIds }
                     _state.update {
                         it.copy(result = UiState.Content(TeacherSetupScreenData(draft = prefilled, currentStepId = firstIncomplete)))
@@ -193,13 +191,13 @@ class TeacherSetupViewModel(
         _state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
             val saveResult = when (step) {
-                TeacherSetupStepId.Identity -> teacherRepository.saveIdentity(id, draft.identity)
-                TeacherSetupStepId.SubjectsGrades -> teacherRepository.saveSubjectsGrades(id, draft.subjectsGrades)
-                TeacherSetupStepId.Qualifications -> teacherRepository.saveQualifications(id, draft.qualifications)
-                TeacherSetupStepId.Experience -> teacherRepository.saveExperience(id, draft.experience)
-                TeacherSetupStepId.Documents -> teacherRepository.saveDocuments(id, draft.documents)
-                TeacherSetupStepId.Pricing -> teacherRepository.savePricing(id, draft.pricing)
-                TeacherSetupStepId.VoiceSample -> teacherRepository.saveVoiceSample(id, draft.voiceSample)
+                TeacherSetupStepId.Identity -> teacherSetupRepository.saveIdentity(id, draft.identity)
+                TeacherSetupStepId.SubjectsGrades -> teacherSetupRepository.saveSubjectsGrades(id, draft.subjectsGrades)
+                TeacherSetupStepId.Qualifications -> teacherSetupRepository.saveQualifications(id, draft.qualifications)
+                TeacherSetupStepId.Experience -> teacherSetupRepository.saveExperience(id, draft.experience)
+                TeacherSetupStepId.Documents -> teacherSetupRepository.saveDocuments(id, draft.documents)
+                TeacherSetupStepId.Pricing -> teacherSetupRepository.savePricing(id, draft.pricing)
+                TeacherSetupStepId.VoiceSample -> teacherSetupRepository.saveVoiceSample(id, draft.voiceSample)
             }
             if (saveResult is AppResult.Success) {
                 val nextStep = STEP_ORDER.getOrNull(STEP_ORDER.indexOf(step) + 1)
@@ -210,7 +208,7 @@ class TeacherSetupViewModel(
                     )
                 }
             } else {
-                _state.update { it.copy(isSaving = false) }
+                _state.update { it.copy(isSaving = false, showValidationError = true) }
             }
         }
     }
@@ -220,9 +218,8 @@ class TeacherSetupViewModel(
         if (_state.value.isFinishing) return
         _state.update { it.copy(isFinishing = true) }
         viewModelScope.launch {
-            when (teacherRepository.finishSetup(id)) {
+            when (teacherSetupRepository.finishSetup(id)) {
                 is AppResult.Success -> {
-                    authRepository.completeOnboarding()
                     _state.update { it.copy(isFinishing = false) }
                     _events.send(TeacherSetupEvent.SetupCompleted)
                 }
@@ -235,6 +232,16 @@ class TeacherSetupViewModel(
         val STEP_ORDER = TeacherSetupStepId.entries
     }
 }
+
+internal fun TeacherSetupState.withCanonicalTeacherIdentity(session: SessionUser?): TeacherSetupState =
+    copy(
+        identity = identity.copy(
+            displayName = session
+                ?.takeIf { it.role == com.rork.eduspark.data.model.UserRole.Teacher }
+                ?.displayName
+                .orEmpty(),
+        )
+    )
 
 /**
  * Maps A-07 Teacher Register's string grade ids (see

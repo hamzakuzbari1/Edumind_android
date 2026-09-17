@@ -9,6 +9,7 @@ import com.rork.eduspark.core.ui.UiState
 import com.rork.eduspark.data.model.LessonProcessingStage
 import com.rork.eduspark.data.model.LessonProcessingStageStatus
 import com.rork.eduspark.data.model.StudentMonitoringStatus
+import com.rork.eduspark.data.model.TeacherCourseStatus
 import com.rork.eduspark.data.model.TeacherCourseSummary
 import com.rork.eduspark.data.model.TeacherLesson
 import com.rork.eduspark.data.model.TeacherLessonStatus
@@ -154,6 +155,26 @@ class TeacherCourseDetailViewModel(
             TeacherLessonStatus.Published -> TeacherCourseDetailEvent.OpenLessonPreview(lesson.id)
         }
         viewModelScope.launch { _events.send(event) }
+    }
+
+    fun togglePublished() {
+        val course = (_state.value.result as? UiState.Content)?.data?.course ?: return
+        val published = course.status != TeacherCourseStatus.Published
+        viewModelScope.launch {
+            if (teacherRepository.setCoursePublished(courseId, published) is AppResult.Success) {
+                load()
+            }
+        }
+    }
+
+    fun toggleLessonVisible(lesson: TeacherLesson) {
+        if (lesson.status == TeacherLessonStatus.Processing) return
+        val visible = lesson.status != TeacherLessonStatus.Published
+        viewModelScope.launch {
+            if (teacherRepository.setLessonVisible(courseId, lesson.id, visible) is AppResult.Success) {
+                load()
+            }
+        }
     }
 
     /** Reflects the new order immediately (optimistic), then persists — see the TC-04 spec's own "UI updates immediately" requirement. */

@@ -141,6 +141,12 @@ private fun PaymentMethodContent(
                     }
                 }
                 SectionHeader(title = stringResource(R.string.st18_methods_section))
+                Text(
+                    text = stringResource(R.string.st18_methods_dev_note),
+                    style = EduTheme.typography.caption,
+                    color = colors.textSecondary,
+                    modifier = Modifier.padding(bottom = Spacing.sm),
+                )
             }
 
             // Approved design's 2×2 payment-method icon grid (PaymentMethod.dc.html),
