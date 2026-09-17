@@ -20,3 +20,7 @@ backend/**/*.pyc
 
 # Dependency/build artifacts already excluded from the source tree
 tmp/
+
+# Python bytecode caches anywhere in the monorepo
+**/__pycache__/
+**/*.pyc
