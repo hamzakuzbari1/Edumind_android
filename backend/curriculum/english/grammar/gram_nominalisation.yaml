@@ -1,0 +1,42 @@
+grammar_id: gram_nominalisation
+display_code: G050
+title: Nominalisation
+cefr_level: C2
+order: 500
+prerequisites:
+- gram_passive_voice
+- gram_concession
+unlock_targets: []
+grammar_targets:
+- the implementation of
+- a failure to
+- the decision to
+teaching_notes: Model the target in academic summary, policy brief; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- Over-nominalising spoken turns
+- Awkward of-chains without clear agents
+examples:
+- The implementation of the policy reduced delays.
+- Their failure to respond weakened trust.
+learning_objectives:
+- Convert processes into noun phrases for academic/formal density
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 90.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- reading
+- writing
+- vocabulary
+recommended_contexts:
+- academic summary
+- policy brief
+minimum_context_diversity: 3
+review_priority: 3
+review_half_life_days: 24.0
+focus_note: Model the target in academic summary, policy brief; check comprehension before guided production,
+  then recycle it in a new context.

@@ -1,0 +1,42 @@
+grammar_id: gram_present_continuous
+display_code: G014
+title: Present continuous
+cefr_level: A2
+order: 140
+prerequisites:
+- gram_be_present
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- am -ing
+- is -ing
+- are -ing
+teaching_notes: Model the target in what is happening now, phone call updates; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- I waiting for the bus.
+- She is study now.
+examples:
+- I am waiting for the bus.
+- They are studying English.
+learning_objectives:
+- Describe actions happening now with be + -ing
+- Contrast temporary vs habitual meaning lightly
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- what is happening now
+- phone call updates
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Model the target in what is happening now, phone call updates; check comprehension before
+  guided production, then recycle it in a new context.

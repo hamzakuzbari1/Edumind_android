@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.AuthRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -36,6 +37,7 @@ sealed interface TwoFactorPhase {
     data object Verifying : TwoFactorPhase
     data class Invalid(val attemptsRemaining: Int) : TwoFactorPhase
     data object Success : TwoFactorPhase
+    data class RoleMismatch(val actualRole: UserRole) : TwoFactorPhase
 }
 
 data class TwoFactorUiState(
@@ -57,6 +59,7 @@ data class TwoFactorUiState(
         get() = code.length == OTP_LENGTH &&
             phase != TwoFactorPhase.Verifying &&
             phase != TwoFactorPhase.Success &&
+            phase !is TwoFactorPhase.RoleMismatch &&
             (phase as? TwoFactorPhase.Invalid)?.attemptsRemaining != 0
 
     val resendCapReached: Boolean get() = resendCount >= MAX_RESENDS
@@ -65,7 +68,8 @@ data class TwoFactorUiState(
         get() = !resendCapReached &&
             resendCooldownSeconds == 0 &&
             phase != TwoFactorPhase.Verifying &&
-            phase != TwoFactorPhase.Success
+            phase != TwoFactorPhase.Success &&
+            phase !is TwoFactorPhase.RoleMismatch
 }
 
 sealed interface TwoFactorEvent {
@@ -76,6 +80,7 @@ class TwoFactorViewModel(
     email: String,
     private val authRepository: AuthRepository,
     connectivity: ConnectivityObserver,
+    private val expectedRole: UserRole,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TwoFactorUiState(email = email))
@@ -109,7 +114,10 @@ class TwoFactorViewModel(
 
     fun onCodeChange(value: String) {
         val current = _state.value
-        if (current.phase == TwoFactorPhase.Verifying || current.phase == TwoFactorPhase.Success) return
+        if (current.phase == TwoFactorPhase.Verifying ||
+            current.phase == TwoFactorPhase.Success ||
+            current.phase is TwoFactorPhase.RoleMismatch
+        ) return
         _state.update { it.copy(code = value, phase = TwoFactorPhase.Idle) }
     }
 
@@ -126,9 +134,16 @@ class TwoFactorViewModel(
         viewModelScope.launch {
             when (val result = authRepository.verifyTwoFactor(current.code, current.trustDevice)) {
                 is AppResult.Success -> {
-                    _state.update { it.copy(phase = TwoFactorPhase.Success) }
-                    delay(SUCCESS_HOLD_MS)
-                    _events.send(TwoFactorEvent.Verified(result.data))
+                    if (sessionMatchesSelectedRole(result.data, expectedRole)) {
+                        _state.update { it.copy(phase = TwoFactorPhase.Success) }
+                        delay(SUCCESS_HOLD_MS)
+                        _events.send(TwoFactorEvent.Verified(result.data))
+                    } else {
+                        authRepository.signOut()
+                        _state.update {
+                            it.copy(phase = TwoFactorPhase.RoleMismatch(result.data.role))
+                        }
+                    }
                 }
 
                 is AppResult.Failure -> {

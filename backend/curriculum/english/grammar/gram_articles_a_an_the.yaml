@@ -1,0 +1,43 @@
+grammar_id: gram_articles_a_an_the
+display_code: G005
+title: Articles a / an / the
+cefr_level: A1
+order: 50
+prerequisites:
+- gram_be_present
+unlock_targets: []
+grammar_targets:
+- a
+- an
+- the
+teaching_notes: Keep article rules light; accuracy over metalanguage. Model the target in classroom objects,
+  shopping list; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- I have book.
+- She eats a apple.
+examples:
+- I have a book.
+- She eats an apple.
+- The door is open.
+learning_objectives:
+- Choose a/an for singular countable nouns
+- Use the for known/specific references at A1
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- reading
+- writing
+- vocabulary
+recommended_contexts:
+- classroom objects
+- shopping list
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Keep article rules light; accuracy over metalanguage. Model the target in classroom objects,
+  shopping list; check comprehension before guided production, then recycle it in a new context.

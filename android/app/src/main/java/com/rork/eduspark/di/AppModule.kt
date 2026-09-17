@@ -665,7 +665,9 @@ val appModule = module {
         )
     }
     viewModel { ValueCarouselViewModel(preferences = get()) }
-    viewModel { LoginViewModel(authRepository = get(), connectivity = get()) }
+    viewModel { (expectedRole: UserRole) ->
+        LoginViewModel(authRepository = get(), connectivity = get(), expectedRole = expectedRole)
+    }
 
     // A-05 / A-06 / A-07 share one ViewModel; the role comes from the destination, so each
     // register route gets its own instance rather than three duplicated definitions.
@@ -682,8 +684,13 @@ val appModule = module {
     viewModel { (email: String) ->
         VerifyEmailViewModel(email = email, authRepository = get(), connectivity = get())
     }
-    viewModel { (email: String) ->
-        TwoFactorViewModel(email = email, authRepository = get(), connectivity = get())
+    viewModel { (email: String, expectedRole: UserRole) ->
+        TwoFactorViewModel(
+            email = email,
+            authRepository = get(),
+            connectivity = get(),
+            expectedRole = expectedRole,
+        )
     }
 
     // A-10 — no parameters; the address is typed on the screen itself.

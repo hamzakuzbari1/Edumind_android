@@ -1,0 +1,54 @@
+grammar_id: gram_present_perfect_continuous
+display_code: G026
+title: Present perfect continuous
+cefr_level: B1
+order: 260
+prerequisites:
+- gram_present_perfect
+- gram_present_continuous
+- gram_prepositions_time
+unlock_targets: []
+grammar_targets:
+- have/has been + -ing
+- for + duration
+- since + starting point
+- How long have/has ... been + -ing?
+teaching_notes: Focus on activities continuing to now or explaining visible present results. Contrast
+  duration/activity focus with the completion/result focus of the present perfect simple. Model the target
+  in ongoing study and work, recent visible results; check comprehension before guided production, then
+  recycle it in a new context.
+common_mistakes:
+- I am studying English since 2022.
+- She has been work here for three years.
+- How long you have been waiting?
+examples:
+- I have been studying English for two years.
+- She has been working here since March.
+- It has been raining, so the streets are wet.
+- How long have you been waiting?
+learning_objectives:
+- Describe an activity continuing from the past to the present
+- Explain a present result caused by a recent ongoing activity
+- Contrast present perfect continuous with present perfect simple
+estimated_duration_minutes: 30
+difficulty: guided
+mastery_threshold: 83.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- listening
+- writing
+recommended_contexts:
+- ongoing study and work
+- recent visible results
+- duration interviews
+minimum_context_diversity: 3
+review_priority: 5
+review_half_life_days: 16.0
+focus_note: Focus on activities continuing to now or explaining visible present results. Contrast duration/activity
+  focus with the completion/result focus of the present perfect simple. Model the target in ongoing study
+  and work, recent visible results; check comprehension before guided production, then recycle it in a
+  new context.

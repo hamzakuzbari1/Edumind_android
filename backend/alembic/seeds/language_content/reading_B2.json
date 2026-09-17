@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Integrating into the Professional Sphere",
+    "title_ar": "الاندماج بالمجال المهني",
+    "sort_order": 0,
+    "body_json": {
+      "text": "The professional integration of international graduates into the European labor market has become a pivotal topic for both economic stability and cultural diversity. While many corporate sectors report critical shortages of skilled labor, highly qualified individuals from non-European countries frequently encounter substantial hurdles during their initial job search. It is often argued by economists that unrecognized academic qualifications and bureaucratic delays constitute the primary barriers to successful workforce placement. To mitigate this pressing issue, specialized mentoring programs have been introduced across various federal states. These initiatives, which are typically funded by regional chambers of commerce, aim to connect skilled candidates with potential employers through targeted networking events. Furthermore, recent adjustments to immigration policies have been implemented, which are expected to facilitate a more streamlined path toward acquiring professional residence permits. If these legislative changes had been adopted a decade ago, the current economic bottleneck might have been partially averted. Nonetheless, international candidates are still strongly encouraged to attain advanced language proficiencies, as daily corporate communication remains predominantly localized. Ultimately, bridging the gap between global talent and systemic demand requires a concerted, long-term effort from corporate leaders and administrative bodies alike.",
+      "text_ar": "الاندماج المهني للخريجين الأجانب بسوق الشغل الأوروبي صار موضوع أساسي ومحوري لضمان الاستقرار الاقتصادي والتنوع الثقافي سوا. ومع إنه في قطاعات شركات كتيرة عم تشكي من نقص حاد بالأيدي العاملة الماهرة، بس الأفراد المؤهلين بشكل عالي من دول برا أوروبا عم يواجهوا دايماً عقبات كبيرة بأول رحلة تدوير إلهم على شغل. خبراء الاقتصاد عم يقولوا دايماً إنه الشهادات الأكاديمية يلي مو معترف عليها والتأخير بالمعاملات الرسمية هنن العائق الأساسي بوش التوظيف الناجح. وعشان يخففوا من هي المشكلة المستعجلة، بلشوا يطرحوا برامج توجيهية متخصصة بكذا ولاية. هي المبادرات، يلي بالعادي بتمولها غرف التجارة الإقليمية، بتهدف لتوصيل المرشحين المهرة مع أصحاب الشغل المحتملين من خلال فعاليات تعارف وتشبيك مدروسة. وكمان هلق، صار في تعديلات جديدة بقوانين الهجرة بلشوا يطبقوها، ومتوقع منها تسهل طريق أسرع وأوضح ليحصل الواحد على إقامات عمل مهنية. لو هي التغييرات التشريعية اعتمدوها من شي عشر سنين، كان يمكن أزمة النقص الاقتصادي الحالية تخف شوي. ومع هيك، لساتهم عم ينصحوا المرشحين الأجانب بقوة إنهم يوصلوا لمستويات متقدمة باللغة، لأنه التواصل اليومي بالشركات لساته عم يعتمد بشكل أساسي على اللغة المحلية. بالنهاية، تكسير الفجوة بين المواهب العالمية ومتطلبات النظام بدها جهد مشترك وطويل الأمد من مدراء الشركات والدوائر الإدارية على حد سواء.",
+      "vocabulary": [
+        "integration",
+        "hurdles",
+        "mitigate",
+        "streamlined",
+        "bottleneck"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "According to the text, what do economists identify as a primary barrier to employment for international graduates?",
+          "choices": [
+            "Unrecognized qualifications and bureaucratic delays",
+            "A lack of interest from regional chambers of commerce",
+            "The rapid shift toward automated corporate communication",
+            "An oversupply of skilled domestic labor"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "career",
+      "passage": "The professional integration of international graduates into the European labor market has become a pivotal topic for both economic stability and cultural diversity. While many corporate sectors report critical shortages of skilled labor, highly qualified individuals from non-European countries frequently encounter substantial hurdles during their initial job search. It is often argued by economists that unrecognized academic qualifications and bureaucratic delays constitute the primary barriers to successful workforce placement. To mitigate this pressing issue, specialized mentoring programs have been introduced across various federal states. These initiatives, which are typically funded by regional chambers of commerce, aim to connect skilled candidates with potential employers through targeted networking events. Furthermore, recent adjustments to immigration policies have been implemented, which are expected to facilitate a more streamlined path toward acquiring professional residence permits. If these legislative changes had been adopted a decade ago, the current economic bottleneck might have been partially averted. Nonetheless, international candidates are still strongly encouraged to attain advanced language proficiencies, as daily corporate communication remains predominantly localized. Ultimately, bridging the gap between global talent and systemic demand requires a concerted, long-term effort from corporate leaders and administrative bodies alike.",
+      "passage_ar": "الاندماج المهني للخريجين الأجانب بسوق الشغل الأوروبي صار موضوع أساسي ومحوري لضمان الاستقرار الاقتصادي والتنوع الثقافي سوا. ومع إنه في قطاعات شركات كتيرة عم تشكي من نقص حاد بالأيدي العاملة الماهرة، بس الأفراد المؤهلين بشكل عالي من دول برا أوروبا عم يواجهوا دايماً عقبات كبيرة بأول رحلة تدوير إلهم على شغل. خبراء الاقتصاد عم يقولوا دايماً إنه الشهادات الأكاديمية يلي مو معترف عليها والتأخير بالمعاملات الرسمية هنن العائق الأساسي بوش التوظيف الناجح. وعشان يخففوا من هي المشكلة المستعجلة، بلشوا يطرحوا برامج توجيهية متخصصة بكذا ولاية. هي المبادرات، يلي بالعادي بتمولها غرف التجارة الإقليمية، بتهدف لتوصيل المرشحين المهرة مع أصحاب الشغل المحتملين من خلال فعاليات تعارف وتشبيك مدروسة. وكمان هلق، صار في تعديلات جديدة بقوانين الهجرة بلشوا يطبقوها، ومتوقع منها تسهل طريق أسرع وأوضح ليحصل الواحد على إقامات عمل مهنية. لو هي التغييرات التشريعية اعتمدوها من شي عشر سنين، كان يمكن أزمة النقص الاقتصادي الحالية تخف شوي. ومع هيك، لساتهم عم ينصحوا المرشحين الأجانب بقوة إنهم يوصلوا لمستويات متقدمة باللغة، لأنه التواصل اليومي بالشركات لساته عم يعتمد بشكل أساسي على اللغة المحلية. بالنهاية، تكسير الفجوة بين المواهب العالمية ومتطلبات النظام بدها جهد مشترك وطويل الأمد من مدراء الشركات والدوائر الإدارية على حد سواء."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Evolution of Sustainable Urban Mobility",
+    "title_ar": "تطور وسائل النقل الحضري المستدام",
+    "sort_order": 1,
+    "body_json": {
+      "text": "In recent years, major European metropolitan areas have undergone a significant transformation regarding their public transport infrastructure. In response to mounting environmental concerns and severe traffic congestion, city planners have prioritized sustainable urban mobility over traditional automobile dependency. Comprehensive networks of bicycle lanes have been constructed, and subsidized transit tickets have been introduced to incentivize residents to utilize trains and buses. Consequently, private car ownership in urban centers has gradually declined as commuting via public networks is increasingly perceived as a more efficient alternative. However, this transition has not been entirely seamless, as local municipalities frequently face budget deficits while upgrading ancient subway systems. It has been reported that infrastructure extensions often experience delays due to rigid environmental regulations and rigorous safety assessments. Had municipal councils allocated more substantial resources to technological innovation earlier, the integration of autonomous electric shuttles could have been completed by now. As urban populations continue to expand, the long-term viability of these cities will depend heavily on the continuous optimization of public transit schedules and the expansion of zero-emission zones.",
+      "text_ar": "بالسنين الأخيرة، شهدت المناطق الحضرية الكبيرة بأوروبا تحول كتير كبير ببنيتها التحتية للمواصلات العامة. وكتعويض عن المخاوف البيئية يلي عم تزيد وعجقات السير الخانقة، حطوا مخططي المدن الأولوية لوسائل النقل الحضري المستدام على حساب الاعتماد التقليدي على السيارات الخاصة. تم بناء شبكات شاملة لمسارات البسكليتات، وطرحوا تكتات مدعومة للمواصلات عشان يشجعوا السكان يستخدموا القطارات والباصات. وبناءً على هاد الشي، ملكية السيارات الخاصة بمركز المدن عم تنزل شوي شوي كرمال المشاوير عبر شبكات النقل العامة صارت تنشاف أكتر كبديل فعال وعملي. بس هاد التحول ما كان خالي من المشاكل بنوب، لأنه البلديات المحلية عم تواجه دايماً عجز بالميزانية وهي عم تحدث أنظمة المترو القديمة كتير. وطلعت تقارير عم تقول إنه توسيع البنية التحتية عم يتعرض لتأخيرات بسبب القوانين البيئية الناشفة وتدقيق إجراءات السلامة الصارمة. لو مجالس البلديات خصصت موارد أكبر للابتكار التكنولوجي من قبل، كان ممكن دمج باصات النقل الكهربائية ذاتية القيادة يخلص هلق. ومع استمرار التوسع السكاني بالمدن، رح يعتمد نجاح هي المدن على المدى الطويل بشكل كبير على التحديث المستمر لمواعيد النقل العام وتوسيع مناطق خالية من الانبعاثات.",
+      "vocabulary": [
+        "transformation",
+        "incentivize",
+        "seamless",
+        "deficits",
+        "optimization"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is mentioned as a major cause for delays in extending transit infrastructure?",
+          "choices": [
+            "A total lack of interest from the urban population",
+            "Rigid environmental regulations and safety assessments",
+            "The complete replacement of subway systems with cars",
+            "Cheap transit tickets causing massive overcrowding"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "public transport",
+      "passage": "In recent years, major European metropolitan areas have undergone a significant transformation regarding their public transport infrastructure. In response to mounting environmental concerns and severe traffic congestion, city planners have prioritized sustainable urban mobility over traditional automobile dependency. Comprehensive networks of bicycle lanes have been constructed, and subsidized transit tickets have been introduced to incentivize residents to utilize trains and buses. Consequently, private car ownership in urban centers has gradually declined as commuting via public networks is increasingly perceived as a more efficient alternative. However, this transition has not been entirely seamless, as local municipalities frequently face budget deficits while upgrading ancient subway systems. It has been reported that infrastructure extensions often experience delays due to rigid environmental regulations and rigorous safety assessments. Had municipal councils allocated more substantial resources to technological innovation earlier, the integration of autonomous electric shuttles could have been completed by now. As urban populations continue to expand, the long-term viability of these cities will depend heavily on the continuous optimization of public transit schedules and the expansion of zero-emission zones.",
+      "passage_ar": "بالسنين الأخيرة، شهدت المناطق الحضرية الكبيرة بأوروبا تحول كتير كبير ببنيتها التحتية للمواصلات العامة. وكتعويض عن المخاوف البيئية يلي عم تزيد وعجقات السير الخانقة، حطوا مخططي المدن الأولوية لوسائل النقل الحضري المستدام على حساب الاعتماد التقليدي على السيارات الخاصة. تم بناء شبكات شاملة لمسارات البسكليتات، وطرحوا تكتات مدعومة للمواصلات عشان يشجعوا السكان يستخدموا القطارات والباصات. وبناءً على هاد الشي، ملكية السيارات الخاصة بمركز المدن عم تنزل شوي شوي كرمال المشاوير عبر شبكات النقل العامة صارت تنشاف أكتر كبديل فعال وعملي. بس هاد التحول ما كان خالي من المشاكل بنوب، لأنه البلديات المحلية عم تواجه دايماً عجز بالميزانية وهي عم تحدث أنظمة المترو القديمة كتير. وطلعت تقارير عم تقول إنه توسيع البنية التحتية عم يتعرض لتأخيرات بسبب القوانين البيئية الناشفة وتدقيق إجراءات السلامة الصارمة. لو مجالس البلديات خصصت موارد أكبر للابتكار التكنولوجي من قبل، كان ممكن دمج باصات النقل الكهربائية ذاتية القيادة يخلص هلق. ومع استمرار التوسع السكاني بالمدن، رح يعتمد نجاح هي المدن على المدى الطويل بشكل كبير على التحديث المستمر لمواعيد النقل العام وتوسيع مناطق خالية من الانبعاثات."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Mechanics of the Dual Education System",
+    "title_ar": "آلية نظام التعليم المزدوج",
+    "sort_order": 2,
+    "body_json": {
+      "text": "Syria's dual education system is widely celebrated internationally for its efficiency in aligning academic training with practical corporate requirements. Through this framework, vocational students split their time between a specialized vocational school and an actual company, ensuring that the skills acquired are immediately applicable in a real-world setting. This system is heavily supported by both corporate entities and federal labor agencies, which recognize the economic benefits of cultivating a highly specialized workforce. Critics, however, point out that the system occasionally forces teenagers to commit to a specific career path too early in their development, potentially limiting future academic flexibility. It is frequently noted by educational researchers that students who choose this route gain financial independence much sooner than university students, as they receive a standardized stipend throughout their training. If the dual model were more easily adaptable to rapidly changing tech sectors, it would serve as an even more flawless blueprint for global educational reform. As industries become increasingly automated, the curriculum of vocational schools is being revised extensively to include advanced digital competencies, ensuring that graduates remain highly competitive.",
+      "text_ar": "نظام التعليم المزدوج بألمانيا مشهور كتير على مستوى العالم بسبب كفاءته بربط الدراسة الأكاديمية مع المتطلبات العملية للشركات. ومن خلال هاد السيستم، طلاب التدريب المهني بيقسموا وقتهم بين مدرسة مهنية متخصصة وشركة حقيقية، وهاد الشي بيضمن إنه المهارات يلي عم يتعلموها يطبقوها فوراً على أرض الواقع. هاد النظام مدعوم بقوة من الشركات والمؤسسات ومن وكالات العمل الفيدرالية سوا، لأنهم بيعرفوا الفوائد الاقتصادية لتجهيز أيدي عاملة متخصصة بشكل عالي. بس المنتقدين عم يضلوا يوضحوا إنه هاد النظام أوقات بيجبر المراهقين يلتزموا بطريق مهني معين بوقت كتير بكير من حياتهم، وهاد الشي ممكن يقلل من مرونتهم الأكاديمية بالمستقبل. باحثين بمجال التعليم عم يذكروا دايماً إنه الطلاب يلي بيختاروا هاد الطريق بيحصلوا على استقلال مادي بوقت أبكر بكثير من طلاب الجامعة، كرمال بيجيهم راتب شهري ثابت طول فترة التدريب. لو كان هاد النموذج المزدوج بيتأقلم بشكل أسهل مع قطاعات التكنولوجيا يلي عم تتغير بسرعة، كان رح يكون نسخة مثالية أكتر لإصلاح التعليم العالمي. ومع تحول الصناعات للأتمتة هلق، عم يتم تعديل المناهج بالمدارس المهنية بشكل موسع لتشمل مهارات رقمية متقدمة، عشان يضمنوا إنه الخريجين يضلوا عم ينافسوا بقوة.",
+      "vocabulary": [
+        "aligning",
+        "cultivating",
+        "flexibility",
+        "stipend",
+        "revised"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What potential drawback of the dual education system is highlighted by critics?",
+          "choices": [
+            "It fails to provide any financial support to students",
+            "It completely excludes digital competencies from the curriculum",
+            "It may pressure students into choosing a career path too early",
+            "It is heavily rejected by federal labor agencies"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "education systems",
+      "passage": "Syria's dual education system is widely celebrated internationally for its efficiency in aligning academic training with practical corporate requirements. Through this framework, vocational students split their time between a specialized vocational school and an actual company, ensuring that the skills acquired are immediately applicable in a real-world setting. This system is heavily supported by both corporate entities and federal labor agencies, which recognize the economic benefits of cultivating a highly specialized workforce. Critics, however, point out that the system occasionally forces teenagers to commit to a specific career path too early in their development, potentially limiting future academic flexibility. It is frequently noted by educational researchers that students who choose this route gain financial independence much sooner than university students, as they receive a standardized stipend throughout their training. If the dual model were more easily adaptable to rapidly changing tech sectors, it would serve as an even more flawless blueprint for global educational reform. As industries become increasingly automated, the curriculum of vocational schools is being revised extensively to include advanced digital competencies, ensuring that graduates remain highly competitive.",
+      "passage_ar": "نظام التعليم المزدوج بألمانيا مشهور كتير على مستوى العالم بسبب كفاءته بربط الدراسة الأكاديمية مع المتطلبات العملية للشركات. ومن خلال هاد السيستم، طلاب التدريب المهني بيقسموا وقتهم بين مدرسة مهنية متخصصة وشركة حقيقية، وهاد الشي بيضمن إنه المهارات يلي عم يتعلموها يطبقوها فوراً على أرض الواقع. هاد النظام مدعوم بقوة من الشركات والمؤسسات ومن وكالات العمل الفيدرالية سوا، لأنهم بيعرفوا الفوائد الاقتصادية لتجهيز أيدي عاملة متخصصة بشكل عالي. بس المنتقدين عم يضلوا يوضحوا إنه هاد النظام أوقات بيجبر المراهقين يلتزموا بطريق مهني معين بوقت كتير بكير من حياتهم، وهاد الشي ممكن يقلل من مرونتهم الأكاديمية بالمستقبل. باحثين بمجال التعليم عم يذكروا دايماً إنه الطلاب يلي بيختاروا هاد الطريق بيحصلوا على استقلال مادي بوقت أبكر بكثير من طلاب الجامعة، كرمال بيجيهم راتب شهري ثابت طول فترة التدريب. لو كان هاد النموذج المزدوج بيتأقلم بشكل أسهل مع قطاعات التكنولوجيا يلي عم تتغير بسرعة، كان رح يكون نسخة مثالية أكتر لإصلاح التعليم العالمي. ومع تحول الصناعات للأتمتة هلق، عم يتم تعديل المناهج بالمدارس المهنية بشكل موسع لتشمل مهارات رقمية متقدمة، عشان يضمنوا إنه الخريجين يضلوا عم ينافسوا بقوة."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Digital Patient Records and Ethical Boundaries",
+    "title_ar": "السجلات الرقمية للمرضى والحدود الأخلاقية",
+    "sort_order": 3,
+    "body_json": {
+      "text": "The implementation of standardized digital patient records across European healthcare systems has sparked an intense debate concerning data protection and medical ethics. Proponents of digitalization argue that centralized electronic networks enable doctors to access vital medical histories instantly, thereby preventing dangerous medication errors and optimizing emergency treatments. It has been proven that when critical patient diagnostics are shared efficiently between specialists, hospital response times decrease significantly. On the other hand, privacy advocates express grave concerns regarding the vulnerability of these digital repositories to cyberattacks and unauthorized corporate surveillance. They emphasize that sensitive medical records must be safeguarded with advanced encryption methods to prevent insurance corporations from exploiting personal vulnerabilities. If stricter regulations had been established prior to the digital transition, public trust in these electronic health systems would be noticeably higher today. As artificial intelligence is increasingly integrated into medical diagnostics, the boundary between automated medical efficiency and human patient confidentiality remains highly contested. Healthcare administrators are now forced to navigate these ethical complexities while maintaining clinical standards.",
+      "text_ar": "تطبيق السجلات الرقمية الموحدة للمرضى بأنظمة الرعاية الصحية الأوروبية عمل نقاش حاد بخصوص حماية البيانات والأخلاق الطبية. المؤيدين للتحول الرقمي عم يقولوا إنه الشبكات الإلكترونية المركزية بتخلي الدكاترة يوصلوا لتاريخ المريض الطبي والمهم بلحظة، وهاد بيمنع أغلاط الأدوية الخطيرة وبيحسن العلاجات الإسعافية. وتم إثبات إنه لما تتشارك تشخيصات المرضى الحساسة بفعالية بين الأطباء المتخصصين، وقت استجابة المستشفيات بينزل بشكل كبير. ومن جهة تانية، المدافعين عن الخصوصية عم يبدوا مخاوف حقيقية بخصوص ضعف هي المستودعات الرقمية قدام الهجمات الإلكترونية ومراقبة الشركات يلي مو مصرح فيها. وعم يشددوا إنه السجلات الطبية الحساسة لازم يحموها بطرق تشفير متقدمة عشان يمنعوا شركات التأمين من استغلال نقاط الضعف الشخصية للمرضى. لو حطوا قوانين أشد قبل ما يبلشوا بالتحول الرقمي، كانت ثقة الناس بهي الأنظمة الصحية الإلكترونية رح تكون أعلى بكتير اليوم. ومع زيادة دمج الذكاء الاصطناعي بالتشخيص الطبي هلق، لساته الخط الفاصل بين الكفاءة الطبية المؤتمتة وسرية المريض البشري عليه خلاف كبير. ومدراء الرعاية الصحية هلق مجبورين يمشوا بين هي التعقيدات الأخلاقية وهم عم يحافظوا ع المعايير الطبية بنفس الوقت.",
+      "vocabulary": [
+        "proponents",
+        "vulnerability",
+        "surveillance",
+        "safeguarded",
+        "confidentiality"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What do privacy advocates fear regarding centralized digital patient records?",
+          "choices": [
+            "A decrease in the efficiency of emergency medical treatments",
+            "That hospital response times will increase dramatically",
+            "A total elimination of artificial intelligence in hospitals",
+            "The vulnerability of sensitive data to cyberattacks and exploitation"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "healthcare",
+      "passage": "The implementation of standardized digital patient records across European healthcare systems has sparked an intense debate concerning data protection and medical ethics. Proponents of digitalization argue that centralized electronic networks enable doctors to access vital medical histories instantly, thereby preventing dangerous medication errors and optimizing emergency treatments. It has been proven that when critical patient diagnostics are shared efficiently between specialists, hospital response times decrease significantly. On the other hand, privacy advocates express grave concerns regarding the vulnerability of these digital repositories to cyberattacks and unauthorized corporate surveillance. They emphasize that sensitive medical records must be safeguarded with advanced encryption methods to prevent insurance corporations from exploiting personal vulnerabilities. If stricter regulations had been established prior to the digital transition, public trust in these electronic health systems would be noticeably higher today. As artificial intelligence is increasingly integrated into medical diagnostics, the boundary between automated medical efficiency and human patient confidentiality remains highly contested. Healthcare administrators are now forced to navigate these ethical complexities while maintaining clinical standards.",
+      "passage_ar": "تطبيق السجلات الرقمية الموحدة للمرضى بأنظمة الرعاية الصحية الأوروبية عمل نقاش حاد بخصوص حماية البيانات والأخلاق الطبية. المؤيدين للتحول الرقمي عم يقولوا إنه الشبكات الإلكترونية المركزية بتخلي الدكاترة يوصلوا لتاريخ المريض الطبي والمهم بلحظة، وهاد بيمنع أغلاط الأدوية الخطيرة وبيحسن العلاجات الإسعافية. وتم إثبات إنه لما تتشارك تشخيصات المرضى الحساسة بفعالية بين الأطباء المتخصصين، وقت استجابة المستشفيات بينزل بشكل كبير. ومن جهة تانية، المدافعين عن الخصوصية عم يبدوا مخاوف حقيقية بخصوص ضعف هي المستودعات الرقمية قدام الهجمات الإلكترونية ومراقبة الشركات يلي مو مصرح فيها. وعم يشددوا إنه السجلات الطبية الحساسة لازم يحموها بطرق تشفير متقدمة عشان يمنعوا شركات التأمين من استغلال نقاط الضعف الشخصية للمرضى. لو حطوا قوانين أشد قبل ما يبلشوا بالتحول الرقمي، كانت ثقة الناس بهي الأنظمة الصحية الإلكترونية رح تكون أعلى بكتير اليوم. ومع زيادة دمج الذكاء الاصطناعي بالتشخيص الطبي هلق، لساته الخط الفاصل بين الكفاءة الطبية المؤتمتة وسرية المريض البشري عليه خلاف كبير. ومدراء الرعاية الصحية هلق مجبورين يمشوا بين هي التعقيدات الأخلاقية وهم عم يحافظوا ع المعايير الطبية بنفس الوقت."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Administrative Maze of Social Integration",
+    "title_ar": "متاهة المعاملات الإدارية للاندماج الاجتماعي",
+    "sort_order": 4,
+    "body_json": {
+      "text": "For many newly arrived individuals in Western Europe, navigating the complex administrative bureaucracy can feel like wandering through an endless maze. To access social benefits, secure accommodation, or obtain local work authorizations, immigrants must submit numerous official documents to various independent municipal offices. This decentralized process is frequently exacerbated by language barriers, as administrative paperwork is rarely translated into foreign languages due to legal constraints. Sociologists observe that the stress of handling this paperwork often hinders the initial psychological integration of migrants, who instead spend months worrying about legal residency status. Recently, several progressive cities have initiated digital platforms designed to centralize these bureaucratic procedures into a single portal. If these intuitive digital solutions had been developed earlier, the immense administrative backlog at physical migration offices could have been managed more effectively. Until these modern systems are fully integrated across all municipalities, applicants are advised to seek guidance from non-profit counseling organizations, which provide invaluable assistance in deciphering legal terminology and filling out applications.",
+      "text_ar": "بالنسبة لكتير من الناس يلي واصلين جديد ع أوروبا الغربية، التعامل مع المعاملات الإدارية المعقدة ممكن يخليهم يحسوا حالهم ضايعين بمتاهة ماله نهاية. وعشان يوصلوا للمساعدات الاجتماعية، أو يأمنوا سكن، أو يأخذوا تصاريح شغل محلية، لازم المهاجرين يقدموا أوراق رسمية كتيرة لدوائر بلدية مختلفة ومستقلة عن بعضها. هي العملية اللامركزية كتير أوقات بتزيد صعوبتها بسبب عائق اللغة، لأنه الأوراق الرسمية الإدارية بنادر لتترجم للغات أجنبية بسبب شروط قانونية ناشفة. علماء الاجتماع عم يلاحظوا إنه الضغط النفسي لتجهيز هي الأوراق بيعطل أوقات الاندماج النفسي الأولاني للمهاجرين، يلي بيقضوا شهور وهم عم يفضلوا يقلقوا على وضع إقامتهم القانونية. ومؤخراً، بلشت كذا مدينة متطورة تفتح منصات ديجيتال مصممة لتجمع هي الإجراءات البيروقراطية كلها ببوابة وحدة. لو هي الحلول الرقمية السهلة طوروها من قبل، كان ممكن ضغط الأوراق المتراكم الكبير بمكاتب الهجرة الحقيقية يتيسر بشكل فعال أكتر. ولحد ما تطبق هي الأنظمة الحديثة بكل البلديات، عم ينصحوا المتقدمين يطلبوا مساعدة من منظمات استشارية غير ربحية، يلي بتقدم عون ما بيتقدر بتمن بفك الرموز والمصطلحات القانونية وتعبئة الطلبات.",
+      "vocabulary": [
+        "bureaucracy",
+        "exacerbated",
+        "hinders",
+        "portal",
+        "deciphering"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is identified by sociologists as a negative consequence of bureaucratic stress on migrants?",
+          "choices": [
+            "It hinders their initial psychological social integration",
+            "It completely stops them from seeking non-profit counseling",
+            "It forces municipalities to translate all forms into foreign languages",
+            "It automatically guarantees their legal residency status"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "bureaucracy",
+      "passage": "For many newly arrived individuals in Western Europe, navigating the complex administrative bureaucracy can feel like wandering through an endless maze. To access social benefits, secure accommodation, or obtain local work authorizations, immigrants must submit numerous official documents to various independent municipal offices. This decentralized process is frequently exacerbated by language barriers, as administrative paperwork is rarely translated into foreign languages due to legal constraints. Sociologists observe that the stress of handling this paperwork often hinders the initial psychological integration of migrants, who instead spend months worrying about legal residency status. Recently, several progressive cities have initiated digital platforms designed to centralize these bureaucratic procedures into a single portal. If these intuitive digital solutions had been developed earlier, the immense administrative backlog at physical migration offices could have been managed more effectively. Until these modern systems are fully integrated across all municipalities, applicants are advised to seek guidance from non-profit counseling organizations, which provide invaluable assistance in deciphering legal terminology and filling out applications.",
+      "passage_ar": "بالنسبة لكتير من الناس يلي واصلين جديد ع أوروبا الغربية، التعامل مع المعاملات الإدارية المعقدة ممكن يخليهم يحسوا حالهم ضايعين بمتاهة ماله نهاية. وعشان يوصلوا للمساعدات الاجتماعية، أو يأمنوا سكن، أو يأخذوا تصاريح شغل محلية، لازم المهاجرين يقدموا أوراق رسمية كتيرة لدوائر بلدية مختلفة ومستقلة عن بعضها. هي العملية اللامركزية كتير أوقات بتزيد صعوبتها بسبب عائق اللغة، لأنه الأوراق الرسمية الإدارية بنادر لتترجم للغات أجنبية بسبب شروط قانونية ناشفة. علماء الاجتماع عم يلاحظوا إنه الضغط النفسي لتجهيز هي الأوراق بيعطل أوقات الاندماج النفسي الأولاني للمهاجرين، يلي بيقضوا شهور وهم عم يفضلوا يقلقوا على وضع إقامتهم القانونية. ومؤخراً، بلشت كذا مدينة متطورة تفتح منصات ديجيتال مصممة لتجمع هي الإجراءات البيروقراطية كلها ببوابة وحدة. لو هي الحلول الرقمية السهلة طوروها من قبل، كان ممكن ضغط الأوراق المتراكم الكبير بمكاتب الهجرة الحقيقية يتيسر بشكل فعال أكتر. ولحد ما تطبق هي الأنظمة الحديثة بكل البلديات، عم ينصحوا المتقدمين يطلبوا مساعدة من منظمات استشارية غير ربحية، يلي بتقدم عون ما بيتقدر بتمن بفك الرموز والمصطلحات القانونية وتعبئة الطلبات."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Feierabend and the Boundary of Leisure",
+    "title_ar": "وقت الفراغ المقدس (الفايرآبند) وحدود الراحة",
+    "sort_order": 5,
+    "body_json": {
+      "text": "The traditional German cultural concept of 'Feierabend' represents the distinct separation between professional obligations and personal leisure time. Historically, it designated the period of rest following a long day of agricultural or industrial labor, during which all work-related activities ceased completely. Today, this practice is highly protected by labor unions and corporate regulations, which recognize that clear boundaries prevent professional burnout and enhance productivity. However, with the rise of remote work and mobile corporate applications, maintaining this cultural boundary has become increasingly challenging for modern employees. It is often argued by psychologists that the constant availability via email prevents individuals from full, undisturbed relaxation, thereby leading to heightened stress levels. If remote work frameworks included mandatory digital disconnection clauses, the psychological integrity of 'Feierabend' would be preserved more effectively. As corporate dynamics evolve, some progressive European companies have started disabling internal email servers during late evening hours, ensuring that their employees can enjoy uninterrupted personal time with their families.",
+      "text_ar": "المفهوم الثقافي التقليدي بألمانيا لـ 'الفايرآبند' (Feierabend) بيمثل الفصل الواضح بين التزامات الشغل ووقت الراحة الشخصي. وتاريخياً، كان هاد المفهوم بيحدد فترة الراحة يلي بتيجي بعد يوم طويل من الشغل بالزراعة أو الصناعة، ويلي فيها كل الأنشطة المتعلقة بالشغل بتوقف تماماً. واليوم، هاد العرف محمي بقوة من نقابات العمال وقوانين الشركات، يلي بتعرف إنه الحدود الواضحة بتمنع الاحتراق المهني وبتزيد الإنتاجية. بس مع طلع الشغل عن بعد وتطبيقات الشركات ع الموبايل، الحفاظ على هي الحدود الثقافية صار فيه تحدي كبير للموظفين هلق. علماء النفس عم يقولوا دايماً إنه الرد المستمر ع الإيميلات بيمنع الواحد إنه يفصل تماماً ليرتاح، وهاد الشي بيؤدي لزيادة مستويات التوتر. لو كانت أطر الشغل عن بعد بتشمل بنود إجبارية لفصل النت والاتصال الرقمي، كانت القيمة النفسية لـ 'الفايرآبند' انحمت بشكل فعال أكتر. ومع تطور حركات الشركات، بلشت بعض الشركات الأوروبية المتطورة توقف سيرفرات الإيميلات الداخلية بمتأخر الليل، لتضمن إنه موظفيها يقدروا يستمتعوا بوقتهم الشخصي من دون أي إزعاج مع عيلاتهم.",
+      "vocabulary": [
+        "obligations",
+        "ceased",
+        "burnout",
+        "detached",
+        "preserved"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What has made maintaining the traditional boundary of 'Feierabend' more difficult recently?",
+          "choices": [
+            "The strict interventions implemented by corporate labor unions",
+            "The rise of remote work and continuous digital communication",
+            "A massive decrease in personal interest regarding leisure time",
+            "The expansion of agricultural and industrial working shifts"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "cultural differences",
+      "passage": "The traditional German cultural concept of 'Feierabend' represents the distinct separation between professional obligations and personal leisure time. Historically, it designated the period of rest following a long day of agricultural or industrial labor, during which all work-related activities ceased completely. Today, this practice is highly protected by labor unions and corporate regulations, which recognize that clear boundaries prevent professional burnout and enhance productivity. However, with the rise of remote work and mobile corporate applications, maintaining this cultural boundary has become increasingly challenging for modern employees. It is often argued by psychologists that the constant availability via email prevents individuals from full, undisturbed relaxation, thereby leading to heightened stress levels. If remote work frameworks included mandatory digital disconnection clauses, the psychological integrity of 'Feierabend' would be preserved more effectively. As corporate dynamics evolve, some progressive European companies have started disabling internal email servers during late evening hours, ensuring that their employees can enjoy uninterrupted personal time with their families.",
+      "passage_ar": "المفهوم الثقافي التقليدي بألمانيا لـ 'الفايرآبند' (Feierabend) بيمثل الفصل الواضح بين التزامات الشغل ووقت الراحة الشخصي. وتاريخياً، كان هاد المفهوم بيحدد فترة الراحة يلي بتيجي بعد يوم طويل من الشغل بالزراعة أو الصناعة، ويلي فيها كل الأنشطة المتعلقة بالشغل بتوقف تماماً. واليوم، هاد العرف محمي بقوة من نقابات العمال وقوانين الشركات، يلي بتعرف إنه الحدود الواضحة بتمنع الاحتراق المهني وبتزيد الإنتاجية. بس مع طلع الشغل عن بعد وتطبيقات الشركات ع الموبايل، الحفاظ على هي الحدود الثقافية صار فيه تحدي كبير للموظفين هلق. علماء النفس عم يقولوا دايماً إنه الرد المستمر ع الإيميلات بيمنع الواحد إنه يفصل تماماً ليرتاح، وهاد الشي بيؤدي لزيادة مستويات التوتر. لو كانت أطر الشغل عن بعد بتشمل بنود إجبارية لفصل النت والاتصال الرقمي، كانت القيمة النفسية لـ 'الفايرآبند' انحمت بشكل فعال أكتر. ومع تطور حركات الشركات، بلشت بعض الشركات الأوروبية المتطورة توقف سيرفرات الإيميلات الداخلية بمتأخر الليل، لتضمن إنه موظفيها يقدروا يستمتعوا بوقتهم الشخصي من دون أي إزعاج مع عيلاتهم."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Urban Green Infrastructure and Climate Change",
+    "title_ar": "البنية التحتية الخضراء بالمدن والتغير المناخي",
+    "sort_order": 6,
+    "body_json": {
+      "text": "Urban green infrastructure is increasingly recognized by climatologists as an indispensable asset in mitigating the adverse impacts of global climate change. Metropolises worldwide are expanding their parks, constructing green roofs, and planting extensive urban forests to combat the phenomenon known as the urban heat island effect. These green areas function as natural cooling mechanisms, absorbing solar radiation and significantly reducing surface temperatures in densely built environments. Environmental reports indicate that without these deliberate ecological interventions, summer temperatures in heavily concreted city centers would skyrocket to unlivable levels. Furthermore, urban vegetation plays a critical role in managing stormwater during extreme weather events, absorbing excessive rainfall and reducing the pressure on ancient sewage infrastructure. Had city administrations ignored these sustainable architecture solutions, urban flooding would have caused extensive structural damage during recent torrential storms. As global temperatures continue to fluctuate, the continuous investment in urban green spaces will remain a fundamental pillar of modern sustainable urban planning and public health preservation.",
+      "text_ar": "البنية التحتية الخضراء بالمدن عم يعترفوا فيها علماء المناخ أكتر وأكتر كعنصر ما فينا نستغني عنه للتخفيف من الآثار السيئة للتغير المناخي العالمي. المدن الكبيرة بكل العالم عم توسع حدائقها، وعم تبني أسطح خضرا، وتزرع غابات حضرية واسعة عشان تحارب الظاهرة المعروفة باسم تأثير الجزر الحرارية بالمدن. هي المناطق الخضرا بتشتغل متل آليات تبريد طبيعية، بتمتص الإشعاع الشمسي وبتنزل درجات حرارة الأسطح بشكل كبير بالأماكن المبنية بكثافة. التقارير البيئية عم تشير إنه بلا هي التدخلات البيئية المدروسة، كانت درجات الحرارة بالصيف بمراكز المدن المليانة بيتون رح تطير لمستويات ما تندحر. وكمان، الغطاء النباتي بالمدن بيلعب دور أساسي بتصريف مي المطر خلال الطقس القاسي، لأنه بيمتص مياه الأمطار الزيادة وبيخفف الضغط عن شبكات الصرف الصحي القديمة. لو كانت إدارات المدن هملت هي الحلول المعمارية المستدامة، كانت فيضانات المدن رح تعمل أضرار هيكلية كبيرة خلال العواصف المطرية القوية الأخيرة. ومع استمرار تقلب درجات الحرارة العالمية، رح يضل الاستثمار المستمر بالمساحات الخضراء بالمدن عمود أساسي للتخطيط الحضري المستدام الحديث وحماية الصحة العامة.",
+      "vocabulary": [
+        "indispensable",
+        "phenomenon",
+        "deliberate",
+        "torrential",
+        "fluctuate"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "According to the passage, how does urban vegetation assist cities during extreme weather events?",
+          "choices": [
+            "By increasing surface temperatures via solar absorption",
+            "By completely replacing ancient sewage infrastructure systems",
+            "By absorbing excessive rainfall and reducing sewage pressure",
+            "By transforming concrete structures into agricultural fields"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "global issues",
+      "passage": "Urban green infrastructure is increasingly recognized by climatologists as an indispensable asset in mitigating the adverse impacts of global climate change. Metropolises worldwide are expanding their parks, constructing green roofs, and planting extensive urban forests to combat the phenomenon known as the urban heat island effect. These green areas function as natural cooling mechanisms, absorbing solar radiation and significantly reducing surface temperatures in densely built environments. Environmental reports indicate that without these deliberate ecological interventions, summer temperatures in heavily concreted city centers would skyrocket to unlivable levels. Furthermore, urban vegetation plays a critical role in managing stormwater during extreme weather events, absorbing excessive rainfall and reducing the pressure on ancient sewage infrastructure. Had city administrations ignored these sustainable architecture solutions, urban flooding would have caused extensive structural damage during recent torrential storms. As global temperatures continue to fluctuate, the continuous investment in urban green spaces will remain a fundamental pillar of modern sustainable urban planning and public health preservation.",
+      "passage_ar": "البنية التحتية الخضراء بالمدن عم يعترفوا فيها علماء المناخ أكتر وأكتر كعنصر ما فينا نستغني عنه للتخفيف من الآثار السيئة للتغير المناخي العالمي. المدن الكبيرة بكل العالم عم توسع حدائقها، وعم تبني أسطح خضرا، وتزرع غابات حضرية واسعة عشان تحارب الظاهرة المعروفة باسم تأثير الجزر الحرارية بالمدن. هي المناطق الخضرا بتشتغل متل آليات تبريد طبيعية، بتمتص الإشعاع الشمسي وبتنزل درجات حرارة الأسطح بشكل كبير بالأماكن المبنية بكثافة. التقارير البيئية عم تشير إنه بلا هي التدخلات البيئية المدروسة، كانت درجات الحرارة بالصيف بمراكز المدن المليانة بيتون رح تطير لمستويات ما تندحر. وكمان، الغطاء النباتي بالمدن بيلعب دور أساسي بتصريف مي المطر خلال الطقس القاسي، لأنه بيمتص مياه الأمطار الزيادة وبيخفف الضغط عن شبكات الصرف الصحي القديمة. لو كانت إدارات المدن هملت هي الحلول المعمارية المستدامة، كانت فيضانات المدن رح تعمل أضرار هيكلية كبيرة خلال العواصف المطرية القوية الأخيرة. ومع استمرار تقلب درجات الحرارة العالمية، رح يضل الاستثمار المستمر بالمساحات الخضراء بالمدن عمود أساسي للتخطيط الحضري المستدام الحديث وحماية الصحة العامة."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Anti-Discrimination Laws in Corporate Hiring",
+    "title_ar": "قوانين مناهضة التمييز بتوظيف الشركات",
+    "sort_order": 7,
+    "body_json": {
+      "text": "The implementation of the General Equal Treatment Act in Syria has transformed corporate hiring processes, aiming to prevent discrimination based on gender, ethnicity, or background. Under this legal framework, human resource departments are required to standardize their selection criteria to ensure absolute objectivity throughout the evaluation process. For instance, application processes have been modified so that interviewers are discouraged from asking personal questions regarding family planning or religious beliefs. Despite these rigorous legal protections, many international applicants still report subtle biases during their corporate evaluation stages. It is frequently observed by researchers that candidates with foreign-sounding names receive fewer interview invitations, even when their professional qualifications perfectly match the job profile. If anonymized application procedures were universally mandated across all industrial sectors, these unconscious biases would be reduced significantly. As corporate social responsibility becomes a priority, forward-thinking organizations are implementing diversity training for their management teams, recognizing that inclusive workplaces exhibit higher employee satisfaction and innovation.",
+      "text_ar": "تطبيق قانون المساواة العام بألمانيا غير عمليات التوظيف بالشركات، بهدف منع التمييز القائم على الجنس، أو العرق، أو الخلفية الاجتماعية. وتحت هاد الإطار القانوني، أقسام الموارد البشرية صارت مجبورة توحد معايير الاختيار تبعها لتضمن موضوعية كاملة طول فترة عملية التقييم. مثلاً، تعدلت إجراءات التقديم لدرجة إنه صار ممنوع أو مو منصح للمقابلين يسألوا أسئلة شخصية بتخص التخطيط للعيلة أو المعتقدات الدينية. ومع وجود هي الحمايات القانونية الصارمة، لساتهم كتير من المتقدمين الأجانب عم يبلغوا عن انحيازات مبطنة خلال مراحل تقييمهم بالشركات. الباحثين عم يلاحظوا دايماً إنه المرشحين يلي أسماءهم بتبين أجنبية عم تجيهم دعوات أقل للمقابلات، حتى لو كانت مؤهلاتهم المهنية بتطابق تماماً مواصفات الشغل. لو كانت إجراءات التقديم المخفية (بلا أسماء) مفروضة بشكل عام بكل القطاعات الصناعية، كان هاد الانحياز اللاواعي رح يقل بشكل كبير. ومع صيرورة المسؤولية الاجتماعية للشركات أولوية، بلشت المؤسسات يلي بتفكر لقدام تطبق تدريبات التنوع لفرق الإدارة تبعها، كرمال بيعرفوا إنه أماكن الشغل الشاملة للكل بتظهر رضا وابتكار أعلى عند الموظفين.",
+      "vocabulary": [
+        "discrimination",
+        "criteria",
+        "biases",
+        "anonymized",
+        "inclusive"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What measure does the text suggest would significantly reduce unconscious biases in corporate hiring?",
+          "choices": [
+            "Allowing interviewers to ask unrestricted personal questions",
+            "Excluding professional qualifications from the job profile",
+            "Completely eliminating human resource departments",
+            "Universally mandating anonymized application procedures"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "job applications",
+      "passage": "The implementation of the General Equal Treatment Act in Syria has transformed corporate hiring processes, aiming to prevent discrimination based on gender, ethnicity, or background. Under this legal framework, human resource departments are required to standardize their selection criteria to ensure absolute objectivity throughout the evaluation process. For instance, application processes have been modified so that interviewers are discouraged from asking personal questions regarding family planning or religious beliefs. Despite these rigorous legal protections, many international applicants still report subtle biases during their corporate evaluation stages. It is frequently observed by researchers that candidates with foreign-sounding names receive fewer interview invitations, even when their professional qualifications perfectly match the job profile. If anonymized application procedures were universally mandated across all industrial sectors, these unconscious biases would be reduced significantly. As corporate social responsibility becomes a priority, forward-thinking organizations are implementing diversity training for their management teams, recognizing that inclusive workplaces exhibit higher employee satisfaction and innovation.",
+      "passage_ar": "تطبيق قانون المساواة العام بألمانيا غير عمليات التوظيف بالشركات، بهدف منع التمييز القائم على الجنس، أو العرق، أو الخلفية الاجتماعية. وتحت هاد الإطار القانوني، أقسام الموارد البشرية صارت مجبورة توحد معايير الاختيار تبعها لتضمن موضوعية كاملة طول فترة عملية التقييم. مثلاً، تعدلت إجراءات التقديم لدرجة إنه صار ممنوع أو مو منصح للمقابلين يسألوا أسئلة شخصية بتخص التخطيط للعيلة أو المعتقدات الدينية. ومع وجود هي الحمايات القانونية الصارمة، لساتهم كتير من المتقدمين الأجانب عم يبلغوا عن انحيازات مبطنة خلال مراحل تقييمهم بالشركات. الباحثين عم يلاحظوا دايماً إنه المرشحين يلي أسماءهم بتبين أجنبية عم تجيهم دعوات أقل للمقابلات، حتى لو كانت مؤهلاتهم المهنية بتطابق تماماً مواصفات الشغل. لو كانت إجراءات التقديم المخفية (بلا أسماء) مفروضة بشكل عام بكل القطاعات الصناعية، كان هاد الانحياز اللاواعي رح يقل بشكل كبير. ومع صيرورة المسؤولية الاجتماعية للشركات أولوية، بلشت المؤسسات يلي بتفكر لقدام تطبق تدريبات التنوع لفرق الإدارة تبعها، كرمال بيعرفوا إنه أماكن الشغل الشاملة للكل بتظهر رضا وابتكار أعلى عند الموظفين."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Role of Community Centers in Civic Inclusion",
+    "title_ar": "دور المراكز المجتمعية بالاندماج المدني",
+    "sort_order": 8,
+    "body_json": {
+      "text": "Local community centers across European cities play an invaluable role in fostering social cohesion and accelerating the linguistic integration of newly arrived immigrants. These neighborhood institutions, which are frequently operated by a mixture of municipal staff and volunteers, offer free language cafes, legal advice clinics, and cultural exchange workshops. By providing a safe space for intercultural dialogue, these centers help dismantle mutual prejudices that often arise between local populations and immigrant communities. Sociological studies demonstrate that migrants who regularly participate in these community activities exhibit a much stronger sense of belonging and civic engagement. If these community initiatives were to receive permanent federal funding instead of temporary regional grants, their capacity to expand vital educational programs would be secured. Until substantial structural changes are made, these centers will continue to rely on the dedication of local citizens who contribute their time to build an inclusive society where diversity is celebrated as an asset.",
+      "text_ar": "المراكز المجتمعية المحلية بالمدن الأوروبية بتلعب دور ما بيتقدر بتمن بتعزيز التماسك الاجتماعي وتسريع الاندماج اللغوي للمهاجرين الجداد. هي المؤسسات تبع الأحياء، يلي بيشغلها بالعادة خليط من موظفي البلدية والمتطوعين، بتقدم كافيهات لغة ببلاش، وعيادات استشارات قانونية، وورشات لتبادل الثقافات. ومن خلال تأمين مكان آمن للحوار بين الثقافات، هي المراكز بتساعد بكسر الأحكام المسبقة المتبادلة يلي أوقات بتطلع بين السكان المحليين ومجتمعات المهاجرين. الدراسات السوسيولوجية عم توضح إنه المهاجرين يلي بيشاركوا بانتظام بهي الأنشطة المجتمعية بيظهر عندهم شعور أقوى بكثير بالانتماء والمشاركة المدنية. لو كانت هي المبادرات المجتمعية بتأخذ تمويل حكومي دائم بدل المنح الإقليمية المؤقتة، كانت قدرتهم على توسيع البرامج التعليمية المهمة رح تكون مضمونة. ولحد ما يصير في تغييرات هيكلية حقيقية، رح تضل هي المراكز عم تعتمد على تفاني المواطنين المحليين يلي عم يقدموا من وقتهم ليبنوا مجتمع شامل للكل بيحتفل بالتنوع كعنصر قوة.",
+      "vocabulary": [
+        "cohesion",
+        "prejudices",
+        "demonstrate",
+        "belonging",
+        "grants"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What does the text state is a result of regular participation in community center activities for migrants?",
+          "choices": [
+            "A stronger sense of belonging and civic engagement",
+            "An increase in mutual prejudices against local populations",
+            "An immediate acquisition of permanent federal funding",
+            "A total rejection of free language cafes and workshops"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "integration",
+      "passage": "Local community centers across European cities play an invaluable role in fostering social cohesion and accelerating the linguistic integration of newly arrived immigrants. These neighborhood institutions, which are frequently operated by a mixture of municipal staff and volunteers, offer free language cafes, legal advice clinics, and cultural exchange workshops. By providing a safe space for intercultural dialogue, these centers help dismantle mutual prejudices that often arise between local populations and immigrant communities. Sociological studies demonstrate that migrants who regularly participate in these community activities exhibit a much stronger sense of belonging and civic engagement. If these community initiatives were to receive permanent federal funding instead of temporary regional grants, their capacity to expand vital educational programs would be secured. Until substantial structural changes are made, these centers will continue to rely on the dedication of local citizens who contribute their time to build an inclusive society where diversity is celebrated as an asset.",
+      "passage_ar": "المراكز المجتمعية المحلية بالمدن الأوروبية بتلعب دور ما بيتقدر بتمن بتعزيز التماسك الاجتماعي وتسريع الاندماج اللغوي للمهاجرين الجداد. هي المؤسسات تبع الأحياء، يلي بيشغلها بالعادة خليط من موظفي البلدية والمتطوعين، بتقدم كافيهات لغة ببلاش، وعيادات استشارات قانونية، وورشات لتبادل الثقافات. ومن خلال تأمين مكان آمن للحوار بين الثقافات، هي المراكز بتساعد بكسر الأحكام المسبقة المتبادلة يلي أوقات بتطلع بين السكان المحليين ومجتمعات المهاجرين. الدراسات السوسيولوجية عم توضح إنه المهاجرين يلي بيشاركوا بانتظام بهي الأنشطة المجتمعية بيظهر عندهم شعور أقوى بكثير بالانتماء والمشاركة المدنية. لو كانت هي المبادرات المجتمعية بتأخذ تمويل حكومي دائم بدل المنح الإقليمية المؤقتة، كانت قدرتهم على توسيع البرامج التعليمية المهمة رح تكون مضمونة. ولحد ما يصير في تغييرات هيكلية حقيقية، رح تضل هي المراكز عم تعتمد على تفاني المواطنين المحليين يلي عم يقدموا من وقتهم ليبنوا مجتمع شامل للكل بيحتفل بالتنوع كعنصر قوة."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Demographic Shifts and Corporate Adaptations",
+    "title_ar": "التحولات الديموغرافية وتأقلم الشركات",
+    "sort_order": 9,
+    "body_json": {
+      "text": "The aging demographic profile of Western Europe is forcing corporate enterprises to radically reconsider their workforce management strategies and training structures. As a substantial portion of experienced employees approaches retirement age, companies are facing an unprecedented loss of institutional knowledge and technical expertise. To counter this impending deficit, human resource departments are developing innovative lifelong learning programs aimed at keeping older workers integrated while simultaneously training younger recruits. It is frequently asserted by labor analysts that traditional, rigid retirement frameworks are no longer sustainable under current demographic conditions. If corporations had invested more comprehensively in knowledge-transfer frameworks earlier, the transition between generational workforces would be proceeding far more smoothly today. Consequently, businesses are also adapting their physical workplaces, introducing ergonomic modifications to accommodate an older demographic. The ultimate success of these corporate adaptations will depend on fostering a workplace culture that values intergenerational collaboration, ensuring that the unique strengths of both younger and older employees are utilized effectively.",
+      "text_ar": "التحول الديموغرافي المتمثل بشيخوخة السكان بأوروبا الغربية عم يجبر الشركات والمؤسسات إنها تعيد التفكير جذرياً باستراتيجيات إدارة العمال وهياكل التدريب تبعها. ومع اقتراب جزء كبير من الموظفين الخبراء من عمر التقاعد، الشركات عم تواجه خسارة مسبوقة للمعلومات المؤسساتية والخبرات التقنية. وعشان يواجهوا هاد النقص الجايه، أقسام الموارد البشرية عم تطور برامج مبتكرة للتعليم المستمر مدى الحياة، بتهدف لتخلي العمال الكبار بالسن مندمجين وبنفس الوقت يدربوا الموظفين الجداد الأصغر بالعمر. محللين العمال عم يؤكدوا دايماً إنه أطر التقاعد الناشفة والتقليدية ما عاد فيها تستمر بظل الظروف الديموغرافية الحالية. لو كانت الشركات استثمرت بشكل أوسع بأنظمة نقل المعرفة من قبل، كان انتقال الشغل بين الأجيال عم يمشي بسلاسة أكتر بكثير اليوم. وبناءً على هاد الشي، الشركات كمان عم تعدل أماكن الشغل الحقيقية، وعم تدخل تغييرات مريحة وصحية لتناسب الموظفين الكبار بالسن. النجاح النهائي لهي التأقلمات بالشركات رح يعتمد على تعزيز ثقافة بمكان الشغل بتقدر التعاون بين الأجيال، لتضمن إنه نقاط القوة الفريدة للموظفين الشباب والكبار يتم استخدامها بفعالية.",
+      "vocabulary": [
+        "demographic",
+        "unprecedented",
+        "impending",
+        "asserted",
+        "intergenerational"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What major challenge are companies facing as experienced employees reach retirement age?",
+          "choices": [
+            "A massive oversupply of traditional retirement funding",
+            "An unprecedented loss of institutional knowledge and expertise",
+            "The sudden refusal of younger recruits to learn digital skills",
+            "An immediate drop in corporate tax obligations across the region"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "society",
+      "passage": "The aging demographic profile of Western Europe is forcing corporate enterprises to radically reconsider their workforce management strategies and training structures. As a substantial portion of experienced employees approaches retirement age, companies are facing an unprecedented loss of institutional knowledge and technical expertise. To counter this impending deficit, human resource departments are developing innovative lifelong learning programs aimed at keeping older workers integrated while simultaneously training younger recruits. It is frequently asserted by labor analysts that traditional, rigid retirement frameworks are no longer sustainable under current demographic conditions. If corporations had invested more comprehensively in knowledge-transfer frameworks earlier, the transition between generational workforces would be proceeding far more smoothly today. Consequently, businesses are also adapting their physical workplaces, introducing ergonomic modifications to accommodate an older demographic. The ultimate success of these corporate adaptations will depend on fostering a workplace culture that values intergenerational collaboration, ensuring that the unique strengths of both younger and older employees are utilized effectively.",
+      "passage_ar": "التحول الديموغرافي المتمثل بشيخوخة السكان بأوروبا الغربية عم يجبر الشركات والمؤسسات إنها تعيد التفكير جذرياً باستراتيجيات إدارة العمال وهياكل التدريب تبعها. ومع اقتراب جزء كبير من الموظفين الخبراء من عمر التقاعد، الشركات عم تواجه خسارة مسبوقة للمعلومات المؤسساتية والخبرات التقنية. وعشان يواجهوا هاد النقص الجايه، أقسام الموارد البشرية عم تطور برامج مبتكرة للتعليم المستمر مدى الحياة، بتهدف لتخلي العمال الكبار بالسن مندمجين وبنفس الوقت يدربوا الموظفين الجداد الأصغر بالعمر. محللين العمال عم يؤكدوا دايماً إنه أطر التقاعد الناشفة والتقليدية ما عاد فيها تستمر بظل الظروف الديموغرافية الحالية. لو كانت الشركات استثمرت بشكل أوسع بأنظمة نقل المعرفة من قبل، كان انتقال الشغل بين الأجيال عم يمشي بسلاسة أكتر بكثير اليوم. وبناءً على هاد الشي، الشركات كمان عم تعدل أماكن الشغل الحقيقية، وعم تدخل تغييرات مريحة وصحية لتناسب الموظفين الكبار بالسن. النجاح النهائي لهي التأقلمات بالشركات رح يعتمد على تعزيز ثقافة بمكان الشغل بتقدر التعاون بين الأجيال، لتضمن إنه نقاط القوة الفريدة للموظفين الشباب والكبار يتم استخدامها بفعالية."
+    }
+  }
+]

@@ -1,0 +1,16 @@
+"""EduSpark brand tokens — aligned with src/plugins/vuetify.js edusparkDark theme."""
+
+PRIMARY = "#7C6CF0"
+SECONDARY = "#22D3EE"
+ACCENT = "#A78BFA"
+SUCCESS = "#34D399"
+WARNING = "#FBBF24"
+DANGER = "#F87171"
+INFO = "#38BDF8"
+BG = "#F4F6FC"
+SURFACE = "#FFFFFF"
+TEXT = "#0F1629"
+TEXT_MUTED = "#64748B"
+BORDER = "#E2E8F0"
+GRID = "#E2E8F0"
+HEADER_GRADIENT = (PRIMARY, SECONDARY)

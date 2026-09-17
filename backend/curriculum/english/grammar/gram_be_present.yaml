@@ -1,0 +1,53 @@
+grammar_id: gram_be_present
+display_code: G001
+title: Present of be
+cefr_level: A1
+order: 10
+prerequisites: []
+unlock_targets: []
+grammar_targets:
+- I am / I am not
+- he/she/it is / is not
+- you/we/they are / are not
+- Am/Is/Are + subject ...?
+- short answers with be
+teaching_notes: Establish subject–verb agreement through identity, location, and description. Teach affirmative,
+  negative, questions, and short answers together; explicitly address omission of be common for Arabic-speaking
+  learners. Model the target in classroom introductions, family description; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- He are tired.
+- I is happy.
+- 'Omitting be: She my friend.'
+- 'Using do with be: Do you are ready?'
+- 'Wrong agreement in a short answer: Yes, she are.'
+examples:
+- I am a student.
+- She is at school.
+- They are not ready.
+- Are you tired? Yes, I am.
+- Where is the library?
+learning_objectives:
+- Use am/is/are for identity, location, and basic description
+- Form affirmative, negative, and question forms with be
+- Respond with accurate short answers and agreement
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- classroom introductions
+- family description
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 10.0
+focus_note: Establish subject–verb agreement through identity, location, and description. Teach affirmative,
+  negative, questions, and short answers together; explicitly address omission of be common for Arabic-speaking
+  learners. Model the target in classroom introductions, family description; check comprehension before
+  guided production, then recycle it in a new context.

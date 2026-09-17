@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Meeting a New Classmate",
+    "title_ar": "التقاء برفيقة صف جديدة",
+    "sort_order": 0,
+    "body_json": {
+      "audio_transcript": "Hello! My name is Maya. I am from Homs, Syria. Now, I live in Damascus, Syria. I am twenty-two years old. I am a new student here. I speak Arabic and a little English. Nice to meet you all!",
+      "situation": "A student introduces herself on the first day of an English class in Damascus.",
+      "situation_ar": "طالبة عم تعرف عن حالها بأول يوم بصف الإنكليزي بدمشق.",
+      "vocabulary": [
+        "name",
+        "live",
+        "student",
+        "speak",
+        "meet"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Where is Maya from originally?",
+          "choices": [
+            "Syria",
+            "Jordan",
+            "Damascus",
+            "Damascus"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "self-introduction",
+      "instructions": "A student introduces herself on the first day of an English class in Damascus."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Talking About Family",
+    "title_ar": "عم نحكي عن العيلة",
+    "sort_order": 1,
+    "body_json": {
+      "audio_transcript": "Look at this photo, Max. This is my family in Damascus. Here is my father. He is a tall man. This is my mother. She has green eyes. I have one small brother. He is ten. I miss them very much.",
+      "situation": "A young man is showing a picture of his family to his German flatmate.",
+      "situation_ar": "شاب عم يفرجي صورة عيلته لرفيقه ألماني بالسكن.",
+      "vocabulary": [
+        "photo",
+        "family",
+        "father",
+        "mother",
+        "brother"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How old is the speaker's brother?",
+          "choices": [
+            "Twenty-six years old",
+            "Ten years old",
+            "Three years old",
+            "Seven years old"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "family",
+      "instructions": "A young man is showing a picture of his family to his German flatmate."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "My Small Flat",
+    "title_ar": "شقتي الصغيرة",
+    "sort_order": 2,
+    "body_json": {
+      "audio_transcript": "Hi Mom! My new room is small. It is clean and quiet. I have a white bed and a big desk. The kitchen is nice. I share it with two German students. They are very friendly. I like it here.",
+      "situation": "An international student describes his room in a shared apartment over the phone.",
+      "situation_ar": "طالب مغترب عم يوصف غرفته بشقة مشتركة ع التلفون.",
+      "vocabulary": [
+        "room",
+        "clean",
+        "quiet",
+        "bed",
+        "share"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Who does the speaker share the kitchen with?",
+          "choices": [
+            "His mother",
+            "A friendly doctor",
+            "Two German students",
+            "Nobody"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "home",
+      "instructions": "An international student describes his room in a shared apartment over the phone."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Morning in the City",
+    "title_ar": "الصبح بالمدينة",
+    "sort_order": 3,
+    "body_json": {
+      "audio_transcript": "I get up at six o'clock every morning. I drink warm milk. Then, I walk to the train station. I take the red train at seven. I arrive at my school early. My class starts at eight o'clock.",
+      "situation": "A girl explains what she does every morning before going to school.",
+      "situation_ar": "بنت عم تشرح شو عم تعمل كل يوم الصبح قبل ما تروح عالمدرسة.",
+      "vocabulary": [
+        "morning",
+        "drink",
+        "walk",
+        "train",
+        "early"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What does the girl drink in the morning?",
+          "choices": [
+            "Hot coffee",
+            "Black tea",
+            "Cold water",
+            "Warm milk"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "daily routine",
+      "instructions": "A girl explains what she does every morning before going to school."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Buying Breakfast",
+    "title_ar": "عم اشتري فطور",
+    "sort_order": 4,
+    "body_json": {
+      "audio_transcript": "Good morning! I want some fresh bread, please. Yes, the brown bread. I also want one sweet apple cake. How much is it? Four euros? The bakery is clean. Here is five euros. Thank you very much! I love this place.",
+      "situation": "A customer orders some food at a local German bakery.",
+      "situation_ar": "زبون عم يطلب أكل بفرن محلي بألمانيا.",
+      "vocabulary": [
+        "fresh",
+        "bread",
+        "sweet",
+        "cake",
+        "bakery"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How much does the customer's food cost?",
+          "choices": [
+            "Four euros",
+            "Five euros",
+            "Two euros",
+            "Eight euros"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "food",
+      "instructions": "A customer orders some food at a local German bakery."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Buying a Train Ticket",
+    "title_ar": "شرا تكت قطار",
+    "sort_order": 5,
+    "body_json": {
+      "audio_transcript": "Excuse me! I need a ticket to Munich, please. Is it cheap? Oh, it is thirteen euros. Okay. I need two tickets for my friends. That is twenty-six euros total. Here is thirty euros. The train is fast. I am happy.",
+      "situation": "A student asks a transit worker for ticket prices at a train station in Munich.",
+      "situation_ar": "طالب عم يسأل موظف مواصلات عن أسعار التكتات بمحطة القطار بميونيخ.",
+      "vocabulary": [
+        "ticket",
+        "cheap",
+        "total",
+        "train",
+        "fast"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is the cost of one train ticket?",
+          "choices": [
+            "Thirty euros",
+            "Thirteen euros",
+            "Twenty-six euros",
+            "Two euros"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "numbers",
+      "instructions": "A student asks a transit worker for ticket prices at a train station in Munich."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Asking for the Bus",
+    "title_ar": "عم اسأل عن الباص",
+    "sort_order": 6,
+    "body_json": {
+      "audio_transcript": "Hello! Does the blue bus go to the city center? Oh, it does not? Okay, I understand. I must take bus number nine. Does it arrive at ten o'clock? Yes? Great! The station is near. I see it now. Thank you!",
+      "situation": "A lost commuter asks someone about the bus route to the city center.",
+      "situation_ar": "واحد ضايع عم يسأل حدا عن طريق الباص لمركز المدينة.",
+      "vocabulary": [
+        "blue",
+        "bus",
+        "center",
+        "understand",
+        "station"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Which bus number must the speaker take?",
+          "choices": [
+            "Bus number ten",
+            "The blue bus",
+            "Bus number nine",
+            "Bus number seven"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "public transport",
+      "instructions": "A lost commuter asks someone about the bus route to the city center."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Going to the Park",
+    "title_ar": "مشوار عالجنينة",
+    "sort_order": 7,
+    "body_json": {
+      "audio_transcript": "The weather is very beautiful today. Let us go to the green park. We can walk for one hour. I want to see the trees and flowers. My friend Ahmad is there. He has a black dog. Come on! I love sunny days.",
+      "situation": "Two friends talk about going outside on a sunny afternoon in Aleppo.",
+      "situation_ar": "رفقات اثنين عم يحكوا عن مشوار لبرّا بعد الظهر بيوم مشمس بهامبورغ.",
+      "vocabulary": [
+        "weather",
+        "beautiful",
+        "park",
+        "walk",
+        "dog"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What animal does the speaker's friend have at the park?",
+          "choices": [
+            "A white cat",
+            "A green bird",
+            "No animal",
+            "A black dog"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "daily city life",
+      "instructions": "Two friends talk about going outside on a sunny afternoon in Aleppo."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Lunch at the Cafe",
+    "title_ar": "الغدا بالقهوة",
+    "sort_order": 8,
+    "body_json": {
+      "audio_transcript": "Hello! I am hungry. I want a small chicken salad, please. Do you have fresh orange juice? No? Okay, give me cold water. How much is the salad? Six euros? That is very cheap. Here is the money. Thank you very much!",
+      "situation": "A worker talks to a waiter about ordering lunch during a short afternoon break.",
+      "situation_ar": "موظف عم يحكي مع غرسون عن طلب الغدا خلال استراحة قصيرة بعد الظهر.",
+      "vocabulary": [
+        "hungry",
+        "chicken",
+        "salad",
+        "orange",
+        "water"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What drink does the customer order after finding out there is no juice?",
+          "choices": [
+            "Cold water",
+            "Hot coffee",
+            "White milk",
+            "Black tea"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "food",
+      "instructions": "A worker talks to a waiter about ordering lunch during a short afternoon break."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "A1",
+    "content_type": "lesson",
+    "title": "Welcome to the Shared Flat",
+    "title_ar": "أهلاً فيك بالشقة المشتركة",
+    "sort_order": 9,
+    "body_json": {
+      "audio_transcript": "Welcome to our flat, Rami! My name is Jonas. I am twenty-six years old. I live here with my brother. This is your new room. It has a big window. We eat dinner together at seven. Make yourself at home! Enjoy your stay!",
+      "situation": "A German resident welcomes a new Syrian flatmate into their house.",
+      "situation_ar": "ساكن ألماني عم يرحب برفيقه الجديد السوري بالبيت.",
+      "vocabulary": [
+        "welcome",
+        "live",
+        "brother",
+        "room",
+        "dinner"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What time does the household eat dinner together?",
+          "choices": [
+            "At six o'clock",
+            "At seven o'clock",
+            "At eight o'clock",
+            "At nine o'clock"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "self-introduction",
+      "instructions": "A German resident welcomes a new Syrian flatmate into their house."
+    }
+  }
+]

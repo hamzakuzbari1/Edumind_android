@@ -1,0 +1,42 @@
+grammar_id: gram_third_conditional
+display_code: G037
+title: Third conditional
+cefr_level: B2
+order: 370
+prerequisites:
+- gram_second_conditional
+- gram_past_perfect_light
+unlock_targets: []
+grammar_targets:
+- if had
+- would have
+- could have
+- might have
+teaching_notes: Model the target in regrets, missed opportunities; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- If I would have left earlier...
+- If I had left earlier, I would arrive on time.
+examples:
+- If I had left earlier, I would have arrived on time.
+- She might have passed if she had studied.
+learning_objectives:
+- Express unreal past conditions and regrets with if + past perfect, would have
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- regrets
+- missed opportunities
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Model the target in regrets, missed opportunities; check comprehension before guided production,
+  then recycle it in a new context.

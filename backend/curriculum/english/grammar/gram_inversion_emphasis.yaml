@@ -1,0 +1,41 @@
+grammar_id: gram_inversion_emphasis
+display_code: G047
+title: Negative inversion for emphasis
+cefr_level: C1
+order: 470
+prerequisites:
+- gram_cleft_emphasis
+- gram_advanced_modals
+unlock_targets: []
+grammar_targets:
+- never have I
+- not only
+- rarely does
+teaching_notes: Model the target in formal speech, persuasive essay; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- Never I have seen...
+- Not only she finished early...
+examples:
+- Never have I seen such confusion.
+- Not only did she finish early, she also helped others.
+learning_objectives:
+- Use limited negative inversion for formal emphasis
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 90.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- reading
+recommended_contexts:
+- formal speech
+- persuasive essay
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 21.0
+focus_note: Model the target in formal speech, persuasive essay; check comprehension before guided production,
+  then recycle it in a new context.

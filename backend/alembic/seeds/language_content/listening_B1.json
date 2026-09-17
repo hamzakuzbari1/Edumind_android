@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Preparing for a Mock Interview",
+    "title_ar": "التحضير لمقابلة عمل تجريبية",
+    "sort_order": 0,
+    "body_json": {
+      "audio_transcript": "Hi Zein, I spent the entire evening preparing for my mock interview tomorrow at the language center. If I had practiced more last week, I wouldn't feel this anxious right now. My advisor told me that they might ask about how I handle stressful situations at work. I have already updated my CV and printed out my certificates. I've also prepared some questions about the company's training programs. If they ask about my weaknesses, I'll say that I am sometimes too focused on details, but I am learning to manage my time better. I really need to get a part-time job soon to help with my living expenses here. Wish me luck!",
+      "situation": "A student tells his friend how he is preparing for an upcoming practice job interview.",
+      "situation_ar": "شاب عم يحكي لرفيقه شو عم يعمل مشان يجهز لمقابلة الشغل التجريبية تبعه بكرا.",
+      "vocabulary": [
+        "mock interview",
+        "anxious",
+        "advisor",
+        "weaknesses",
+        "expenses"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What will the speaker say if he is asked about his weaknesses?",
+          "choices": [
+            "He focuses too much on details but is improving time management.",
+            "He cannot handle stressful situations at work.",
+            "He forgot to bring his certificates and updated CV.",
+            "He does not want to work flexible hours on weekends."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "job applications",
+      "instructions": "A student tells his friend how he is preparing for an upcoming practice job interview."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "The Challenge of Waste Sorting",
+    "title_ar": "تحدي فرز الزبالة",
+    "sort_order": 1,
+    "body_json": {
+      "audio_transcript": "Honestly, I have been living in Aleppo for three months now, but I still find the local recycling system quite confusing. Yesterday, my landlord noticed that I had accidentally thrown some plastic containers into the blue paper bin. He wasn't angry, but he explained that if the city finds mixed trash, the whole building could get a fine. He told me that plastic packaging belongs in the yellow bags, while food scraps should go into the organic waste bin. I have tried my best to follow these guidelines since then. If my flatmate hadn't helped me sort the bottles this morning, I would have made another mistake. It takes time to build these habits.",
+      "situation": "An international resident explains a recycling mistake to his friend and shares what his landlord said.",
+      "situation_ar": "طالب عم يشرح لرفيقه بالسكن المشكلة يلي صارت معه مع صاحب البناية بسبب فرز الزبالة.",
+      "vocabulary": [
+        "recycling",
+        "landlord",
+        "fine",
+        "packaging",
+        "scraps"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What consequence did the landlord mention if the city finds mixed trash?",
+          "choices": [
+            "The resident must leave the apartment immediately.",
+            "The entire building could receive a financial fine.",
+            "The blue paper bin will be removed from the property.",
+            "The flatmate will have to sort all the bottles alone."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "environment",
+      "instructions": "An international resident explains a recycling mistake to his friend and shares what his landlord said."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Booking a Holiday Ticket",
+    "title_ar": "حجز تكت للعطلة",
+    "sort_order": 2,
+    "body_json": {
+      "audio_transcript": "Hello, I am calling to see if you would like to join us on a trip to Damascus next weekend. I have just checked the train tickets online, and if we buy them today, we will get a significant discount. If we wait until Friday, the prices will definitely double. I have been looking for an affordable option because my budget is tight this month. The train leaves at nine in the morning and takes around four hours. There is free internet on board, so we could even watch a movie during the journey. Let me know by tonight if you can come, so I can book all the seats together.",
+      "situation": "A young man calls his classmate to invite him on a weekend train journey and discusses ticket availability.",
+      "situation_ar": "واحد عم يتصل برفيقه ليعزمه ع رحلة ويقله يحجزوا التكتات هلق مشان الرخص.",
+      "vocabulary": [
+        "significant",
+        "discount",
+        "affordable",
+        "budget",
+        "journey"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why does the speaker want to buy the train tickets today?",
+          "choices": [
+            "Because the train leaves exactly at nine tonight.",
+            "Because the free onboard internet is only available today.",
+            "To get a significant discount before prices double.",
+            "To change the travel destination from Munich to Damascus."
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "travel",
+      "instructions": "A young man calls his classmate to invite him on a weekend train journey and discusses ticket availability."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Getting a Health Insurance Card",
+    "title_ar": "طلعت كرت التأمين الصحي",
+    "sort_order": 3,
+    "body_json": {
+      "audio_transcript": "Hi Selma, I finally received my new health insurance card in the mail today. I have been waiting for it for over three weeks, and I was getting a bit worried. If I hadn't submitted the digital photo online last Monday, it probably would have taken even longer. Now that I have the physical card, I should register with a local general practitioner near our neighborhood. My friend recommended a very kind doctor who speaks excellent English. If I ever feel sick or develop a severe fever, I can just call them for an appointment. It's a huge relief to have this sorted out because healthcare without insurance is incredibly expensive here.",
+      "situation": "A woman leaves a voice message for her friend about receiving her medical insurance document.",
+      "situation_ar": "بنت عم تخبر رفيقتها بمسج صوتي إنها استلمت كرت الصحة الجديد وتبعت شو لازم تعمل هلق.",
+      "vocabulary": [
+        "received",
+        "submitted",
+        "practitioner",
+        "severe",
+        "relief"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What step does the speaker plan to take now that she has her physical card?",
+          "choices": [
+            "Submit a new digital photo to the medical clinic.",
+            "Wait another three weeks to see if she develops a fever.",
+            "Cancel her appointment because healthcare is too expensive.",
+            "Register with a local English-speaking general practitioner."
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "health",
+      "instructions": "A woman leaves a voice message for her friend about receiving her medical insurance document."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Setting Up Home Internet",
+    "title_ar": "تركيب إنترنت بالبيت",
+    "sort_order": 4,
+    "body_json": {
+      "audio_transcript": "Hi Kareem, I'm just calling to let you know that the technician has finally arrived to set up our home internet router. I've been using my mobile data for the past two weeks, and I have already spent a lot of money on extra gigabytes. If the company had sent the activation code on time, we would have had internet last week. The technician says it will take about half an hour to test the connection speed. Once it's ready, we will be able to stream videos and study online without any interruptions. I will write down the new Wi-Fi password and leave it on the kitchen table for you.",
+      "situation": "A tenant calls his roommate to inform him that the internet service is being installed.",
+      "situation_ar": "ساكن عم يتصل برفيقه بالسكن ليخبره إنه موظف الشركة إجا وأخيراً عم يركب النت.",
+      "vocabulary": [
+        "technician",
+        "router",
+        "activation",
+        "connection",
+        "interruptions"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why did the roommates experience a delay in getting their internet setup?",
+          "choices": [
+            "The company failed to send the activation code on time.",
+            "The technician lost the kitchen table password.",
+            "They spent all their money on extra mobile data.",
+            "They were busy studying online for two whole weeks."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "technology",
+      "instructions": "A tenant calls his roommate to inform him that the internet service is being installed."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Discussing Flat Rules",
+    "title_ar": "نقاش عن قواعد الشقة",
+    "sort_order": 5,
+    "body_json": {
+      "audio_transcript": "Listen, Samer, we need to have a quick chat about our flat's cleaning routine. I've noticed that the kitchen counter hasn't been wiped for a few days, and there are several empty boxes in the hallway. We agreed on a strict schedule when we moved in, and if everyone doesn't do their part, it creates a lot of unnecessary tension. I know you've been extremely busy with your university exams lately, but it only takes ten minutes to wash your dishes. If we don't keep the shared areas clean, our landlord might complain during the next inspection. Let's try to fix this before the weekend, okay?",
+      "situation": "A roommate confronts his flatmate about neglecting his shared household cleaning chores.",
+      "situation_ar": "شاب عم يحكي مع رفيقه بالسكن بجدية مشان قصة النظافة والترتيب بالبيت.",
+      "vocabulary": [
+        "routine",
+        "counter",
+        "schedule",
+        "tension",
+        "inspection"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is the speaker worried might happen if the shared areas stay messy?",
+          "choices": [
+            "Samer will fail his upcoming university exams.",
+            "The landlord might complain during the next inspection.",
+            "They will have to buy new empty boxes for the hallway.",
+            "The kitchen schedule will be extended until the weekend."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "relationships",
+      "instructions": "A roommate confronts his flatmate about neglecting his shared household cleaning chores."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Choosing an Apprenticeship",
+    "title_ar": "اختيار التدريب المهني",
+    "sort_order": 6,
+    "body_json": {
+      "audio_transcript": "My cousin Tareq has been thinking about his career options since he finished his language course. He was planning to apply for a computer science degree at university, but now he is considering a vocational training program instead. He found a great apprenticeship at an IT company in Homs. If he chooses the vocational training, he will be able to earn a monthly salary while learning practical skills on the job. His father believes that university offers better long-term opportunities, but Tareq prefers hands-on experience. If he gets accepted, he would start training this September. It's a difficult decision, and he has been talking to a career counselor to weigh the pros and cons.",
+      "situation": "A speaker talks about his cousin's dilemma between choosing university or vocational training.",
+      "situation_ar": "واحد عم يحكي عن ابن عمه يلي عم يفكر يعمل أوسبيلدونغ ومحتار بينه وبين الجامعة.",
+      "vocabulary": [
+        "career",
+        "vocational",
+        "apprenticeship",
+        "salary",
+        "counselor"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why does Tareq prefer the vocational training program over a university degree?",
+          "choices": [
+            "He wants to avoid moving to the city of Homs.",
+            "His father forced him to look for a monthly salary immediately.",
+            "He prefers hands-on, practical experience over purely academic study.",
+            "The career counselor advised him to quit studying computer science."
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "school system",
+      "instructions": "A speaker talks about his cousin's dilemma between choosing university or vocational training."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Extending the Residence Permit",
+    "title_ar": "تمديد الإقامة بمكتب الأجانب",
+    "sort_order": 7,
+    "body_json": {
+      "audio_transcript": "I had a very stressful morning at the immigration office today. My current residence permit is due to expire next month, so I had to request an extension. If I hadn't booked the appointment three months in advance, I wouldn't have found an available slot before the deadline. The officer examined all my documents carefully, including my bank statements and university enrollment letter. Luckily, everything was in perfect order, but she said the actual card takes six weeks to be printed. She gave me a temporary document to use in the meantime. If you need to renew your visa soon, you should definitely start gathering your paperwork immediately.",
+      "situation": "A student describes his experience renewing his visa at the local migration office.",
+      "situation_ar": "طالب عم يوصف لرفيقه العجقة والضغط يلي عاشه اليوم الصبح بمكتب الإقامة.",
+      "vocabulary": [
+        "immigration",
+        "extension",
+        "examined",
+        "statements",
+        "temporary"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What did the officer give the speaker because the card takes six weeks to print?",
+          "choices": [
+            "A completely new university enrollment letter.",
+            "An immediate extension of three additional months.",
+            "A bank statement showing sufficient funds.",
+            "A temporary document to use in the meantime."
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "bureaucracy",
+      "instructions": "A student describes his experience renewing his visa at the local migration office."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Understanding Sunday Quiet Hours",
+    "title_ar": "فهم ساعات الهدوء يوم الأحد",
+    "sort_order": 8,
+    "body_json": {
+      "audio_transcript": "When I first moved to Syria, I didn't know about the strict rules regarding Sunday quiet hours, which locals call quiet day. Last Sunday morning, I decided to hang some shelves in my room and started using an electric drill. Within five minutes, my neighbor knocked on the door and politely explained that loud noises are prohibited on Sundays. He said that if I continued drilling, the other residents might get upset or even call the landlord. I apologized immediately and put my tools away. If he hadn't warned me, I would have broken the community rules without realizing it. Now I understand that Sundays are meant entirely for quiet relaxation.",
+      "situation": "A recent migrant shares an incident where he accidentally violated a local neighborhood rule.",
+      "situation_ar": "مغترب عم يحكي لرفيقه عن قصة صارت معه يوم الأحد لما استخدم الحفارة بالبيت.",
+      "vocabulary": [
+        "strict",
+        "shelves",
+        "prohibited",
+        "warned",
+        "relaxation"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What happened when the speaker started using an electric drill last Sunday?",
+          "choices": [
+            "His neighbor knocked on the door and explained the quiet hours rule.",
+            "The landlord arrived to help him hang the shelves.",
+            "The other residents called the police to issue a major fine.",
+            "His drill broke down within the first five minutes of use."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "cultural differences",
+      "instructions": "A recent migrant shares an incident where he accidentally violated a local neighborhood rule."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Contesting a Transit Fine",
+    "title_ar": "الاعتراض على مخالفة مواصلات",
+    "sort_order": 9,
+    "body_json": {
+      "audio_transcript": "You won't believe what happened to me on the tram yesterday. I bought a monthly transit ticket last week, but I forgot to carry it with me when I left the apartment. During the journey, a ticket inspector boarded the tram and asked to see my pass. Since I couldn't produce it, he gave me a regular sixty-euro fine. He explained that if I take my valid monthly ticket to the transit office within a week, they will reduce the fine to just seven euros. I am planning to go there tomorrow morning to sort this out. If I had been more careful, I would have avoided this annoying bureaucracy.",
+      "situation": "A commuter explains how he received a public transit fine because he forgot his valid monthly pass.",
+      "situation_ar": "راكب عم يشرح شو صار معه بالترام لما نسي تكت الشهر وأكل مخالفة.",
+      "vocabulary": [
+        "monthly",
+        "inspector",
+        "produce",
+        "reduce",
+        "annoying"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How can the speaker reduce his transit fine from sixty euros to seven euros?",
+          "choices": [
+            "By buying a completely new monthly pass from the tram inspector.",
+            "By bringing his valid monthly ticket to the transit office within a week.",
+            "By explaining to the landlord that he forgot it inside the flat.",
+            "By waiting tomorrow morning until the bureaucracy rules change."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "public transport",
+      "instructions": "A commuter explains how he received a public transit fine because he forgot his valid monthly pass."
+    }
+  }
+]

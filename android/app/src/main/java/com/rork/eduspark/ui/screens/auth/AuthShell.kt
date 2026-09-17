@@ -81,6 +81,24 @@ import com.rork.eduspark.ui.theme.Spacing
 enum class WordmarkSize { Hero, Compact }
 
 /**
+ * Full EduMind logo asset — splash, role selection, and role-auth headers.
+ */
+@Composable
+fun BrandLogo(
+    modifier: Modifier = Modifier,
+    height: Dp = 56.dp,
+) {
+    Image(
+        painter = painterResource(R.drawable.edumind_logo),
+        contentDescription = stringResource(R.string.app_name),
+        contentScale = ContentScale.Fit,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(height),
+    )
+}
+
+/**
  * The brand block: monogram tile, wordmark in the display face, the same name in the
  * other script, then the tagline.
  *

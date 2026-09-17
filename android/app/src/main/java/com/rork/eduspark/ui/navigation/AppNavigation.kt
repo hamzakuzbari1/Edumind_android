@@ -37,11 +37,13 @@ import com.rork.eduspark.ui.screens.auth.LocaleSwitchScreen
 import com.rork.eduspark.ui.screens.auth.LoginScreen
 import com.rork.eduspark.ui.screens.auth.RegisterScreen
 import com.rork.eduspark.ui.screens.auth.ResetPasswordScreen
+import com.rork.eduspark.ui.screens.auth.RoleAuthScreen
 import com.rork.eduspark.ui.screens.auth.RoleSelectScreen
 import com.rork.eduspark.ui.screens.auth.SplashDecision
 import com.rork.eduspark.ui.screens.auth.SplashScreen
 import com.rork.eduspark.ui.screens.auth.SplashViewModel
 import com.rork.eduspark.ui.screens.auth.TwoFactorScreen
+import com.rork.eduspark.ui.screens.auth.parseUserRoleArg
 import com.rork.eduspark.ui.screens.auth.ValueCarouselScreen
 import com.rork.eduspark.ui.screens.auth.ValueCarouselViewModel
 import com.rork.eduspark.ui.screens.auth.VerifyEmailScreen
@@ -373,53 +375,69 @@ private fun NavGraphBuilder.authGraph(
                 onSelectLocale = startLocaleTransition,
                 onFinished = {
                     viewModel.markSeen()
-                    navController.navigate(Routes.ROLE_SELECT)
+                    navController.navigate(Routes.ROLE_SELECT) {
+                        popUpTo(Routes.VALUE_CAROUSEL) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 },
             )
         }
 
         // ── A-03 · Role Select ───────────────────────────────────────────
         composable(Routes.ROLE_SELECT) {
-            val canGoBack = navController.previousBackStackEntry != null
-
             RoleSelectScreen(
                 locale = locale,
                 onSelectLocale = startLocaleTransition,
                 onSelectRole = { role ->
-                    navController.navigate(
-                        when (role) {
-                            UserRole.Student -> Routes.REGISTER_STUDENT
-                            UserRole.Teacher -> Routes.REGISTER_TEACHER
-                            UserRole.Parent -> Routes.REGISTER_PARENT
-                        }
-                    )
+                    navController.navigate(Routes.roleAuthRoute(role))
                 },
-                onLogin = { navController.navigate(Routes.LOGIN) },
-                onBack = if (canGoBack) {
-                    { navController.popBackStack() }
-                } else {
-                    null
-                },
+                onBack = null,
+            )
+        }
+
+        // ── Role-specific Login / Register hub ───────────────────────────
+        composable(
+            route = Routes.ROLE_AUTH,
+            arguments = listOf(navArgument(Routes.ROLE_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
+            RoleAuthScreen(
+                role = role,
+                locale = locale,
+                onSelectLocale = startLocaleTransition,
+                onLogin = { navController.navigate(Routes.loginRoute(role)) },
+                onRegister = { navController.navigate(Routes.registerRoute(role)) },
+                onChangeAccountType = { navController.popToRoleSelect() },
             )
         }
 
         // ── A-04 · Login ─────────────────────────────────────────────────
-        composable(Routes.LOGIN) {
-            val canGoBack = navController.previousBackStackEntry != null
-
+        composable(
+            route = Routes.LOGIN,
+            arguments = listOf(navArgument(Routes.ROLE_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
             LoginScreen(
+                expectedRole = role,
                 locale = locale,
                 onSelectLocale = startLocaleTransition,
                 onAuthenticated = navController::routeAfterAuthentication,
-                onTwoFactorRequired = { email -> navController.navigate(Routes.twoFactorRoute(email)) },
+                onTwoFactorRequired = { email ->
+                    navController.navigate(Routes.twoFactorRoute(email, role))
+                },
                 onVerifyEmail = { email -> navController.navigate(Routes.verifyEmailRoute(email)) },
                 onForgotPassword = { navController.navigate(Routes.FORGOT_PASSWORD) },
-                onCreateAccount = { navController.navigate(Routes.ROLE_SELECT) },
-                onBack = if (canGoBack) {
-                    { navController.popBackStack() }
-                } else {
-                    null
-                },
+                onCreateAccount = { navController.navigate(Routes.registerRoute(role)) },
+                onChangeAccountType = { navController.popToRoleSelect() },
+                onBack = { navController.popBackStack() },
             )
         }
 
@@ -458,13 +476,26 @@ private fun NavGraphBuilder.authGraph(
         // ── A-09 · Two-Factor Verify ──────────────────────────────────────
         composable(
             route = Routes.TWO_FACTOR,
-            arguments = listOf(navArgument(EMAIL_ARG) { type = NavType.StringType }),
+            arguments = listOf(
+                navArgument(EMAIL_ARG) { type = NavType.StringType },
+                navArgument(Routes.ROLE_ARG) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+            ),
         ) { backStackEntry ->
             val email = backStackEntry.arguments?.getString(EMAIL_ARG).orEmpty()
+            val role = parseUserRoleArg(backStackEntry.arguments?.getString(Routes.ROLE_ARG))
+            if (role == null) {
+                LaunchedEffect(Unit) { navController.popToRoleSelect() }
+                return@composable
+            }
             TwoFactorScreen(
                 email = email,
+                expectedRole = role,
                 onBack = { navController.popBackStack() },
                 onAuthenticated = navController::routeAfterAuthentication,
+                onChangeAccountType = { navController.popToRoleSelect() },
             )
         }
 
@@ -472,7 +503,11 @@ private fun NavGraphBuilder.authGraph(
         composable(Routes.FORGOT_PASSWORD) {
             ForgotPasswordScreen(
                 onBack = { navController.popBackStack() },
-                onLogin = { navController.navigate(Routes.LOGIN) { launchSingleTop = true } },
+                onLogin = {
+                    if (!navController.popBackStack()) {
+                        navController.popToRoleSelect()
+                    }
+                },
             )
         }
 
@@ -503,7 +538,7 @@ private fun NavGraphBuilder.authGraph(
                 onCompleted = {
                     // Resetting a password never returns a session (Source Audit §3) — the
                     // honest next step is Login, same as A-08's no-session branch.
-                    navController.navigate(Routes.LOGIN) {
+                    navController.navigate(Routes.ROLE_SELECT) {
                         popUpTo(Routes.AUTH_GRAPH) { inclusive = false }
                         launchSingleTop = true
                     }
@@ -553,8 +588,9 @@ private fun NavGraphBuilder.registerDestination(
                 navController.navigate(Routes.verifyEmailRoute(email)) { launchSingleTop = true }
             },
             onLogin = {
-                navController.navigate(Routes.LOGIN) { launchSingleTop = true }
+                navController.navigate(Routes.loginRoute(role)) { launchSingleTop = true }
             },
+            onChangeAccountType = { navController.popToRoleSelect() },
             onBack = { navController.popBackStack() },
         )
     }
@@ -565,6 +601,16 @@ private fun NavHostController.replaceWith(route: String) {
     navigate(route) {
         popUpTo(Routes.SPLASH) { inclusive = true }
         launchSingleTop = true
+    }
+}
+
+/** Returns to the role-selection entry without stacking another copy of it. */
+private fun NavHostController.popToRoleSelect() {
+    if (!popBackStack(Routes.ROLE_SELECT, inclusive = false)) {
+        navigate(Routes.ROLE_SELECT) {
+            popUpTo(Routes.AUTH_GRAPH) { inclusive = false }
+            launchSingleTop = true
+        }
     }
 }
 

@@ -1,0 +1,45 @@
+grammar_id: gram_object_pronouns
+display_code: G010
+title: Object pronouns
+cefr_level: A1
+order: 100
+prerequisites:
+- gram_personal_pronouns
+unlock_targets: []
+grammar_targets:
+- me
+- you
+- him
+- her
+- it
+- us
+- them
+teaching_notes: Keep subject/object contrast concrete and high-frequency. Model the target in asking for
+  help, talking about people; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- Can you help I?
+- I saw they yesterday.
+examples:
+- Can you help me?
+- I saw them yesterday.
+learning_objectives:
+- Use object pronouns after verbs and prepositions
+- Contrast subject vs object forms in short turns
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- asking for help
+- talking about people
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Keep subject/object contrast concrete and high-frequency. Model the target in asking for help,
+  talking about people; check comprehension before guided production, then recycle it in a new context.

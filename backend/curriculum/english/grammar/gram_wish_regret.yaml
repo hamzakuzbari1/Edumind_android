@@ -1,0 +1,42 @@
+grammar_id: gram_wish_regret
+display_code: G043
+title: Wish and regret
+cefr_level: B2
+order: 430
+prerequisites:
+- gram_second_conditional
+- gram_past_simple
+unlock_targets: []
+grammar_targets:
+- I wish
+- if only
+- wish I had
+- wish I could
+teaching_notes: Model the target in personal regrets, unmet goals; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- I wish I have more time.
+- I wish I would have more time. (present wish)
+examples:
+- I wish I had more time.
+- If only we had listened.
+learning_objectives:
+- Express present/past wishes and regrets with wish / if only
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- personal regrets
+- unmet goals
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in personal regrets, unmet goals; check comprehension before guided production,
+  then recycle it in a new context.

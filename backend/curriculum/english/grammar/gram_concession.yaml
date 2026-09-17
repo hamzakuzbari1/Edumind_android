@@ -1,0 +1,43 @@
+grammar_id: gram_concession
+display_code: G046
+title: Concession and contrast
+cefr_level: C1
+order: 460
+prerequisites:
+- gram_connectors_and_but
+- gram_relative_clauses
+unlock_targets: []
+grammar_targets:
+- although
+- even though
+- whereas
+- despite
+teaching_notes: Hold conflicting views in the same situation. Model the target in balanced argument, conflicting
+  stakeholder views; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- Despite of the delay...
+- Although they approved it but...
+examples:
+- Although the plan was risky, they approved it.
+- Despite the delay, the team finished.
+learning_objectives:
+- Hold conflicting views with although / even though / whereas / despite
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 88.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- reading
+- writing
+- vocabulary
+recommended_contexts:
+- balanced argument
+- conflicting stakeholder views
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Hold conflicting views in the same situation. Model the target in balanced argument, conflicting
+  stakeholder views; check comprehension before guided production, then recycle it in a new context.

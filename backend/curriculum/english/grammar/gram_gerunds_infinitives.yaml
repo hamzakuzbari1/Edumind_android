@@ -1,0 +1,43 @@
+grammar_id: gram_gerunds_infinitives
+display_code: G033
+title: Gerunds and infinitives (basic)
+cefr_level: B1
+order: 330
+prerequisites:
+- gram_present_simple
+- gram_can_ability
+unlock_targets: []
+grammar_targets:
+- enjoy -ing
+- want to
+- decide to
+- like -ing
+teaching_notes: Model the target in hobbies, plans and decisions; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- I enjoy to read at night.
+- She decided staying.
+examples:
+- I enjoy reading at night.
+- She decided to stay.
+learning_objectives:
+- Choose common verb + -ing / to-infinitive patterns correctly
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- speaking
+- vocabulary
+recommended_contexts:
+- hobbies
+- plans and decisions
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in hobbies, plans and decisions; check comprehension before guided production,
+  then recycle it in a new context.

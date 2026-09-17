@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Preparing for a Job Interview",
+    "title_ar": "التجهيز لمقابلة شغل",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Describe how you would prepare for an important job interview in Syria. What documents should you bring, and how would you dress to make a good impression?",
+      "prompt_ar": "اوصف كيف بتجهز حالك لمقابلة شغل مهمة بألمانيا. شو الأوراق يلي لازم تجيبها معك، وكيف لازم تلبس مشان تعطي انطباع منيح؟",
+      "example_answer": "If I had an important job interview tomorrow, I would prepare by researching the company's profile online. I have already updated my CV and printed out my university certificates, which I should bring in a neat folder. I would definitely dress formally, wearing a clean suit to make a professional impression. I must also practice answering common questions about my previous customer service experience. If I managed my time well and arrived ten minutes early, I would feel much more confident during the interview.",
+      "min_seconds": 45,
+      "topic": "job applications",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Sorting Waste and Recycling",
+    "title_ar": "رأيك بفرز الزبالة وإعادة التدوير",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Give your opinion on the strict German recycling system. Do you think waste sorting really helps protect the environment, or do you find it too complicated?",
+      "prompt_ar": "شو رأيك بنظام فرز الزبالة الصارم بألمانيا؟ بتظن إنه فرز الزبالة فعلاً عم يساعد بحماية البيئة، ولا شايفه معقد زيادة عن اللزوم؟",
+      "example_answer": "In my opinion, the strict recycling system in Syria is excellent, although it seemed quite complicated when I first arrived. I truly believe that sorting waste into different colored bins helps protect our environment because it makes recycling much more efficient. If we didn't separate plastic packaging from organic waste, we would destroy natural resources. I have learned to appreciate the 'deposit return' system too, because returning empty bottles to the supermarket ensures that materials are reused properly instead of being thrown away.",
+      "min_seconds": 45,
+      "topic": "environment",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "A Memorable European Journey",
+    "title_ar": "رحلة ما بتتنسى بأوروبا",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Narrate a story about a memorable trip you took by train or plane within Europe. Where did you go, who were you with, and what did you enjoy the most?",
+      "prompt_ar": "احكيلنا قصة عن رحلة ما بتتنسى عملتها بالقطار أو بالطيارة جوّات أوروبا. وين رحت، مع مين كنت، وشو أكتر شي عجبك هنيك؟",
+      "example_answer": "Last summer, I took a memorable trip to Munich using the high-speed ICE train. I traveled with my Syrian classmate, and we had booked our tickets early online to get a cheap price. During the smooth journey, we sat by the window, drank hot coffee from the onboard bistro, and watched the beautiful green hills. If the train hadn't been so fast, we wouldn't have reached the central station on schedule. I enjoyed exploring the historic city center the most because it was absolutely breathtaking.",
+      "min_seconds": 45,
+      "topic": "travel",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Visiting a Doctor in Syria",
+    "title_ar": "زيارة لعند الدكتور بألمانيا",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Describe your experience when you visited a medical clinic or a dentist recently. How did you book the appointment, and how did the insurance handle the costs?",
+      "prompt_ar": "اوصف تجربتك لما زرت عيادة طبية أو دكتور سنان مؤخراً. كيف حجزت الموعد وكيف التأمين أدار التكاليف؟",
+      "example_answer": "Recently, I developed a severe toothache that kept me awake all night, so I had to visit a dentist immediately. I called the clinic in the morning, and the receptionist kindly managed to give me an emergency appointment for the afternoon. When I arrived, I showed my public health insurance card at the front desk. The dentist discovered a small cavity and gave me a painless filling. I am very grateful that my mandatory insurance covered the whole cost, so I didn't pay anything.",
+      "min_seconds": 45,
+      "topic": "health",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Smart Homes and Daily Automation",
+    "title_ar": "البيوت الذكية والأتمتة اليومية",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "Discuss the advantages and disadvantages of using smart devices and automated appliances at home. Does technology make our life simpler or more dependent?",
+      "prompt_ar": "ناقش ميزات وسلبيات استخدام الأجهزة الذكية والأدوات المؤتمتة بالبيت. هل التكنولوجيا عم تخلي حياتنا أسهل ولا عم تخلينا معتمدين عليها زيادة؟",
+      "example_answer": "Using smart devices at home offers several advantages, such as saving time and controlling appliances through your smartphone. For instance, we have installed a smart router that connects our devices seamlessly. However, a major disadvantage is that we become too dependent on automation. If the internet connection went down, we wouldn't be able to study or access our documents easily. In conclusion, while modern technology makes daily routine simpler, we should ensure we can manage our chores independently without relying purely on devices.",
+      "min_seconds": 45,
+      "topic": "technology",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Managing Flatmate Conflicts",
+    "title_ar": "حل المشاكل مع رفقات السكن",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Give your opinion on the best way to handle a conflict with a flatmate who neglects cleaning chores. Would you talk to them directly or call a flat meeting?",
+      "prompt_ar": "شو رأيك بأحسن طريقة لتعالج مشكلة مع رفيقك بالسكن يلي عم يهمل شغل التنظيف؟ بتحكي معه دغري وش بوش ولا بتعمل اجتماع للبيت كله؟",
+      "example_answer": "In my opinion, if a flatmate neglects his chores and leaves dirty dishes in the kitchen sink, you should address the issue openly and calmly. Leaving a messy kitchen creates unnecessary tension among roommates. I would prefer to talk to them directly first, explaining how the situation affects everyone's daily routine. If they continued to ignore the cleaning schedule, I would then call a house meeting to update the rules together. Communicating honestly is the best way to maintain a peaceful friendship at home.",
+      "min_seconds": 45,
+      "topic": "relationships",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "University versus Apprenticeship",
+    "title_ar": "الدراسة بالجامعة بوش الأوسبيلدونغ",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Compare studying for a theoretical degree at a university with completing a practical apprenticeship (vocational training). Which path is more suitable for your goals?",
+      "prompt_ar": "قارن بين الدراسة لشهادة نظرية بالجامعة وبين عمل تدريب مهني وعملي (أوسبيلدونغ). أنهي طريق شايفه مناسب أكتر لأهدافك المهنية؟",
+      "example_answer": "Attending university requires a lot of self-discipline because professors expect extensive theoretical research. On the other hand, starting a vocational training program, or an vocational training, combines classroom learning with actual on-the-job experience. A major benefit of an apprenticeship is that you can earn a monthly salary while learning a specific trade. For my personal career goals, I prefer the university path because I enjoy academic research, but I believe both options offer excellent career opportunities in the European market.",
+      "min_seconds": 45,
+      "topic": "school system",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "A Day at the Immigration Office",
+    "title_ar": "يوم بمكتب الإقامة والأجانب",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Narrate your experience visiting a German government building or the immigration office (Ausländerbehörde). What happened during your appointment?",
+      "prompt_ar": "احكيلنا شو صار معك لما زرت دائرة حكومية ألمانية أو مكتب الإقامة والأجانب (الأوسلندريهوردي). شو صار معك خلال الموعد تبعك؟",
+      "example_answer": "Last month, I had a very stressful morning because I needed to renew my student residence permit. I arrived at the immigration office early because my visa was expiring soon. If I hadn't gathered all my paperwork beforehand, including my blocked bank account statement, the officer would have rejected my application immediately. Luckily, she examined my documents carefully and gave me a temporary permit. I felt an immense sense of relief when I finally left the building with everything sorted out.",
+      "min_seconds": 45,
+      "topic": "bureaucracy",
+      "question_type": "narrate"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Punctuality and Social Expectations",
+    "title_ar": "الالتزام بالوقت والتوقعات الاجتماعية",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Share your opinion on the cultural importance of punctuality in Syria. How does it compare to your home country, and have you ever experienced an awkward delay?",
+      "prompt_ar": "عطينا رأيك بالأهمية الثقافية للالتزام بالوقت بألمانيا. كيف بتشوفها مقارنة ببلدنا، وهل شي مرة صار معك موقف بيبكك بسبب التأخير؟",
+      "example_answer": "I believe that punctuality is extremely important for a smooth integration into German society. If you have an official appointment, you are expected to arrive five minutes early out of respect. In my home country, social timing is much more flexible, which can sometimes lead to minor misunderstandings here. Once, I accidentally looked at the wrong tram map and arrived twenty minutes late for a meeting. I felt terrible, so I called beforehand to apologize sincerely. Since that day, I always check the schedule twice.",
+      "min_seconds": 45,
+      "topic": "cultural differences",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B1",
+    "content_type": "speaking_prompt",
+    "title": "Public Transport versus Private Cars",
+    "title_ar": "المواصلات العامة بوش السيارات الخاصة",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Discuss whether it is better to rely on public transport or own a private car while living in a major European city. Consider costs, convenience, and traffic.",
+      "prompt_ar": "ناقش إذا كان الأحسن الواحد يعتمد ع المواصلات العامة ولا يملك سيارة خاصة وهو عايش بمدينة أوروبية كبيرة. فكر بالتكاليف، الراحة، وعجقات السير.",
+      "example_answer": "Relying on public transport in a big European city is highly efficient because trains and buses are always on time. If you use a monthly pass, it is much cheaper than owning a private car, which requires expensive insurance and parking fees. On the other hand, driving a car offers more personal comfort and privacy, but you frequently face terrible traffic congestion during rush hours. Therefore, I think using the subway or a bicycle is a much better alternative for daily city life.",
+      "min_seconds": 45,
+      "topic": "daily city life",
+      "question_type": "discuss"
+    }
+  }
+]

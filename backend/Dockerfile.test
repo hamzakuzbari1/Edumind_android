@@ -1,0 +1,37 @@
+# EduSpark backend test image. This is intentionally separate from the runtime image:
+# production builds do not contain pytest, the test suite, or database reset tooling.
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DEFAULT_TIMEOUT=120 \
+    PIP_RETRIES=10 \
+    UPLOAD_DIR=/app/uploads
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tesseract-ocr \
+    tesseract-ocr-ara \
+    libgl1 \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt requirements-voice.txt ./
+RUN pip install --no-cache-dir -r requirements-voice.txt
+
+COPY requirements-dev.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt
+
+ENV UPLOAD_DIR=/tmp/eduspark-test-uploads
+
+COPY app ./app
+COPY alembic ./alembic
+COPY alembic.ini pytest.ini ./
+COPY tests ./tests
+
+RUN mkdir -p /tmp/eduspark-test-uploads
+
+CMD ["sh", "-c", "python tests/bootstrap_test_database.py && alembic upgrade head && pytest"]

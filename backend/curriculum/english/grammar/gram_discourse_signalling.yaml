@@ -1,0 +1,43 @@
+grammar_id: gram_discourse_signalling
+display_code: G052
+title: Advanced discourse signalling
+cefr_level: C2
+order: 520
+prerequisites:
+- gram_concession
+- gram_inversion_emphasis
+unlock_targets: []
+grammar_targets:
+- nevertheless
+- thereby
+- insofar as
+- conversely
+teaching_notes: Model the target in editorial argument, policy rebuttal; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- Using advanced markers without logical fit
+- Stacking markers that obscure meaning
+examples:
+- The plan failed; nevertheless, the process improved.
+- Conversely, delaying action increased risk.
+learning_objectives:
+- Signal contrast, consequence, and reframing with advanced discourse markers
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 92.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- reading
+- writing
+- vocabulary
+recommended_contexts:
+- editorial argument
+- policy rebuttal
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 28.0
+focus_note: Model the target in editorial argument, policy rebuttal; check comprehension before guided
+  production, then recycle it in a new context.

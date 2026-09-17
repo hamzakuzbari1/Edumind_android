@@ -1,0 +1,41 @@
+grammar_id: gram_cleft_emphasis
+display_code: G045
+title: Emphasis / clefting
+cefr_level: C1
+order: 450
+prerequisites:
+- gram_relative_clauses
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- it is
+- what matters
+- the fact that
+teaching_notes: Emphasize a contested fact or responsibility. Model the target in debate stance, responsibility
+  focus; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- It is the process which failed are...
+- What matters are clear evidence.
+examples:
+- It is the process that failed, not the people.
+- What matters is clear evidence.
+learning_objectives:
+- Emphasize contested facts with it-clefts and wh-clefts
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 88.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- speaking
+recommended_contexts:
+- debate stance
+- responsibility focus
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Emphasize a contested fact or responsibility. Model the target in debate stance, responsibility
+  focus; check comprehension before guided production, then recycle it in a new context.

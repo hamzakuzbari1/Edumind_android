@@ -25,13 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rork.eduspark.R
 import com.rork.eduspark.core.format.numeral
 import com.rork.eduspark.core.locale.AppLocale
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.ui.components.action.GhostButton
 import com.rork.eduspark.ui.components.action.PrimaryButton
 import com.rork.eduspark.ui.components.action.SecondaryButton
@@ -42,6 +46,7 @@ import com.rork.eduspark.ui.components.input.PasswordField
 import com.rork.eduspark.ui.theme.EduTheme
 import com.rork.eduspark.ui.theme.Spacing
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
@@ -60,6 +65,7 @@ import org.koin.androidx.compose.koinViewModel
  */
 @Composable
 fun LoginScreen(
+    expectedRole: UserRole,
     locale: AppLocale,
     onSelectLocale: (AppLocale) -> Unit,
     onAuthenticated: (SessionUser) -> Unit,
@@ -67,9 +73,10 @@ fun LoginScreen(
     onVerifyEmail: (String) -> Unit,
     onForgotPassword: () -> Unit,
     onCreateAccount: () -> Unit,
+    onChangeAccountType: () -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
-    viewModel: LoginViewModel = koinViewModel(),
+    viewModel: LoginViewModel = koinViewModel(parameters = { parametersOf(expectedRole) }),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
@@ -105,9 +112,25 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.height(Spacing.section))
 
-            BrandWordmark(size = WordmarkSize.Compact)
+            BrandLogo(height = 56.dp)
 
-            Spacer(modifier = Modifier.height(Spacing.lg))
+            Text(
+                text = stringResource(loginTitleRes(expectedRole)),
+                style = EduTheme.typography.titleLg,
+                color = EduTheme.colors.textPrimary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.md)
+                    .semantics { heading() },
+            )
+            Text(
+                text = stringResource(loginBodyRes(expectedRole)),
+                style = EduTheme.typography.body,
+                color = EduTheme.colors.textSecondary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spacing.xxs, bottom = Spacing.lg),
+            )
 
             EduTextField(
                 value = state.email,
@@ -155,12 +178,13 @@ fun LoginScreen(
                 when {
                     state.isSubmitting -> AuthProgressRow(stringResource(R.string.a04_validating))
 
-                    state.message != null -> LoginMessageCard(
+                    state.message != null ->                     LoginMessageCard(
                         message = state.message!!,
                         isOnline = state.isOnline,
                         onResendVerification = viewModel::onResendVerification,
                         onChangeEmail = viewModel::clearEmail,
                         onResetPassword = onForgotPassword,
+                        onChangeAccountType = onChangeAccountType,
                         onRetry = {
                             focusManager.clearFocus()
                             viewModel.submit()
@@ -187,6 +211,12 @@ fun LoginScreen(
                 actionLabel = stringResource(R.string.a04_create_account),
                 onAction = onCreateAccount,
                 modifier = Modifier.padding(top = Spacing.xxs),
+            )
+
+            GhostButton(
+                text = stringResource(R.string.a03_change_account_type),
+                onClick = onChangeAccountType,
+                modifier = Modifier.fillMaxWidth(),
             )
 
             Spacer(modifier = Modifier.height(Spacing.section))
@@ -257,6 +287,7 @@ private fun LoginMessageCard(
     onResendVerification: (String) -> Unit,
     onChangeEmail: () -> Unit,
     onResetPassword: () -> Unit,
+    onChangeAccountType: () -> Unit,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -386,5 +417,34 @@ private fun LoginMessageCard(
                 color = colors.textPrimary,
             )
         }
+
+        is LoginMessage.RoleMismatch -> AuthMessageSurface(
+            icon = Icons.Filled.ErrorOutline,
+            accent = colors.danger,
+            modifier = modifier,
+        ) {
+            Text(
+                text = stringResource(roleMismatchMessageRes(message.actualRole)),
+                style = EduTheme.typography.caption,
+                color = colors.textPrimary,
+            )
+            SecondaryButton(
+                text = stringResource(R.string.a03_change_account_type),
+                onClick = onChangeAccountType,
+                modifier = Modifier.padding(top = Spacing.xs),
+            )
+        }
     }
+}
+
+private fun loginTitleRes(role: UserRole): Int = when (role) {
+    UserRole.Student -> R.string.a04_auth_title_student
+    UserRole.Teacher -> R.string.a04_auth_title_teacher
+    UserRole.Parent -> R.string.a04_auth_title_parent
+}
+
+private fun loginBodyRes(role: UserRole): Int = when (role) {
+    UserRole.Student -> R.string.a04_auth_body_student
+    UserRole.Teacher -> R.string.a04_auth_body_teacher
+    UserRole.Parent -> R.string.a04_auth_body_parent
 }

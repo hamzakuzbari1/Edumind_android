@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +29,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +40,7 @@ import com.rork.eduspark.R
 import com.rork.eduspark.core.locale.AppLocale
 import com.rork.eduspark.ui.components.foundation.eduClickable
 import com.rork.eduspark.ui.theme.EduTheme
+import com.rork.eduspark.ui.theme.LocalReducedMotion
 import com.rork.eduspark.ui.theme.Radius
 import com.rork.eduspark.ui.theme.Sizing
 import com.rork.eduspark.ui.theme.Spacing
@@ -130,25 +136,88 @@ fun SplashScreen(
 
 @Composable
 private fun AnimatedBrandEntrance(modifier: Modifier = Modifier) {
-    val alpha = remember { Animatable(0f) }
-    val scale = remember { Animatable(0.86f) }
-    val offsetY = remember { Animatable(22f) }
+    val reducedMotion = LocalReducedMotion.current
+    val glowColor = EduTheme.colors.aiAccent
+    val alpha = remember { Animatable(if (reducedMotion) 1f else 0f) }
+    val scale = remember { Animatable(if (reducedMotion) 1f else 0.92f) }
+    val sloganAlpha = remember { Animatable(if (reducedMotion) 1f else 0f) }
+    val glow = remember { Animatable(if (reducedMotion) 0.16f else 0f) }
+    val sparkle = remember { Animatable(if (reducedMotion) 0f else 0f) }
 
-    LaunchedEffect(Unit) {
-        launch { alpha.animateTo(1f, animationSpec = tween(420, easing = LinearOutSlowInEasing)) }
+    LaunchedEffect(reducedMotion) {
+        if (reducedMotion) {
+            alpha.snapTo(1f)
+            scale.snapTo(1f)
+            sloganAlpha.snapTo(1f)
+            glow.snapTo(0.16f)
+            sparkle.snapTo(0f)
+            return@LaunchedEffect
+        }
+        launch { alpha.animateTo(1f, animationSpec = tween(520, easing = LinearOutSlowInEasing)) }
         launch { scale.animateTo(1f, animationSpec = tween(720, easing = FastOutSlowInEasing)) }
-        launch { offsetY.animateTo(0f, animationSpec = tween(720, easing = FastOutSlowInEasing)) }
+        launch {
+            kotlinx.coroutines.delay(280)
+            sloganAlpha.animateTo(1f, animationSpec = tween(420, easing = LinearOutSlowInEasing))
+        }
+        launch {
+            kotlinx.coroutines.delay(360)
+            glow.animateTo(0.28f, animationSpec = tween(420, easing = FastOutSlowInEasing))
+            glow.animateTo(0.14f, animationSpec = tween(380, easing = FastOutSlowInEasing))
+        }
+        launch {
+            kotlinx.coroutines.delay(520)
+            sparkle.animateTo(1f, animationSpec = tween(260, easing = LinearOutSlowInEasing))
+            sparkle.animateTo(0.28f, animationSpec = tween(320, easing = LinearOutSlowInEasing))
+        }
     }
 
-    BrandWordmark(
-        size = WordmarkSize.Hero,
-        modifier = modifier.graphicsLayer {
-            this.alpha = alpha.value
-            scaleX = scale.value
-            scaleY = scale.value
-            translationY = offsetY.value
-        },
-    )
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .graphicsLayer {
+                    this.alpha = alpha.value
+                    scaleX = scale.value
+                    scaleY = scale.value
+                }
+                .drawBehind {
+                    val radius = size.minDimension * 0.42f
+                    drawCircle(
+                        brush = Brush.radialGradient(
+                            colors = listOf(
+                                glowColor.copy(alpha = glow.value),
+                                Color.Transparent,
+                            ),
+                        ),
+                        radius = radius,
+                    )
+                },
+        ) {
+            BrandLogo(height = 88.dp)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .offset(x = (-28).dp, y = 8.dp)
+                    .size(10.dp)
+                    .alpha(sparkle.value)
+                    .background(EduTheme.colors.highlight.copy(alpha = 0.95f), CircleShape),
+            )
+        }
+
+        Text(
+            text = stringResource(R.string.brand_tagline),
+            style = EduTheme.typography.body,
+            color = EduTheme.colors.textMuted,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(top = Spacing.sm)
+                .graphicsLayer { this.alpha = sloganAlpha.value },
+        )
+    }
 }
 
 /**

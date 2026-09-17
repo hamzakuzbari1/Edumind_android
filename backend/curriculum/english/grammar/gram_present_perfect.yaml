@@ -1,0 +1,58 @@
+grammar_id: gram_present_perfect
+display_code: G025
+title: Present perfect
+cefr_level: B1
+order: 250
+prerequisites:
+- gram_past_simple
+- gram_present_simple
+- gram_prepositions_time
+unlock_targets: []
+grammar_targets:
+- have/has + past participle
+- have/has already/just + past participle
+- have not/has not + past participle + yet
+- Have/Has + subject + ever + past participle?
+- for + duration
+- since + starting point
+teaching_notes: 'Teach meaning before form: experience, present result, and unfinished time. Contrast
+  explicitly with past simple plus finished-time expressions, and prepare the activity-vs-result contrast
+  needed for present perfect continuous. Model the target in life experience, present consequence of past
+  action; check comprehension before guided production, then recycle it in a new context.'
+common_mistakes:
+- I have finished yesterday.
+- Did you ever visited Aleppo?
+- She has went home.
+- I live here since 2021.
+- He has not finished already. (when yet is intended)
+examples:
+- I have already finished the task.
+- Have you ever visited Aleppo?
+- She has not replied yet.
+- We have lived here for five years.
+- He has studied English since 2021.
+learning_objectives:
+- Connect past experience or a past result to the present
+- Use already, yet, just, ever, and never in appropriate positions
+- Use for and since for unfinished time
+- Choose present perfect rather than past simple when no finished past time is stated
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 82.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- life experience
+- present consequence of past action
+minimum_context_diversity: 2
+review_priority: 5
+review_half_life_days: 16.0
+focus_note: 'Teach meaning before form: experience, present result, and unfinished time. Contrast explicitly
+  with past simple plus finished-time expressions, and prepare the activity-vs-result contrast needed
+  for present perfect continuous. Model the target in life experience, present consequence of past action;
+  check comprehension before guided production, then recycle it in a new context.'

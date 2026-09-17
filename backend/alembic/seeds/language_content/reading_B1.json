@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Applying for a Part-Time Job",
+    "title_ar": "التقديم على شغل بارت تايم",
+    "sort_order": 0,
+    "body_json": {
+      "text": "I have recently applied for a part-time job at a logistics company in Damascus. If I get this position, I would be able to pay my university fees easily. I have already sent my resume and a motivation letter. Yesterday, the manager called me for an interview. He said that I must bring my certificates and registration document. I was quite nervous, but I managed to explain my previous experience in customer service. He told me that they are looking for someone who can work on weekends and handle flexible hours. If they offer me the job, I will start next Monday. I should hear from them by tomorrow afternoon. This job is a great opportunity because it allows me to practice my English and German with colleagues. Working in a new country can be challenging, but I have learned to adapt quickly to different environments. Furthermore, my roommates told me that this company treats its international employees very well, which gives me more confidence.",
+      "text_ar": "مؤخراً قدمت على شغل بارت تايم بشركة لوجستية بفرانكفورت. إذا جاني هاد الشغل، رح أقدر أدفع رسوم الجامعة تبعي بكل سهولة. أنا أصلاً بعتت السي في ورسالة الدوافع تبعي. ومبارح، المدير اتصل فيني عشان المقابلة. قاللي إنه لازم جيب معي الشهادات وورقة التسجيل تبعي. كنت متوتر شوي، بس قدرت أشرح خبرتي القديمة بخدمة الزباين. هو قاللي إنهم عم يدوروا على حدا بيقدر يشتغل بعطلة نهاية الأسبوع وبيتأقلم مع الساعات المرنة. إذا عرضوا عليّ الشغل، رح بلش الاثنين الجايه. لازم يرجعولي خبر بكرا بعد الظهر. هاد الشغل فرصة كتير حلوة لأنه بيسمحلي مارس الإنكليزي والألماني تبعي مع رفقاتي بالشغل. الشغل ببلد جديد ممكن يكون فيه تحديات، بس أنا تعلمت كيف اتأقلم بسرعة مع الأجواء المختلفة. وكمان، رفقاتي بالسكن قالولي إنه هي الشركة بتعامل موظفيها الأجانب كتير منيح، وهاد الشي عطاني ثقة أكتر بنفسي.",
+      "vocabulary": [
+        "recently",
+        "position",
+        "certificates",
+        "flexible",
+        "colleagues"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What must the writer bring to the job interview?",
+          "choices": [
+            "Certificates and registration document",
+            "A new laptop",
+            "A motivation letter only",
+            "Their roommates"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "work",
+      "passage": "I have recently applied for a part-time job at a logistics company in Damascus. If I get this position, I would be able to pay my university fees easily. I have already sent my resume and a motivation letter. Yesterday, the manager called me for an interview. He said that I must bring my certificates and registration document. I was quite nervous, but I managed to explain my previous experience in customer service. He told me that they are looking for someone who can work on weekends and handle flexible hours. If they offer me the job, I will start next Monday. I should hear from them by tomorrow afternoon. This job is a great opportunity because it allows me to practice my English and German with colleagues. Working in a new country can be challenging, but I have learned to adapt quickly to different environments. Furthermore, my roommates told me that this company treats its international employees very well, which gives me more confidence.",
+      "passage_ar": "مؤخراً قدمت على شغل بارت تايم بشركة لوجستية بفرانكفورت. إذا جاني هاد الشغل، رح أقدر أدفع رسوم الجامعة تبعي بكل سهولة. أنا أصلاً بعتت السي في ورسالة الدوافع تبعي. ومبارح، المدير اتصل فيني عشان المقابلة. قاللي إنه لازم جيب معي الشهادات وورقة التسجيل تبعي. كنت متوتر شوي، بس قدرت أشرح خبرتي القديمة بخدمة الزباين. هو قاللي إنهم عم يدوروا على حدا بيقدر يشتغل بعطلة نهاية الأسبوع وبيتأقلم مع الساعات المرنة. إذا عرضوا عليّ الشغل، رح بلش الاثنين الجايه. لازم يرجعولي خبر بكرا بعد الظهر. هاد الشغل فرصة كتير حلوة لأنه بيسمحلي مارس الإنكليزي والألماني تبعي مع رفقاتي بالشغل. الشغل ببلد جديد ممكن يكون فيه تحديات، بس أنا تعلمت كيف اتأقلم بسرعة مع الأجواء المختلفة. وكمان، رفقاتي بالسكن قالولي إنه هي الشركة بتعامل موظفيها الأجانب كتير منيح، وهاد الشي عطاني ثقة أكتر بنفسي."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "The Art of Recycling",
+    "title_ar": "فن إعادة التدوير",
+    "sort_order": 1,
+    "body_json": {
+      "text": "When I first moved into my apartment in Homs, I found the waste disposal and recycling system quite complicated. In Syria, people are very strict about sorting their trash into different colored bins. There is a blue bin for paper, a green or brown one for organic waste, and a yellow bag for plastic packaging. If you throw glass bottles into the regular garbage, your neighbors might get upset with you. I have recently learned that most plastic and glass bottles have a deposit called 'deposit return'. This means that when you buy a drink, you pay a little extra money, which you can get back if you return the empty bottle to the supermarket machine. If everyone followed these rules, the environment would be much cleaner. At first, I made a few mistakes and mixed things up, but my flatmate kindly explained everything to me. Now, recycling has become a natural part of my daily routine, and I feel proud to help protect nature.",
+      "text_ar": "أول ما سكنت بشقتي بشتوتغارت، لقيت نظام كب الزبالة وإعادة التدوير معقد شوي. بألمانيا، الناس كتير دقيقين بفرز الزبالة بحاويات ملونة مختلفة. في حاوية زرقا للورق، وخضرا أو بني للزبالة العضوية، وكيس أصفر للمعلبات والبلاستيك. إذا كبيت قناني القزاز بالزبالة العادية، جيرانك ممكن يدايقوا منك. مؤخراً تعلمت إنه أغلب قناني البلاستيك والقزاز عليها رهن اسمه 'بفاند'. هاد بيعني لما تشتري مشروب، بتدفع فوق حقه مصاري زيادة شوي، واليوم فيك ترجعهم إذا رجعت القنينة الفاضية عالماكينة بالسوبرماركت. إذا الكل بيمشي على هي القواعد، البيئة رح تصير أنظف بكثير. بالبدايه، عملت شوية أغلاط وخلطت الأمور ببعضها، بس رفيقي بالسكن بكل لطف شرحلي كل شي. هلق، إعادة التدوير صارت جزء طبيعي من روتيني اليومي، وحاسس حالي فخور إني عم ساعد بحماية الطبيعة.",
+      "vocabulary": [
+        "complicated",
+        "strict",
+        "sorting",
+        "deposit",
+        "environment"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is 'deposit return' in Syria?",
+          "choices": [
+            "A type of organic waste",
+            "A deposit on plastic and glass bottles",
+            "A fine for throwing glass away",
+            "A special colored trash bin"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "environment",
+      "passage": "When I first moved into my apartment in Homs, I found the waste disposal and recycling system quite complicated. In Syria, people are very strict about sorting their trash into different colored bins. There is a blue bin for paper, a green or brown one for organic waste, and a yellow bag for plastic packaging. If you throw glass bottles into the regular garbage, your neighbors might get upset with you. I have recently learned that most plastic and glass bottles have a deposit called 'deposit return'. This means that when you buy a drink, you pay a little extra money, which you can get back if you return the empty bottle to the supermarket machine. If everyone followed these rules, the environment would be much cleaner. At first, I made a few mistakes and mixed things up, but my flatmate kindly explained everything to me. Now, recycling has become a natural part of my daily routine, and I feel proud to help protect nature.",
+      "passage_ar": "أول ما سكنت بشقتي بشتوتغارت، لقيت نظام كب الزبالة وإعادة التدوير معقد شوي. بألمانيا، الناس كتير دقيقين بفرز الزبالة بحاويات ملونة مختلفة. في حاوية زرقا للورق، وخضرا أو بني للزبالة العضوية، وكيس أصفر للمعلبات والبلاستيك. إذا كبيت قناني القزاز بالزبالة العادية، جيرانك ممكن يدايقوا منك. مؤخراً تعلمت إنه أغلب قناني البلاستيك والقزاز عليها رهن اسمه 'بفاند'. هاد بيعني لما تشتري مشروب، بتدفع فوق حقه مصاري زيادة شوي، واليوم فيك ترجعهم إذا رجعت القنينة الفاضية عالماكينة بالسوبرماركت. إذا الكل بيمشي على هي القواعد، البيئة رح تصير أنظف بكثير. بالبدايه، عملت شوية أغلاط وخلطت الأمور ببعضها، بس رفيقي بالسكن بكل لطف شرحلي كل شي. هلق، إعادة التدوير صارت جزء طبيعي من روتيني اليومي، وحاسس حالي فخور إني عم ساعد بحماية الطبيعة."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Traveling by ICE Train",
+    "title_ar": "السفر بقطار الـ ICE",
+    "sort_order": 2,
+    "body_json": {
+      "text": "Last month, I decided to take a trip to Paris using the high-speed ICE train. I had never traveled on such a fast train before, so I was looking forward to the journey. I booked my ticket online two weeks in advance to get a cheaper price. If I had waited until the last minute, it would have cost twice as much. The train was incredibly modern, offering free Wi-Fi and comfortable seats with plenty of legroom. During the journey, the conductor checked my digital ticket on my smartphone. I also visited the onboard bistro to buy a warm cheese sandwich and some coffee. The train traveled at over three hundred kilometers per hour, but the ride was so smooth that I could easily read my book. We arrived at the central station in Paris exactly on schedule. I have already recommended this train journey to all my friends who want to explore Europe comfortably without flying.",
+      "text_ar": "الشهر الماضي، قررت أعمل رحلة لباريس باستعمال قطار السريع الـ ICE. ما كنت مسافر بقطار سريع هيك من قبل، كرمال هيك كنت كتير متحمس للرحلة. حجزت التكت تبعي أونلاين قبل بأسبوعين لتطلع أرخص. لو استنيت لآخر دقيقة، كانت كلفتني الضعف. القطار كان حديث بشكل بياخد العقل، وفيه واي فاي ببلاش وكراسي مريحة وفيها مساحة واسعة للرجلين. خلال الرحلة، الكونترولية فحص التكت الديجيتال تبعي ع الموبايل. وكمان رحت ع البوفيه يلي بالقطار لأشتري سندويشة جبنة سخنة وشوية قهوة. القطار كان عم يمشي بسرعة أكتر من تلتماية كيلومتر بالساعة، بس المشية كانت ناعمة لدرجة إنه قدرت اقرأ كتابي بكل سهولة. وصلنا عالمحطة المركزية بباريس عالموعد تماماً. أنا أصلاً نصحت كل رفقاتي بهي الرحلة بالقطار يلي حابين يكتشفوا أوروبا براحة ومن دون طيران.",
+      "vocabulary": [
+        "high-speed",
+        "booked",
+        "conductor",
+        "smooth",
+        "schedule"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why did the writer book the ICE train ticket two weeks early?",
+          "choices": [
+            "To get free Wi-Fi",
+            "Because the train was full",
+            "To get a cheaper price",
+            "To visit the onboard bistro"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "travel",
+      "passage": "Last month, I decided to take a trip to Paris using the high-speed ICE train. I had never traveled on such a fast train before, so I was looking forward to the journey. I booked my ticket online two weeks in advance to get a cheaper price. If I had waited until the last minute, it would have cost twice as much. The train was incredibly modern, offering free Wi-Fi and comfortable seats with plenty of legroom. During the journey, the conductor checked my digital ticket on my smartphone. I also visited the onboard bistro to buy a warm cheese sandwich and some coffee. The train traveled at over three hundred kilometers per hour, but the ride was so smooth that I could easily read my book. We arrived at the central station in Paris exactly on schedule. I have already recommended this train journey to all my friends who want to explore Europe comfortably without flying.",
+      "passage_ar": "الشهر الماضي، قررت أعمل رحلة لباريس باستعمال قطار السريع الـ ICE. ما كنت مسافر بقطار سريع هيك من قبل، كرمال هيك كنت كتير متحمس للرحلة. حجزت التكت تبعي أونلاين قبل بأسبوعين لتطلع أرخص. لو استنيت لآخر دقيقة، كانت كلفتني الضعف. القطار كان حديث بشكل بياخد العقل، وفيه واي فاي ببلاش وكراسي مريحة وفيها مساحة واسعة للرجلين. خلال الرحلة، الكونترولية فحص التكت الديجيتال تبعي ع الموبايل. وكمان رحت ع البوفيه يلي بالقطار لأشتري سندويشة جبنة سخنة وشوية قهوة. القطار كان عم يمشي بسرعة أكتر من تلتماية كيلومتر بالساعة، بس المشية كانت ناعمة لدرجة إنه قدرت اقرأ كتابي بكل سهولة. وصلنا عالمحطة المركزية بباريس عالموعد تماماً. أنا أصلاً نصحت كل رفقاتي بهي الرحلة بالقطار يلي حابين يكتشفوا أوروبا براحة ومن دون طيران."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Navigating German Healthcare",
+    "title_ar": "فهم نظام الرعاية الصحية بألمانيا",
+    "sort_order": 3,
+    "body_json": {
+      "text": "In Syria, having health insurance is mandatory for everyone, including international students. I have been registered with a public health insurance company since I arrived. Last week, I developed a severe toothache that kept me awake all night. I knew I had to see a dentist immediately. If I did not have my insurance card, the dental treatment would be extremely expensive. I called a local clinic, and they managed to give me an emergency appointment for the same afternoon. When I arrived, the receptionist asked for my health card and asked me to fill out a medical questionnaire. The dentist discovered that I had a small cavity that needed a filling. The procedure was completely painless because she used an injection to numb the area. She advised me that I should avoid eating sugary foods and brush my teeth twice a day. I am very grateful that the insurance covered the whole cost, so I did not have to pay anything.",
+      "text_ar": "بألمانيا، التأمين الصحي إجباري للكل، حتى للطلاب الأجانب. أنا مسجل بشركة تأمين صحي حكومية من وقت ما وصلت. الأسبوع الماضي، جاني وجع سنين قوي خلاني سهران طول الليل. عرفت إنه لازم شوف دكتور سنان فوراً. إذا ما كان عندي كرت التأمين، كان علاج السنان رح يطلع غالي كتير. اتصلت بعيادة محلية، وقدروا يعطوني موعد إسعافي بنفس اليوم بعد الظهر. لما وصلت، موظفة الاستقبال طلبت كرت الصحة تبعي وطلبت مني عبي استبيان طبي. الدكتورة شافت إنه عندي سوسة صغيرة وبدا حشوة. العملية كانت بلا وجع بنوب لأنها استعملت إبرة تخدير للمنطقة. نصحتني إنه لازم اتجنب الأكل يلي فيه سكر وفري سناني مرتين باليوم. كتير ممنون إنه التأمين غطى كل التكلفة، كرمال هيك ما اضطريت ادفع ولا فرنك.",
+      "vocabulary": [
+        "mandatory",
+        "severe",
+        "dentist",
+        "cavity",
+        "grateful"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why was the dentist procedure completely painless?",
+          "choices": [
+            "Because it was a small cavity",
+            "Because the writer avoided sugary foods",
+            "Because the health insurance card covered it",
+            "Because she used an injection to numb the area"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "health",
+      "passage": "In Syria, having health insurance is mandatory for everyone, including international students. I have been registered with a public health insurance company since I arrived. Last week, I developed a severe toothache that kept me awake all night. I knew I had to see a dentist immediately. If I did not have my insurance card, the dental treatment would be extremely expensive. I called a local clinic, and they managed to give me an emergency appointment for the same afternoon. When I arrived, the receptionist asked for my health card and asked me to fill out a medical questionnaire. The dentist discovered that I had a small cavity that needed a filling. The procedure was completely painless because she used an injection to numb the area. She advised me that I should avoid eating sugary foods and brush my teeth twice a day. I am very grateful that the insurance covered the whole cost, so I did not have to pay anything.",
+      "passage_ar": "بألمانيا، التأمين الصحي إجباري للكل، حتى للطلاب الأجانب. أنا مسجل بشركة تأمين صحي حكومية من وقت ما وصلت. الأسبوع الماضي، جاني وجع سنين قوي خلاني سهران طول الليل. عرفت إنه لازم شوف دكتور سنان فوراً. إذا ما كان عندي كرت التأمين، كان علاج السنان رح يطلع غالي كتير. اتصلت بعيادة محلية، وقدروا يعطوني موعد إسعافي بنفس اليوم بعد الظهر. لما وصلت، موظفة الاستقبال طلبت كرت الصحة تبعي وطلبت مني عبي استبيان طبي. الدكتورة شافت إنه عندي سوسة صغيرة وبدا حشوة. العملية كانت بلا وجع بنوب لأنها استعملت إبرة تخدير للمنطقة. نصحتني إنه لازم اتجنب الأكل يلي فيه سكر وفري سناني مرتين باليوم. كتير ممنون إنه التأمين غطى كل التكلفة، كرمال هيك ما اضطريت ادفع ولا فرنك."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Finding a Flat Online",
+    "title_ar": "تلاقى شقة أونلاين",
+    "sort_order": 4,
+    "body_json": {
+      "text": "Finding a shared apartment, or what Germans call a 'WG', can be quite difficult in big cities like Munich. I have been searching for a suitable room online for over a month using a popular website. If you want to find a good place, you must write a personalized message to the current flatmates. Many students just copy and paste the same text, which makes a bad impression. Yesterday, I received a positive reply from a flatmate group who invited me for an online interview via video call. They wanted to know about my lifestyle, hobbies, and whether I prefer a quiet environment. If they choose me, I would move in at the beginning of next month. The apartment has modern technology, including high-speed internet and a smart washing machine. I told them that I am a tidy person who respects house rules. I really hope they select me because the location is perfect and the rent is quite reasonable.",
+      "text_ar": "تلاقى شقة مشتركة، أو يلي الألمان بيسموها 'في غيه' (WG)، ممكن يكون صعب كتير بالمدن الكبيرة متل ميونيخ. صرلي عم دور على غرفة مناسبة أونلاين أكتر من شهر باستعمال موقع مشهور. إذا بدك تلاقي مكان منيح، لازم تكتب رسالة مخصصة لشركاء السكن الحاليين. طلاب كتار بس بيعملوا نسخ ولصق لنفس النص، وهاد الشي بيعطي انطباع سيء. مبارح، جاني رد إيجابي من مجموعة شباب بالسكن وعزموني على مقابلة أونلاين مكالمة فيديو. كان بدهم يعرفوا عن نمط حياتي، هواياتي، وإذا بفضل الأجواء الهادية. إذا اختاروني، رح انقل بأول الشهر الجايه. الشقة فيها تكنولوجيا حديثة، بما فيها إنترنت سريع وغسالة ذكية. قلتلهم إني شخص مرتب وبحترم قواعد البيت. كتير بتمنى يختاروني لأن الموقع بياخد العقل والآجار كتير مقبول.",
+      "vocabulary": [
+        "suitable",
+        "personalized",
+        "impression",
+        "lifestyle",
+        "reasonable"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What mistake do many students make when applying for a room online?",
+          "choices": [
+            "They copy and paste the same message",
+            "They call via video call directly",
+            "They forget to state their hobbies",
+            "They request smart washing machines"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "technology",
+      "passage": "Finding a shared apartment, or what Germans call a 'WG', can be quite difficult in big cities like Munich. I have been searching for a suitable room online for over a month using a popular website. If you want to find a good place, you must write a personalized message to the current flatmates. Many students just copy and paste the same text, which makes a bad impression. Yesterday, I received a positive reply from a flatmate group who invited me for an online interview via video call. They wanted to know about my lifestyle, hobbies, and whether I prefer a quiet environment. If they choose me, I would move in at the beginning of next month. The apartment has modern technology, including high-speed internet and a smart washing machine. I told them that I am a tidy person who respects house rules. I really hope they select me because the location is perfect and the rent is quite reasonable.",
+      "passage_ar": "تلاقى شقة مشتركة، أو يلي الألمان بيسموها 'في غيه' (WG)، ممكن يكون صعب كتير بالمدن الكبيرة متل ميونيخ. صرلي عم دور على غرفة مناسبة أونلاين أكتر من شهر باستعمال موقع مشهور. إذا بدك تلاقي مكان منيح، لازم تكتب رسالة مخصصة لشركاء السكن الحاليين. طلاب كتار بس بيعملوا نسخ ولصق لنفس النص، وهاد الشي بيعطي انطباع سيء. مبارح، جاني رد إيجابي من مجموعة شباب بالسكن وعزموني على مقابلة أونلاين مكالمة فيديو. كان بدهم يعرفوا عن نمط حياتي، هواياتي، وإذا بفضل الأجواء الهادية. إذا اختاروني، رح انقل بأول الشهر الجايه. الشقة فيها تكنولوجيا حديثة، بما فيها إنترنت سريع وغسالة ذكية. قلتلهم إني شخص مرتب وبحترم قواعد البيت. كتير بتمنى يختاروني لأن الموقع بياخد العقل والآجار كتير مقبول."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Solving Roommate Conflicts",
+    "title_ar": "حل المشاكل بين رفقات السكن",
+    "sort_order": 5,
+    "body_json": {
+      "text": "Living with roommates is a wonderful way to make friends, but it can sometimes lead to minor misunderstandings. In our shared apartment, we have created a cleaning schedule to divide the chores fairly. However, one of my flatmates has recently neglected his duties, leaving dirty dishes in the kitchen sink for days. This situation has caused some tension among us. If we did not address this issue openly, it would create a hostile environment in the house. Therefore, we decided to hold a house meeting yesterday evening to discuss the problem calmly. We explained how a messy kitchen affects everyone's daily routine. He apologized sincerely and explained that he had been under a lot of stress due to his university exams. We agreed to help him this week, provided that he follows the schedule in the future. Communicating honestly has saved our friendship and helped us maintain a peaceful atmosphere at home.",
+      "text_ar": "العيشة مع رفقات سكن هي طريقة بتجنن لتعمل رفقات، بس أوقات ممكن تؤدي لسوء تفاهم بسيط. بشقتنا المشتركة، عملنا جدول تنظيف عشان نقسم الشغل بالعدل. بس، واحد من رفقاتي بالسكن مؤخراً همل واجباته، وترك الصحون الوسخة بالمجلى لأيام. هاد الوضع عمل شوية حزازيات بيناتنا. إذا ما حكينا بهي المشكلة علنّي، كانت رح تعمل أجواء مشحونة بالبيت. كرمال هيك، قررنا نعمل اجتماع بالبيت مبارح المسا لنناقش المشكلة بروقان. شرحنا كيف المطبخ المكركب بيأثر على روتين الكل اليومي. هو اعتذر من قلبو وشرح إنه كان تحت ضغط كبير بسبب امتحانات الجامعة. اتفقنا نساعده هالأسبوع، بشرط إنه يمشي عالجدول بالمستقبل. الحكي بصراحة أنقذ صداقتنا وساعدنا نحافظ على أجواء هادية بالبيت.",
+      "vocabulary": [
+        "misunderstandings",
+        "chores",
+        "neglected",
+        "tension",
+        "hostile"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why did one flatmate neglect his cleaning duties?",
+          "choices": [
+            "He wanted to create a hostile environment",
+            "He was under stress due to university exams",
+            "He did not understand the cleaning schedule",
+            "He left the flat to live with other friends"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "relationships",
+      "passage": "Living with roommates is a wonderful way to make friends, but it can sometimes lead to minor misunderstandings. In our shared apartment, we have created a cleaning schedule to divide the chores fairly. However, one of my flatmates has recently neglected his duties, leaving dirty dishes in the kitchen sink for days. This situation has caused some tension among us. If we did not address this issue openly, it would create a hostile environment in the house. Therefore, we decided to hold a house meeting yesterday evening to discuss the problem calmly. We explained how a messy kitchen affects everyone's daily routine. He apologized sincerely and explained that he had been under a lot of stress due to his university exams. We agreed to help him this week, provided that he follows the schedule in the future. Communicating honestly has saved our friendship and helped us maintain a peaceful atmosphere at home.",
+      "passage_ar": "العيشة مع رفقات سكن هي طريقة بتجنن لتعمل رفقات، بس أوقات ممكن تؤدي لسوء تفاهم بسيط. بشقتنا المشتركة، عملنا جدول تنظيف عشان نقسم الشغل بالعدل. بس، واحد من رفقاتي بالسكن مؤخراً همل واجباته، وترك الصحون الوسخة بالمجلى لأيام. هاد الوضع عمل شوية حزازيات بيناتنا. إذا ما حكينا بهي المشكلة علنّي، كانت رح تعمل أجواء مشحونة بالبيت. كرمال هيك، قررنا نعمل اجتماع بالبيت مبارح المسا لنناقش المشكلة بروقان. شرحنا كيف المطبخ المكركب بيأثر على روتين الكل اليومي. هو اعتذر من قلبو وشرح إنه كان تحت ضغط كبير بسبب امتحانات الجامعة. اتفقنا نساعده هالأسبوع، بشرط إنه يمشي عالجدول بالمستقبل. الحكي بصراحة أنقذ صداقتنا وساعدنا نحافظ على أجواء هادية بالبيت."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "University or Vocational Training",
+    "title_ar": "الجامعة أو التدريب المهني",
+    "sort_order": 6,
+    "body_json": {
+      "text": "Many young people in Europe face a difficult choice between attending university or starting a vocational training program, known as an 'vocational training' in Syria. I have been studying computer science at a technical university for two semesters. University lectures require a lot of self-discipline, as professors expect you to do extensive research independently. If you prefer practical experience, an vocational training might be a better option because it combines classroom learning with actual on-the-job training. In a vocational program, students can earn a monthly salary while learning a specific trade. If I had chosen that path, I would be working in an IT company right now instead of preparing for theoretical exams. However, I enjoy academic research and want to pursue a master's degree later. Both paths offer excellent career opportunities in the European job market. The decision ultimately depends on your personal learning style and whether you want to focus more on theory or practice.",
+      "text_ar": "شباب كتار بأوروبا بيواجهوا خيار صعب بين إنهم يروحوا عالجامعة أو يبلشوا برنامج تدريب مهني، يلي بيسموه بألمانيا 'أوسبيلدونغ'. صرلي عم ادرس هندسة كمبيوتر بجامعة تقنية لفصلين دافورين. المحاضرات بالجامعة بدها التزام ذاتي كبير، لأن الدكاترة بيتوقعوا منك تعمل أبحاث موسعة لحالك. إذا بتفضل الخبرة العملية، الأوسبيلدونغ ممكن يكون خيار أحسن لأنه بيجمع بين الدراسة بالصف والتدريب الحقيقي بالشغل. ببرنامج التدريب المهني، الطلاب بيقدروا يطلعوا راتب شهري وهم عم يتعلموا مصلحة معينة. لو اخترت هاد الطريق، كنت عم اشتغل بشركة تكنولوجيا هلق بدل ما اعد جهز للامتحانات النظرية. بس أنا بحب البحث الأكاديمي وبدي كمل ماستر بعدين. الطريقين بيعطوا فرص عمل بتجنن بسوق الشغل الأوروبي. القرار بالنهاية بيعتمد على طريقة دراستك وإذا بدك تركز ع النظري أو العملي.",
+      "vocabulary": [
+        "vocational",
+        "semesters",
+        "self-discipline",
+        "theoretical",
+        "career"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is an advantage of an 'vocational training' mentioned in the text?",
+          "choices": [
+            "It requires more self-discipline than university",
+            "It focuses purely on theoretical exams",
+            "It allows students to earn a salary while learning",
+            "It guarantees a master's degree immediately"
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "school system",
+      "passage": "Many young people in Europe face a difficult choice between attending university or starting a vocational training program, known as an 'vocational training' in Syria. I have been studying computer science at a technical university for two semesters. University lectures require a lot of self-discipline, as professors expect you to do extensive research independently. If you prefer practical experience, an vocational training might be a better option because it combines classroom learning with actual on-the-job training. In a vocational program, students can earn a monthly salary while learning a specific trade. If I had chosen that path, I would be working in an IT company right now instead of preparing for theoretical exams. However, I enjoy academic research and want to pursue a master's degree later. Both paths offer excellent career opportunities in the European job market. The decision ultimately depends on your personal learning style and whether you want to focus more on theory or practice.",
+      "passage_ar": "شباب كتار بأوروبا بيواجهوا خيار صعب بين إنهم يروحوا عالجامعة أو يبلشوا برنامج تدريب مهني، يلي بيسموه بألمانيا 'أوسبيلدونغ'. صرلي عم ادرس هندسة كمبيوتر بجامعة تقنية لفصلين دافورين. المحاضرات بالجامعة بدها التزام ذاتي كبير، لأن الدكاترة بيتوقعوا منك تعمل أبحاث موسعة لحالك. إذا بتفضل الخبرة العملية، الأوسبيلدونغ ممكن يكون خيار أحسن لأنه بيجمع بين الدراسة بالصف والتدريب الحقيقي بالشغل. ببرنامج التدريب المهني، الطلاب بيقدروا يطلعوا راتب شهري وهم عم يتعلموا مصلحة معينة. لو اخترت هاد الطريق، كنت عم اشتغل بشركة تكنولوجيا هلق بدل ما اعد جهز للامتحانات النظرية. بس أنا بحب البحث الأكاديمي وبدي كمل ماستر بعدين. الطريقين بيعطوا فرص عمل بتجنن بسوق الشغل الأوروبي. القرار بالنهاية بيعتمد على طريقة دراستك وإذا بدك تركز ع النظري أو العملي."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "A Visit to the Immigration Office",
+    "title_ar": "زيارة لمكتب الإقامة",
+    "sort_order": 7,
+    "body_json": {
+      "text": "Dealing with bureaucracy can be one of the most stressful parts of living abroad. Last month, I realized that my student visa was expiring soon, so I had to book an appointment with the immigration office, or 'Ausländerbehörde'. I have already gathered all the necessary documents, such as my university enrollment certificate, health insurance confirmation, and proof of sufficient funds in my blocked bank account. If any of these documents were missing, the officer would reject my application immediately. The appointment was scheduled for early yesterday morning. I was quite anxious while waiting in the corridor. When my number was called, the officer reviewed my paperwork carefully. She asked me a few questions about my studies and how long I intend to stay. Fortunately, everything was in perfect order. She told me that my new residence permit would be ready in six weeks. I felt an immense sense of relief after leaving the building.",
+      "text_ar": "التعامل مع المعاملات الرسمية ممكن يكون من أكتر الشغلات يلي بتبكك بالعيشة برا. الشهر الماضي، انتبهت إنه فيزا الطالب تبعي رح تخلص ومدتها قريبة، كرمال هيك كان لازم احجز موعد بمكتب الإقامة، أو 'الأوسلندريهوردي'. أنا أصلاً جمعت كل الأوراق المطلوبة، متل شهادة التسجيل بالجامعة، تأكيد التأمين الصحي، وإثبات وجود مصاري كافية بحسابي البنكي المقفل. لو كانت أي ورقة من هدول ناقصة، الموظفة كانت رح ترفض الطلب تبعي فوراً. الموعد كان مأصل الصبح بكير مبارح. كنت كتير متوتر وأنا عم استنى بالممر. لما نادوا رقمي، الموظفة دققت بأوراقي بكل عناية. سألتني كم سؤال عن دراستي وقديش ناوي اتم هون. لحسن الحظ، كل شي كان تمام التمام. قالتلي إنه إقامتي الجديدة رح تكون جاهزة خلال ست أسابيع. حسيت براحة بتبكي بعد ما طلعت من البناية.",
+      "vocabulary": [
+        "bureaucracy",
+        "expiring",
+        "enrollment",
+        "anxious",
+        "relief"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How long will it take for the new residence permit to be ready?",
+          "choices": [
+            "Immediately",
+            "Yesterday morning",
+            "One month",
+            "Six weeks"
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "bureaucracy",
+      "passage": "Dealing with bureaucracy can be one of the most stressful parts of living abroad. Last month, I realized that my student visa was expiring soon, so I had to book an appointment with the immigration office, or 'Ausländerbehörde'. I have already gathered all the necessary documents, such as my university enrollment certificate, health insurance confirmation, and proof of sufficient funds in my blocked bank account. If any of these documents were missing, the officer would reject my application immediately. The appointment was scheduled for early yesterday morning. I was quite anxious while waiting in the corridor. When my number was called, the officer reviewed my paperwork carefully. She asked me a few questions about my studies and how long I intend to stay. Fortunately, everything was in perfect order. She told me that my new residence permit would be ready in six weeks. I felt an immense sense of relief after leaving the building.",
+      "passage_ar": "التعامل مع المعاملات الرسمية ممكن يكون من أكتر الشغلات يلي بتبكك بالعيشة برا. الشهر الماضي، انتبهت إنه فيزا الطالب تبعي رح تخلص ومدتها قريبة، كرمال هيك كان لازم احجز موعد بمكتب الإقامة، أو 'الأوسلندريهوردي'. أنا أصلاً جمعت كل الأوراق المطلوبة، متل شهادة التسجيل بالجامعة، تأكيد التأمين الصحي، وإثبات وجود مصاري كافية بحسابي البنكي المقفل. لو كانت أي ورقة من هدول ناقصة، الموظفة كانت رح ترفض الطلب تبعي فوراً. الموعد كان مأصل الصبح بكير مبارح. كنت كتير متوتر وأنا عم استنى بالممر. لما نادوا رقمي، الموظفة دققت بأوراقي بكل عناية. سألتني كم سؤال عن دراستي وقديش ناوي اتم هون. لحسن الحظ، كل شي كان تمام التمام. قالتلي إنه إقامتي الجديدة رح تكون جاهزة خلال ست أسابيع. حسيت براحة بتبكي بعد ما طلعت من البناية."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "Punctuality and Quiet Hours",
+    "title_ar": "الالتزام بالوقت وأوقات الهدوء",
+    "sort_order": 8,
+    "body_json": {
+      "text": "Understanding cultural differences is essential for a smooth integration into any new society. When I first arrived in Syria, I had to learn about specific social rules that are highly respected here. For instance, punctuality is extremely important; if you have an appointment at three o'clock, you should arrive five minutes early. If you are going to be late, you must call and inform the person beforehand. Another important concept is 'quiet hours', which means quiet hours. On Sundays and every evening after ten o'clock, people are expected to keep noise to a minimum. This means you cannot vacuum your flat or play loud music. If you make too much noise, your neighbors have the right to complain. At first, these rules seemed a bit strict to me compared to life back home. However, I have noticed that they help create a peaceful and organized environment where everyone respects each other's privacy.",
+      "text_ar": "فهم الفروقات الثقافية أساسي عشان تتأقلم بسلاسة بأي مجتمع جديد. أول ما وصلت ع ألمانيا، كان لازم اتعلم قواعد اجتماعية معينة ومحترمة كتير هون. مثلاً, الالتزام بالوقت مهم بشكل بيموّت؛ إذا عندك موعد الساعة تلاتة، لازم توصل قبل بخمس دقائق. إذا رح تتأخر، لازم تتصل وتخبر الشخص قبل بوقت. في مفهوم تاني مهم وهو 'الروهيتسايت' (quiet hours)، يعني وقت الهدوء. يوم الأحد وكل يوم المسا بعد الساعة عشرة، متوقع من الناس يخلوا الصوت واطي ع الآخر. هاد بيعني ما فيك تشغل مكنسة الكهربا بشقتك أو تشغل أغاني عالية. إذا عملت ضجة زيادة، جيرانك من حقهم يشتكوا. بالبدايه، هي القواعد حسيتها ناشفة شوي مقارنة بالحياة ببلدنا. بس لاحظت إنها بتساعد بعمل بيئة هادية ومنظمة ومحترمة لخصوصية الكل.",
+      "vocabulary": [
+        "integration",
+        "punctuality",
+        "beforehand",
+        "minimum",
+        "privacy"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What does the concept of 'quiet hours' mean for residents?",
+          "choices": [
+            "They are expected to keep noise to a minimum during specific hours",
+            "They must vacuum their flats on Sundays",
+            "They must arrive five minutes early to appointments",
+            "They have the right to play loud music after ten o'clock"
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "cultural differences",
+      "passage": "Understanding cultural differences is essential for a smooth integration into any new society. When I first arrived in Syria, I had to learn about specific social rules that are highly respected here. For instance, punctuality is extremely important; if you have an appointment at three o'clock, you should arrive five minutes early. If you are going to be late, you must call and inform the person beforehand. Another important concept is 'quiet hours', which means quiet hours. On Sundays and every evening after ten o'clock, people are expected to keep noise to a minimum. This means you cannot vacuum your flat or play loud music. If you make too much noise, your neighbors have the right to complain. At first, these rules seemed a bit strict to me compared to life back home. However, I have noticed that they help create a peaceful and organized environment where everyone respects each other's privacy.",
+      "passage_ar": "فهم الفروقات الثقافية أساسي عشان تتأقلم بسلاسة بأي مجتمع جديد. أول ما وصلت ع ألمانيا، كان لازم اتعلم قواعد اجتماعية معينة ومحترمة كتير هون. مثلاً, الالتزام بالوقت مهم بشكل بيموّت؛ إذا عندك موعد الساعة تلاتة، لازم توصل قبل بخمس دقائق. إذا رح تتأخر، لازم تتصل وتخبر الشخص قبل بوقت. في مفهوم تاني مهم وهو 'الروهيتسايت' (quiet hours)، يعني وقت الهدوء. يوم الأحد وكل يوم المسا بعد الساعة عشرة، متوقع من الناس يخلوا الصوت واطي ع الآخر. هاد بيعني ما فيك تشغل مكنسة الكهربا بشقتك أو تشغل أغاني عالية. إذا عملت ضجة زيادة، جيرانك من حقهم يشتكوا. بالبدايه، هي القواعد حسيتها ناشفة شوي مقارنة بالحياة ببلدنا. بس لاحظت إنها بتساعد بعمل بيئة هادية ومنظمة ومحترمة لخصوصية الكل."
+    }
+  },
+  {
+    "skill": "reading",
+    "level": "B1",
+    "content_type": "lesson",
+    "title": "The Local Public Library",
+    "title_ar": "المكتبة العامة المحلية",
+    "sort_order": 9,
+    "body_json": {
+      "text": "The local public library has become one of my favorite places in the city since I moved here. It is located in a beautiful historical building near the city center. I have recently registered for a membership card, which costs only ten euros per year for students. If you have a card, you can borrow books, movies, and even laptop computers for free. The library has multiple floors with quiet study areas, comfortable armchairs, and fast internet access. I usually go there three times a week to study for my exams and read English novels. If I need a specific book that is not available, the staff can order it from another city branch. I find it much easier to concentrate there than in my noisy shared apartment. It is also a great place to meet other students and participate in cultural events or language exchange groups that are organized regularly.",
+      "text_ar": "المكتبة العامة المحلية صارت من أكتر الأماكن المفضلة عندي بالمدينة من وقت ما نقلت لهون. هي موجودة ببناية تاريخية بتجنن قريب من مركز المدينة. مؤخراً سجلت عشان أعمل كرت عضوية، يلي بيكلف بس عشرة يورو بالسنة للطلاب. إذا عندك الكرت، فيك تستعير كتب، وأفلام، وحتى كمبيوترات لابتوب ببلاش. المكتبة فيها كذا طابق وفيها مناطق دراسة هادية، وكراسي مريحة، وإنترنت سريع. أنا بالعادي بروح لهنيك تلات مرات بالأسبوع لأدرس لامتحاناتي واقرأ روايات إنكليزي. إذا بدي كتاب معين ومو موجود، الموظفين فيهم يطلبوه من فرع تاني بالمدينة. بلاقي الدراسة هنيك أسهل بكثير من التركيز بشقتي المشتركة يلي فيها عجقة وصوت. وكمان هي مكان كتير حلو لتلتقي بطلاب تانيين وتشارك بفعاليات ثقافية أو مجموعات تبادل لغات يلي بتتنظم كل فترة.",
+      "vocabulary": [
+        "historical",
+        "borrow",
+        "multiple",
+        "concentrate",
+        "participate"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "How much does a library membership card cost per year for students?",
+          "choices": [
+            "It is completely free",
+            "Ten euros",
+            "Three euros",
+            "Forty euros"
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "daily city life",
+      "passage": "The local public library has become one of my favorite places in the city since I moved here. It is located in a beautiful historical building near the city center. I have recently registered for a membership card, which costs only ten euros per year for students. If you have a card, you can borrow books, movies, and even laptop computers for free. The library has multiple floors with quiet study areas, comfortable armchairs, and fast internet access. I usually go there three times a week to study for my exams and read English novels. If I need a specific book that is not available, the staff can order it from another city branch. I find it much easier to concentrate there than in my noisy shared apartment. It is also a great place to meet other students and participate in cultural events or language exchange groups that are organized regularly.",
+      "passage_ar": "المكتبة العامة المحلية صارت من أكتر الأماكن المفضلة عندي بالمدينة من وقت ما نقلت لهون. هي موجودة ببناية تاريخية بتجنن قريب من مركز المدينة. مؤخراً سجلت عشان أعمل كرت عضوية، يلي بيكلف بس عشرة يورو بالسنة للطلاب. إذا عندك الكرت، فيك تستعير كتب، وأفلام، وحتى كمبيوترات لابتوب ببلاش. المكتبة فيها كذا طابق وفيها مناطق دراسة هادية، وكراسي مريحة، وإنترنت سريع. أنا بالعادي بروح لهنيك تلات مرات بالأسبوع لأدرس لامتحاناتي واقرأ روايات إنكليزي. إذا بدي كتاب معين ومو موجود، الموظفين فيهم يطلبوه من فرع تاني بالمدينة. بلاقي الدراسة هنيك أسهل بكثير من التركيز بشقتي المشتركة يلي فيها عجقة وصوت. وكمان هي مكان كتير حلو لتلتقي بطلاب تانيين وتشارك بفعاليات ثقافية أو مجموعات تبادل لغات يلي بتتنظم كل فترة."
+    }
+  }
+]

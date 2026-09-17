@@ -1,0 +1,162 @@
+[
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Adapting to Direct Corporate Feedback",
+    "title_ar": "التأقلم مع النقد المباشر بالشركات",
+    "sort_order": 0,
+    "body_json": {
+      "prompt": "Discuss the challenges international professionals encounter when adapting to a direct corporate feedback culture. How can companies support employees from indirect communication backgrounds?",
+      "prompt_ar": "ناقش التحديات يلي بيواجهوها الموظفين الأجانب لما يضطروا يتأقلموا مع ثقافة النقد المباشر بالشركات. كيف فيها الشركات تدعم الموظفين يلي جايين من خلفيات بتعتمد ع التواصل غير المباشر؟",
+      "example_answer": "Adapting to a direct feedback culture can be incredibly challenging for international professionals who are accustomed to indirect communication. In many Central European corporate environments, constructive criticism is delivered quite bluntly, which newcomers might initially misconstrue as personal hostility or a lack of respect. To mitigate this systemic friction, corporate leaders should implement specialized cross-cultural workshops during the initial onboarding phase. These training modules can help clarify that unvarnished critique is meant to optimize performance rather than attack individual capabilities. Furthermore, creating a mentorship framework allows experienced colleagues to guide new recruits, fostering a psychologically safe environment where cognitive diversity is actively valued as a significant corporate asset.",
+      "min_seconds": 60,
+      "topic": "career",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Public Transit Ticket Subsidies",
+    "title_ar": "دعم تكتات المواصلات العامة",
+    "sort_order": 1,
+    "body_json": {
+      "prompt": "Express your opinion on whether city municipalities should heavily subsidize public transit tickets. Address how this impacts environmental concerns and municipal budget deficits.",
+      "prompt_ar": "عطينا رأيك إذا كان لازم البلديات تدعم تكتات المواصلات العامة بشكل كبير. احكي كيف هاد الشي بيأثر ع المخاوف البيئية وعجز الميزانية بالبلدية.",
+      "example_answer": "In my opinion, city municipalities should definitely prioritize the heavy subsidization of public transit tickets. Introducing affordable monthly transit passes is an excellent strategy to incentivize residents to utilize trains and buses instead of private automobiles. This policy directly addresses mounting environmental concerns, drastically reducing traffic congestion and urban carbon emissions. However, we cannot ignore that extensive subsidies frequently lead to severe municipal budget deficits, making it challenging to upgrade ancient subway networks. To balance this structural bottleneck, federal governments should allocate substantial ecological grants to regional councils, ensuring that clean, zero-emission urban mobility infrastructure remains financially sustainable on the long term.",
+      "min_seconds": 60,
+      "topic": "public transport",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "The Urban Housing Scarcity",
+    "title_ar": "أزمة السكن بالمدن الكبيرة",
+    "sort_order": 2,
+    "body_json": {
+      "prompt": "Describe the current urban housing scarcity in major European cities and its specific socio-economic impacts on international students and young professionals.",
+      "prompt_ar": "اوصف أزمة قلة البيوت الحالية بالمدن الأوروبية الكبيرة وتأثيراتها الاقتصادية والاجتماعية المعينة ع الطلاب الأجانب والشباب يلي مبلشين شغل جديد.",
+      "example_answer": "The acute shortage of affordable accommodation in major metropolitan areas has generated severe social unrest recently. As speculative real estate investments and rapid demographic shifts cause monthly rental prices to skyrocket, young professionals and international students find themselves entirely priced out of the market. This systemic housing scarcity forces individuals to settle for substandard living conditions far from their universities or workplaces, directly disrupting their daily commuting routine. Moreover, the fierce competition for shared flats or 'WGs' creates immense psychological stress. Without strict government interventions, such as effective rent caps and extensive investments in public social housing, modern urban centers risk losing their cultural and socio-economic diversity entirely.",
+      "min_seconds": 60,
+      "topic": "current events",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Transitioning to Paperless Bureaucracy",
+    "title_ar": "التحول الرقمي بالمعاملات الرسمية",
+    "sort_order": 3,
+    "body_json": {
+      "prompt": "Discuss the advantages and disadvantages of converting physical migration offices into centralized digital registration portals. Consider administrative backlogs and technological barriers.",
+      "prompt_ar": "ناقش ميزات وسلبيات تحويل مكاتب الإقامة والاجانب الحقيقية لمنصات تسجيل رقمية مركزية أونلاين. فكر بتراكم المعاملات وبالعوائق التكنولوجية.",
+      "example_answer": "Transitioning to paperless digital bureaucracy portals offers a brilliant solution to the immense administrative backlog currently overwhelming physical migration offices. Streamlining the application process allows international candidates to upload essential rental contracts and passport documents directly from home, substantially reducing waiting times. However, a major disadvantage is that this automated shift creates insurmountable technological barriers for vulnerable migrants who lack advanced digital literacy. If centralized software is implemented without thorough cross-cultural usability testing, it inadvertently hinders the initial social integration of newcomers. Therefore, municipal councils must maintain decentralized in-person support desks alongside modern interfaces to guarantee equitable access for everyone.",
+      "min_seconds": 60,
+      "topic": "bureaucracy",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Capitalizing on Urban Green Spaces",
+    "title_ar": "الاستثمار بالمساحات الخضراء بالمدن",
+    "sort_order": 4,
+    "body_json": {
+      "prompt": "State your perspective on whether expanding urban green infrastructure is an indispensable asset for modern cities facing global climate change challenges.",
+      "prompt_ar": "قولنا شو نظرتك ورأيك إذا كان توسيع البنية التحتية الخضراء بالمدن عنصر ما فينا نستغني عنه للمدن الحديثة يلي عم تواجه تحديات التغير المناخي العالمي.",
+      "example_answer": "From my perspective, expanding urban green infrastructure is an indispensable asset for combatting global climate change in densely built environments. Metropolises worldwide frequently suffer from the urban heat island effect, where concrete surfaces absorb solar radiation, causing summer temperatures to skyrocket. Implementing deliberate ecological interventions, such as expanding public parks and enforcing strict green roof mandates, functions as a natural cooling mechanism that reduces surface temperatures significantly. Furthermore, urban vegetation plays a critical role in managing stormwater during torrential rainfall, reducing the immense pressure on ancient sewage systems. Investing in these sustainable architecture paradigms is fundamental for preserving public health and ensuring urban structural viability.",
+      "min_seconds": 60,
+      "topic": "global issues",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "The Multi-Track School System Debate",
+    "title_ar": "نظام تقسيم الطلاب بالمدارس الثانوية",
+    "sort_order": 5,
+    "body_json": {
+      "prompt": "Analyze the debate surrounding early academic tracking in multi-track secondary school systems. Discuss how this structure affects socio-economic mobility and international students.",
+      "prompt_ar": "حلل النقاش الدائر حول تقسيم الطلاب الأكاديمي المبكر بأنظمة المدارس الثانوية متعددة المسارات. ناقش كيف هاد الهيكل بيأثر ع الحركة الاجتماعية والاقتصادية وعلى الطلاب الأجانب.",
+      "example_answer": "The debate surrounding early academic tracking in multi-track secondary school systems focuses heavily on equity and specialization. Proponents argue that sorting children early effectively cultivates a highly specialized workforce by separating academic paths from practical vocational training. However, critics fiercely point out that this rigid structure severely limits future socio-economic mobility. Sociologists have proven that international children are disproportionately directed away from university-bound tracks due to early linguistic barriers. If educational ministries introduced a more integrated, flexible secondary curriculum, students would be allowed to pivot between academic streams and apprenticeships much later in their personal development, thereby minimizing the higher education disparity.",
+      "min_seconds": 60,
+      "topic": "education systems",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Civic Engagement and Integration",
+    "title_ar": "دور الشغل التطوعي بالاندماج الاجتماعي",
+    "sort_order": 6,
+    "body_json": {
+      "prompt": "Describe how civic engagement and participating in volunteer-led community initiatives can accelerate the linguistic and social integration of newly arrived immigrants.",
+      "prompt_ar": "اوصف كيف المشاركة المدنية والانخراط بالمبادرات المجتمعية التطوعية فيها تسرع الاندماج اللغوي والاجتماعي للمهاجرين يلي واصلين جديد.",
+      "example_answer": "Civic engagement plays an invaluable role in facilitating the long-term social integration of newly arrived immigrants. Neighborhood institutions, such as local community centers, heavily rely on volunteer networks to operate free language cafes, legal advice clinics, and intercultural workshops. These grassroots initiatives provide a safe space where residents can engage in open dialogue, effectively dismantling mutual prejudices and social boundaries. Recent sociological studies demonstrate that migrants who actively participate in these volunteer programs exhibit a significantly stronger sense of belonging and civic responsibility. Fostering an inclusive society requires continuous structural and financial support for these vital civic networks to bridge cultural differences.",
+      "min_seconds": 60,
+      "topic": "culture",
+      "question_type": "describe"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Privacy Boundaries of Electronic Health Systems",
+    "title_ar": "حدود الخصوصية بالسجلات الطبية الرقمية",
+    "sort_order": 7,
+    "body_json": {
+      "prompt": "Express your opinion on the mandatory implementation of digital patient records. Do the automated clinical efficiencies outweigh potential vulnerabilities to cyberattacks and surveillance?",
+      "prompt_ar": "عطينا رأيك بفرز وتطبيق السجلات الطبية الرقمية الإجبارية. هل الكفاءة الطبية والمؤتمتة بتغلب الثغرات المحتملة قدام الهجمات الإلكترونية والمراقبة؟",
+      "example_answer": "In my opinion, while the implementation of standardized digital patient records offers clear automated clinical efficiencies, we must critically evaluate data protection boundaries. Centralized electronic networks undoubtedly optimize emergency treatments by enabling specialists to access vital medical histories instantly, thereby preventing dangerous medication errors. However, privacy advocates express valid, grave concerns regarding the vulnerability of these vast databases to sophisticated cyberattacks and unauthorized corporate surveillance. Sensitive diagnostic records must be safeguarded with advanced encryption to ensure absolute patient confidentiality. Clinical efficiency should never compromise individual privacy rights; hence, health ministries must enforce rigorous security regulations to maintain public trust in digital healthcare systems.",
+      "min_seconds": 60,
+      "topic": "healthcare",
+      "question_type": "opinion"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "Automated Screening in Corporate Hiring",
+    "title_ar": "برامج الفرز المؤتمتة بتوظيف الشركات",
+    "sort_order": 8,
+    "body_json": {
+      "prompt": "Discuss the ethical challenges of utilizing automated screening software during job application stages. How can human resource departments prevent algorithmic discrimination?",
+      "prompt_ar": "ناقش التحديات الأخلاقية لاستخدام برامج الفرز المؤتمتة خلال مراحل التقديم على شغل. كيف فيها أقسام الموارد البشرية تمنع التمييز الخوارزمي؟",
+      "example_answer": "Utilizing automated screening software during initial job application stages introduces severe ethical challenges that corporate boards must address. Although these algorithms are marketed as objective tools designed to eliminate human bias, they frequently replicate systemic discrimination because they are trained on historical datasets reflecting existing corporate imbalances. Consequently, qualified candidates with foreign-sounding names or non-traditional educational backgrounds are often automatically filtered out. To prevent this recruitment bottleneck, human resource departments must critically audit algorithmic selection criteria. Furthermore, employment laws should mandate anonymized application procedures universally, forcing recruitment systems to focus purely on professional competencies and ensure equitable opportunities for global talent.",
+      "min_seconds": 60,
+      "topic": "job applications",
+      "question_type": "discuss"
+    }
+  },
+  {
+    "skill": "speaking",
+    "level": "B2",
+    "content_type": "speaking_prompt",
+    "title": "The Impact of Demographic Shifts on Workplaces",
+    "title_ar": "تأثير التحولات الديموغرافية عأماكن الشغل",
+    "sort_order": 9,
+    "body_json": {
+      "prompt": "Describe the impact of aging demographics in Western Europe on corporate workforce strategies. Mention the importance of lifelong learning and intergenerational collaboration.",
+      "prompt_ar": "اوصف تأثير شيخوخة السكان بأوروبا الغربية على استراتيجيات العمال بالشركات. اذكر أهمية التعليم مدى الحياة والتعاون بين الأجيال المختلفة.",
+      "example_answer": "The aging demographic profile of Western Europe is currently forcing corporate enterprises to radically restructure their workforce management strategies. As a substantial portion of experienced employees approaches traditional retirement age, industries face an unprecedented loss of institutional knowledge and technical expertise. To counter this impending deficit, human resource departments are developing innovative lifelong learning programs aimed at keeping older workers integrated while simultaneously training younger recruits. Businesses are also implementing ergonomic modifications in the physical workplace to accommodate an older demographic. Ultimately, navigating this structural shift depends on cultivating a workplace culture that highly values intergenerational collaboration, ensuring that generational diversity is celebrated as a productive economic asset.",
+      "min_seconds": 60,
+      "topic": "society",
+      "question_type": "describe"
+    }
+  }
+]

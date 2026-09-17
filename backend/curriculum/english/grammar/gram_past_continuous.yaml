@@ -1,0 +1,42 @@
+grammar_id: gram_past_continuous
+display_code: G023
+title: Past continuous
+cefr_level: A2
+order: 230
+prerequisites:
+- gram_past_simple
+- gram_present_continuous
+unlock_targets: []
+grammar_targets:
+- was -ing
+- were -ing
+- when
+- while
+teaching_notes: Model the target in what happened yesterday, story interruption; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- I walking when it started.
+- I was walk when...
+examples:
+- I was walking when it started to rain.
+- They were studying while we cooked.
+learning_objectives:
+- Describe interrupted or background past actions
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- listening
+- speaking
+recommended_contexts:
+- what happened yesterday
+- story interruption
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in what happened yesterday, story interruption; check comprehension before
+  guided production, then recycle it in a new context.

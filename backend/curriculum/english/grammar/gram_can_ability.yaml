@@ -1,0 +1,42 @@
+grammar_id: gram_can_ability
+display_code: G008
+title: Can for ability / permission
+cefr_level: A1
+order: 80
+prerequisites:
+- gram_present_simple
+- gram_basic_questions
+unlock_targets: []
+grammar_targets:
+- can
+- can't
+- cannot
+teaching_notes: Model the target in skills interview, classroom permission; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- I can to swim.
+- She cans drive.
+examples:
+- I can swim.
+- Can I open the window?
+- She can't drive.
+learning_objectives:
+- Express ability and simple permission with can/can't
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 76.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- skills interview
+- classroom permission
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in skills interview, classroom permission; check comprehension before guided
+  production, then recycle it in a new context.

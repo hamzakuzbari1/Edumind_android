@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * A-01 · Splash & Language Gate.
@@ -89,7 +90,10 @@ class SplashViewModel(
     }
 
     private suspend fun afterLanguageGate(): SplashDecision {
-        return when (val restored = authRepository.restoreSession()) {
+        val restored = withTimeoutOrNull(RESTORE_TIMEOUT_MS) {
+            authRepository.restoreSession()
+        } ?: return SplashDecision.Login
+        return when (restored) {
             is com.rork.eduspark.core.result.AppResult.Success ->
                 restored.data?.let { SplashDecision.Home(it) } ?: SplashDecision.Login
             is com.rork.eduspark.core.result.AppResult.Failure -> SplashDecision.Login
@@ -97,7 +101,8 @@ class SplashViewModel(
     }
 
     private companion object {
-        /** "~600ms max" from the Screen Inventory, used as the brand beat, not a fake delay. */
-        const val MIN_BRAND_BEAT_MS = 600L
+        /** Launch logo animation window (1.2–2.0s). Session restore still runs concurrently. */
+        const val MIN_BRAND_BEAT_MS = 1600L
+        const val RESTORE_TIMEOUT_MS = 4_000L
     }
 }

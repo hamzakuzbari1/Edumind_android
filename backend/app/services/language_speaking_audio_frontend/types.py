@@ -1,0 +1,130 @@
+"""Types facade for language_speaking_audio_frontend (S3).
+
+Re-exports all canonical audio frontend contracts from submodules.
+"""
+
+from app.services.language_speaking_audio_frontend.artifacts import (
+    CANONICAL_CHANNEL_COUNT,
+    CANONICAL_CODEC,
+    CANONICAL_CONTAINER_FORMAT,
+    CANONICAL_SAMPLE_RATE_HZ,
+    AudioIntegrityMetadata,
+    ClientRecordingMetadata,
+    LANGUAGE_SPEAKING_AUDIO_FRONTEND_VERSION,
+    NormalizedAudioArtifact,
+    SpeakingAudioArtifact,
+    SpeakingAudioInput,
+)
+from app.services.language_speaking_audio_frontend.bundle import (
+    LANGUAGE_SPEAKING_EVIDENCE_BUNDLE_VERSION,
+    SpeakingAudioEvidenceBundle,
+    assemble_evidence_bundle,
+    bundle_from_persistence_dict,
+)
+from app.services.language_speaking_audio_frontend.capabilities import (
+    ALL_PROVIDER_CAPABILITY_FLAGS,
+    EVIDENCE_FAMILY_REQUIRED_CAPABILITIES,
+    ProviderCapabilityDescriptor,
+    compute_evidence_availability,
+)
+from app.services.language_speaking_audio_frontend.enums import (
+    AudioArtifactKind,
+    AudioEvidenceQualityFlag,
+    ProviderCapabilityFlag,
+    SpeakingEvidenceFamily,
+)
+from app.services.language_speaking_audio_frontend.evidence import (
+    LANGUAGE_SPEAKING_EVIDENCE_SCHEMA_VERSION,
+    EmbeddingFrameMetadata,
+    EnergySummary,
+    IntonationEvidence,
+    PauseEvidence,
+    PhonemeAlignmentEntry,
+    PhonemeAlignmentEvidence,
+    PitchSummary,
+    ProviderProvenance,
+    ProsodyFeatureEvidence,
+    RhythmEvidence,
+    SpeakingRateEvidence,
+    SpeechEmbeddingEvidence,
+    StressEvidence,
+    TranscriptEvidence,
+    TranscriptSegment,
+)
+from app.services.language_speaking_audio_frontend.legacy_mapping import (
+    AUDIO_RETENTION_BOUNDARIES,
+    LEGACY_AUDIO_CONTRACT_MAP,
+    LEGACY_STORAGE_FIELD_MAP,
+    LEGACY_TRANSCRIPTION_FIELD_MAP,
+)
+from app.services.language_speaking_audio_frontend.validators import (
+    FORBIDDEN_EDUCATIONAL_FIELD_NAMES,
+    quality_flags_from_partial_availability,
+    validate_embedding_metadata,
+    validate_no_educational_fields_in_dict,
+    validate_phoneme_alignment_evidence,
+    validate_phoneme_alignment_timestamps,
+    validate_prosody_evidence,
+    validate_segment_timestamps_ordered,
+    validate_transcript_evidence,
+    validate_word_timestamps_ordered,
+)
+
+# Backwards-compatible alias for the former S0 stub.
+AudioFrontendResult = SpeakingAudioEvidenceBundle
+
+__all__ = [
+    "ALL_PROVIDER_CAPABILITY_FLAGS",
+    "AUDIO_RETENTION_BOUNDARIES",
+    "AudioArtifactKind",
+    "AudioEvidenceQualityFlag",
+    "AudioFrontendResult",
+    "AudioIntegrityMetadata",
+    "CANONICAL_CHANNEL_COUNT",
+    "CANONICAL_CODEC",
+    "CANONICAL_CONTAINER_FORMAT",
+    "CANONICAL_SAMPLE_RATE_HZ",
+    "ClientRecordingMetadata",
+    "EVIDENCE_FAMILY_REQUIRED_CAPABILITIES",
+    "EmbeddingFrameMetadata",
+    "EnergySummary",
+    "FORBIDDEN_EDUCATIONAL_FIELD_NAMES",
+    "IntonationEvidence",
+    "LANGUAGE_SPEAKING_AUDIO_FRONTEND_VERSION",
+    "LANGUAGE_SPEAKING_EVIDENCE_BUNDLE_VERSION",
+    "LANGUAGE_SPEAKING_EVIDENCE_SCHEMA_VERSION",
+    "LEGACY_AUDIO_CONTRACT_MAP",
+    "LEGACY_STORAGE_FIELD_MAP",
+    "LEGACY_TRANSCRIPTION_FIELD_MAP",
+    "NormalizedAudioArtifact",
+    "PauseEvidence",
+    "PhonemeAlignmentEntry",
+    "PhonemeAlignmentEvidence",
+    "PitchSummary",
+    "ProviderCapabilityDescriptor",
+    "ProviderCapabilityFlag",
+    "ProviderProvenance",
+    "ProsodyFeatureEvidence",
+    "RhythmEvidence",
+    "SpeakingAudioArtifact",
+    "SpeakingAudioEvidenceBundle",
+    "SpeakingAudioInput",
+    "SpeakingEvidenceFamily",
+    "SpeakingRateEvidence",
+    "SpeechEmbeddingEvidence",
+    "StressEvidence",
+    "TranscriptEvidence",
+    "TranscriptSegment",
+    "assemble_evidence_bundle",
+    "bundle_from_persistence_dict",
+    "compute_evidence_availability",
+    "quality_flags_from_partial_availability",
+    "validate_embedding_metadata",
+    "validate_no_educational_fields_in_dict",
+    "validate_phoneme_alignment_evidence",
+    "validate_phoneme_alignment_timestamps",
+    "validate_prosody_evidence",
+    "validate_segment_timestamps_ordered",
+    "validate_transcript_evidence",
+    "validate_word_timestamps_ordered",
+]

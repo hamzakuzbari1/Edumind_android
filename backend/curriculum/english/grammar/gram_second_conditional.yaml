@@ -1,0 +1,42 @@
+grammar_id: gram_second_conditional
+display_code: G036
+title: Second conditional
+cefr_level: B2
+order: 360
+prerequisites:
+- gram_first_conditional
+- gram_past_simple
+unlock_targets: []
+grammar_targets:
+- if
+- would
+- could
+- were
+teaching_notes: Model the target in ethical dilemmas, hypothetical advice; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- If I would have more time, I would travel.
+- If she was here... (acceptable variation; teach were for formality)
+examples:
+- If I had more time, I would travel.
+- If she were here, she could help.
+learning_objectives:
+- Express unreal/hypothetical present-future conditions
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- ethical dilemmas
+- hypothetical advice
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Model the target in ethical dilemmas, hypothetical advice; check comprehension before guided
+  production, then recycle it in a new context.

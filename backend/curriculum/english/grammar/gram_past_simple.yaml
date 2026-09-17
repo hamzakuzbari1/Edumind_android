@@ -1,0 +1,46 @@
+grammar_id: gram_past_simple
+display_code: G015
+title: Past simple
+cefr_level: A2
+order: 150
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- arrived
+- missed
+- said
+- was
+- were
+- did
+- didn't
+teaching_notes: Show finished actions that created today's problem. Model the target in yesterday's problem,
+  travel story; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- I did went home.
+- She not see the message.
+examples:
+- I arrived late yesterday.
+- She didn't see the message.
+- Where did you go?
+learning_objectives:
+- Narrate finished past actions with regular/irregular verbs
+- Form past negatives and questions with did
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- yesterday's problem
+- travel story
+minimum_context_diversity: 2
+review_priority: 5
+review_half_life_days: 14.0
+focus_note: Show finished actions that created today's problem. Model the target in yesterday's problem,
+  travel story; check comprehension before guided production, then recycle it in a new context.

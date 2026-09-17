@@ -1,0 +1,43 @@
+grammar_id: gram_comparatives_basic
+display_code: G017
+title: Comparatives and superlatives (basic)
+cefr_level: A2
+order: 170
+prerequisites:
+- gram_present_simple
+- gram_articles_a_an_the
+unlock_targets: []
+grammar_targets:
+- bigger
+- more interesting
+- the best
+- than
+teaching_notes: Model the target in choosing a product, comparing cities; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- more bigger
+- the most tallest
+examples:
+- This bag is bigger than that one.
+- English is more useful for my job.
+learning_objectives:
+- Compare people/things with -er / more and the -est / most
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+- vocabulary
+recommended_contexts:
+- choosing a product
+- comparing cities
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in choosing a product, comparing cities; check comprehension before guided
+  production, then recycle it in a new context.

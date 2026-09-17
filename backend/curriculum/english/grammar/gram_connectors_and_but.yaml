@@ -1,0 +1,41 @@
+grammar_id: gram_connectors_and_but
+display_code: G016
+title: Simple connectors
+cefr_level: A2
+order: 160
+prerequisites:
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- and
+- but
+- because
+teaching_notes: Link ideas with and / but / because inside the case. Model the target in explaining a
+  choice, short narrative; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- Because it was raining. (sentence fragment)
+- I tired but I finished.
+examples:
+- I was tired but I finished the work.
+- She stayed home because it was raining.
+learning_objectives:
+- Link ideas with and / but / because
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- speaking
+- vocabulary
+recommended_contexts:
+- explaining a choice
+- short narrative
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Link ideas with and / but / because inside the case. Model the target in explaining a choice,
+  short narrative; check comprehension before guided production, then recycle it in a new context.

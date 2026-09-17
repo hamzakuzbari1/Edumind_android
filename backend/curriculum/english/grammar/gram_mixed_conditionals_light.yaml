@@ -1,0 +1,49 @@
+grammar_id: gram_mixed_conditionals_light
+display_code: G038
+title: Mixed conditionals
+cefr_level: B2
+order: 380
+prerequisites:
+- gram_second_conditional
+- gram_past_perfect_light
+- gram_third_conditional
+unlock_targets: []
+grammar_targets:
+- if + past perfect, would + base verb
+- if + past simple, would have + past participle
+teaching_notes: Teach only after second and third conditionals are secure. Use timelines to show why the
+  condition and result belong to different time frames; avoid if only and unless here because they are
+  taught elsewhere. Model the target in ethical consequences, regret scenarios; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- If I would have studied medicine, I would be a doctor now.
+- If she was more organised, she would submitted the form.
+- Using a mixed conditional when condition and result refer to the same time.
+examples:
+- If I had studied medicine, I would be a doctor now.
+- If she were more organised, she would have submitted the form yesterday.
+- If we had left earlier, we would be there now.
+learning_objectives:
+- Connect an unreal past condition to a present result
+- Connect an unreal present condition to a past result
+- Choose a mixed conditional only when condition and result refer to different times
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 85.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- writing
+recommended_contexts:
+- ethical consequences
+- regret scenarios
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Teach only after second and third conditionals are secure. Use timelines to show why the condition
+  and result belong to different time frames; avoid if only and unless here because they are taught elsewhere.
+  Model the target in ethical consequences, regret scenarios; check comprehension before guided production,
+  then recycle it in a new context.

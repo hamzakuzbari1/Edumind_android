@@ -1,0 +1,41 @@
+grammar_id: gram_modals_should_must
+display_code: G021
+title: Should / must (advice and obligation)
+cefr_level: A2
+order: 210
+prerequisites:
+- gram_can_ability
+unlock_targets: []
+grammar_targets:
+- should
+- shouldn't
+- must
+- mustn't
+teaching_notes: Model the target in school rules, health advice; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- You should to rest.
+- You must to arrive.
+examples:
+- You should rest.
+- Students must arrive on time.
+learning_objectives:
+- Give advice with should and strong obligation with must
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 78.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- reading
+recommended_contexts:
+- school rules
+- health advice
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in school rules, health advice; check comprehension before guided production,
+  then recycle it in a new context.

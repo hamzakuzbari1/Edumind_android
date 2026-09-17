@@ -1,0 +1,41 @@
+grammar_id: gram_fronting_advanced
+display_code: G053
+title: Advanced fronting and information structure
+cefr_level: C2
+order: 530
+prerequisites:
+- gram_inversion_emphasis
+- gram_discourse_signalling
+unlock_targets: []
+grammar_targets:
+- only then
+- so intense was
+- what he did was
+teaching_notes: Model the target in editorial argument, persuasive speech; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- Only then the team understood the risk.
+- Fronting without communicative purpose
+examples:
+- Only then did the team understand the risk.
+- What they needed was clearer evidence.
+learning_objectives:
+- Control information focus with marked word order and fronting
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 92.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- writing
+- reading
+recommended_contexts:
+- editorial argument
+- persuasive speech
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 28.0
+focus_note: Model the target in editorial argument, persuasive speech; check comprehension before guided
+  production, then recycle it in a new context.

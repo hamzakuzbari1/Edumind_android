@@ -39,6 +39,7 @@ import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.rork.eduspark.R
+import com.rork.eduspark.data.model.UserRole
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
@@ -62,19 +63,31 @@ object Routes {
     const val SPLASH = "auth/splash"                    // A-01
     const val VALUE_CAROUSEL = "auth/carousel"          // A-02
     const val ROLE_SELECT = "auth/role"                 // A-03
-    const val LOGIN = "auth/login"                      // A-04
+    const val ROLE_ARG = "role"
+    const val ROLE_AUTH = "auth/role-auth/{$ROLE_ARG}"  // Role-specific Login / Register hub
+    fun roleAuthRoute(role: UserRole) = "auth/role-auth/${role.name.lowercase()}"
+    const val LOGIN = "auth/login/{$ROLE_ARG}"          // A-04 — role is UX context only
+    fun loginRoute(role: UserRole) = "auth/login/${role.name.lowercase()}"
     const val REGISTER_STUDENT = "auth/register/student" // A-05
     const val REGISTER_PARENT = "auth/register/parent"   // A-06
     const val REGISTER_TEACHER = "auth/register/teacher" // A-07
+    fun registerRoute(role: UserRole) = when (role) {
+        UserRole.Student -> REGISTER_STUDENT
+        UserRole.Teacher -> REGISTER_TEACHER
+        UserRole.Parent -> REGISTER_PARENT
+    }
 
     // A-08 and A-09 both need the email the previous screen was working with (Register's
     // new address, or Login's unverified/2FA-pending one), so the route carries it as an
     // argument rather than relying on a shared ViewModel or global state to smuggle it across.
     private const val EMAIL_ARG = "email"
     const val VERIFY_EMAIL = "auth/verify-email/{$EMAIL_ARG}" // A-08 — route pattern
-    const val TWO_FACTOR = "auth/two-factor/{$EMAIL_ARG}"     // A-09 — route pattern
+    const val TWO_FACTOR = "auth/two-factor/{$EMAIL_ARG}?$ROLE_ARG={$ROLE_ARG}" // A-09
     fun verifyEmailRoute(email: String) = "auth/verify-email/${Uri.encode(email)}"
-    fun twoFactorRoute(email: String) = "auth/two-factor/${Uri.encode(email)}"
+    fun twoFactorRoute(email: String, role: UserRole? = null): String {
+        val base = "auth/two-factor/${Uri.encode(email)}"
+        return if (role == null) base else "$base?$ROLE_ARG=${role.name.lowercase()}"
+    }
 
     const val FORGOT_PASSWORD = "auth/forgot" // A-10 — no arguments
 

@@ -1,0 +1,44 @@
+grammar_id: gram_passive_voice
+display_code: G039
+title: Passive voice
+cefr_level: B2
+order: 390
+prerequisites:
+- gram_past_simple
+- gram_present_perfect
+unlock_targets: []
+grammar_targets:
+- was told
+- is expected
+- were given
+- has been
+teaching_notes: Show outcomes affected by unknown or institutional agents. Model the target in news headline,
+  school notice; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- The students was given...
+- The decision has delayed.
+examples:
+- The students were given clear instructions.
+- The decision has been delayed.
+learning_objectives:
+- Form passives to focus on outcomes and unknown agents
+- Use present/past/perfect passive forms appropriately
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 85.0
+evidence:
+  min_observations: 5
+  min_distinct_contexts: 3
+  min_skills_covered: 2
+reinforcement_skills:
+- reading
+- writing
+recommended_contexts:
+- news headline
+- school notice
+- institutional outcome
+minimum_context_diversity: 3
+review_priority: 5
+review_half_life_days: 18.0
+focus_note: Show outcomes affected by unknown or institutional agents. Model the target in news headline,
+  school notice; check comprehension before guided production, then recycle it in a new context.

@@ -1,0 +1,41 @@
+grammar_id: gram_too_enough
+display_code: G032
+title: Too / enough
+cefr_level: B1
+order: 320
+prerequisites:
+- gram_comparatives_basic
+unlock_targets: []
+grammar_targets:
+- too
+- enough
+- not enough
+teaching_notes: Model the target in choosing a product, fitness goals; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- This bag is enough heavy.
+- She is not enough tall.
+examples:
+- This bag is too heavy.
+- She is not tall enough.
+learning_objectives:
+- Express excess and sufficiency with too + adjective and adjective + enough
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- writing
+- vocabulary
+recommended_contexts:
+- choosing a product
+- fitness goals
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in choosing a product, fitness goals; check comprehension before guided production,
+  then recycle it in a new context.

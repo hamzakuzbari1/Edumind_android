@@ -1,0 +1,4 @@
+# Speaking S5 — real pronunciation evidence (wav2vec2 espeak-IPA CTC + phonemizer)
+# Requires espeak-ng system binary (libespeak-ng1 on Linux).
+phonemizer>=3.2.1
+transformers>=4.44.0

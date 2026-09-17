@@ -235,23 +235,24 @@
     <!-- ── A-03 · Role Select ──────────────────────────────────────── -->
     <string name="a03_title">من أنت؟</string>
     <string name="a03_body">نختار لك الشاشات والمحتوى المناسب. يمكنك تغيير ذلك لاحقاً من الإعدادات.</string>
-    <string name="a03_entry_headline">جيل جديد من التعلّم الذكي</string>
-    <string name="a03_entry_subtitle">EduMind يجمع الدروس، المعلّم الذكي، الاختبارات، والخطة اليومية في تجربة واحدة للطالب والأهل والمعلّم.</string>
+    <string name="a03_entry_headline">كيف تريد استخدام EduMind؟</string>
+    <string name="a03_entry_subtitle">اختر نوع حسابك للمتابعة</string>
     <string name="a03_benefit_ai_tutor">معلّم ذكي</string>
     <string name="a03_benefit_daily_plan">خطة يومية</string>
     <string name="a03_benefit_progress">متابعة التقدّم</string>
     <string name="a03_role_section_title">اختر تجربتك</string>
     <string name="a03_role_student">طالب</string>
-    <string name="a03_role_student_line">ابدأ الدروس والاختبارات مع معلّمك الذكي</string>
+    <string name="a03_role_student_line">الدروس والاختبارات والمعلّم الذكي في مكان واحد</string>
     <string name="a03_role_student_monogram">ط</string>
     <string name="a03_role_teacher">معلّم</string>
-    <string name="a03_role_teacher_line">انشر الدروس وتابع صفوفك</string>
+    <string name="a03_role_teacher_line">أدِر دروسك وصفوفك وطلابك</string>
     <string name="a03_role_teacher_monogram">م</string>
-    <string name="a03_role_parent">وليّ أمر</string>
-    <string name="a03_role_parent_line">تابع تقدّم ابنك وتواصل مع المعلّمين</string>
+    <string name="a03_role_parent">ولي أمر</string>
+    <string name="a03_role_parent_line">تابع تقدّم أبنائك الدراسي</string>
     <string name="a03_role_parent_monogram">و</string>
     <string name="a03_have_account">لديك حساب؟</string>
     <string name="a03_login_action">تسجيل الدخول</string>
+    <string name="a03_change_account_type">تغيير نوع الحساب</string>
 
     <!-- ── A-04 · Login ────────────────────────────────────────────── -->
     <string name="a04_email_label">البريد الإلكتروني</string>
@@ -289,6 +290,15 @@
     <string name="a04_notice_unverified">لم يُفعّل بريدك بعد. أرسلنا رابطاً إلى %1$s.</string>
     <string name="a04_action_resend_link">أعد إرسال الرابط</string>
     <string name="a04_action_change_email">غيّر البريد</string>
+    <string name="a04_auth_title_student">مرحبًا بعودتك كطالب</string>
+    <string name="a04_auth_body_student">سجّل الدخول لمتابعة دروسك وتقدمك</string>
+    <string name="a04_auth_title_teacher">الدخول كمعلم</string>
+    <string name="a04_auth_body_teacher">أدِر صفوفك ودروسك وطلابك</string>
+    <string name="a04_auth_title_parent">الدخول كولي أمر</string>
+    <string name="a04_auth_body_parent">تابع تقدم أبنائك وتواصل مع معلميهم</string>
+    <string name="a04_error_role_mismatch_student">هذا الحساب مسجل كطالب. اختر طالب للمتابعة.</string>
+    <string name="a04_error_role_mismatch_teacher">هذا الحساب مسجل كمعلّم. اختر معلّم للمتابعة.</string>
+    <string name="a04_error_role_mismatch_parent">هذا الحساب مسجل كولي أمر. اختر ولي أمر للمتابعة.</string>
 
     <!-- ═══════════════════════════════════════════════════════════════
          PHASE 0 · A-05 → A-07 · REGISTRATION

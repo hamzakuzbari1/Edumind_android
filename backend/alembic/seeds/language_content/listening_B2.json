@@ -1,0 +1,352 @@
+[
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Adapting to Direct Corporate Feedback",
+    "title_ar": "التأقلم مع النقد المباشر بالشركات",
+    "sort_order": 0,
+    "body_json": {
+      "audio_transcript": "Hi everyone. I wanted to touch base regarding the professional integration seminars scheduled for the upcoming quarter. It has been reported by several team leads that many of our international software engineers are encountering substantial hurdles when adapting to our direct feedback loop. In our corporate culture, constructive criticism is typically delivered quite bluntly, which can easily be misconstrued as personal hostility by employees who are accustomed to a more indirect communication style. To mitigate this issue, a specialized interpersonal workshop is being introduced next week. Had we implemented these cross-cultural modules during the initial onboarding phase, a great deal of team friction might have been averted entirely. Attendance is going to be mandatory for all project managers, as we actively aim to foster an inclusive environment where cognitive diversity is valued. If you have any unavoidable scheduling constraints, please notify the human resources department by tomorrow afternoon.",
+      "situation": "A corporate manager addresses her team about challenges faced by international employees adjusting to regional communication styles.",
+      "situation_ar": "مسؤولة بالشركة عم تحكي باجتماع عن الصعوبات يلي عم يواجهوها الموظفين الأجانب الجداد ليتأقلموا مع طريقة النقد المباشر بالشغل.",
+      "vocabulary": [
+        "integration",
+        "hurdles",
+        "misconstrued",
+        "mitigate",
+        "mandatory"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why do some international employees misunderstand constructive criticism in this company?",
+          "choices": [
+            "Because they are unaccustomed to the blunt delivery of corporate critique.",
+            "Because the feedback seminars have been canceled for the upcoming quarter.",
+            "Because human resources refuses to handle their scheduling constraints.",
+            "Because software engineers prefer indirect training modules over workshops."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "career",
+      "instructions": "A corporate manager addresses her team about challenges faced by international employees adjusting to regional communication styles."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Debating Public Transit Ticket Subsidies",
+    "title_ar": "نقاش ببلدية المدينة عن دعم تكتات المواصلات",
+    "sort_order": 1,
+    "body_json": {
+      "audio_transcript": "Good evening, fellow citizens. Tonight's city council session focuses on the proposed optimization of our urban mobility infrastructure. As you know, the subsidized monthly transit pass, which was introduced last year to incentivize residents to utilize trains and buses rather than private automobiles, has been a tremendous success. Consequently, traffic congestion in the city center has dropped by approximately twenty percent. However, local municipalities are currently facing severe budget deficits due to the skyrocketing costs of maintaining and upgrading our ancient subway networks. It has been argued by opposition members that continuing this massive subsidy is fiscally unsustainable unless fare structures are adjusted based on income brackets. Had municipal councils successfully secured more substantial federal grants prior to launching the initiative, this structural bottleneck could have been avoided. We are now opening the floor for an open public debate, and your active participation is highly encouraged.",
+      "situation": "A city council member speaks at a public hearing regarding the financial challenges of public transit subsidies.",
+      "situation_ar": "جلسة بمجلس البلدية عم يتناقشوا فيها عن نجاح التكتات المدعومة والمشاكل المادية يلي عم تواجهها شبكة المترو.",
+      "vocabulary": [
+        "optimization",
+        "incentivize",
+        "deficits",
+        "unsustainable",
+        "bottleneck"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What main argument is raised by opposition members against the transit subsidy?",
+          "choices": [
+            "They claim that traffic congestion in the city center has increased significantly.",
+            "They argue it is financially unsustainable without adjusting fares by income.",
+            "They believe federal grants should be utilized to ban private automobiles entirely.",
+            "They state that ancient subway networks do not require any physical maintenance."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "public transport",
+      "instructions": "A city council member speaks at a public hearing regarding the financial challenges of public transit subsidies."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Housing Scarcity Crisis",
+    "title_ar": "أزمة السكن وغلاء الآجارات بالمدن",
+    "sort_order": 2,
+    "body_json": {
+      "audio_transcript": "Welcome back to the Evening Report. Today, we examine the growing social unrest surrounding the acute shortage of affordable housing options in major metropolitan areas across the country. As monthly rental prices continue to skyrocket due to speculative real estate investment and rapid demographic shifts, young professionals and international students find themselves priced out of the residential market entirely. Sociologists have warned that if immediate legislative interventions, such as stricter rent caps, are not implemented by the government, our urban centers risk losing their socio-economic diversity. These rent control measures are currently being fiercely debated in parliament, with opponents claiming that rigid regulations inadvertently discourage private developers from constructing new residential units. Had the housing ministry invested more comprehensively in social housing programs over the past decade, this systemic crisis might have been partially mitigated. Next, we will speak live with a local housing advocate who outlines potential community-driven solutions.",
+      "situation": "A news anchor delivers a report on the economic and social impacts of the urban housing shortage.",
+      "situation_ar": "تقرير إخباري ع التلفزيون عم يحكي عن أزمة قلة البيوت الرخيصة والآجارات يلي شعلت بالمدن الكبيرة وتأثيرها ع الطلاب.",
+      "vocabulary": [
+        "acute",
+        "speculative",
+        "interventions",
+        "inadvertently",
+        "mitigated"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "According to opponents, what is a negative effect of rigid rent control regulations?",
+          "choices": [
+            "They automatically increase the socio-economic diversity of metropolitan areas.",
+            "They force the housing ministry to expand social programs immediately.",
+            "They inadvertently discourage private developers from building new housing units.",
+            "They eliminate speculative real estate investments within a single decade."
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "current events",
+      "instructions": "A news anchor delivers a report on the economic and social impacts of the urban housing shortage."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Transitioning to Digital Registration",
+    "title_ar": "التحول الرقمي بمعاملات مكتب الإقامة",
+    "sort_order": 3,
+    "body_json": {
+      "audio_transcript": "Attention all staff members of the municipal integration office. This morning, an official directive was issued regarding the upcoming transition to our centralized digital registration portal. As you are well aware, our physical migration offices have been completely overwhelmed by an immense administrative backlog for several consecutive months. By shifting to an entirely paperless system, international applicants will be enabled to upload their rental contracts, employment verification certificates, and passport documents directly from their homes. This streamlined process is explicitly expected to reduce waiting times by up to fifty percent. However, serious concerns have been raised by non-profit counseling organizations regarding potential technological barriers for vulnerable migrants who lack advanced digital literacy. Had this administrative software been thoroughly vetted by cross-cultural usability experts earlier, some of these systemic technical glitches could have been eliminated. A mandatory training session will be held this Friday afternoon to ensure all case workers can navigate the new interface effortlessly.",
+      "situation": "An administrative director briefs office staff on the implementation of a new digital portal for immigrants.",
+      "situation_ar": "توجيه رسمي بمكتب الأجانب عم يشرحوا فيه كيف رح تتحول المعاملات كلها أونلاين والمشاكل يلي ممكن تواجه الكبار بالعمر.",
+      "vocabulary": [
+        "directive",
+        "backlog",
+        "streamlined",
+        "vulnerable",
+        "glitches"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What concern do non-profit counseling organizations have regarding the new paperless portal?",
+          "choices": [
+            "It will significantly increase the existing administrative backlog for staff members.",
+            "It prevents applicants from uploading official rental contracts and certificates.",
+            "It requires case workers to cancel the upcoming training session on Friday.",
+            "It might create technological barriers for vulnerable migrants lacking digital literacy."
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "bureaucracy",
+      "instructions": "An administrative director briefs office staff on the implementation of a new digital portal for immigrants."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Urban Green Infrastructure Benefits",
+    "title_ar": "المساحات الخضراء بالمدن ومواجهة الشوب",
+    "sort_order": 4,
+    "body_json": {
+      "audio_transcript": "Good morning, everyone. In today's seminar on sustainable urban architecture, we will analyze how metropolitan green infrastructure serves as an indispensable asset in mitigating global climate change. Densely built urban centers frequently suffer from the urban heat island effect, a phenomenon where concrete surfaces absorb solar radiation, causing localized temperatures to skyrocket during summer months. To combat this pressing environmental challenge, city planners are increasingly converting abandoned industrial yards into public parks and enforcing strict green roof mandates for all new commercial developments. Recent environmental assessments indicate that without these deliberate ecological interventions, peak summer temperatures in major European cities would quickly rise to hazardous levels. Had municipal councils prioritized these sustainable planning models twenty years ago, our current reliance on energy-intensive air conditioning systems would be significantly lower. We will now divide into small analytical groups to review a detailed case study focusing on the zero-emission zones that were recently established in Copenhagen.",
+      "situation": "A university professor introduces a lecture topic on architectural solutions to the urban heat island effect.",
+      "situation_ar": "أستاذ بالجامعة عم يعطي محاضرة عن كيف الحدائق والأسطح الخضرا بتساعد بتبريد المدن بظاهرة الجزر الحرارية بالصيف.",
+      "vocabulary": [
+        "indispensable",
+        "phenomenon",
+        "mandates",
+        "deliberate",
+        "hazardous"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What occurs during the phenomenon known as the urban heat island effect?",
+          "choices": [
+            "Concrete surfaces absorb solar radiation, causing localized temperatures to skyrocket.",
+            "Abandoned industrial yards are automatically converted into sustainable architecture.",
+            "Energy-intensive air conditioning systems drop urban temperatures to hazardous levels.",
+            "Municipal councils establish zero-emission zones across major European parks."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "global issues",
+      "instructions": "A university professor introduces a lecture topic on architectural solutions to the urban heat island effect."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "The Multi-Track Secondary School Debate",
+    "title_ar": "النقاش حول نظام المدارس وتقسيم الطلاب بكير",
+    "sort_order": 5,
+    "body_json": {
+      "audio_transcript": "Hello, colleagues. I'd like to share some insights from our recent educational research symposium regarding the multi-track secondary school system. As you know, under this traditional framework, children are typically sorted into different academic paths at a relatively early age based on their primary school performance. While proponents argue that this dual structure effectively cultivates a highly specialized workforce by separating academic tracking from vocational training, critics fiercely point out that it severely limits socio-economic mobility. It is frequently asserted by sociologists that children from international backgrounds are disproportionately directed away from university-bound tracks due to early linguistic barriers. If the secondary school curriculum were more integrated and flexible, students would be allowed to pivot between academic and practical streams much later in their personal development. Had these comprehensive educational reforms been implemented uniformly across all federal states a decade ago, the current disparity in higher education enrollment would be far less pronounced. Let's discuss how this affects our local language integration initiatives.",
+      "situation": "An educational researcher presents an analysis of academic tracking structures to a committee.",
+      "situation_ar": "باحث عم يحكي بندوة تعليمية عن سلبيات تقسيم الطلاب بمسارات مختلفة بعمر صغير وتأثير هاد الشي ع أولاد المهاجرين.",
+      "vocabulary": [
+        "framework",
+        "proponents",
+        "mobility",
+        "disproportionately",
+        "disparity"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "According to the speaker, why are international children disproportionately kept away from university tracks?",
+          "choices": [
+            "Because vocational training programs require highly integrated primary school tracking.",
+            "Because early linguistic barriers affect their placement in the multi-track system.",
+            "Because federal states uniformly implemented comprehensive educational reforms a decade ago.",
+            "Because academic symposiums discourage flexible enrollment structures in secondary schools."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "education systems",
+      "instructions": "An educational researcher presents an analysis of academic tracking structures to a committee."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Civic Engagement and Social Integration",
+    "title_ar": "دور الشغل التطوعي بدمج المهاجرين",
+    "sort_order": 6,
+    "body_json": {
+      "audio_transcript": "Hi everyone, thank you for attending the community volunteer briefing. Tonight, we are discussing the vital role of civic engagement in facilitating the long-term social integration of newly arrived residents. In our society, community centers are heavily reliant on volunteer networks to operate free language cafes, legal advice clinics, and cross-cultural workshops. These neighborhood institutions provide an invaluable safe space where mutual prejudices can be dismantled through open dialogue. It has been demonstrated by recent sociological studies that migrants who actively participate in these volunteer programs exhibit a significantly stronger sense of belonging and civic responsibility. If federal funding were granted permanently to these grassroots initiatives, their capacity to offer advanced educational modules would be secured. Had our organization ignored the value of civic networking during the previous migration wave, our neighborhood cohesion would be noticeably weaker today. We appreciate your dedication and would like to walk you through the volunteer schedule for the upcoming winter bazaar.",
+      "situation": "A community coordinator briefs local volunteers about the social impact of neighborhood integration programs.",
+      "situation_ar": "اجتماع بمركز مجتمعي عم يحكوا فيه عن أهمية التطوع لتسهيل اندماج العالم الجداد وكسر الأحكام المسبقة بالحارة.",
+      "vocabulary": [
+        "facilitating",
+        "prejudices",
+        "dismantled",
+        "belonging",
+        "cohesion"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What is a major benefit of migrant participation in volunteer programs mentioned in the text?",
+          "choices": [
+            "It eliminates the necessity for federal funding in grassroots community centers.",
+            "It helps residents organize the upcoming winter bazaar schedule without managers.",
+            "It builds a significantly stronger sense of belonging and civic responsibility.",
+            "It allows neighborhood institutions to avoid operating free language clinics."
+          ],
+          "correct_index": 2
+        }
+      ],
+      "topic": "culture",
+      "instructions": "A community coordinator briefs local volunteers about the social impact of neighborhood integration programs."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Digital Health Records and Privacy Boundaries",
+    "title_ar": "السجلات الطبية الديجيتال وسرية بيانات المريض",
+    "sort_order": 7,
+    "body_json": {
+      "audio_transcript": "Good morning, medical staff. I need your undivided attention regarding the mandatory implementation of the standardized digital patient records system across our clinic network. While this electronic transformation is heavily supported by hospital administrators because it enables specialists to access vital medical histories instantly, thereby preventing dangerous medication errors, it has sparked an intense debate regarding data protection. Privacy advocates have expressed grave concerns about the vulnerability of these centralized databases to sophisticated cyberattacks and unauthorized corporate surveillance. They emphasize that sensitive diagnostic records must be safeguarded using advanced encryption keys. If stricter legal frameworks had been established by the health ministry prior to this digital transition, public skepticism would be noticeably lower today. As doctors and nurses, we are required to maintain strict patient confidentiality while utilizing these new automated interfaces. Please ensure that you log out of your terminals immediately after completing each patient evaluation.",
+      "situation": "A clinical supervisor updates healthcare workers on data security regulations for electronic health systems.",
+      "situation_ar": "مسؤول بعيادة طبية عم يوجه الدكاترة والممرضات عن نظام السجلات الرقمية الجديد ومخاوف حماية الخصوصية من الهجمات الإلكترونية.",
+      "vocabulary": [
+        "mandatory",
+        "vulnerability",
+        "surveillance",
+        "safeguarded",
+        "confidentiality"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why do privacy advocates express grave concerns regarding the new centralized database?",
+          "choices": [
+            "Because it prevents medical specialists from accessing diagnostic records during emergencies.",
+            "Because it causes frequent medication errors due to complex encryption keys.",
+            "Because the health ministry requires medical staff to log out of their terminals.",
+            "Because the database is vulnerable to cyberattacks and unauthorized corporate surveillance."
+          ],
+          "correct_index": 3
+        }
+      ],
+      "topic": "healthcare",
+      "instructions": "A clinical supervisor updates healthcare workers on data security regulations for electronic health systems."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "Algorithmic Bias in Recruitment Software",
+    "title_ar": "التحيز المخفي بخوارزميات توظيف الشركات",
+    "sort_order": 8,
+    "body_json": {
+      "audio_transcript": "Welcome to today's corporate human resources seminar. Our main topic focuses on the ethical challenges of utilizing automated screening software during the initial job application stages. While these advanced algorithms are marketed by tech companies as objective tools designed to eliminate human bias from the hiring process, studies indicate they often replicate systemic discrimination. Because the software is trained on historical datasets that reflect existing corporate imbalances, candidates with foreign-sounding names or non-traditional educational backgrounds are frequently filtered out automatically. If anonymized application procedures were universally mandated by employment laws, these unconscious structural biases would be reduced significantly. Had our corporate board implemented rigorous diversity training for our software development teams earlier, our current recruitment bottleneck might have been avoided entirely. Moving forward, human resource specialists must critically audit algorithmic recommendations to ensure our selection criteria remain fully inclusive and equitable for all qualified global talent.",
+      "situation": "A human resources expert delivers a lecture on structural discrimination embedded in automated hiring systems.",
+      "situation_ar": "ندوة للموارد البشرية عم تناقش كيف برامج التوظيف المؤتمتة أوقات بتظلم المتقدمين الأجانب بسبب الأسماء أو الخلفية التعليمية.",
+      "vocabulary": [
+        "screening",
+        "replicate",
+        "anonymized",
+        "mandated",
+        "equitable"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "Why does automated screening software frequently filter out qualified international candidates?",
+          "choices": [
+            "Because the algorithms are trained on historical datasets that reflect existing corporate imbalances.",
+            "Because employment laws universally mandate expensive compliance protocols for start-ups.",
+            "Because human resource specialists refuse to audit the selection criteria manually.",
+            "Because tech companies design software specifically to create recruitment bottlenecks."
+          ],
+          "correct_index": 0
+        }
+      ],
+      "topic": "job applications",
+      "instructions": "A human resources expert delivers a lecture on structural discrimination embedded in automated hiring systems."
+    }
+  },
+  {
+    "skill": "listening",
+    "level": "B2",
+    "content_type": "lesson",
+    "title": "New Municipal Utility and Waste Regulations",
+    "title_ar": "قوانين البلدية الجديدة لفرز الزبالة والكهربا",
+    "sort_order": 9,
+    "body_json": {
+      "audio_transcript": "Hello residents, this is an official announcement from the municipal housing authority regarding the updated regulations for public utility consumption and household waste disposal. Due to strict new environmental compliance laws enacted by the federal government, all residential complexes are now subject to rigorous energy efficiency audits. Additionally, our neighborhood recycling protocols have been modified to enforce absolute waste separation. Bins are monitored via smart sensors, and financial penalties will be issued to the entire building if non-recyclable materials are repeatedly discovered in the blue or green containers. If tenants fail to comply with these strict guidelines, communal maintenance fees will inevitably increase next year. Had these eco-friendly waste management strategies been adopted by our district council a decade ago, our current carbon offset targets would have already been achieved successfully. We highly encourage you to review the bilingual informational pamphlets that were distributed to your mailboxes yesterday morning.",
+      "situation": "A neighborhood representative reads a community announcement regarding strict environmental compliance rules.",
+      "situation_ar": "إعلان رسمي من مؤسسة السكن بالبلدية عم ينبهوا فيه السكان من غرامات مالية إذا ما فرزوا الزبالة منيح والتزموا بقوانين البيئة.",
+      "vocabulary": [
+        "compliance",
+        "rigorous",
+        "protocols",
+        "penalties",
+        "inevitably"
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "stem": "What penalty will occur if residents repeatedly fail to separate their household waste?",
+          "choices": [
+            "The district council will stop distributing bilingual informational pamphlets.",
+            "Financial penalties will be issued to the entire residential building.",
+            "Smart sensors will be removed from all blue and green containers entirely.",
+            "The federal government will cancel the mandatory energy efficiency audits."
+          ],
+          "correct_index": 1
+        }
+      ],
+      "topic": "bureaucracy",
+      "instructions": "A neighborhood representative reads a community announcement regarding strict environmental compliance rules."
+    }
+  }
+]

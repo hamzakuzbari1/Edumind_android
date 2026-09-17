@@ -1,0 +1,50 @@
+grammar_id: gram_going_to
+display_code: G018
+title: Going to future
+cefr_level: A2
+order: 180
+prerequisites:
+- gram_present_continuous
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- am/is/are going to + base verb
+- am/is/are not going to + base verb
+- Am/Is/Are ... going to + base verb?
+teaching_notes: Teach be going to for prior intentions and evidence-based predictions. Compare with will
+  only in explanation after Will Future is available; will is not a target in this topic. Model the target
+  in weekend plans, open ending next step; check comprehension before guided production, then recycle
+  it in a new context.
+common_mistakes:
+- I going to call the teacher.
+- I am going call the teacher.
+- She is going to visits her aunt.
+- Are you going join us?
+examples:
+- I am going to call the teacher.
+- We are going to visit the museum tomorrow.
+- Look at those clouds—it is going to rain.
+- Are you going to join us?
+learning_objectives:
+- Express prior plans and intentions with be going to
+- Make evidence-based predictions with be going to
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- weekend plans
+- open ending next step
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Teach be going to for prior intentions and evidence-based predictions. Compare with will only
+  in explanation after Will Future is available; will is not a target in this topic. Model the target
+  in weekend plans, open ending next step; check comprehension before guided production, then recycle
+  it in a new context.

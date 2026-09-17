@@ -219,23 +219,24 @@
     <!-- ── A-03 · Role Select ──────────────────────────────────────── -->
     <string name="a03_title">Who are you?</string>
     <string name="a03_body">We\'ll set up the right screens and content. You can change this later in Settings.</string>
-    <string name="a03_entry_headline">The next generation of intelligent learning</string>
-    <string name="a03_entry_subtitle">EduMind brings lessons, the AI tutor, quizzes, and daily planning into one experience for students, parents, and teachers.</string>
+    <string name="a03_entry_headline">How do you want to use EduMind?</string>
+    <string name="a03_entry_subtitle">Choose your account type to continue</string>
     <string name="a03_benefit_ai_tutor">AI tutor</string>
     <string name="a03_benefit_daily_plan">Daily plan</string>
     <string name="a03_benefit_progress">Progress tracking</string>
     <string name="a03_role_section_title">Choose your experience</string>
     <string name="a03_role_student">Student</string>
-    <string name="a03_role_student_line">Start lessons and quizzes with your AI tutor</string>
+    <string name="a03_role_student_line">Lessons, quizzes, and a smart tutor in one place</string>
     <string name="a03_role_student_monogram">S</string>
     <string name="a03_role_teacher">Teacher</string>
-    <string name="a03_role_teacher_line">Publish lessons and track your classes</string>
+    <string name="a03_role_teacher_line">Manage your lessons, classes, and students</string>
     <string name="a03_role_teacher_monogram">T</string>
     <string name="a03_role_parent">Parent</string>
-    <string name="a03_role_parent_line">Follow your child\'s progress and talk to teachers</string>
+    <string name="a03_role_parent_line">Track your child\'s learning progress</string>
     <string name="a03_role_parent_monogram">P</string>
     <string name="a03_have_account">Already have an account?</string>
     <string name="a03_login_action">Log in</string>
+    <string name="a03_change_account_type">Change account type</string>
 
     <!-- ── A-04 · Login ────────────────────────────────────────────── -->
     <string name="a04_email_label">Email</string>
@@ -268,6 +269,15 @@
     <string name="a04_notice_unverified">Your email isn\'t verified yet. We sent a link to %1$s.</string>
     <string name="a04_action_resend_link">Resend link</string>
     <string name="a04_action_change_email">Change email</string>
+    <string name="a04_auth_title_student">Welcome back as a student</string>
+    <string name="a04_auth_body_student">Sign in to continue your lessons and progress</string>
+    <string name="a04_auth_title_teacher">Sign in as a teacher</string>
+    <string name="a04_auth_body_teacher">Manage your classes, lessons, and students</string>
+    <string name="a04_auth_title_parent">Sign in as a parent</string>
+    <string name="a04_auth_body_parent">Follow your children\'s progress and talk to their teachers</string>
+    <string name="a04_error_role_mismatch_student">This account is registered as a student. Choose Student to continue.</string>
+    <string name="a04_error_role_mismatch_teacher">This account is registered as a teacher. Choose Teacher to continue.</string>
+    <string name="a04_error_role_mismatch_parent">This account is registered as a parent. Choose Parent to continue.</string>
 
     <!-- ═══════════════════════════════════════════════════════════════
          PHASE 0 · A-05 → A-07 · REGISTRATION

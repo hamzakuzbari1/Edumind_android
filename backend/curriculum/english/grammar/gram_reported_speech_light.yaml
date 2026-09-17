@@ -1,0 +1,43 @@
+grammar_id: gram_reported_speech_light
+display_code: G028
+title: Reported situation
+cefr_level: B1
+order: 280
+prerequisites:
+- gram_past_simple
+- gram_present_simple
+unlock_targets: []
+grammar_targets:
+- said that
+- told
+- asked
+teaching_notes: Report what someone said without becoming a grammar lecture. Model the target in relaying
+  a message, school announcement; check comprehension before guided production, then recycle it in a new
+  context.
+common_mistakes:
+- He said me to wait.
+- She told that the meeting was cancelled.
+examples:
+- She said that the meeting was cancelled.
+- He told me to wait.
+learning_objectives:
+- Report what someone said without heavy backshift lectures
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 80.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- listening
+- speaking
+recommended_contexts:
+- relaying a message
+- school announcement
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Report what someone said without becoming a grammar lecture. Model the target in relaying
+  a message, school announcement; check comprehension before guided production, then recycle it in a new
+  context.

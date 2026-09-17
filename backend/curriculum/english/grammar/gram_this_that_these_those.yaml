@@ -1,0 +1,41 @@
+grammar_id: gram_this_that_these_those
+display_code: G011
+title: This / that / these / those
+cefr_level: A1
+order: 110
+prerequisites:
+- gram_articles_a_an_the
+unlock_targets: []
+grammar_targets:
+- this
+- that
+- these
+- those
+teaching_notes: Model the target in classroom objects, shopping; check comprehension before guided production,
+  then recycle it in a new context.
+common_mistakes:
+- This books are mine.
+- That are my friends.
+examples:
+- This book is mine.
+- Those chairs are new.
+learning_objectives:
+- Point to near/far singular and plural nouns with demonstratives
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 75.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- classroom objects
+- shopping
+minimum_context_diversity: 2
+review_priority: 2
+review_half_life_days: 14.0
+focus_note: Model the target in classroom objects, shopping; check comprehension before guided production,
+  then recycle it in a new context.

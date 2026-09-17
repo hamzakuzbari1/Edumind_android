@@ -1,0 +1,42 @@
+grammar_id: gram_reported_questions
+display_code: G041
+title: Reported questions
+cefr_level: B2
+order: 410
+prerequisites:
+- gram_reported_speech_light
+- gram_basic_questions
+unlock_targets: []
+grammar_targets:
+- asked if
+- asked whether
+- asked what
+- wondered
+teaching_notes: Model the target in interview retell, customer service report; check comprehension before
+  guided production, then recycle it in a new context.
+common_mistakes:
+- She asked if was I ready.
+- He asked where was the office.
+examples:
+- She asked if I was ready.
+- He asked where the office was.
+learning_objectives:
+- Report yes/no and Wh- questions with statement word order
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 84.0
+evidence:
+  min_observations: 3
+  min_distinct_contexts: 2
+  min_skills_covered: 1
+reinforcement_skills:
+- listening
+- speaking
+recommended_contexts:
+- interview retell
+- customer service report
+minimum_context_diversity: 2
+review_priority: 3
+review_half_life_days: 14.0
+focus_note: Model the target in interview retell, customer service report; check comprehension before
+  guided production, then recycle it in a new context.

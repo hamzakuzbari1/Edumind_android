@@ -1,0 +1,42 @@
+grammar_id: gram_first_conditional
+display_code: G027
+title: First conditional
+cefr_level: B1
+order: 270
+prerequisites:
+- gram_zero_conditional
+- gram_going_to
+unlock_targets: []
+grammar_targets:
+- if
+- will
+- might
+- unless
+teaching_notes: Show cause/effect choices characters consider. Model the target in planning under conditions,
+  cause/effect choices; check comprehension before guided production, then recycle it in a new context.
+common_mistakes:
+- If it will rain, we will stay inside.
+- If you will study, you pass.
+examples:
+- If it rains, we will stay inside.
+- If you study, you might pass.
+learning_objectives:
+- Express real future conditions with if + present, will/might
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 82.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- speaking
+- listening
+recommended_contexts:
+- planning under conditions
+- cause/effect choices
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Show cause/effect choices characters consider. Model the target in planning under conditions,
+  cause/effect choices; check comprehension before guided production, then recycle it in a new context.

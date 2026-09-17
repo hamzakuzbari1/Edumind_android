@@ -8,6 +8,7 @@ import com.rork.eduspark.core.connectivity.ConnectivityObserver
 import com.rork.eduspark.core.result.AppError
 import com.rork.eduspark.core.result.AppResult
 import com.rork.eduspark.data.model.SessionUser
+import com.rork.eduspark.data.model.UserRole
 import com.rork.eduspark.data.repository.AuthRepository
 import com.rork.eduspark.data.repository.SignInOutcome
 import kotlinx.coroutines.channels.Channel
@@ -61,6 +62,9 @@ sealed interface LoginMessage {
     data object ServerProblem : LoginMessage
 
     data object Unknown : LoginMessage
+
+    /** Backend session role does not match the role chosen on the entry screen. */
+    data class RoleMismatch(val actualRole: UserRole) : LoginMessage
 }
 
 data class LoginUiState(
@@ -93,6 +97,7 @@ sealed interface LoginEvent {
 class LoginViewModel(
     private val authRepository: AuthRepository,
     connectivity: ConnectivityObserver,
+    private val expectedRole: UserRole,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginUiState())
@@ -172,8 +177,16 @@ class LoginViewModel(
 
     private suspend fun handleOutcome(outcome: SignInOutcome) {
         when (outcome) {
-            is SignInOutcome.Authenticated ->
-                _events.send(LoginEvent.Authenticated(outcome.user))
+            is SignInOutcome.Authenticated -> {
+                if (sessionMatchesSelectedRole(outcome.user, expectedRole)) {
+                    _events.send(LoginEvent.Authenticated(outcome.user))
+                } else {
+                    authRepository.signOut()
+                    _state.update {
+                        it.copy(message = LoginMessage.RoleMismatch(outcome.user.role))
+                    }
+                }
+            }
 
             is SignInOutcome.TwoFactorRequired ->
                 _events.send(LoginEvent.TwoFactorRequired(outcome.challenge.email))

@@ -1,0 +1,42 @@
+grammar_id: gram_past_perfect_light
+display_code: G035
+title: Past perfect (light)
+cefr_level: B1
+order: 350
+prerequisites:
+- gram_past_simple
+- gram_past_continuous
+unlock_targets: []
+grammar_targets:
+- had
+- hadn't
+- already
+- before
+teaching_notes: Model the target in story sequence, explaining a delay; check comprehension before guided
+  production, then recycle it in a new context.
+common_mistakes:
+- I had finished yesterday. (no second past anchor)
+- She hadn't saw the message.
+examples:
+- I had finished before they arrived.
+- She hadn't seen the message.
+learning_objectives:
+- Show an earlier past action with had + past participle before another past event
+estimated_duration_minutes: 25
+difficulty: guided
+mastery_threshold: 82.0
+evidence:
+  min_observations: 4
+  min_distinct_contexts: 2
+  min_skills_covered: 2
+reinforcement_skills:
+- writing
+- speaking
+recommended_contexts:
+- story sequence
+- explaining a delay
+minimum_context_diversity: 2
+review_priority: 4
+review_half_life_days: 14.0
+focus_note: Model the target in story sequence, explaining a delay; check comprehension before guided
+  production, then recycle it in a new context.

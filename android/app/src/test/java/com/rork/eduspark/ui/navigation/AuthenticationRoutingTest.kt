@@ -5,6 +5,7 @@ import com.rork.eduspark.data.model.StudentOnboardingStep
 import com.rork.eduspark.data.model.UserRole
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class AuthenticationRoutingTest {
     @Test
@@ -34,6 +35,17 @@ class AuthenticationRoutingTest {
             Routes.STUDENT_GRAPH,
             destinationAfterAuthentication(user(UserRole.Student, false, StudentOnboardingStep.Complete)),
         )
+    }
+
+    @Test
+    fun roleFirstAuthRoutesCarryTheSelectedRole() {
+        assertEquals("auth/role-auth/student", Routes.roleAuthRoute(UserRole.Student))
+        assertEquals("auth/login/teacher", Routes.loginRoute(UserRole.Teacher))
+        assertEquals("auth/login/parent", Routes.loginRoute(UserRole.Parent))
+        assertEquals(Routes.REGISTER_STUDENT, Routes.registerRoute(UserRole.Student))
+        assertEquals(Routes.REGISTER_TEACHER, Routes.registerRoute(UserRole.Teacher))
+        assertEquals(Routes.REGISTER_PARENT, Routes.registerRoute(UserRole.Parent))
+        assertTrue(Routes.TWO_FACTOR.contains("{${Routes.ROLE_ARG}}"))
     }
 
     private fun user(
