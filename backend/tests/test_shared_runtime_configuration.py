@@ -29,3 +29,17 @@ def test_local_runtime_requires_explicit_local_mode_for_local_storage() -> None:
 def test_unknown_runtime_environment_is_rejected() -> None:
     with pytest.raises(ValueError, match="APP_ENV"):
         Settings(APP_ENV="mystery", DEBUG=True, JWT_SECRET=_strong_test_secret())
+
+
+def test_database_display_uses_the_effective_database_url() -> None:
+    settings = Settings(
+        APP_ENV="shared",
+        DEBUG=False,
+        DATABASE_URL="postgresql+asyncpg://user:password@shared-db.example:6543/catalog",
+        JWT_SECRET=_strong_test_secret(),
+        MEDIA_STORAGE_PROVIDER="supabase",
+        SUPABASE_URL="https://project.example",
+        SUPABASE_SERVICE_ROLE_KEY="test-service-role-key",
+    )
+
+    assert settings.database_display == "shared-db.example:6543/catalog"

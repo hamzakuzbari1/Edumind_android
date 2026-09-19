@@ -2,9 +2,34 @@
 
 ## Docker
 
-From project root: `docker compose up --build` — see [../DOCKER.md](../DOCKER.md).
+Docker runs the FastAPI service only. The API uses the shared Supabase DEV
+PostgreSQL and Supabase Storage configured in the local ignored
+`backend/.env`; Docker does not start a local PostgreSQL service.
 
-FastAPI + PostgreSQL (local) + pgvector + optional Gemini.
+Prerequisites: Docker Desktop.
+
+From the repository root:
+
+```bash
+# First run: create backend/.env from backend/.env.example and fill in
+# authorized shared DEV values locally.
+docker compose up --build
+```
+
+The API is available at http://localhost:8000 and its interactive docs are at
+http://localhost:8000/docs.
+
+```bash
+docker compose down
+docker compose logs -f api
+docker compose up --build
+```
+
+Android runs outside Docker from Android Studio, an emulator, or a physical
+device. For explicit local Android development only, set `APP_ENV=local` and
+`API_BASE_URL=http://10.0.2.2:8000`. Shared builds continue using the hosted
+Render API. Never commit `backend/.env`; a host Python `.venv` is optional when
+using Docker.
 
 ## Local run (no Docker)
 

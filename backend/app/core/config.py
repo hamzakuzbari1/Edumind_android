@@ -494,7 +494,14 @@ class Settings(BaseSettings):
 
     @property
     def database_display(self) -> str:
-        return f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        """Return a sanitized description of the effective runtime database."""
+        from sqlalchemy.engine import make_url
+
+        parsed = make_url(self.DATABASE_URL)
+        host = parsed.host or "unknown-host"
+        address = f"{host}:{parsed.port}" if parsed.port is not None else host
+        database = parsed.database or "unknown-database"
+        return f"{address}/{database}"
 
     @property
     def sync_database_url(self) -> str:

@@ -1,4 +1,4 @@
-# EduSpark API — development & deployment image
+# EduSpark API development and deployment image
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -18,13 +18,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
+# Keep dependency installation in its own layer so source-only changes do not
+# invalidate the dependency cache.
 COPY requirements.txt requirements-voice.txt ./
 RUN pip install --no-cache-dir -r requirements-voice.txt
 
-COPY app ./app
+# The runtime needs the application, migrations, and shared configuration.
+# Local .env files are excluded by .dockerignore.
+COPY . .
 RUN mkdir -p /app/uploads
 
 EXPOSE 8000
 
-# Override with --reload in docker-compose for development
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
