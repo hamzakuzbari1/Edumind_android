@@ -21,6 +21,31 @@ fun envValue(name: String, defaultValue: String): String =
         ?: localEnv.getProperty(name)?.trim()?.takeIf { it.isNotEmpty() }
         ?: defaultValue
 
+fun configuredEnvValue(name: String): String? =
+    providers.environmentVariable(name).orNull
+        ?.trim()
+        ?.takeIf { it.isNotEmpty() }
+        ?: localEnv.getProperty(name)?.trim()?.takeIf { it.isNotEmpty() }
+
+val appEnvironment = envValue("APP_ENV", "shared").lowercase()
+val apiBaseUrl = configuredEnvValue("API_BASE_URL") ?: when (appEnvironment) {
+    "local" -> "http://10.0.2.2:8000"
+    else -> throw GradleException(
+        "API_BASE_URL is required for APP_ENV=$appEnvironment. " +
+            "Set the hosted Render URL, or set APP_ENV=local for an explicit local build."
+    )
+}
+if (appEnvironment != "local" &&
+    apiBaseUrl.lowercase().contains("10.0.2.2") ||
+    appEnvironment != "local" && apiBaseUrl.lowercase().contains("localhost") ||
+    appEnvironment != "local" && apiBaseUrl.lowercase().contains("127.0.0.1")
+) {
+    throw GradleException(
+        "API_BASE_URL points to localhost while APP_ENV=$appEnvironment. " +
+            "Use the shared Render API or set APP_ENV=local explicitly."
+    )
+}
+
 fun buildConfigString(value: String): String =
     "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
 
@@ -50,8 +75,16 @@ android {
         buildConfigField(
             "String",
             "DATA_SOURCE_MODE",
-            buildConfigString(envValue("DATA_SOURCE_MODE", "MOCK"))
+            buildConfigString(envValue("DATA_SOURCE_MODE", "REMOTE"))
         )
+        buildConfigField("String", "APP_ENV", buildConfigString(appEnvironment))
+        buildConfigField("String", "LANGUAGE_DATA_SOURCE_MODE", buildConfigString(envValue("LANGUAGE_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "TUTOR_DATA_SOURCE_MODE", buildConfigString(envValue("TUTOR_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "CERTIFICATE_DATA_SOURCE_MODE", buildConfigString(envValue("CERTIFICATE_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "SECURITY_DATA_SOURCE_MODE", buildConfigString(envValue("SECURITY_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "PROJECT_DATA_SOURCE_MODE", buildConfigString(envValue("PROJECT_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "NOTIFICATION_DATA_SOURCE_MODE", buildConfigString(envValue("NOTIFICATION_DATA_SOURCE_MODE", "MOCK")))
+        buildConfigField("String", "TEACHER_CORE_DATA_SOURCE_MODE", buildConfigString(envValue("TEACHER_CORE_DATA_SOURCE_MODE", "MOCK")))
         buildConfigField(
             "String",
             "AUTH_DATA_SOURCE_MODE",
@@ -115,7 +148,7 @@ android {
         buildConfigField(
             "String",
             "API_BASE_URL",
-            buildConfigString(envValue("API_BASE_URL", "http://10.0.2.2:8000"))
+            buildConfigString(apiBaseUrl)
         )
     }
 

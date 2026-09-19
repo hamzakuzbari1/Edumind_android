@@ -208,64 +208,62 @@ import org.koin.dsl.module
 /**
  * Dependency graph.
  *
- * The single decision point for mock-vs-real data is [dataSourceMode], read from
- * `BuildConfig.DATA_SOURCE_MODE`. Screens and ViewModels depend only on the repository
- * interfaces, so switching the whole app to the real backend is one constant plus the
- * remote implementations — not a refactor.
+ * Remote-capable domains have explicit REMOTE defaults. Deferred domains have their own
+ * explicit MOCK flags so the global mode cannot accidentally hide which features are local.
  */
 enum class DataSourceMode { MOCK, REMOTE }
 
-val dataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.MOCK)
+private fun dataSourceMode(name: String, raw: String): DataSourceMode =
+    when (raw.trim().uppercase()) {
+        "MOCK" -> DataSourceMode.MOCK
+        "REMOTE" -> DataSourceMode.REMOTE
+        else -> error("Invalid $name='$raw'. Use MOCK or REMOTE explicitly.")
+    }
+
+val dataSourceMode: DataSourceMode = dataSourceMode("DATA_SOURCE_MODE", BuildConfig.DATA_SOURCE_MODE)
+val languageDataSourceMode: DataSourceMode = dataSourceMode("LANGUAGE_DATA_SOURCE_MODE", BuildConfig.LANGUAGE_DATA_SOURCE_MODE)
+val tutorDataSourceMode: DataSourceMode = dataSourceMode("TUTOR_DATA_SOURCE_MODE", BuildConfig.TUTOR_DATA_SOURCE_MODE)
+val certificateDataSourceMode: DataSourceMode = dataSourceMode("CERTIFICATE_DATA_SOURCE_MODE", BuildConfig.CERTIFICATE_DATA_SOURCE_MODE)
+val securityDataSourceMode: DataSourceMode = dataSourceMode("SECURITY_DATA_SOURCE_MODE", BuildConfig.SECURITY_DATA_SOURCE_MODE)
+val projectDataSourceMode: DataSourceMode = dataSourceMode("PROJECT_DATA_SOURCE_MODE", BuildConfig.PROJECT_DATA_SOURCE_MODE)
+val notificationDataSourceMode: DataSourceMode = dataSourceMode("NOTIFICATION_DATA_SOURCE_MODE", BuildConfig.NOTIFICATION_DATA_SOURCE_MODE)
+val teacherCoreDataSourceMode: DataSourceMode = dataSourceMode("TEACHER_CORE_DATA_SOURCE_MODE", BuildConfig.TEACHER_CORE_DATA_SOURCE_MODE)
 
 val authDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.AUTH_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("AUTH_DATA_SOURCE_MODE", BuildConfig.AUTH_DATA_SOURCE_MODE)
 
 val learningDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.LEARNING_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("LEARNING_DATA_SOURCE_MODE", BuildConfig.LEARNING_DATA_SOURCE_MODE)
 
 val profileDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.PROFILE_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("PROFILE_DATA_SOURCE_MODE", BuildConfig.PROFILE_DATA_SOURCE_MODE)
 
 val plannerDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.PLANNER_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("PLANNER_DATA_SOURCE_MODE", BuildConfig.PLANNER_DATA_SOURCE_MODE)
 
 val routineDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.ROUTINE_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("ROUTINE_DATA_SOURCE_MODE", BuildConfig.ROUTINE_DATA_SOURCE_MODE)
 
 val achievementDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.ACHIEVEMENT_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("ACHIEVEMENT_DATA_SOURCE_MODE", BuildConfig.ACHIEVEMENT_DATA_SOURCE_MODE)
 
 val teacherNotesDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.TEACHER_NOTES_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("TEACHER_NOTES_DATA_SOURCE_MODE", BuildConfig.TEACHER_NOTES_DATA_SOURCE_MODE)
 
 val quizDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.QUIZ_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("QUIZ_DATA_SOURCE_MODE", BuildConfig.QUIZ_DATA_SOURCE_MODE)
 
 val teacherUploadDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.TEACHER_UPLOAD_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("TEACHER_UPLOAD_DATA_SOURCE_MODE", BuildConfig.TEACHER_UPLOAD_DATA_SOURCE_MODE)
 
 val messagingDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.MESSAGING_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("MESSAGING_DATA_SOURCE_MODE", BuildConfig.MESSAGING_DATA_SOURCE_MODE)
 
 val subscriptionDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.SUBSCRIPTION_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("SUBSCRIPTION_DATA_SOURCE_MODE", BuildConfig.SUBSCRIPTION_DATA_SOURCE_MODE)
 
 val paymentDataSourceMode: DataSourceMode =
-    runCatching { DataSourceMode.valueOf(BuildConfig.PAYMENT_DATA_SOURCE_MODE.uppercase()) }
-        .getOrDefault(DataSourceMode.REMOTE)
+    dataSourceMode("PAYMENT_DATA_SOURCE_MODE", BuildConfig.PAYMENT_DATA_SOURCE_MODE)
 
 /**
  * ST-17/ST-18/ST-19 — the only mode this build supports. No Stripe/PayPal/Apple Pay/Google Pay
@@ -374,7 +372,7 @@ val appModule = module {
     }
 
     single<LanguageRepository> {
-        when (dataSourceMode) {
+        when (languageDataSourceMode) {
             DataSourceMode.MOCK -> MockLanguageRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -383,7 +381,7 @@ val appModule = module {
     }
 
     single<CertificateRepository> {
-        when (dataSourceMode) {
+        when (certificateDataSourceMode) {
             DataSourceMode.MOCK -> MockCertificateRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -413,7 +411,7 @@ val appModule = module {
     }
 
     single<TutorRepository> {
-        when (dataSourceMode) {
+        when (tutorDataSourceMode) {
             DataSourceMode.MOCK -> MockTutorRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -524,7 +522,7 @@ val appModule = module {
     }
 
     single<SecurityRepository> {
-        when (dataSourceMode) {
+        when (securityDataSourceMode) {
             DataSourceMode.MOCK -> MockSecurityRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -533,7 +531,7 @@ val appModule = module {
     }
 
     single<ProjectRepository> {
-        when (dataSourceMode) {
+        when (projectDataSourceMode) {
             DataSourceMode.MOCK -> MockProjectRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -542,7 +540,7 @@ val appModule = module {
     }
 
     single<TeacherRepository> {
-        val mockTeacher = when (dataSourceMode) {
+        val mockTeacher = when (teacherCoreDataSourceMode) {
             DataSourceMode.MOCK -> MockTeacherRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."
@@ -617,7 +615,7 @@ val appModule = module {
     }
 
     single<NotificationRepository> {
-        when (dataSourceMode) {
+        when (notificationDataSourceMode) {
             DataSourceMode.MOCK -> MockNotificationRepository()
             DataSourceMode.REMOTE -> error(
                 "Remote repositories are not implemented yet — see data/repository/remote."

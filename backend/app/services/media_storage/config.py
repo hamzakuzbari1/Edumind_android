@@ -36,9 +36,19 @@ def supabase_storage_enabled(settings: Settings | None = None) -> bool:
 
 
 def effective_storage_provider(settings: Settings | None = None) -> str:
-    """Provider actually used for new writes — falls back to local when misconfigured."""
+    """Resolve the provider while preserving the hosted-runtime invariant."""
     s = settings or get_settings()
-    if configured_media_provider(s) == PROVIDER_SUPABASE and supabase_configured(s):
+    provider = configured_media_provider(s)
+    hosted_runtime = (
+        (getattr(s, "APP_ENV", "local") or "local").strip().lower()
+        in {"shared", "staging", "production"}
+        and not bool(getattr(s, "DEBUG", False))
+    )
+    if hosted_runtime and (provider != PROVIDER_SUPABASE or not supabase_configured(s)):
+        raise RuntimeError(
+            "Hosted runtime requires MEDIA_STORAGE_PROVIDER=supabase with valid Supabase configuration."
+        )
+    if provider == PROVIDER_SUPABASE and supabase_configured(s):
         return PROVIDER_SUPABASE
     return PROVIDER_LOCAL
 

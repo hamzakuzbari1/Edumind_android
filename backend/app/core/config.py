@@ -1,4 +1,4 @@
-"""Application settings — local PostgreSQL by default."""
+"""Application settings with explicit local and shared runtime modes."""
 
 import os
 from functools import lru_cache
@@ -51,6 +51,9 @@ class Settings(BaseSettings):
 
     APP_NAME: str = "EduSpark API"
     API_PREFIX: str = "/api"
+    # shared/staging/production require hosted PostgreSQL and Supabase Storage.
+    # local/test keep explicit local development fallbacks.
+    APP_ENV: str = "shared"
     DEBUG: bool | str = False
 
     POSTGRES_HOST: str = "localhost"
@@ -280,10 +283,8 @@ class Settings(BaseSettings):
     MAX_AUDIO_BYTES: int = 10 * 1024 * 1024
     MAX_VOICE_SAMPLE_BYTES: int = 50 * 1024 * 1024
 
-    # A6.0 — media storage (local DEV fallback remains default)
-    # MEDIA_STORAGE_PROVIDER=local|supabase. When supabase is selected but credentials
-    # are missing, the backend falls back to local safely.
-    MEDIA_STORAGE_PROVIDER: str = "local"
+    # A6.0 — local storage is allowed only for explicit local/test environments.
+    MEDIA_STORAGE_PROVIDER: str = "supabase"
     SUPABASE_URL: str = ""
     # Server-side only. Never expose to Android / API responses / client bundles.
     SUPABASE_SERVICE_ROLE_KEY: str = ""
@@ -323,6 +324,12 @@ class Settings(BaseSettings):
     def apply_local_defaults(self) -> Self:
         if isinstance(self.DEBUG, str):
             self.DEBUG = self.DEBUG.strip().lower() in ("1", "true", "yes", "on", "debug")
+
+        runtime = (self.APP_ENV or "").strip().lower()
+        if runtime not in {"local", "test", "shared", "staging", "production"}:
+            raise ValueError(
+                "APP_ENV must be one of local, test, shared, staging, or production."
+            )
 
         # Never allow an insecure JWT secret in production (DEBUG off).
         secret = (self.JWT_SECRET or "").strip()
@@ -383,6 +390,26 @@ class Settings(BaseSettings):
             sync_raw = self._ensure_localhost(sync_raw)
         self.DATABASE_URL_SYNC = self._normalize_sync_url(sync_raw)
 
+        hosted_runtime = runtime in {"shared", "staging", "production"} and not self.DEBUG
+        if hosted_runtime:
+            if not self.DATABASE_URL.strip():
+                raise ValueError(
+                    "DATABASE_URL is required for hosted runtime; refusing the localhost PostgreSQL default."
+                )
+            if self._is_local_database_url(self.DATABASE_URL):
+                raise ValueError(
+                    "DATABASE_URL must point to the shared hosted PostgreSQL database in hosted runtime."
+                )
+            provider = (self.MEDIA_STORAGE_PROVIDER or "").strip().lower()
+            if provider != "supabase":
+                raise ValueError(
+                    "MEDIA_STORAGE_PROVIDER=supabase is required for hosted runtime."
+                )
+            if not self.SUPABASE_URL.strip() or not self.SUPABASE_SERVICE_ROLE_KEY.strip():
+                raise ValueError(
+                    "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required for hosted media storage."
+                )
+
         if not self.UPLOAD_DIR.strip():
             self.UPLOAD_DIR = str(_backend_dir() / "uploads")
         elif not in_docker and self.UPLOAD_DIR.replace("\\", "/").startswith("/app/"):
@@ -420,6 +447,19 @@ class Settings(BaseSettings):
             f"postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{host}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @staticmethod
+    def _is_local_database_url(url: str) -> bool:
+        from sqlalchemy.engine import make_url
+
+        parsed = make_url(url)
+        return parsed.get_backend_name() != "postgresql" or parsed.host in {
+            "localhost",
+            "127.0.0.1",
+            "::1",
+            "db",
+            "postgres",
+        }
 
     @staticmethod
     def _async_to_sync_url(url: str) -> str:
